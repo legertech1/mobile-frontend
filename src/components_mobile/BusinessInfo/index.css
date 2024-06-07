@@ -1,0 +1,202 @@
+.mobile_business_info {
+  /* padding: 20px; */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile_business_info .field_container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: start;
+  margin-top: 20px;
+}
+
+.mobile_business_info .field_container .field_info {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mobile_business_info .field_container .input-container,
+.mobile_business_info .field_container .dropdowns {
+  flex: 1;
+  gap: 20px;
+}
+.mobile_business_info input,
+.mobile_business_info ._dropdown,
+.mobile_business_info .custom_price_input {
+  /* border: 1px solid #fff; */
+  transition: all 0.3s var(--bc);
+}
+.mobile_business_info input:hover,
+.mobile_business_info .custom_price_input:hover {
+  border: 1px solid var(--blue);
+}
+
+.mobile_business_info .custom_price_input input {
+  border: none !important;
+}
+
+.mobile_business_info .field_info p {
+  color: #777 !important;
+  font-weight: 500;
+  margin: 0;
+}
+
+.mobile_business_info h4 span,
+.mobile_business_info h2 span {
+  font-size: 18px;
+  color: #aaa;
+  font-weight: 500;
+  margin-right: 0;
+}
+
+.mobile_business_info h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  font-family: var(--font2);
+  color: #333;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.mobile_business_info h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: var(--font2);
+  color: #333;
+}
+
+.mobile_business_info p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font2);
+  color: #333;
+}
+
+/* .mobile_business_info .actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 5px;
+  
+} */
+
+.mobile_business_info .actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 5px;
+  margin-top: 24px;
+  margin-bottom: 100px;
+  
+}
+
+
+.mobile_business_info .actions button {
+  width: 100%;
+  font-weight: 500;
+  font-family: var(--font2);
+  font-size: 16px;
+}
+
+.mobile_business_info .content {
+  flex: 1;
+  /* overflow-y: scroll; */
+  padding: 20px;
+}
+
+/* Works on Chrome, Edge, and Safari */
+.mobile_business_info .content::-webkit-scrollbar {
+  width: 6px;
+  display: block !important;
+}
+
+.mobile_business_info .content::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+.mobile_business_info .content::-webkit-scrollbar-thumb {
+  background-color: var(--blue);
+  border-radius: 10px;
+  /* border: 3px solid var(--blue); */
+}
+
+.mobile_business_info .img_cont {
+  width: 100%;
+  /* display: flex; */
+}
+
+.mobile_business_info .image_input {
+  height: 150px;
+  width: 170px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 8px #1114;
+  background: linear-gradient(45deg, #eee, transparent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #555 !important;
+  border: 1px solid transparent;
+  transform: all 0.3s var(--bc);
+  margin: 0 auto;
+}
+.mobile_business_info .image_input:hover {
+  border: 1px solid var(--blue);
+}
+.mobile_business_info .delete_img_btn {
+  cursor: pointer;
+  align-items: center;
+  /* width: 100%; */
+}
+.mobile_business_info .delete_img_btn button{
+  border: 2px solid #ccc;
+  background-color: var(--bg);
+  border-radius: 15px;
+  filter: drop-shadow(0px 0px 4px #ccc);
+  width: 29px;
+  height: 29px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  
+}
+
+.mobile_business_info .delete_img_btn svg{
+  color: red;
+  font-size: 1.5rem;
+  }
+
+.mobile_business_info .image_input img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  
+  
+}
+
+.mobile_business_info .mobile_input {
+  width: 100%;
+}
+
+.mobile_business_info .wrap-delete-cont{
+  position: relative;
+}
+
+.mobile_business_info .delete_icon_cont {
+  position: absolute;
+  top: -90px;
+  right: -180px;
+  z-index: 10;
+}

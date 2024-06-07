@@ -1,0 +1,14 @@
+._rating {
+  width: 130px;
+  height: 30px;
+  position: relative;
+}
+
+._rating svg {
+  height: 30px;
+  width: 30px;
+  fill: var(--blue);
+  margin: 0 -2px;
+}
+
+

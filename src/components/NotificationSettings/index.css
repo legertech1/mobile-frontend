@@ -1,0 +1,31 @@
+._n_settings {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 500px;
+}
+._n_settings h2 {
+  margin: 0;
+  font-weight: 500;
+  font-size: 22px;
+  /* margin-bottom: 10px; */
+}
+._n_settings h2 svg {
+  height: 32px;
+  width: 32px;
+  fill: var(--blue);
+}
+
+._n_settings .config {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+._n_settings .config li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 17px;
+  color: #333;
+}

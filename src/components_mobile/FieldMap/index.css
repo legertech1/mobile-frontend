@@ -1,0 +1,31 @@
+.mobile_field_container {
+}
+
+.mobile_field_container .checkbox_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.mobile_field_container .options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.mobile_field_container .radio_option {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #777;
+  color: #777;
+  box-shadow: 0px 0px 4px #ccc;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.mobile_field_container .radio_option.active {
+  background-color: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}

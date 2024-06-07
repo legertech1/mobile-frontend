@@ -1,0 +1,12 @@
+.mobile_input_label {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2;
+  color: black;
+}
+
+.mobile_input_label .required {
+  font-size: 12px;
+  color: #878787;
+  font-weight: 400;
+}

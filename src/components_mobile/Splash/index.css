@@ -1,0 +1,23 @@
+.mobile_loading_circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.mobile_loading_circle .circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation: pulse 0.5s infinite alternate;
+  background: linear-gradient(180deg, #2196f3 0%, #082d66 223.5%);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}

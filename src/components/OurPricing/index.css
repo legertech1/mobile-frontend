@@ -1,0 +1,147 @@
+.our_pricing {
+  width: 1200px;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 30px !important;
+  align-items: center;
+  margin: -20px !important;
+}
+.our_pricing h1 {
+  margin: 0;
+  margin-bottom: -16px;
+}
+
+.our_pricing .controls {
+  display: flex;
+  flex-direction: row;
+  width: 1120px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  color: #333;
+  font-weight: 500;
+  z-index: 10;
+  padding: 0 0px 0 20px;
+  box-sizing: border-box;
+  filter: drop-shadow(0px 0px 8px #1114);
+  background: white;
+  border-radius: 4px;
+  gap: 4px;
+}
+.our_pricing ._dropdown .option img,
+.our_pricing ._dropdown .option svg {
+  /* height: 30px; */
+  width: 34px;
+  max-height: 34px;
+  margin: -4px;
+  object-fit: fill;
+}
+.our_pricing ._dropdown .selected {
+  width: 100%;
+  font-size: 20px;
+  height: 48px;
+  position: absolute;
+
+  top: 9px;
+  bottom: 9px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.our_pricing ._dropdown .selected > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+.our_pricing ._dropdown .selected > div img,
+.our_pricing ._dropdown .selected > div svg {
+  width: 36px;
+  object-fit: fill;
+}
+.our_pricing ._dropdown {
+  background: var(--fg);
+  border-radius: 4px;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  height: 24px;
+  font-size: 19px;
+  font-weight: 500;
+  color: #333;
+  padding: 20px;
+  width: 300px;
+  align-items: center;
+  border: none;
+  z-index: 10;
+  font-family: var(--font2);
+  box-shadow: none;
+  filter: none;
+}
+
+.our_pricing ._dropdown .options {
+  background: var(--fg);
+  width: calc(100% + 40px);
+  border-radius: 4px;
+  transform: scaleY(0);
+  transition: all 0.3s var(--bc);
+  opacity: 0;
+  transform-origin: top center;
+  min-height: unset;
+  overflow: unset !important;
+  position: relative;
+  top: 50px;
+  /* box-shadow: 0px 0px 8px #ccc; */
+}
+.our_pricing ._dropdown .options .option {
+  padding: 10px 18px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: start;
+  margin: 0;
+  align-items: center;
+  color: #555;
+}
+
+.options.active {
+  transform: scaleY(1);
+  opacity: 1;
+}
+.options .option {
+  display: none;
+}
+.options.active .option {
+  display: flex;
+}
+
+.our_pricing .options .option {
+  padding: 5px 0;
+}
+.our_pricing .options hr {
+  width: 75%;
+}
+
+.our_pricing .controls hr {
+  height: 40px;
+  border-left: 1px solid #ccc;
+  width: 0;
+}
+
+.our_pricing .controls p {
+  margin: 0;
+  flex: 1;
+}
+.our_pricing .plans {
+  width: 1120px;
+  gap: 30px !important;
+}
+
+.our_pricing .plans > div {
+  margin: 0;
+}
+
+.our_pricing .package {
+  transform: scale(1);
+}

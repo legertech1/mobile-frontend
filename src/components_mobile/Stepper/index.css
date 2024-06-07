@@ -1,0 +1,37 @@
+.mobile_steps {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 40px 10px;
+}
+
+.mobile_steps .step {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.mobile_steps .step .step_no {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--fg);
+  border-radius: 50%;
+  padding: 5px;
+  background-color: var(--blue);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile_steps .step .step_title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #444;
+  line-height: 2;
+}

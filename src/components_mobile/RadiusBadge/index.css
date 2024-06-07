@@ -1,0 +1,29 @@
+.mobile_radius_badge {
+}
+
+.mobile_grid_card.highlighted .mobile_radius_badge .distance,
+.mobile_row_card.highlighted .mobile_radius_badge .distance {
+  background-color: white;
+}
+
+.mobile_radius_badge .distance {
+  width: fit-content;
+  padding: 4px;
+  background: #ddd;
+  border-radius: 4px;
+  color: #333;
+  font-weight: 500;
+  font-size: 9px;
+}
+
+
+
+@media only screen and (min-width : 768px){
+
+.mobile_radius_badge .distance {
+  
+    
+    font-size: 12px;
+
+  }
+}

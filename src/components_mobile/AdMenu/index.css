@@ -1,0 +1,61 @@
+.ad_menu {
+  /* z-index: 9; */
+  /* position: absolute; */
+  /* border-radius: 50%; */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  height: 36px;
+  width: 36px;
+  /* top: 2px; */
+  right: 0px;
+  border: none;
+  cursor: pointer;
+  opacity: 90%;
+  background: transparent;
+}
+
+.ad_menu svg {
+  /* fill: white; */
+}
+
+.ad_menu_show_actions {
+  position: absolute;
+  z-index: 10000;
+  background: white;
+  /* top: 35px; */
+  /* right: 40px; */
+  filter: drop-shadow(0px 0px 8px #ccc);
+  opacity: 0;
+  display: none;
+  /* left: 72px; */
+  right: 20px;
+  width: 120px;
+}
+
+.ad_menu_show_actions.active {
+  opacity: 1;
+  transform: scale(1);
+  display: block;
+}
+
+.ad_menu_show_actions .option {
+  font-size: 13px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  padding: 0px 5px;
+  height: 30px;
+}
+
+.ad_menu_show_actions .option.active {
+  background: #0001;
+}
+
+.ad_menu_show_actions .option svg {
+  fill: var(--blue);
+  height: 20px;
+  width: 20px;
+}

@@ -1,0 +1,57 @@
+.location_box {
+  border-radius: 4px;
+  color: #fff;
+
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  padding: 8px 4px 8px 0px;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  margin: 10px 0px;
+  width: 250px;
+  overflow: hidden;
+}
+
+.location_box .info {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: row;
+  margin-left: 10px;
+  width: 90%;
+  gap: 4px;
+}
+
+.location_box .info .location {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.location_box .info .loc_icon {
+  /* width: 20px; */
+  /* height: 20px; */
+  /* fill: var(--blue); */
+}
+
+.location_box.white {
+  color: #000;
+}
+
+.radius {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  min-width: fit-content;
+}
+
+.radius hr {
+  height: 0;
+  width: 0;
+  border-width: 3px;
+  border-radius: 50%;
+  border-style: solid;
+}

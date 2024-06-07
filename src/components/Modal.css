@@ -1,0 +1,103 @@
+.modal_overlay {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+.modal {
+  background: white;
+  padding: 50px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 16px #111a;
+  position: relative;
+  transition: opacity 0.3s var(--bc);
+  animation: 0.2s modal_open var(--bc);
+  z-index: 999;
+}
+@keyframes modal_open {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal > .close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  height: 40px;
+  width: 40px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  color: #232323;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s var(--bc);
+  cursor: pointer;
+  z-index: 999;
+}
+
+.modal > .close svg {
+  height: 28px;
+  width: 28px;
+}
+
+.modal > .close:hover {
+  background: #1111;
+}
+
+.modal.image {
+  box-shadow: unset;
+  padding: 0;
+  background-color: transparent;
+  border-radius: unset;
+  height: 90vh;
+  width: FIT-CONTENT;
+  filter: drop-shadow(0px 0px 8px #1114);
+  max-width: 90vw;
+}
+.modal.image > .close svg {
+  height: 28px;
+  width: 28px;
+  filter: drop-shadow(0px 0px 8px #111a);
+  fill: white;
+}
+.modal.image img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.modal.profile {
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0;
+  height: 90vh;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.profile > .close {
+  display: none;
+}
+.modal::-webkit-scrollbar {
+  display: none;
+}
+.modal.settings {
+  padding: 0;
+}

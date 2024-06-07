@@ -1,0 +1,172 @@
+.business_info {
+  width: 1200px;
+  height: 750px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  overflow-y: scroll;
+}
+
+.business_info .field_container {
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  align-items: start;
+  min-height: 100px;
+}
+
+.business_info .field_container .field_info {
+  width: 40%;
+  box-sizing: border-box;
+  padding-left: 0;
+  padding-right: 40px;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.business_info .field_container .input-container,
+.business_info .field_container .dropdowns {
+  width: 50%;
+  min-width: 600px;
+  flex: 1;
+  gap: 20px;
+}
+.business_info input,
+.business_info ._dropdown,
+.business_info .custom_price_input {
+  /* border: 1px solid #fff; */
+  transition: all 0.3s var(--bc);
+}
+
+.business_info .custom_price_input input {
+  border: none !important;
+}
+
+.business_info .field_info p {
+  color: #777 !important;
+  font-weight: 500;
+  margin: 0;
+}
+
+.business_info h4 span,
+.business_info h2 span {
+  font-size: 18px;
+  color: #aaa;
+  font-weight: 500;
+  margin-right: 0;
+}
+
+.business_info h4 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: var(--font2);
+  color: #333;
+}
+
+.business_info h2 {
+  text-align: center;
+  font-weight: 500;
+  margin: 0;
+  margin-bottom: 0px;
+  font-size: 28px;
+}
+
+.business_info .actions {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 20px;
+}
+.business_info .actions button {
+  width: unset;
+}
+
+.business_info .content {
+  flex: 1;
+}
+
+/* Works on Chrome, Edge, and Safari */
+.business_info::-webkit-scrollbar {
+  width: 8px;
+  display: block !important;
+}
+
+.business_info::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+.business_info::-webkit-scrollbar-thumb {
+  background-color: var(--blue);
+  border-radius: 10px;
+  /* border: 3px solid var(--blue); */
+}
+
+.business_info .image_input {
+  height: 180px;
+  width: 180px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 8px #1114;
+  margin-bottom: 30px;
+  background: linear-gradient(45deg, #eee, transparent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #555 !important;
+  border: 1px solid transparent;
+  transform: all 0.3s var(--bc);
+  position: relative;
+}
+.business_info .image_input:hover {
+  border: 1px solid var(--blue);
+}
+.business_info .input_container input {
+  height: 54px;
+  font-size: 17px;
+}
+
+.business_info .image_input img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.business_info .delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #444c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 8px #1118;
+  opacity: 0;
+  transition: all 0.3s var(--bc);
+  cursor: pointer;
+}
+
+.business_info .image_input:hover .delete {
+  display: flex;
+  opacity: 0.9;
+}
+
+.business_info .image_input:hover .delete:hover {
+  background-color: #333;
+  opacity: 1;
+}
+
+.business_info .delete svg {
+  height: 24px;
+  width: 24px;
+}

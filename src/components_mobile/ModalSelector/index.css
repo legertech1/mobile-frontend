@@ -1,0 +1,23 @@
+._modal-selector .option {
+  display: flex;
+  justify-content: start;
+  gap: 8px;
+  align-items: center;
+  padding: 0px 20px;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--black);
+  height: 58px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+._modal-selector .option * {
+  pointer-events: none;
+}
+
+._modal-selector .option img {
+  width: 40px;
+  max-height: 42px;
+  object-fit: fill;
+}

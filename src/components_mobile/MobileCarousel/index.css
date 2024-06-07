@@ -1,0 +1,87 @@
+.mobile_carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile_carousel .image_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  /* background-color: black; */
+  background: transparent
+    url("https://www.transparenttextures.com/patterns/brushed-alum-dark.png")
+    center center no-repeat;
+}
+
+.mobile_carousel .carousel_image {
+  max-width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.mobile_carousel .prev_button,
+.mobile_carousel .next_button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.mobile_carousel .btn {
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #1118;
+  font-size: 24px;
+  position: absolute;
+  top: 50%;
+  height: 35px;
+  width: 35px;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.mobile_carousel .prev_button {
+  left: 10px;
+  z-index: 1;
+}
+
+.mobile_carousel .next_button {
+  right: 10px;
+  z-index: 1;
+}
+
+.mobile_carousel .dots_container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.mobile_image_modal {
+  height: 90vh;
+  width: 100%;
+}
+
+.mobile_image_modal img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}

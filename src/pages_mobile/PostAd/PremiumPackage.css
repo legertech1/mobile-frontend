@@ -1,0 +1,257 @@
+.mobile_packages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile_packages .plans {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mobile_packages .plans .selected {
+  border: 2px solid #f1e740;
+  border-radius: 6px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.mobile_packages .title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  padding: 10px 0px;
+  margin: 0px;
+}
+.mobile_packages .plan_header {
+  color: white;
+  font-size: 18px;
+  padding: 4px 10px;
+}
+
+.mobile_packages .package_section {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 10px; */
+}
+
+.mobile_packages .icon_cont {
+  /* width: 100%; */
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+}
+
+.mobile_packages .icon_cont > div {
+  width: 120px !important;
+  height: 120px !important;
+  aspect-ratio: 1 / 1 !important;
+  flex-direction: row;
+}
+
+.mobile_packages .plan_header.Basic {
+  background-image: linear-gradient(45deg, #777, #555);
+}
+
+.mobile_packages .plan_header.Standard {
+  background-image: linear-gradient(45deg, var(--blue), var(--blue-dark));
+}
+
+.mobile_packages .plan_header.Premium {
+  background-image: linear-gradient(45deg, var(--yellow), #d5961f);
+}
+
+.mobile_packages .plan_header .accordion-icon svg {
+  fill: white;
+}
+
+.mobile_packages .details {
+  align-self: center;
+}
+
+.mobile_packages .details > div {
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.mobile_packages .details > div:last-child {
+  border: none !important;
+}
+
+.mobile_packages .details svg {
+  fill: var(--blue);
+}
+
+.mobile_packages .add_ons {
+  background-color: white;
+  border-radius: 6px;
+}
+
+.mobile_packages .add_ons .add_on {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+}
+
+.mobile_packages .add_ons .add_on .checkbox_cont {
+  align-self: self-start;
+  width: 30px;
+}
+
+.mobile_packages .add_ons .flex_col {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.mobile_packages .add_ons .flex_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* gap: 5px; */
+}
+
+.mobile_packages h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  padding: 0px;
+  margin: 0px;
+  padding-bottom: 10px;
+}
+
+.mobile_packages h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 5px;
+}
+
+.mobile_packages ._dropdown_mobile {
+  height: 20px;
+  font-size: 14px;
+}
+
+.mobile_packages ._dropdown_mobile .selected {
+  font-size: 12px;
+  height: 20px;
+}
+
+.mobile_packages ._dropdown_mobile .options .option {
+  font-size: 12px;
+  padding: 8px 8px;
+}
+
+.mobile_packages .price {
+  margin-left: auto;
+  font-size: 15px;
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.mobile_packages .extras {
+  background-color: #fff;
+  border-radius: 6px;
+  padding-bottom: 10px;
+}
+.mobile_packages .extras .extra {
+  padding: 0px 10px;
+}
+
+.mobile_packages .extras .extra .info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile_packages .extra .form {
+  display: none;
+}
+
+.mobile_packages .extra .form.active {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile_packages .para {
+  font-size: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  opacity: 0.8;
+  padding: 0px;
+  margin: 10px 0px;
+}
+
+.mobile_packages .error_para {
+  color: var(--red);
+  text-align: center;
+}
+
+.mobile_packages .business_ov {
+  display: flex;
+  height: 100px;
+  gap: 20px;
+  align-items: center;
+  font-size: 18px;
+}
+
+.mobile_packages .business_ov img {
+  height: 100%;
+  width: 100px;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0px 0px 8px #ccc;
+}
+
+.mobile_packages .business_ov > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  height: 100%;
+  gap: 12px;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+.mobile_packages .business_ov h4 {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.mobile_packages .business_ov p {
+  margin: 0;
+  color: #555;
+}
+
+.mobile_packages .selected_badge {
+  position: relative;
+  width: 100%;
+}
+.mobile_packages .selected_badge span {
+  position: absolute;
+  background-color: var(--blue);
+  color: #fff;
+  border-top-left-radius: 5px;
+  font-size: 13px;
+  padding: 5px 10px;
+  bottom: -10px;
+  right: -10px;
+}

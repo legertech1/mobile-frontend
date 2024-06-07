@@ -1,0 +1,136 @@
+._home .header {
+  height: 400px;
+  position: relative;
+  /* border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px; */
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 160%;
+  background-image: url(../../assets/images/img.png);
+  padding-top: 0px;
+  padding-bottom: 12px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+}
+
+._home .header .header-mask {
+  background: linear-gradient(1turn, var(--blue-dark), #082d66);
+  height: 100%;
+  left: 0;
+  opacity: 97%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+._home .header .search,
+._home .header .category-n-location {
+  width: calc(100% - 24px);
+  margin: 0 12px;
+  height: 46px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+._home .header .search > div,
+._home .header .category-n-location > div {
+  background: white;
+  z-index: 2;
+  height: 100%;
+  border-radius: 26px;
+  box-shadow: 0px 0px 8px #1116;
+  padding: 8px 10px;
+  box-sizing: border-box;
+}
+._home .header .category-n-location > div {
+  /* flex: 1; */
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 0px;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  width: 160px;
+}
+._home .header .category-n-location > div * {
+  pointer-events: none;
+  /* position: relative; */
+}
+._home .header .category-n-location > div:first-child {
+  min-width: 55%;
+  flex: 1;
+  gap: 4px;
+}
+._home .header .category-n-location > div:last-child {
+  max-width: 300px !important;
+  flex: 1;
+  gap: 4px;
+}
+._home .header .category-n-location > div:first-child img {
+  width: 30px;
+  object-fit: fill;
+  margin-left: 4px;
+}
+._home .header svg {
+  height: 26px;
+  width: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: var(--blue);
+}
+
+._home .header .search > div input {
+  height: 100%;
+  flex: 1;
+  background: transparent;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  font-family: var(--font2);
+  font-size: 15px;
+  font-weight: 500;
+  color: black;
+  padding: 4px;
+}
+._home .header .search .search-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+._home .header .search .filters-btn {
+  height: 100%;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  background: #2196f3;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+._home .header .search .filters-btn svg {
+  fill: white;
+}
+
+._home .header > h1 {
+  margin: 0px 0 10px;
+  font-size: 32px;
+  font-weight: 900;
+  z-index: 2;
+  text-align: center;
+  filter: drop-shadow(0px 0px 8px #1114);
+  color: white;
+  font-family: var(--font2);
+  margin-bottom: 20px;
+}

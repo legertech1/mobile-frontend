@@ -1,0 +1,80 @@
+._header {
+  display: flex;
+  padding: 0px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  border-radius: 100px;
+  margin: 16px;
+  position: absolute;
+  width: calc(100% - 32px);
+  z-index: 10;
+}
+._header .logo {
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  align-self: flex-start;
+}
+
+._header .logo img {
+  height: 32px;
+  margin-right: auto;
+  position: relative;
+  object-fit: contain;
+}
+._header .option {
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  box-shadow: 0px 0px 12px #1118;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  width: 42px;
+  box-sizing: BORDER-BOX;
+  background-color: var(--blue);
+  color: white;
+  position: relative;
+  /* background: #2196f322; */
+  overflow: hidden;
+  box-sizing: border-box;
+  margin: -4px;
+}
+._header .sign-in-btn {
+  position: relative;
+  height: 36px;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: var(--blue);
+  border-radius: 26px;
+  margin: -4px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font2);
+  box-shadow: 0px 0px 4px #1114;
+  gap: 4px;
+  /* padding-right: 6px; */
+}
+._header .sign-in-btn svg {
+  margin: -14px;
+  height: 38px;
+  width: 38px;
+}
+._header .option svg {
+  height: 26px;
+  width: 26px;
+}
+
+._header .option img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  /* border: 2px solid var(--blue); */
+}

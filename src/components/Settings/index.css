@@ -1,0 +1,144 @@
+._settings,
+._setting {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* position: relative; */
+  transition: all 0.2s var(--bc);
+}
+._settings_container {
+  padding: 50px 80px 60px;
+  overflow: hidden;
+  min-height: 300px;
+  transition: all 0.3s linear;
+}
+._settings > h1,
+._setting h1 {
+  margin: 0;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  gap: 4px;
+}
+
+._settings > ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+._settings > ul > li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  padding: 20px;
+  height: 66px;
+  cursor: pointer;
+  box-sizing: border-box;
+  border-radius: 4px;
+  transition: all 0.3s var(--bc);
+  box-shadow: 0px 0px 8px #1113;
+}
+._settings > ul > li:hover {
+  background: #2196f322;
+}
+._settings > ul > li.delete svg {
+  fill: var(--red);
+}
+._settings > ul > li.delete:hover {
+  background-color: #cd5c5c22;
+}
+._settings > h1 svg,
+._settings > ul > li svg,
+._setting > h1 svg {
+  fill: var(--blue);
+  height: 30px;
+  width: 30px;
+}
+._settings > ul > li span {
+  margin-left: auto;
+}
+._settings.hide {
+  pointer-events: none;
+  transform: translateX(-120%);
+  height: 0;
+}
+._setting.hide {
+  pointer-events: none;
+  transform: translateX(120%);
+  height: 0;
+}
+._setting .section {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+}
+._setting .inp {
+  align-items: center;
+  border: 1px solid var(--blue);
+  border-radius: 4px;
+  box-shadow: 0 0 8px #ccc;
+  box-sizing: border-box;
+  display: flex;
+  gap: 5px;
+  height: 56px;
+  justify-content: center;
+  padding: 10px;
+  position: relative;
+  width: 500px;
+}
+._setting .inp svg {
+  fill: var(--blue);
+}
+._setting .inp input {
+  font-size: 17px;
+  font-family: var(--font2);
+  flex: 1;
+  outline: none !important;
+  border: none !important;
+}
+
+._setting .btn_sm {
+  padding: 20px;
+  min-width: fit-content;
+  font-weight: 500;
+  font-size: 16px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+._setting .section h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  min-width: fit-content;
+  color: #555;
+}
+
+._setting button:disabled {
+  background-color: #555 !important;
+}
+
+._setting button.delete {
+  background-color: var(--red);
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+._setting button.delete:hover {
+  background-color: var(--red-dark);
+}
+._setting h1.delete {
+  color: var(--red);
+}
+._setting h1.delete > svg {
+  fill: var(--red);
+}

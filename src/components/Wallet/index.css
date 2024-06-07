@@ -1,0 +1,203 @@
+.wallet {
+  border-radius: 4px;
+  box-shadow: 1px 1px 8px #1112, -1px -1px 8px #1112;
+  background: white;
+  padding: 20px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+.wallet > h2,
+._wallet_add_money > h2 {
+  margin: 0;
+  display: flex;
+  font-weight: 500;
+  font-size: 26px;
+  align-items: center;
+  gap: 4px;
+}
+.wallet > h2 svg,
+._wallet_add_money > h2 svg {
+  fill: var(--blue);
+  height: 32px;
+  width: 32px;
+}
+
+.wallet .wallet_main {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 0 10px;
+}
+
+.wallet .wallet_main h1 {
+  margin: 0;
+  font-size: 40px;
+  color: var(--blue);
+  font-weight: 600;
+  font-family: var(--font1);
+}
+
+.wallet .wallet_main .add_money {
+  padding: 10px 20px;
+  background: var(--blue);
+  display: flex;
+  color: white;
+  font-weight: 500;
+  align-items: center;
+  height: 52px;
+  justify-content: center;
+  width: 52px;
+  cursor: pointer;
+  border-radius: 34px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 8px #1116;
+  transition: all 0.3s var(--bc);
+  transform-origin: right;
+  font-size: 17px;
+}
+.wallet .wallet_main .add_money svg {
+  height: 30px;
+  width: 30px;
+}
+.wallet .wallet_main .add_money_container {
+  background-color: white;
+  display: block;
+
+  position: absolute;
+  z-index: 1;
+  /* border-radius: 50px; */
+  border: 16px solid white;
+  bottom: 12px;
+  right: 4px;
+  position: absolute;
+}
+.wallet .wallet_main .add_money span {
+  transition: all 0.3s var(--bc);
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.wallet .wallet_main .add_money:hover span {
+  width: 105px;
+}
+.wallet .wallet_main .add_money:hover {
+  width: 165px;
+
+  /* padding: 10px; */
+}
+
+._wallet_add_money {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 500px;
+  /* padding: 20px; */
+}
+._wallet_add_money .suggested_amounts {
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  margin-top: -20px;
+  align-items: center;
+  justify-content: space-between;
+}
+._wallet_add_money .suggested_amounts p {
+  margin: 0;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--blue);
+  border-radius: 26px;
+  background: #eee;
+  flex: 1;
+  box-shadow: 0px 0px 4px #1111;
+  cursor: pointer;
+  transform: scale(0.95);
+  transition: all 0.2s var(--bc);
+}
+._wallet_add_money .suggested_amounts p:hover {
+  transform: scale(1);
+  background-color: var(--blue);
+  color: white;
+}
+._wallet_add_money .add_money_inp {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 42px;
+  color: var(--blue);
+  background-color: #1111;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 4px;
+}
+._wallet_add_money .add_money_inp input {
+  font-size: 36px;
+  border: none;
+  outline: none !important;
+  background: transparent;
+  color: var(--blue);
+  font-family: var(--font1);
+  font-weight: 600;
+}
+
+._wallet_add_money .actions {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: end;
+}
+
+._wallet_add_money .actions button {
+  height: 60px;
+
+  border: none;
+  background: var(--blue);
+  font-size: 20px;
+  border-radius: 4px;
+  margin-top: 10px;
+  font-weight: 500;
+  font-family: var(--font1);
+  color: white;
+  box-shadow: 0px 0px 8px #1116;
+  cursor: pointer;
+  transition: all 0.3s var(--bc);
+  padding: 30px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  justify-content: center;
+  flex: 1;
+  /* width: fit-content; */
+}
+._wallet_add_money .actions button svg {
+  height: 32px;
+  width: 32px;
+}
+._wallet_add_money .actions button.cancel {
+  border: 1px solid var(--red);
+  color: var(--red);
+  background-color: white;
+}
+
+._wallet_add_money .actions button:hover {
+  background-color: var(--blue-dark);
+}
+._wallet_add_money .actions button.cancel:hover {
+  background-color: var(--red);
+  color: white;
+}
+
+.wallet ._info {
+  position: relative;
+  top: 2px;
+}

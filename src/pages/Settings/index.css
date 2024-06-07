@@ -1,0 +1,80 @@
+.settings_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-top: 100px;
+  box-sizing: border-box;
+  gap: 20px;
+}
+
+.settings_container .settings_main {
+  width: 100%;
+  padding: 0 10%;
+  display: flex;
+}
+
+.settings_container .row_cont {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 50px;
+}
+
+.settings_container .tabs_header_cont {
+  height: 55px;
+  padding: 0px;
+  margin-bottom: 40px;
+}
+
+.settings_container .tab_content {
+  flex: 1;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.settings_container .tablinks {
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  margin-right: 15px;
+  font-size: 18px;
+  color: var(--blue);
+  font-weight: 500;
+  border: 2px solid var(--blue);
+  border-radius: 4px;
+  font-weight: 500;
+  box-shadow: 0px 0px 8px #ccc;
+  font-weight: 500;
+  box-shadow: 0px 0px 8px #ccc;
+  font-family: var(--font2);
+}
+
+.settings_container .tablinks:hover {
+  background-color: var(--blue);
+  color: #fff;
+}
+
+.settings_container .tablinks.active {
+  background-color: var(--blue);
+  color: #fff;
+}
+
+.settings_container .blob_2 {
+  position: absolute;
+  background-image: url(../../assets/images/blob_2.png);
+  background-size: 60%;
+  background-position: top left;
+  background-repeat: no-repeat;
+  height: 800px;
+  width: 600px;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  display: none;
+}

@@ -1,0 +1,59 @@
+.quantity_input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 62px;
+  padding: 0px 10px;
+  box-sizing: border-box;
+  position: relative;
+  outline: none !important;
+  border-radius: 4px;
+  background: var(--fg);
+  filter: drop-shadow(1px 1px 8px #ccc);
+
+}
+
+
+.quantity_btn {
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  background: var(--blue);
+  cursor: pointer;
+  outline: none;
+  color: var(--fg);
+  font-size: 24px;
+  /* transition: all 0.3s var(--bc); */
+}
+
+.quantity_btn:hover {
+  background-color: var(--blue-dark);
+}
+
+.quantity_input_field {
+  width: 120px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  background: var(--fg);
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  font-size: 24px;
+  color: var(--black);
+  font-family: var(--font2);
+
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

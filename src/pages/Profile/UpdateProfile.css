@@ -1,0 +1,139 @@
+.update_profile {
+  display: grid;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+  width: 940px;
+  max-width: 75vw;
+  max-height: 90vw;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  height: -moz-fit-content;
+  height: fit-content;
+  filter: drop-shadow(0px 0px 16px #1114);
+  position: relative;
+}
+.update_profile section {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 100%;
+  height: 280px;
+  background: white;
+}
+.update_profile .upload_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: -moz-fit-content;
+  height: fit-content;
+  gap: 20px;
+  filter: drop-shadow(1px 1px 8px #1114);
+}
+.update_profile .upload_image img {
+  height: 146px;
+  border-radius: 50%;
+  width: 146px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+.update_profile .upload_image .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.update_profile .upload_image .buttons button {
+  height: 50px;
+  border-radius: 4px;
+  border: none;
+  background: var(--blue);
+  color: white;
+  cursor: pointer;
+  font-family: var(--font1);
+  display: flex;
+  padding: 10px 20px;
+  font-size: 18px;
+  align-items: center;
+  justify-content: start;
+  font-weight: 500;
+  gap: 4px;
+}
+.update_profile .upload_image .buttons button.delete {
+  background-color: var(--red);
+}
+.update_profile .upload_image .buttons button svg {
+  height: 32px;
+  width: 32px;
+}
+.update_profile h1 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-family: var(--font1);
+  font-size: 23px;
+  gap: 4px;
+}
+.update_profile h1 svg {
+  height: 30px;
+  width: 30px;
+  fill: var(--blue);
+}
+.update_profile > .buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: end;
+  width: 60px;
+  position: absolute;
+  flex-direction: column-reverse;
+  top: 0px;
+  right: -76px;
+}
+
+.update_profile > .buttons button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 20px;
+  height: 60px;
+  width: 60px;
+  box-shadow: 0px 0px 8px #1114;
+}
+.update_profile .inputs {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.update_profile > .buttons button:first-child {
+  background: var(--red);
+}
+.update_profile > .buttons button:first-child:hover {
+  background-color: var(--red-dark);
+}
+
+.update_profile input {
+  text-transform: capitalize;
+  height: 56px;
+  font-size: 18px;
+}
+.update_profile *::-webkit-scrollbar {
+  width: 6px;
+  display: block !important;
+}
+
+.update_profile *::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+.update_profile *::-webkit-scrollbar-thumb {
+  background-color: var(--blue);
+  border-radius: 10px;
+  /* border: 3px solid var(--blue); */
+}
+._dropdown .options.active {
+  overflow-x: hidden;
+}

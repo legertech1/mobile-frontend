@@ -1,0 +1,47 @@
+.html_textarea {
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  padding: 15px 5px 15px 20px;
+  box-sizing: border-box;
+  align-items: center;
+  filter: drop-shadow(1px 1px 4px #1114);
+  gap: 5px;
+  position: relative;
+  flex: 1;
+  outline: none !important;
+  background-color: #fff;
+}
+
+.html_textarea textarea {
+  height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 20px;
+  font-family: var(--font2);
+  height: 450px;
+}
+
+/* Works on Chrome, Edge, and Safari */
+.html_textarea textarea::-webkit-scrollbar {
+  width: 8px;
+  display: block !important;
+}
+
+.html_textarea textarea::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+.html_textarea textarea::-webkit-scrollbar-thumb {
+  background-color: var(--blue);
+  border-radius: 10px;
+  /* border: 3px solid var(--blue); */
+}
+
+.html_textarea:focus {
+  border: 1px solid var(--blue);
+}

@@ -1,0 +1,82 @@
+._listings {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+  padding: 12px;
+  background: white;
+  margin-top: -60px;
+}
+
+._listings ._listing {
+  /* overflow: hidden; */
+  background: white;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  border-radius: 12px;
+  min-width: 160px;
+}
+._listing .image {
+  object-fit: cover;
+  flex: 1 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 150px;
+  box-shadow: 0px 0px 4px #1114;
+  min-height: 150px;
+  background: #2196f322;
+  /* border: 1px solid #ccc;sw */
+}
+._listing .image img {
+  object-fit: cover;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+
+._listing .info {
+  padding: 6px 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-sizing: border-box;
+}
+._listing .info h3.title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font2);
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+._listing .info div {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-size: 14px;
+}
+._listing .info div svg {
+  vertical-align: text-top;
+  margin-left: -3px;
+  height: 19px;
+  width: 19px;
+  fill: var(--blue);
+}
+._listing .info .price_row .price {
+  color: var(--blue);
+  font-weight: 600;
+  font-family: var(--font1);
+  font-size: 16px;
+}
+._listing .info .price_row {
+  font-size: 13px;
+}

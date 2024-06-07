@@ -1,0 +1,143 @@
+.mobile_upload input[type="file"] {
+  display: none;
+}
+
+.mobile_upload .image_gallery {
+}
+
+.mobile_upload .image_scroll {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30vw, 1fr));
+  gap: 6px;
+  justify-items: baseline;
+}
+
+.preview_image_modal img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.mobile_upload .image_item {
+  width: 30vw;
+  height: 30vw;
+  box-shadow: 0px 0px 8px #1116;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s var(--bc);
+  background: #fffc;
+  border-radius: 4px;
+  transform: perspective(1px) scale(0.97);
+}
+
+.mobile_upload .image_item:last-child {
+  margin-right: 0;
+}
+
+.mobile_upload .image_item .image_blob {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  box-shadow: 0px 0px 8px #ccc;
+  border-radius: 4px;
+}
+
+.mobile_upload .img_container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.mobile_upload .add_photo_icon {
+  height: 30px;
+  width: 30px;
+  fill: var(--blue);
+}
+
+.mobile_upload .image_options {
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  display: flex;
+  justify-content: end;
+  padding: 4px;
+  align-items: center;
+  gap: 5px;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
+.mobile_upload .carousel_delete_icon {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: #444c;
+  color: white;
+  box-shadow: 0 0 8px #1118;
+  transition: all 0.3s var(--bc);
+  opacity: 1;
+}
+
+/* .mobile_upload .carousel_delete_icon:hover {
+  background: #333f;
+  opacity: 1;
+}
+
+.mobile_upload .image_item:hover .carousel_delete_icon {
+  display: flex !important;
+  opacity: 0.9;
+} */
+
+.mobile_upload .carousel_open_icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: #444c;
+  color: white;
+  box-shadow: 0 0 8px #111;
+  transition: all 0.3s var(--bc);
+  opacity: 1;
+}
+
+/* .mobile_upload .carousel_open_icon:hover {
+  background: #333f;
+  opacity: 1;
+}
+
+.mobile_upload .image_item:hover .carousel_open_icon {
+  display: flex !important;
+  opacity: 0.9;
+} */
+
+.mobile_upload .preview_image_container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 80vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile_upload .preview_image_container img {
+  height: 60vh;
+  width: auto;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.preview_image_modal {
+  height: 70vh;
+  width: 70vw;
+}

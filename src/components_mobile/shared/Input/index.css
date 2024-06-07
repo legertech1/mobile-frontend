@@ -1,0 +1,45 @@
+.mobile_input .mobile_input_container {
+  height: 45px;
+  border-radius: 4px;
+  display: flex;
+  padding: 10px;
+  box-sizing: border-box;
+  align-items: center;
+  position: relative;
+  background-color: var(--fg);
+  gap: 4px;
+  filter: drop-shadow(0 0 8px #ccc);
+}
+
+.mobile_input .mobile_input_container input {
+  background-color: transparent;
+}
+
+
+.mobile_input :focus {
+  border: 2px solid blue;
+}
+
+.mobile_input .mobile_input_container .input {
+  border: none;
+  flex: 1;
+  outline: none !important;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--font2);
+}
+
+.mobile_input .mobile_input_container .eye_icon {
+  position: absolute;
+  right: 10px;
+  height: 24px;
+  width: 24px;
+  fill: var(--blue);
+  cursor: pointer;
+}
+
+.mobile_location .search_icon {
+  height: 24px;
+  width: 24px;
+  fill: var(--blue);
+}

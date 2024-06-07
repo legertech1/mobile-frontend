@@ -1,0 +1,65 @@
+._info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+._info > svg,
+._info > img {
+  border-radius: 50%;
+  fill: var(--blue) !important;
+  transform: scale(0.9);
+  will-change: transform;
+
+  height: 20px !important;
+  width: 20px !important;
+  /* padding: 5px; */
+  cursor: pointer;
+  /* border: 1px solid var(--blue); */
+  box-sizing: border-box;
+  /* background-color: var(--blue); */
+  transition: all 0.3s var(--bc);
+}
+._info > svg:hover,
+._info > img:hover {
+  transform: scale(1);
+}
+
+._info p {
+  font-size: 15px !important;
+  background: white;
+  text-align: left !important;
+  position: absolute;
+  padding: 12px;
+  border-radius: 4px;
+  top: 7px;
+  margin: 0;
+  filter: drop-shadow(0px 0px 8px #1114);
+  left: 35px;
+  max-width: 260px;
+  width: max-content;
+  z-index: 999;
+  transform: scale(0) translateY(-50%);
+  opacity: 0;
+  transition: all 0.3s var(--bc);
+  transform-origin: top left;
+  color: white;
+}
+._info:hover p {
+  transform: scale(1) translateY(-50%);
+  opacity: 1;
+  color: #333;
+}
+
+._info p::before {
+  content: "";
+  background: white;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  z-index: -1;
+  transform: rotate(45deg) translatey(-50%);
+  border-bottom-left-radius: 4px;
+  left: -16px;
+  top: 50%;
+}

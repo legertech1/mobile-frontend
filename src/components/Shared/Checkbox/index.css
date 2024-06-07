@@ -1,0 +1,29 @@
+._checkbox {
+  height: 26px;
+  width: 26px;
+  filter: drop-shadow(0px 0px 4px #1114);
+  border: 1px solid var(--blue);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s var(--bc);
+  background-color: white;
+}
+
+._checkbox .checked {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--blue);
+  color: #fff;
+  transition: all 0.3s var(--bc);
+}
+
+._checkbox svg {
+  font-size: 1.6rem;
+  stroke-width: 1;
+  stroke: white !important;
+  fill: white !important;
+  transition: all 0.3s var(--bc);
+}
