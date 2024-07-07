@@ -14,6 +14,7 @@ import Listings from "../../components_mobile/listings/listings";
 import ripple from "../../utils/ripple";
 import throttle from "../../utils/throttle";
 import { GridAlt } from "@styled-icons/boxicons-solid/GridAlt";
+import { useNavigate } from "react-router-dom";
 
 function Ads() {
   const [text, setText] = useState("");
@@ -106,8 +107,9 @@ function Ads() {
       setPageUA(pageUA + 1);
     }
   }
-
+  const navigate = useNavigate();
   useEffect(() => {
+    if (!user) navigate("/login");
     if (tab == "wishlist") {
       wlRef.current.style.transform = "translateX(0)";
       adsRef.current.style.transform = "translateX(100%)";

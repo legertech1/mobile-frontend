@@ -23,6 +23,7 @@ import Chat from "./chat";
 function Messages() {
   const chats = useSelector((state) => state.chats);
   const user = useSelector((state) => state.auth);
+
   const [current, setCurrent] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -99,6 +100,7 @@ function Messages() {
   }, [chats]);
 
   useEffect(() => {
+    if (!user) navigate("/login");
     return () => setCurrent(null);
   }, []);
 
@@ -220,10 +222,15 @@ function Messages() {
               );
             })}
 
-          {!chats.length && (
+          {!chats?.length && (
             <div className="no_chats">
-              <ChatTextFill className="1" />
-              <ChatTextFill className="2"/>
+              <div className="a">
+                <ChatTextFill />
+              </div>
+              <div className="b">
+                <ChatTextFill />
+              </div>
+              <p>No conversations</p>
             </div>
           )}
         </div>

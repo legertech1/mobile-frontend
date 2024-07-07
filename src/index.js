@@ -17,7 +17,7 @@ function Root() {
   async function init() {
     await axios.get(apis.init);
   }
-  axios.defaults.baseURL = "http://192.168.1.4:8080/";
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
   axios.defaults.withCredentials = true;
   axios.interceptors.request.use(
     function (config) {
