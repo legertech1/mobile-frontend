@@ -1016,10 +1016,10 @@
     transform: translate(20px, 50%) rotate(30deg);
     opacity: 0;
   }
-  10% {
+  8% {
     opacity: 1;
   }
-  20% {
+  16% {
     transform: translate(0px, 0) rotate(0deg);
     opacity: 1;
   }
@@ -1033,14 +1033,14 @@
     transform: translate(20px, 50%) rotateZ(-20deg) rotateY(180deg);
     opacity: 0;
   }
-  10% {
+  8% {
     transform: translate(20px, 50%) rotateZ(-20deg) rotateY(180deg);
     opacity: 0;
   }
-  20% {
+  16% {
     opacity: 1;
   }
-  30% {
+  24% {
     transform: translate(0px, 0) rotateZ(0deg) rotateY(180deg);
     opacity: 1;
   }
