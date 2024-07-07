@@ -109,111 +109,7 @@ function Login() {
           <h2>Sign Up to BorrowBe</h2>
           {error && <div className="server_error">{error}</div>}
 
-          <div
-            className="inp"
-            ref={nameRef}
-            style={nameError ? { borderColor: "var(--error)" } : {}}
-          >
-            <PersonIcon></PersonIcon>
-            <input
-              type="text"
-              name=""
-              id=""
-              placeholder="Full Name"
-              onChange={(e) => {
-                setName(e.target.value);
-                setNameError(false);
-                setError(false);
-              }}
-              onKeyPress={(e) => handleKeyPress(e, "name")}
-              ref={inputRefs.name}
-              value={name}
-            />
-            {nameError && (
-              <p
-                className="error"
-                onMouseOver={() => nameInfo.current.classList.toggle("show")}
-                onMouseOut={() => nameInfo.current.classList.toggle("show")}
-              >
-                <div ref={nameInfo}>Please enter full name</div> <InfoIcon />
-              </p>
-            )}
-          </div>
-
-          <div
-            className="inp"
-            ref={emailRef}
-            style={emailError ? { borderColor: "var(--error)" } : {}}
-          >
-            <Email></Email>
-            <input
-              type="email"
-              name=""
-              id=""
-              placeholder="Email"
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setEmailError(false);
-                setError(false);
-              }}
-              onKeyPress={(e) => handleKeyPress(e, "email")}
-              ref={inputRefs.email}
-              value={email}
-            />
-            {emailError && (
-              <p
-                className="error"
-                onMouseOver={() => emailInfo.current.classList.toggle("show")}
-                onMouseOut={() => emailInfo.current.classList.toggle("show")}
-              >
-                <div ref={emailInfo}>Please enter a valid email</div>{" "}
-                <InfoIcon />
-              </p>
-            )}
-          </div>
-
-          <div
-            className="inp"
-            ref={passRef}
-            style={passwordError ? { borderColor: "var(--error)" } : {}}
-          >
-            <Pass></Pass>
-            <input
-              type={show ? "text" : "password"}
-              name=""
-              id=""
-              placeholder="Password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setPasswordError(false);
-                setError(false);
-              }}
-              onKeyPress={(e) => handleKeyPress(e, "password")}
-              ref={inputRefs.password}
-              value={password}
-            />
-
-            {!show ? (
-              <VisibilityOffIcon onClick={() => setShow(!show)} />
-            ) : (
-              <VisibilityIcon onClick={() => setShow(!show)} />
-            )}
-            {passwordError && (
-              <p
-                className="error"
-                onMouseOver={() =>
-                  passwordInfo.current.classList.toggle("show")
-                }
-                onMouseOut={() => passwordInfo.current.classList.toggle("show")}
-              >
-                <div ref={passwordInfo}>
-                  Password should contain at least one special character, one
-                  number and be 8 characters long
-                </div>{" "}
-                <InfoIcon />
-              </p>
-            )}
-          </div>
+        
           <div className="terms_and_condition">
             <Checkbox checked={termsChecked} setChecked={setTermsChecked} />
             <p>
@@ -232,7 +128,7 @@ function Login() {
             </p>
           </div>
 
-          <button className="btn_classic" onClick={submit}>
+          <button className="btn_classic" onClick ={e => ripple(e , {dur:2, cb: submit})}>
             {" "}
             Sign Up
           </button>
@@ -265,12 +161,14 @@ function Login() {
               <GoogleIcon></GoogleIcon>
               Google
             </button>
-            <button   onClick={
+            <button
+              onClick={
                 (e) =>
                   (window.location.href =
                     process.env.REACT_APP_BASE_URL + apis.facebookOAuth)
                 // console.log(process.env)
-              }>
+              }
+            >
               <FacebookIcon></FacebookIcon>
               Facebook
             </button>

@@ -9,6 +9,7 @@ import apis from "../../services/api";
 import useNotification from "../../hooks/useNotification";
 import validateEmail from "../../utils/validateEmail";
 import validatePassword from "../../utils/validatePassword";
+import ripple from "../../utils/ripple";
 function CreatePassword({ close }) {
   const [show, setShow] = useState(false);
   const [password, setPassword] = useState("");
@@ -39,7 +40,7 @@ function CreatePassword({ close }) {
       window.location.reload();
       close();
     } catch (err) {
-      notification.error( err?.response?.data || err.message);;
+      notification.error(err?.response?.data || err.message);
     }
   };
   return (
@@ -70,14 +71,13 @@ function CreatePassword({ close }) {
               notification.success(res.data);
               setCodeSent(true);
             } catch (err) {
-              notification.error( err?.response?.data || err.message);;
+              notification.error(err?.response?.data || err.message);
             }
           }}
         >
           Send Code
         </button>
-      </div>
-      <div className="section">
+
         <div className="inp">
           <h2> Verification Code:</h2>
           <input
@@ -114,8 +114,7 @@ function CreatePassword({ close }) {
             <VisibilityIcon onClick={() => setShow(!show)} />
           )}
         </div>
-      </div>
-      <div className="section">
+
         <div className="inp">
           <KeyIcon />
           <input
@@ -128,7 +127,7 @@ function CreatePassword({ close }) {
         <button
           className="btn_blue_m btn_sm"
           disabled={!codeSent}
-          onClick={submit}
+          onClick ={e => ripple(e , {dur:2, cb: submit})}
         >
           Create Password
         </button>

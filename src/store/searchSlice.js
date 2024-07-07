@@ -2,15 +2,15 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import apis from "../services/api";
 import { removeDuplicates } from "../utils/helpers";
+import CategoriesIcon from "../assets/images/categoriesIcon.png";
 
 export const defaultSearchState = {
   query: "",
   results: [],
-  category: "All Categories",
-  status: "pending",
-  featured: [],
+  category: { name: "All Categories", icon: CategoriesIcon },
+  status: "fulfilled",
   page: 1,
-  total: null,
+  total: 0,
 };
 
 export const loadResults = createAsyncThunk(
@@ -24,10 +24,10 @@ export const loadResults = createAsyncThunk(
         location,
         query: search.query,
         filters,
-        category: search.category,
+        category: search.category.name,
         page: search.page,
         additional: { "meta.featured": false },
-        limit: 36,
+        limit: 18,
         sort,
         count: true,
         impressions: true,
@@ -38,10 +38,10 @@ export const loadResults = createAsyncThunk(
         location,
         query: search.query,
         filters,
-        category: search.category,
+        category: search.category.name,
         page: search.page,
         additional: { "meta.featured": true },
-        limit: 9,
+        limit: 6,
         sort,
         count: true,
         impressions: true,
@@ -49,21 +49,11 @@ export const loadResults = createAsyncThunk(
     ).data;
     const oldResults = merge ? getState().search.searches[current].results : [];
 
-    const oldFeatured = merge
-      ? getState().search.searches[current].featured
-      : [];
+    let mergeResults = [...oldResults, ...featured.results, ...results.results];
 
-    let mergeResults = removeDuplicates(
-      [...oldResults, ...results.results],
-      "_id"
-    );
-    let mergeFeatured = removeDuplicates(
-      [...oldFeatured, ...featured.results],
-      "_id"
-    );
     return {
       results: mergeResults,
-      featured: mergeFeatured,
+
       current,
       total: results.total + featured.total,
     };
@@ -86,10 +76,9 @@ const searchSlice = createSlice({
             return {
               ...s,
               results: [],
-              featured: [],
               status: "pending",
               page: 1,
-              total: null,
+              total: 0,
             };
           }),
         ],
@@ -101,7 +90,10 @@ const searchSlice = createSlice({
         {
           ...defaultSearchState,
           query: action.payload.query,
-          category: action.payload.category || "All Categories",
+          category: action.payload.category || {
+            name: "All Categories",
+            icon: CategoriesIcon,
+          },
         },
       ];
       let current = searches.length - 1;
@@ -115,6 +107,11 @@ const searchSlice = createSlice({
     },
     modifySearch(state, action) {
       let merge = action.payload.merge || false;
+      if (
+        action.payload.page &&
+        state.searches[state.current]?.status == "pending"
+      )
+        return state;
       let s = state.searches.map((search, index) => {
         if (index != state.current) return search;
         return {
@@ -123,9 +120,10 @@ const searchSlice = createSlice({
             action.payload.query ||
             (action.payload.query === "" ? action.payload.query : search.query),
           category: action.payload.category || search.category,
-          page: action.payload.page || search.page,
+          page: action.payload.page || 1,
           results: merge ? search.results : [],
-          featured: merge ? search.featured : [],
+          status: action.payload.query == "" ? "fulfilled" : "pending",
+          total: action.payload.page ? search.total : 0,
         };
       });
 
@@ -145,6 +143,12 @@ const searchSlice = createSlice({
     },
 
     removeSearch(state, action) {
+      if (action.payload.current == 0 && state.searches.length == 1) {
+        return {
+          ...state,
+          searches: state.searches.map((s) => defaultSearchState),
+        };
+      }
       return {
         ...state,
         current:
@@ -168,7 +172,6 @@ const searchSlice = createSlice({
             return {
               ...search,
               results: [...action.payload.results],
-              featured: [...action.payload.featured],
               status: "fulfilled",
               total: action.payload.total,
             };

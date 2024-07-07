@@ -10,7 +10,11 @@ import useNotification from "../../hooks/useNotification";
 import useConfirmDialog from "../../hooks/useConfirmDialog";
 import validateEmail from "../../utils/validateEmail";
 import validatePassword from "../../utils/validatePassword";
-import { DeleteForeverOutlined } from "@mui/icons-material";
+import ripple from "../../utils/ripple";
+import {
+  DeleteForeverOutlined,
+  RemoveCircleOutline,
+} from "@mui/icons-material";
 import PersonOffOutlinedIcon from "@mui/icons-material/PersonOffOutlined";
 function CreatePassword({ close }) {
   const [show, setShow] = useState(false);
@@ -40,7 +44,7 @@ function CreatePassword({ close }) {
           window.location.reload();
           close();
         } catch (err) {
-          notification.error( err?.response?.data || err.message);;
+          notification.error(err?.response?.data || err.message);
         }
       }
     );
@@ -48,9 +52,12 @@ function CreatePassword({ close }) {
   return (
     <>
       <h1 className="delete">
-        <PersonOffOutlinedIcon /> Delete Account
+        <RemoveCircleOutline /> Delete Account
       </h1>
       <div className="section">
+        <p>
+          Get a verification code on your registered email and enter it below.
+        </p>
         <div className="inp">
           <AlternateEmailOutlinedIcon />
           <input
@@ -73,14 +80,13 @@ function CreatePassword({ close }) {
               notification.success(res.data);
               setCodeSent(true);
             } catch (err) {
-              notification.error( err?.response?.data || err.message);;
+              notification.error(err?.response?.data || err.message);
             }
           }}
         >
           Send Code
         </button>
-      </div>
-      <div className="section">
+
         <div className="inp">
           <h2> Verification Code:</h2>
           <input
@@ -103,6 +109,9 @@ function CreatePassword({ close }) {
         </div>
       </div>
       <div className="section">
+        <p>
+          Confirm your password and click the button to remove your account.
+        </p>
         <div className="inp">
           <KeyIcon />
           <input
@@ -117,12 +126,11 @@ function CreatePassword({ close }) {
             <VisibilityIcon onClick={() => setShow(!show)} />
           )}
         </div>
-      </div>
-      <div className="section">
+
         <button
           className="btn_blue_m btn_sm delete"
           disabled={!codeSent}
-          onClick={submit}
+          onClick ={e => ripple(e , {dur:2, cb: submit})}
         >
           <PersonOffOutlinedIcon /> Delete Account
         </button>

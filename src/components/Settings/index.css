@@ -1,11 +1,16 @@
 ._settings,
 ._setting {
-  width: 500px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
   /* position: relative; */
   transition: all 0.2s var(--bc);
+  padding: 0px 12px;
+  box-sizing: border-box;
+  padding-bottom: 200px;
+
+  width: 100%;
 }
 ._settings_container {
   padding: 50px 80px 60px;
@@ -16,12 +21,12 @@
 ._settings > h1,
 ._setting h1 {
   margin: 0;
-  font-size: 26px;
+  font-size: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  gap: 4px;
+  gap: 2px;
 }
 
 ._settings > ul {
@@ -58,8 +63,8 @@
 ._settings > ul > li svg,
 ._setting > h1 svg {
   fill: var(--blue);
-  height: 30px;
-  width: 30px;
+  height: 24px;
+  width: 24px;
 }
 ._settings > ul > li span {
   margin-left: auto;
@@ -77,27 +82,42 @@
 ._setting .section {
   display: flex;
   gap: 8px;
-  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  background: white;
+  box-shadow: 0px 0px 8px #1114;
+  border-radius: 6px;
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+._setting .section p {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
 }
 ._setting .inp {
   align-items: center;
   border: 1px solid var(--blue);
+
   border-radius: 4px;
-  box-shadow: 0 0 8px #ccc;
+  box-shadow: 0 0 8px #1112;
   box-sizing: border-box;
   display: flex;
   gap: 5px;
-  height: 56px;
+  height: 48px;
   justify-content: center;
   padding: 10px;
   position: relative;
-  width: 500px;
+  width: 100%;
 }
 ._setting .inp svg {
   fill: var(--blue);
 }
 ._setting .inp input {
-  font-size: 17px;
+  font-size: 15px;
   font-family: var(--font2);
   flex: 1;
   outline: none !important;
@@ -106,20 +126,31 @@
 
 ._setting .btn_sm {
   padding: 20px;
+  min-width: -moz-fit-content;
   min-width: fit-content;
   font-weight: 500;
   font-size: 16px;
-  height: 56px;
+  height: 48px;
   display: flex;
   align-items: center;
+  background: var(--blue);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-weight: 500;
+  font-family: var(--font1);
 }
 
 ._setting .section h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 500;
   min-width: fit-content;
-  color: #555;
+  color: #333;
 }
 
 ._setting button:disabled {
@@ -141,4 +172,37 @@
 }
 ._setting h1.delete > svg {
   fill: var(--red);
+}
+
+@media (min-width: 700px) {
+  ._setting {
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding-bottom: 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  ._setting .section {
+    padding: 32px;
+    gap: 12px;
+  }
+  ._setting .inp {
+    height: 56px;
+  }
+  ._setting .inp input {
+    font-size: 17px;
+  }
+  ._setting .btn_sm {
+    height: 56px;
+  }
+  ._setting .section p {
+    font-size: 16px;
+  }
+  ._setting .section h2 {
+    margin: 0;
+    font-size: 16px;
+  }
 }

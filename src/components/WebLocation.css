@@ -1,81 +1,113 @@
 .web_location .selections {
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  width: 50%;
+  padding: 0;
+  height: calc(100% - 40px);
   box-sizing: border-box;
 }
 .web_location {
-  width: 1300px;
-  height: 650px;
-  max-width: 1600px;
-  display: flex;
-  min-width: 1000px;
+  width: 100%;
+  height: 100%;
 }
 
 .web_location h4 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
+  padding: 0 6px;
 }
 .web_location .current_loc p {
-  color: #444;
+  color: #333;
   font-weight: 500;
-  min-width: fit-content;
+  /* min-width: fit-content; */
+}
+
+.web_location .recents {
+  height: 0;
+  max-height: 0;
+  transform: scaleY(0);
+  opacity: 0;
+  transform-origin: top center;
+  transition: all 0.2s var(--bc);
+}
+.web_location .recents.active {
+  height: fit-content;
+  max-height: fit-content;
+  transform: scaleY(1);
+  opacity: 1;
 }
 
 .web_location .heading {
   margin: 0;
   font-weight: 500;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.web_location .heading svg {
+  transition: all 0.2s var(--bc);
+}
+.web_location .heading.active svg {
+  transform: rotate(180deg);
 }
 
 .web_location .current_loc {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  padding-top: 16px;
+  justify-content: start;
+  gap: 8px;
   cursor: pointer;
-  height: 40px;
+  height: 50px;
+  padding: 0 12px;
 }
 
 .web_location .current_loc .text_box p {
-  margin: 4px 0px;
+  margin: 0px;
   color: var(--blue);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
 }
 
 .web_location .current_loc .text_box .curr_loc_text {
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 400;
   color: black;
+  margin: 0;
+  max-width: calc(100% - 10px);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .web_location .curr_icon {
-  height: 25px;
-  width: 25px;
+  height: 30px;
+  width: 30px;
   fill: var(--blue);
 }
 
 .web_location .regions {
-  /* height: 65vh; */
-  overflow-y: scroll;
-  padding: 12px 0;
-  flex: 1;
+  flex: 1 1;
+  padding: 0;
+  gap: 8px;
+  display: flex;
+  padding: 8px 12px;
+  flex-direction: column;
+  overflow-y: hidden;
 }
 
-.web_location .provinces,
-.web_location .choose_city {
-  margin-top: 18px;
+.web_location .provinces {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .web_location .regions .change_province {
   display: flex;
   align-items: center;
   justify-content: end;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--blue);
-  font-weight: 500;
+  font-weight: 400;
   margin: 8px 0px;
   margin: 0;
 }
@@ -88,7 +120,6 @@
   display: flex;
   flex-direction: column;
 
-  margin-top: 10px;
   overflow: scroll;
 }
 
@@ -97,20 +128,24 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 6px 12px;
+  padding: 4px 6px;
   cursor: pointer;
   transition: all 0.3s var(--bc);
-  color: #444;
+  color: #333;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
   /* margin-right: 2px; */
-  /* height: 36px; */
+  height: 36px;
+  box-sizing: border-box;
 }
 .web_location .regions .regions_container .region div:hover {
   background-color: #1111;
 }
 .web_location .regions .regions_container .region div p {
-  margin: 6px 0;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
+  margin: 0;
 }
 
 .web_location .regions .regions_container .region div svg {
@@ -143,11 +178,18 @@
 
 .web_location ._autocomplete {
   display: block;
+  padding: 0 12px;
 }
 
 .web_location .map {
-  height: 100%;
-  width: 50%;
+  height: 30%;
+  min-height: 30%;
+  /* width: 100%; */
+  border-radius: 6px;
+  margin: 0 12px;
+  overflow: HIDDEN;
+  box-shadow: 0px 0px 8px #1116;
+  box-sizing: border-box;
 }
 
 .web_location .choose_city {
@@ -219,9 +261,51 @@
   /* transition: all 0.3s var(--bc); */
   cursor: crosshair;
 }
+.map .map_marker img {
+  bottom: 0;
+  filter: drop-shadow(0 28px 12px #1116);
+  height: 64px;
+  left: 0;
+  position: absolute;
+  transform: translate(-50%);
+  transform: rotateX(45deg) translate(-50%) perspective(10000px);
+  width: 34px;
+}
+.selections .tile {
+  border-radius: 6px;
+  box-shadow: 0px 0px 8px #1113;
+  padding: 6px;
+  min-width: 320px;
+  min-height: fit-content;
+  max-height: fit-content;
+  transition: all 0.2s var(--bc);
+}
 
+.tile .regions_container {
+  overflow-y: scroll !important;
+  flex: 1;
+}
+.tile .heading button {
+  border: navajowhite;
+  background: none;
+  color: var(--blue);
+  margin: -12px;
+}
+.tile .heading button svg {
+  height: 28px;
+  width: 28px;
+  stroke: white;
+  stroke-width: 0.4;
+}
+.web_location .tile.prov {
+  overflow: hidden !important;
+  flex: 1;
+}
+.gm-style iframe + div {
+  border: none !important;
+}
 .map_marker img {
-  animation: 0.3s drop var(--bc);
+  animation: 0.4s drop var(--bc);
   transform-origin: bottom center;
   /* transition: none !important; */
 }
@@ -295,15 +379,18 @@ input[type="range"] {
 }
 @keyframes drop {
   0% {
-    transform: rotateX(45deg) translate(-50%, -200%) perspective(10000px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
   }
   100% {
-    transform: rotateX(45deg) translate(-50%) perspective(10000px);
+    opacity: 1;
   }
 }
 
 .web_location h3.heading {
-  font-size: 15px;
+  font-size: 16px;
   color: black;
   height: 40px;
   padding: 0 10px;
@@ -311,29 +398,40 @@ input[type="range"] {
   align-items: center;
 }
 .web_location .select_range {
+  flex: unset;
+  margin: 0 12px 16px;
+  display: flex;
+  padding: 8px !important;
   flex-direction: column-reverse;
-  height: -moz-fit-content;
-  height: fit-content;
   justify-content: center;
-  align-items: center;
-  transition: all 0.3s var(--bc);
-  border-top: 1px solid #eee;
+  gap: 0;
+}
+.web_location .regions {
+  overflow: hidden !important;
 }
 .web_location .select_range > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  gap: 16px;
-  height: 30px;
+  gap: 8px;
+  height: 24px;
+  font-size: 14px !important;
 }
 .web_location .select_range .search_by_address {
   flex-direction: row-reverse;
-  font-size: 18px;
-  color: #333;
+  font-size: 14px;
+
   font-weight: 500;
 }
-
+.web_location .select_range P {
+  min-width: fit-content;
+}
+.web_location .select_range > div H4 {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
 .web_location input[type="range"]:disabled {
   filter: grayscale(1);
 }
@@ -354,4 +452,8 @@ input[type="range"] {
 
 .web_location .current_loc.f {
   padding-bottom: 12px;
+}
+.web_location .map button,
+.gm-bundled-control {
+  display: none !important;
 }

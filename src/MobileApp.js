@@ -6,13 +6,14 @@ import { me } from "./store/authSlice";
 
 import { fetchCategories } from "./store/categorySlice";
 import Home from "./pages_mobile/Home";
-import Register from "./pages_mobile/Register/Index";
-import Login from "./pages_mobile/Login/Index";
-import ForgotPassword from "./pages_mobile/ForgotPassword/Index";
-import ResetPassword from "./pages_mobile/ResetPassword/Index";
-import Chat from "./pages_mobile/Chat/Index";
+import Login from "./pages_mobile/Login";
+import Register from "./pages_mobile/Register";
+import ForgotPassword from "./pages_mobile/ForgotPassword";
+import ResetPassword from "./pages_mobile/ResetPassword";
+import Chat from "./pages_mobile/Chat";
 import PostAd from "./pages_mobile/PostAd/Index";
 import UserProfile from "./pages_mobile/Profile/UserProfile";
+import InfoComp from "./components/InfoComp";
 
 import SavedSearches from "./pages_mobile/Profile/SavedSearches";
 import Ad from "./pages_mobile/Ad";
@@ -21,18 +22,21 @@ import HelpDocs from "./pages_mobile/Help/HelpDocs";
 import HelpDoc from "./pages_mobile/Help/HelpDoc";
 import ContactUs from "./pages_mobile/ContactUs";
 import { getNotifications, init, loadChats, socket } from "./socket";
-import SingleChat from "./pages_mobile/Chat/SingleChat";
+
 import {
   fetchCurrentLocation,
   setSelectedLocation,
 } from "./store/locationSlice";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import "./MobileApp.css";
-import ChangeEmail from "./pages_mobile/Profile/ChangeEmail";
 import Footer from "./components_mobile/Footer";
+import Ads from "./pages_mobile/Ads";
+import Account from "./components_mobile/Account";
+import Modal from "./components_mobile/Modal";
 
 function MobileApp() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth);
   const routeLocation = useLocation();
 
@@ -43,10 +47,8 @@ function MobileApp() {
     null
   );
 
-  let p = routeLocation.pathname;
-  p = p.replace(/\/[a-f\d]{24}/gi, "");
-
   useEffect(() => {
+    if (country != "CA" && country != "US") getCountry();
     dispatch(fetchCategories());
     dispatch(me());
     dispatch(fetchCurrentLocation());
@@ -73,6 +75,14 @@ function MobileApp() {
     }
   };
 
+  async function getCountry() {
+    fetch("https://ipinfo.io/json")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.country == "US") setCountry("US");
+        else setCountry("CA");
+      });
+  }
   useEffect(() => {
     window.addEventListener("orientationchange", handleOrientationChange);
 
@@ -84,7 +94,22 @@ function MobileApp() {
       window.removeEventListener("orientationchange", handleOrientationChange);
     };
   }, []);
+  const [country, setCountry] = useLocalStorage("country", null);
 
+  function handleBack() {
+    // e.preventDefault();
+
+    const modals = Array.from(
+      document.querySelectorAll("#portal .modal_overlay .modal_close")
+    );
+
+    if (!modals.length) return;
+    modals[modals.length - 1].click();
+  }
+  useEffect(() => {
+    window.addEventListener("popstate", handleBack);
+    return () => window.removeEventListener("popstate", handleBack);
+  }, []);
   return (
     <div className="___app">
       <Routes>
@@ -93,39 +118,49 @@ function MobileApp() {
         <Route path="/login" exact element={<Login />} />
         <Route path="/forgot-password" exact element={<ForgotPassword />} />
         <Route path="/reset-password" exact element={<ResetPassword />} />
+
         <Route
           path="/verify"
           exact
           element={
-            <h1>
-              {" "}
-              Please verify your account using the link sent to your email
-            </h1>
+            <InfoComp>
+              <h1>
+                Please verify your account with the link sent to your email
+                address.
+              </h1>
+            </InfoComp>
           }
         />
         <Route
           path="/verified"
           exact
-          element={<h1> Congratulations, your account has been verified!</h1>}
+          element={
+            <InfoComp>
+              <h1> Congratulations, your account has been verified!</h1>
+            </InfoComp>
+          }
         />
-
         <Route
           path="/verify-password-reset"
           exact
           element={
-            <h1>
-              Please use the link sent to your email to reset your password
-            </h1>
+            <InfoComp>
+              <h1>
+                Please use the link sent to your email to reset your password
+              </h1>
+            </InfoComp>
           }
         />
         <Route
           path="/reset-password-successful"
           exact
           element={
-            <h1>
-              Your password has been reset. You may log in with your new
-              password now
-            </h1>
+            <InfoComp>
+              <h1>
+                Your password has been reset. You may log in with your new
+                password now
+              </h1>
+            </InfoComp>
           }
         />
       </Routes>
@@ -133,24 +168,36 @@ function MobileApp() {
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/messages" exact element={<Chat />} />
-        <Route path="/single-chat/:id" exact element={<SingleChat />} />
-
+        <Route path="/messages/open" exact element={<Chat />} />
+        <Route path="/ads" exact element={<Ads />} />
         <Route path="/help" exact element={<HelpDocs />} />
         <Route path="/help-doc/:id" exact element={<HelpDoc />} />
         <Route path="contact-us" exact element={<ContactUs />} />
-
+        {/* 
         <Route element={<Ad />} path="/listing/:id" />
-        <Route element={<Ad />} path="/preview-ad" />
+        <Route element={<Ad />} path="/preview-ad" /> */}
         <Route exact path="/post-ad" element={<PostAd />} />
-
+        <Route exact path="/profile" element={<Account />} />
+        <Route exact path="/profile/*" element={<Account />} />
         <Route exact path="/edit/:id" element={<PostAd edit={true} />} />
 
         <Route path="/user_profile" exact element={<UserProfile />} />
         <Route path="/saved_searches" exact element={<SavedSearches />} />
 
         <Route path="/pricing" exact element={<Pricing />} />
+        <Route path="/listing/:id" exact element={<Ad />} />
       </Routes>
-      <Footer />
+      {
+        <Footer
+          visible={
+            !["/login", "/register", "/messages/open", "/verify"].includes(
+              routeLocation.pathname
+            ) &&
+            !routeLocation.pathname.includes("/profile/") &&
+            !routeLocation.pathname.includes("/listing/")
+          }
+        />
+      }
     </div>
   );
 }

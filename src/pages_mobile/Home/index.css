@@ -1,21 +1,31 @@
+._home {
+  height: 100vh;
+  overflow-y: scroll;
+}
+
 ._home .header {
-  height: 400px;
+  height: 440px;
   position: relative;
   /* border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px; */
   overflow: hidden;
   background-repeat: no-repeat;
-  background-position: bottom center;
+  background-position: top center;
   background-size: 160%;
   background-image: url(../../assets/images/img.png);
   padding-top: 0px;
-  padding-bottom: 12px;
+  padding-bottom: 40px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 12px;
+  transition: all 0.2s var(--bc);
+}
+._home ._header {
+  background: transparent;
+  box-shadow: none;
 }
 
 ._home .header .header-mask {
@@ -37,6 +47,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 8px;
+  max-width: 800px;
 }
 
 ._home .header .search > div,
@@ -73,7 +84,6 @@
 ._home .header .category-n-location > div:last-child {
   max-width: 300px !important;
   flex: 1;
-  gap: 4px;
 }
 ._home .header .category-n-location > div:first-child img {
   width: 30px;
@@ -102,6 +112,39 @@
   color: black;
   padding: 4px;
 }
+._home ._listings {
+  background-color: transparent;
+  animation: fade_in 0.2s var(--bc);
+  will-change: transform;
+  /*   
+  position: sticky;
+  height: 100vh;
+  top: 100px;
+  overflow-y: scroll; */
+}
+
+@keyframes fade_in {
+  0% {
+    /* opacity: 0.8; */
+    transform: translateY(100px);
+  }
+  100% {
+    /* opacity: 1; */
+    transform: translateY(0px);
+  }
+}
+
+@keyframes tab {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+._home .results {
+  margin-top: -90px;
+}
 ._home .header .search .search-container {
   flex: 1;
   display: flex;
@@ -110,7 +153,7 @@
 }
 ._home .header .search .filters-btn {
   height: 100%;
-  width: 48px;
+  width: 46px;
   display: flex;
   align-items: center;
   background: #2196f3;
@@ -124,7 +167,7 @@
 }
 
 ._home .header > h1 {
-  margin: 0px 0 10px;
+  margin: 10px 0 20px;
   font-size: 32px;
   font-weight: 900;
   z-index: 2;
@@ -132,5 +175,306 @@
   filter: drop-shadow(0px 0px 8px #1114);
   color: white;
   font-family: var(--font2);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+._home .header .tabs {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 6px;
+  box-sizing: border-box;
+  overflow-x: scroll;
+  transition: all 0.2s var(--bc);
+  margin: 0 auto;
+  max-width: 800px;
+  width: calc(100% - 24px);
+}
+._home .header .tabs::-webkit-scrollbar {
+  display: none;
+}
+
+._home .header .search_tab {
+  min-height: 38px;
+  height: 38px;
+  background: white;
+  z-index: 2;
+  border-radius: 26px;
+  padding: 12px;
+  box-sizing: border-box;
+  display: flex;
+  transition: all 0.2s var(--bc);
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+  border: 1px solid var(--blue);
+  font-weight: 500;
+  font-size: 14px;
+  box-shadow: 0px 0px 8px #1116;
+  animation: 0.2s tab var(--bc) forwards;
+  min-width: fit-content;
+}
+
+._home .header .search_tab p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
+  max-width: 45vw;
+}
+._home .header .search_tab.active {
+  background: var(--blue);
+  color: white;
+}
+._home .header .search_tab.add_tab {
+  font-size: 36px;
+  font-weight: 500;
+  max-width: 38px;
+  min-width: 38px;
+}
+._home .header .search_tab.add_tab svg {
+  height: 24px !important;
+  width: 24px !important;
+}
+._home .header .search_tab button {
+  border: none;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  margin-right: -6px;
+  background: none;
+}
+._home .search_tab svg {
+  height: 18px !important;
+  width: 18px !important;
+  transition: all 0.2s var(--bc);
+}
+._home .search_tab.active svg {
+  fill: white;
+}
+._filters {
+  padding: 0px;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  /* gap: 6px; */
+}
+._filters .filter {
+  padding: 12px 24px;
+}
+._filters .field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  gap: 20px;
+}
+._filters .field h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}
+._filters .field input {
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 4px;
+  background-color: var(--blue);
+  color: #fff;
+  width: 120px;
+  padding: 6px;
+  box-sizing: border-box;
+  text-align: center;
+  border: none;
+  outline: none;
+  font-weight: 500;
+  font-family: var(--font1);
+  box-sizing: border-box;
+}
+._filters .filter .slider input {
+  width: 100%;
+}
+._filters hr {
+  border: 1px solid #eee;
+  width: 100%;
+  border-radius: 10px;
+  display: none;
+}
+
+._filters .heading {
+  display: flex;
+  font-size: 24px;
+  gap: 8px;
+  justify-content: start;
+  align-items: center;
+  font-weight: 600;
+}
+._filters .heading svg {
+  height: 32px;
+  width: 32px;
+  fill: var(--blue);
+}
+
+._filters .filter {
+  /* height: 90px; */
+}
+input[type="range"] {
+  /* removing default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+  /* creating a custom design */
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  /*  slider progress trick  */
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* Track: webkit browsers */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 12px;
+  background: #ccc;
+  border-radius: 16px;
+}
+
+/* Track: Mozilla Firefox */
+input[type="range"]::-moz-range-track {
+  height: 12px;
+  background: #ccc;
+  border-radius: 12px;
+}
+
+/* Thumb: webkit */
+input[type="range"]::-webkit-slider-thumb {
+  /* removing default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+  /* creating a custom design */
+  height: 12px;
+  width: 12px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid var(--blue);
+  /*  slider progress trick  */
+  box-shadow: -407px 0 0 400px var(--blue);
+}
+
+/* Thumb: Firefox */
+input[type="range"]::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid var(--blue);
+  /*  slider progress trick  */
+}
+._filters input[type="date"] {
+  height: 50px;
+  border: 1px solid #fff;
+}
+
+._filters .term {
+  padding: 6px;
+  background: #fff;
+  border: 1px solid var(--blue);
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+  flex: 1 1;
+  transition: all 0.2s var(--bc);
+  cursor: pointer;
+  color: var(--blue);
+  box-shadow: 0px 0px 8px #ccc;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: var(--font1);
+}
+
+._filters .selected {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--blue);
+  box-shadow: 0px 0px 8px #ccc;
+}
+/* ._filters .term:hover {
+  background-color: var(--blue);
+  color: #fff;
+} */
+._filters .term.active {
+  background-color: var(--blue);
+  color: #fff;
+}
+
+._filters .terms {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+._filters:-webkit-scrollbar {
+  width: 8px;
+  display: block !important;
+  transition: all 0.3 var(--bc);
+  display: block;
+}
+
+._filters:-webkit-scrollbar-track {
+  background: #ccc;
+  border-radius: 10px;
+  min-width: 10px;
+  transition: all 0.3 var(--bc);
+}
+
+._filters:-webkit-scrollbar-thumb {
+  background-color: var(--blue);
+
+  border-radius: 10px;
+  transition: all 0.3 var(--bc);
+  min-width: 6px;
+}
+
+._filters .filter ._dropdown {
+  height: 20px;
+  flex: 1;
+}
+
+._filters .apply button {
+  height: 100%;
+  flex: 1;
+  border: 1px solid var(--blue);
+  border-radius: 4px;
+  box-shadow: 0px 0px 8px #ccc;
+  font-size: 20px;
+
+  font-family: var(--font2);
+  cursor: pointer;
+  transition: all 0.3s var(--bc);
+}
+._filters .apply button:hover {
+  background-color: var(--blue-dark);
+  color: white;
+}
+
+._filters div.apply {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  height: 48px;
+  margin: 40px 0 0;
+}
+
+._filters button.apply {
+  background-color: var(--blue);
+  color: white;
+}
+
+._filters button.reset {
+  background-color: white;
+  color: var(--blue);
 }

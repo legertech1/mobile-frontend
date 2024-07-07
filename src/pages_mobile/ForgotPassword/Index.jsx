@@ -1,105 +1,56 @@
-import React, { useState } from "react";
-import Email from "@mui/icons-material/AlternateEmail";
-import LOGO from "../../assets/images/MainLogoBlack.svg";
-import "../Register/index.css";
-import validateEmail from "../../utils/validateEmail";
-import axios from "axios";
-import FieldError from "../../components/FieldError";
-import { Link, useNavigate } from "react-router-dom";
-import apis from "../../services/api";
-
-function ForgotPassword() {
-  const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    email: "",
-  });
-  const [formErrors, setFormErrors] = useState({
-    email: {
-      visible: false,
-      message: "Please enter a valid email",
-    },
-  });
-
-  const handleFormData = (name, value) => {
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const validateForm = () => {
-    let errors = { ...formErrors };
-    let hasError = false;
-    for (let key in formErrors) {
-      if (key === "email") {
-        if (!validateEmail(formData.email)) {
-          errors.email.visible = true;
-          hasError = true;
-        } else {
-          errors.email.visible = false;
-        }
-      }
-    }
-    setFormErrors(errors);
-
-    return hasError;
-  };
-
-  const submit = async () => {
-    try {
-      let hasError = validateForm();
-      if (hasError) return;
-
-      await axios.get(apis.forgotPassword + "/" + formData.email);
-      navigate("/verify-password-reset");
-    } catch (error) {
-      alert(error.response.data.error);
-    }
-  };
-
-  function handleKeyPress(event, field) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      submit();
-    }
-  }
-
+import React from "react";
+import "../Login/index.css";
+import MobileLogo from "../../assets/images/MainLogo.svg";
+import {
+  AlternateEmailRounded,
+  Facebook,
+  Google,
+  KeyRounded,
+  PersonRounded,
+} from "@mui/icons-material";
+import { Link } from "react-router-dom";
+function Login() {
   return (
-    <div className="mobile_auth">
-      <div className="container">
-        <Link to="/">
-          <img src={LOGO} alt="logo"></img>
-        </Link>
-        <h3>Reset your password</h3>
+    <div className="_login">
+      {/* <Header /> */}
 
-        <div className="registration_form">
-          <div
-            className="inp"
-            style={
-              formErrors.email.visible ? { borderColor: "var(--red)" } : {}
-            }
-          >
-            <Email></Email>
-            <input
-              type="email"
-              name=""
-              id=""
-              placeholder="Email"
-              onChange={(e) => handleFormData("email", e.target.value)}
-              onKeyPress={(e) => handleKeyPress(e, "email")}
-            />
-          </div>
-          <FieldError
-            error={formErrors.email.message}
-            visible={formErrors.email.visible}
-          />
-          <div className="sign_up_cont">
-            <button className="btn_classic" onClick={submit}>
-              Proceed
+      <div className="bg"></div>
+
+      <div className="main">
+        <img src={MobileLogo} alt="" className="logo" />
+        <h1>Hello again!</h1>
+        <div className="inp">
+          <AlternateEmailRounded />
+          <input placeholder="Email Address" />
+        </div>
+        <div className="inp">
+          <KeyRounded /> <input placeholder="Password" />
+        </div>
+        <button className="sign-in btn_classic">Sign in</button>
+        <p className="alt">
+          <span>
+            <Link to={"/signup"}>Forgot Password?</Link>
+          </span>
+        </p>
+        <div className="alt-methods">
+          <p>
+            <hr /> or sign in with <hr />
+          </p>
+          <div className="buttons">
+            <button>
+              <Google /> Google
+            </button>
+            <button>
+              <Facebook /> Facebook
             </button>
           </div>
         </div>
+        <p className="footer">
+          Don't have an account yet? <Link>Sign Up</Link>
+        </p>
       </div>
     </div>
   );
 }
 
-export default ForgotPassword;
+export default Login;

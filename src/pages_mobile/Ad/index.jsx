@@ -1,570 +1,783 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
-import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
-import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
-import SendIcon from "@mui/icons-material/Send";
-import AutorenewOutlinedIcon from "@mui/icons-material/AutorenewOutlined";
-
-import { Circle, GoogleMap, OverlayView } from "@react-google-maps/api";
-import { defaultMapProps, mapStyles, monthNames } from "../../utils/constants";
-import Button from "../../components_mobile/shared/Button";
-import Loader from "../../components_mobile/Loader";
-import MobileCarousel from "../../components_mobile/MobileCarousel";
-import imgPlaceHolder from "../../assets/images/imagePlaceholder.jpg";
-import apis from "../../services/api";
-import "./index.css";
-import marker from "../../assets/images/marker.png";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Spinner from "../../components/Spinner";
-import {
-  editAd,
-  initialAdState,
-  // postAd,
-  setFormData,
-} from "../../store/adSlice";
-import { sendMessage, socket } from "../../socket";
-import usePreviousHook from "../../hooks/usePreviousHook";
-import Modal from "../../components_mobile/Modal";
-import PaymentElementMobile from "../../components_mobile/PaymentElementMobile";
-import useNotification from "../../hooks/useNotification";
-import { handleImgError } from "../../utils/helpers";
-import { updateCart } from "../../store/cartSlice";
+import { addToWishlist, me, removeFromWishlist } from "../../store/authSlice";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import PinDropOutlinedIcon from "@mui/icons-material/PinDropOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import blackAnimatedLOGO from "../../assets/animatedIcons/animated_black_LOGO.json";
+import axios from "axios";
+import LaunchIcon from "@mui/icons-material/Launch";
+import apis from "../../services/api";
+import CA from "../../assets/images/CA.svg";
+import US from "../../assets/images/USA.svg";
+
+import LinkIcon from "@mui/icons-material/Link";
+import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
+import SendIcon from "@mui/icons-material/Send";
+import IconPlayer from "../../components/IconPlayer";
+import "./index.css";
+import CheckIcon from "@mui/icons-material/DoneAll";
 import BusinessIcon from "@mui/icons-material/Business";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import YouTubeIcon from "@mui/icons-material/YouTube";
 import LanguageIcon from "@mui/icons-material/Language";
-import { imageFallback } from "../../utils/listingCardFunctions";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { defaultMapProps, mapStyles, monthNames } from "../../utils/constants";
+import { sendMessage, socket } from "../../socket";
+import {
+  ArrowForward,
+  CloseOutlined,
+  EditAttributesOutlined,
+  EditOutlined,
+  Favorite,
+  KeyboardDoubleArrowUpOutlined,
+  Phone,
+  Preview,
+} from "@mui/icons-material";
+import { Circle, GoogleMap, OverlayView } from "@react-google-maps/api";
+import marker from "../../assets/images/marker.png";
+import { editAd, postAd } from "../../store/adSlice";
+import Modal from "../../components_mobile/Modal";
+import PaymentElement from "../../components/PaymentElement";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import ShareIcon from "@mui/icons-material/Share";
+import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined";
+import Share from "../../components/Share";
+import Footer from "../../components/Footer";
+import {
+  next,
+  prev,
+  hover,
+  imageFallback,
+} from "../../utils/listingCardFunctions";
+import useNotification from "../../hooks/useNotification";
+import { updateCart } from "../../store/cartSlice";
+import { getBalance } from "../../store/balanceSlice";
+import success from "../../assets/animatedIcons/successful.json";
+import { createPortal } from "react-dom";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import getCartAndTotal from "../../utils/getCartAndTotal";
+import AdPosthandler from "../../components/AdPosthandler";
+import ripple from "../../utils/ripple";
+import { useSwipeable } from "react-swipeable";
+import PinchZoomImage from "./PinchToZoom";
+import { ChevronRight } from "@styled-icons/entypo/ChevronRight";
+const countries = { US, CA };
+function ViewListing({ preview, edit, _id }) {
+  const [listing, setListing] = useState(null);
 
-import { Phone } from "@mui/icons-material";
-
-export default function Ad(props) {
-  const [ad, setAd] = useState(null);
-
-  const [adPostingLoading, setAdPostingLoading] = useState(false);
-  const [initiateChat, setInitiateChat] = useState(false);
-  const [chatLoading, setChatLoading] = useState(false);
-  const [inputText, setInputText] = useState("");
-  const chats = useSelector((state) => state.chats);
-  const prevChats = usePreviousHook(chats);
-
-  const [loading, setLoading] = useState(false);
-  const [postedBy, setPostedBy] = useState({});
-  const params = useParams();
-  const preview = !params?.id;
-  const { state } = useLocation();
-  const [paymentModal, setPaymentModal] = useState(false);
-
-  let adToPreview = state?.ad;
-
-  const editId = state?.editId;
-
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const ad = useSelector((state) => state.ad);
+  const [postedBy, setPostedBy] = useState(null);
+  const [message, setMessage] = useState("");
+  const [imgView, setImgView] = useState(false);
   const cart = useSelector((state) => state.cart);
-
-  let lat = ad?.location?.coordinates?.lat || defaultMapProps.center.lat;
-  let lng = ad?.location?.coordinates?.long || defaultMapProps.center.lng;
-  const { selectedLocation } = useSelector((state) => state.location);
-
-  async function fetchAd(id) {
+  const params = useParams();
+  const location = useLocation();
+  const [share, setShare] = useState(false);
+  const id = _id || location.pathname.split("/")[2];
+  const [paymentModal, setPaymentModal] = useState(false);
+  const notification = useNotification();
+  const [loading, setLoading] = useState(true);
+  const [country, setCountry] = useLocalStorage("country", null);
+  const [token, setToken] = useState(null);
+  const categories = useSelector((state) => state.categories);
+  async function loadAd() {
     try {
-      setLoading(true);
-      const res = await axios.get(`${apis.ad}${id}`);
-
-      setAd(res.data);
-      setLoading(false);
+      let data = (await axios.get(apis.ad + id)).data;
+      loadPerson(data.user);
+      setListing(data);
     } catch (err) {
-      setLoading(false);
+      console.log(err);
+      notification.error(err.response.data.error);
+      navigate("/");
+    }
+    setLoading(false);
+  }
+  async function loadPerson(id) {
+    try {
+      let data = (await axios.get(apis.getuserInfo + id)).data;
+      setPostedBy(data);
+    } catch (err) {
+      notification.error(
+        err.response.data.error || err.response.data || err.message
+      );
+      navigate("/");
     }
   }
 
-  async function loadPerson(postedById) {
-    let id = preview ? user?._id : postedById;
+  useEffect(() => {
+    if (preview && !ad.title) {
+      navigate("/");
+    }
+    if (preview && edit) {
+      setListing({ ...ad });
+      setPostedBy(user);
+      return;
+    }
+    if (preview) {
+      setListing({ ...ad, user: user._id, createdAt: Date.now() });
+      setPostedBy(user);
+      return;
+    }
+    loadAd();
+  }, []);
 
-    if (!id) return;
-    let data = (await axios.get(apis.getuserInfo + id)).data;
-    setPostedBy(data);
+  const ref = useRef();
+  useEffect(() => {
+    if (loading) return;
+    if (!loading && !listing) navigate("/");
+  }, [loading]);
+
+  const user = useSelector((state) => state.auth);
+  const [wishlisted, setWishlisted] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    user?.data?.wishlist?.includes(listing?._id)
+      ? setWishlisted(true)
+      : setWishlisted(false);
+  }, [user]);
+
+  function remove() {
+    if (preview) return;
+    dispatch(removeFromWishlist(listing?._id));
   }
 
-  useEffect(() => {
-    adToPreview && setAd(adToPreview);
-  }, [adToPreview]);
+  function add() {
+    if (!user || preview) return navigate("/login");
+    dispatch(addToWishlist(listing?._id));
+  }
 
-  useEffect(() => {
-    params.id && fetchAd(params.id);
-  }, [params.id, selectedLocation]);
+  const carousel = useRef();
+  const carousel2 = useRef();
 
-  useEffect(() => {
-    loadPerson(ad?.user);
-  }, [ad?.user]);
+  const ind = useRef();
+  const dispatch = useDispatch();
+  const [slide, setSlide] = useState(1);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
-  const handleSubmitAd = async () => {
-    if (!preview) return;
+  const imgs =
+    (listing?.images?.length && listing?.images) || listing?.thumbnails || [];
 
-    if (editId) {
-      initEdit();
-    } else {
-      if (cart.free) {
-        const { token, free } = (
-          await axios.post(apis.createPaymentIntent, {
-            pricing: cart,
-            category: ad.category,
-          })
-        ).data;
-        dispatch(updateCart({}));
-        onPaymentSuccessful(token);
-      } else setPaymentModal(true);
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleSwipe("left"),
+    onSwipedRight: () => handleSwipe("right"),
+
+    trackMouse: true,
+  });
+
+  const handleSwipe = (direction) => {
+    if (direction === "left") {
+      if (slide + 1 <= listing.images.length) next(listing, slide, setSlide);
+    } else if (direction === "right") {
+      if (slide - 1 > 0) prev(listing, slide, setSlide);
     }
   };
 
   function initEdit(token) {
-    setAdPostingLoading(true);
     dispatch(editAd(ad))
       .unwrap()
-      .then((ad) => {
-        setAdPostingLoading(false);
-        navigate("/listing/" + editId);
-      })
-      .catch((err) => {
-        setAdPostingLoading(false);
-      });
+      .then((ad) => navigate("/profile"))
+      .catch((err) => console.log(err));
   }
-
-  const postNewAd = async (token) => {
-    setAdPostingLoading(true);
-    const adToPost = { ...ad };
-
-    // dispatch(postAd({ ad: adToPost, token }))
-    //   .unwrap()
-    //   .then((ad) => {
-    //     setAdPostingLoading(false);
-    //     navigate("/listing/" + ad._id);
-    //     dispatch(setFormData(initialAdState));
-    //     dispatch(updateCart({}));
-    //   })
-    //   .catch(() => {
-    //     setAdPostingLoading(false);
-    //   });
-  };
-
-  function onPaymentSuccessful(token) {
-    postNewAd(token);
-  }
-  const notification = useNotification();
 
   function onPaymentFailed(error) {
     setPaymentModal(false);
-    notification.error(error.message);
+    notification.error(error);
   }
-
-  const handleSend = () => {
-    if (editId || preview) return;
-
-    if (!inputText) {
-      alert("Please enter a message");
-      return;
-    }
-    if (chatLoading) return;
-
-    setChatLoading(true);
+  function send({ from, to }) {
+    if (!message) return;
     sendMessage(socket, {
-      from: user?._id,
-      to: ad.user,
-      message: inputText,
+      from,
+      to,
+      message,
       type: "text",
-      ad: ad._id,
+      ad: listing?._id,
     });
-    setInitiateChat(true);
-  };
-
-  useEffect(() => {
-    return () => {
-      setChatLoading(false);
-      setInitiateChat(false);
-      setInputText("");
-      setPostedBy({});
-      setInitiateChat(false);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (initiateChat) {
-      // if (chatId) {
-      //   navigate('single-chat/'+chatId);
-      //   return;
-      // }
-
-      if (chats?.length) {
-        let currChat = chats?.find((c) => c.ad._id === ad._id);
-        if (currChat) {
-          navigate("/single-chat/" + currChat._id);
-        }
-      }
-      if (prevChats?.length !== chats?.length) {
-        let currChat = chats?.find((c) => c.ad._id === ad._id);
-
-        if (!currChat) {
-          navigate("/messages");
-          return;
-        }
-
-        navigate("/single-chat/" + currChat._id);
-      }
-    }
-  }, [chats, ad?._id, initiateChat, prevChats?.length]);
-
-  const navigateToUserPage = () => {
-    navigate(`/view-profile/${postedBy?._id}`);
-  };
-
-  const renderItem = (val) => {
-    if (typeof val === "boolean") {
-      return (
-        <span className={val ? "checkmark" : "close"}>
-          {val ? (
-            <CheckCircleOutlineOutlinedIcon />
-          ) : (
-            <HighlightOffOutlinedIcon />
-          )}
-        </span>
-      );
-    }
-    return <span>{val}</span>;
-  };
-
+    setMessage("");
+    navigate("/messages?open=true");
+  }
   return (
-    <div className="mobile_ad_view">
-      {loading && <Loader title={"Loading ad..."} />}
-      <Spinner title={"Posting Ad"} loading={adPostingLoading}>
-        {ad && !loading && (
-          <>
-            {preview && (
-              <div className="content">
-                <div className="card">
-                  <h2
-                    style={{
-                      textAlign: "center",
-                      color: "#2196f3",
-                      fontWeight: "bold",
-                      padding: 0,
-                      margin: 0,
+    <>
+      {!listing && loading && (
+        <div className="logo_loader">
+          <IconPlayer icon={blackAnimatedLOGO} />
+        </div>
+      )}
+      {listing && (
+        <>
+          <div className="view_listing">
+            <div className="main left right">
+              {" "}
+              <div className="left_img_cont">
+                <div
+                  className={"images_container"}
+                  onScroll={(e) => e.preventDefault()}
+                  onClick={(e) => setImgView(true)}
+                  tabIndex={0}
+                  {...handlers}
+                >
+                  <button
+                    className="close"
+                    onClick={(e) => {
+                      e.stopPropagation();
+
+                      setImgView(false);
                     }}
                   >
-                    {editId ? "Editing " : "Posting "}
-                    Preview Mode
-                  </h2>
-                </div>
-                <br />
-              </div>
-            )}
-            <div className="carousel_card">
-              <MobileCarousel
-                images={ad?.images?.length > 0 ? ad?.images : [imgPlaceHolder]}
-              />
-            </div>
-            <div className="content">
-              <div className="card">
-                <p>
-                  {ad?.meta?.category || ad?.category} -{" "}
-                  {ad?.meta?.subCategory || ad?.subCategory}
-                </p>
-                <p className="title">{ad.title}</p>
+                    <CloseOutlined />
+                  </button>
 
-                <p>
-                  <span className="price">${ad.price}</span>
-                  <span className="price_type">/{ad.term}</span>
-                </p>
-                <p className="posted_on">
-                  <CalendarMonthOutlinedIcon className="icon" />
-                  Posted on: <strong className="date">{getDate(ad)}</strong>
-                </p>
-              </div>
-              {ad?.meta?.business && (
-                <div className="card">
-                  <div className="heading_row">
-                    <BusinessIcon />
-                    <p className="heading">Business Info </p>
-                  </div>
-                  <div className="business_main">
-                    <div className="info">
-                      <div className="text_row">
-                        <h3 className="name">{postedBy?.BusinessInfo?.name}</h3>
-                        {postedBy?.BusinessInfo?.email && (
-                          <>
-                            <a>{postedBy?.BusinessInfo?.email}</a>
-                          </>
-                        )}
+                  {listing.images?.length > 1 && (
+                    <div className="slides" ref={ind}>
+                      {listing?.images?.length > 1 &&
+                        listing?.images.map((img, i) => (
+                          <div
+                            className={
+                              "dot" + (i + 1 == slide ? " active" : "")
+                            }
+                          ></div>
+                        ))}
+                    </div>
+                  )}
+
+                  {!preview && (
+                    <button
+                      className={"wishlist" + (wishlisted ? " active" : "")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        wishlisted ? remove() : add();
+                      }}
+                    >
+                      <FavoriteIcon />
+                    </button>
+                  )}
+                  <div
+                    className="images"
+                    onScroll={(e) => e.preventDefault()}
+                    ref={carousel}
+                  >
+                    {imgs?.map((img, ind) => (
+                      <div
+                        className="img_cont"
+                        style={{
+                          transform: "translateX(" + (ind + 1 - slide) + "00%)",
+                        }}
+                      >
+                        <img onError={imageFallback} src={img}></img>
                       </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="_left">
+                <div className="title_and_price tile">
+                  <div className="posted_on">
+                    {" "}
+                    <p>
+                      <CalendarMonthIcon />
+                      Posted on{" "}
+                      <span>
+                        {new Date(listing?.createdAt).getDate()}{" "}
+                        {monthNames[new Date(listing?.createdAt).getMonth()]}
+                        {", "}
+                        {new Date(listing?.createdAt).getFullYear()}
+                      </span>
+                    </p>
+                    <div className="actions">
+                      {!preview && (
+                        <>
+                          {" "}
+                          <button
+                            className="share"
+                            onClick={(e) => setShare(true)}
+                          >
+                            <ShareIcon />
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  <p className="category">
+                    {listing?.meta?.category} <ChevronRight />{" "}
+                    {listing?.meta?.subCategory}
+                    <ChevronRight /> {listing.listingID}
+                  </p>
+                  <h2>{listing?.title}</h2>
+
+                  <h1 className="price">
+                    <span>${listing?.price || "Free"}</span>
+                    <p>/{listing?.term}</p>{" "}
+                    {listing?.tax != "none" && (
+                      <p className="tax">+{listing?.tax}</p>
+                    )}{" "}
+                    <img
+                      className="country_img_global"
+                      src={countries[listing?.meta?.country || country]}
+                      alt=""
+                    />
+                  </h1>
+                </div>
+                {(Object.keys(listing?.extraFields || {})?.filter(
+                  (k) =>
+                    listing.extraFields[k] !== undefined &&
+                    listing.extraFields[k] !== ""
+                ).length ||
+                  null) && (
+                  <div className="details tile">
+                    <h1>
+                      {" "}
+                      <InfoOutlinedIcon /> Details
+                    </h1>
+
+                    <div className="extra_fields">
+                      {Object.keys(listing?.extraFields || {})
+                        ?.filter(
+                          (k) =>
+                            listing.extraFields[k] !== undefined &&
+                            listing.extraFields[k] !== ""
+                        )
+                        ?.map((key) => (
+                          <div className="field">
+                            <p className="key">{key}</p>
+                            <p className="val">
+                              {listing?.extraFields[key]}
+                              {listing?.extraFields[key] === false && "false"}
+                              {listing?.extraFields[key] === true && "true"}
+                            </p>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                )}
+                <div className="description tile">
+                  <h1>
+                    {" "}
+                    <DescriptionOutlinedIcon /> Description
+                  </h1>
+                  <p>
+                    <pre>{listing?.description}</pre>
+                  </p>
+                </div>
+              </div>
+              <div className="_right">
+                {(listing?.meta?.business ||
+                  (preview && cart.extras?.business)) && (
+                  <div className="business tile">
+                    <h1>
+                      <BusinessIcon /> Business Info
+                    </h1>
+                    <div className="business_main">
                       <img
                         onError={imageFallback}
                         src={postedBy?.BusinessInfo?.LOGO}
                       />
-                    </div>
+                      <div className="info">
+                        <h3 className="name">
+                          {postedBy?.BusinessInfo?.name}
+                          {postedBy?.BusinessInfo?.email && (
+                            <>
+                              <hr />
+                              <a
+                                href={"mailto:" + postedBy?.BusinessInfo?.email}
+                              >
+                                <AlternateEmailIcon />{" "}
+                                {postedBy?.BusinessInfo?.email}
+                              </a>
+                            </>
+                          )}
+                        </h3>
+                        <p className="address">
+                          {postedBy?.BusinessInfo?.address}
+                        </p>
+                        <div className="row">
+                          {postedBy?.BusinessInfo?.website && (
+                            <>
+                              {" "}
+                              <a
+                                href={postedBy?.BusinessInfo?.website}
+                                target="_blank"
+                              >
+                                <LanguageIcon />
+                                {postedBy?.BusinessInfo?.website}
+                              </a>
+                            </>
+                          )}
 
-                    <div className="business_row">
-                      {postedBy?.BusinessInfo?.website && (
-                        <div className="row_item">
-                          <div className="title_row">
-                            <LocationOnIcon />
-                            Address:
-                          </div>
-                          <a>{postedBy?.BusinessInfo?.address}</a>
-                        </div>
-                      )}
-                      {postedBy?.BusinessInfo?.website && (
-                        <div className="row_item">
-                          <div className="title_row">
-                            <LanguageIcon />
-                            Website:
-                          </div>
-                          <a>{postedBy?.BusinessInfo?.website}</a>
-                        </div>
-                      )}
-                      {postedBy?.BusinessInfo?.phone && (
-                        <div className="row_item">
-                          <div className="title_row">
-                            <Phone />
-                            Phone:
-                          </div>
-                          <a>{postedBy?.BusinessInfo?.phone}</a>
-                        </div>
-                      )}
-                      {postedBy?.BusinessInfo?.youtube && (
-                        <div className="row_item">
-                          <div className="title_row">
-                            <YouTubeIcon />
-                            YouTube:
-                          </div>
-                          <a>{postedBy?.BusinessInfo?.youtube}</a>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )}
-              <div className="card">
-                <div className="heading_row">
-                  <InfoOutlinedIcon />
-                  <p className="heading">Details </p>
-                </div>
-                <div className="fields_cont">
-                  {Object.keys(ad?.extraFields || {}).map((key, i) => (
-                    <div className="field_row" key={key}>
-                      <p className="field_title">{key}</p>
-                      {renderItem(ad?.extraFields[key])}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="card">
-                <div className="heading_row">
-                  <ArticleOutlinedIcon />
-                  <p className="heading">Description</p>
-                </div>
-                <p className="ad_description">{ad.description}</p>
-              </div>
-              <div className="card">
-                <div className="heading_row">
-                  <PersonOutlineOutlinedIcon />
-                  <p className="heading">Posted By</p>
-                </div>
-                <div className="posted_by_row" onClick={navigateToUserPage}>
-                  <div className="left_cont">
-                    <img
-                      alt="user_avatar"
-                      onError={handleImgError}
-                      src={postedBy?.image}
-                      className="user_avatar_img"
-                    />
-                    <div className="user_meta">
-                      <p className="username">{postedBy?.firstName}</p>
-                      <p className="posted_on">
-                        Member since
-                        <strong className="date">
-                          {new Date(postedBy?.createdAt).getDate()}
-                          {` `}
-                          {monthNames[new Date(postedBy?.createdAt).getMonth()]}
-                          {` `}
-                          {new Date(postedBy?.createdAt).getYear() + 1900}
-                        </strong>
-                      </p>
-                    </div>
-                  </div>
-                  {/* <div> */}
-                  <ChevronRightOutlinedIcon />
-                  {/* </div> */}
-                </div>
-                {user && user?._id != ad?.user && !preview && (
-                  <div className="message_row">
-                    <input
-                      // disabled={image}
-                      value={inputText}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          // handleSendMessage();
-                          handleSend();
-                          setInputText("");
-                        }
-                      }}
-                      id="messageInput"
-                      onChange={(e) => {
-                        setInputText(e.target.value);
-                      }}
-                      // value={textMessage}
-                      type="text"
-                      placeholder="Type your message..."
-                      className="message_input"
-                    />
-                    <button
-                      onClick={() => {
-                        if (chatLoading) return;
-                        handleSend();
-                        setInputText("");
-                      }}
-                      className="send_btn"
-                    >
-                      {!chatLoading && <SendIcon />}
+                          {postedBy?.BusinessInfo?.phone && (
+                            <>
+                              {" "}
+                              <hr />
+                              <a
+                                href={"tel:" + postedBy?.BusinessInfo?.phone}
+                                target="_blank"
+                              >
+                                <Phone />
+                                {postedBy?.BusinessInfo?.phone}
+                              </a>
+                            </>
+                          )}
 
-                      {chatLoading && (
-                        <AutorenewOutlinedIcon
-                          sx={{
-                            animation: "spin 1s linear infinite",
-                            fontSize: "1.5rem",
-                          }}
-                        />
-                      )}
-                    </button>
+                          {postedBy?.BusinessInfo?.youtube && (
+                            <>
+                              <hr />
+                              <a
+                                href={postedBy?.BusinessInfo?.youtube}
+                                target="_blank"
+                              >
+                                <YouTubeIcon />
+                                {postedBy?.BusinessInfo?.youtube}
+                              </a>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
-              </div>
-              <div className="card">
-                <div className="heading_row">
-                  <LocationOnOutlinedIcon />
-                  <p className="heading">Location</p>
-                </div>
-                <p>{ad?.location?.name}</p>
-                <div className="map_container">
-                  <GoogleMap
-                    center={{
-                      lat: lat,
-                      lng: lng,
-                    }}
-                    zoom={defaultMapProps.zoom}
-                    mapContainerStyle={mapStyles}
-                    options={{
-                      mapTypeControl: false,
-                      fullscreenControl: false,
-                      streetViewControl: false,
-                      rotateControl: false,
-                      scaleControl: false,
-                    }}
-                  >
-                    {!ad?.showPreciseLocation && (
-                      <Circle
-                        center={{
-                          lat: lat,
-                          lng: lng,
-                        }}
-                        radius={2000} // in meters
-                        options={{
-                          fillColor: "#2196f3", // fill color of the circle
-                          fillOpacity: 0.4, // opacity of the fill
-                          strokeColor: "#2196f3", // border color of the circle
-                          strokeOpacity: 0.8, // opacity of the border
-                          strokeWeight: 2, // border thickness
-                        }}
-                        // options={place.circle.options}
-                      />
-                    )}
-                    {ad?.showPreciseLocation && (
-                      <OverlayView
-                        position={{
-                          lat: lat,
-                          lng: lng,
-                        }}
-                        mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-                      >
-                        <div className="map_marker">
-                          <img src={marker} alt="" />
-                          {/* <img src={shadow} alt="" className="shadow" /> */}
-                        </div>
-                      </OverlayView>
-                    )}
-                  </GoogleMap>
-                </div>
-              </div>
-              <div className="card">
-                <div className="heading_row">
-                  <LocalOfferOutlinedIcon />
-                  <p className="heading">Tags</p>
-                </div>
-                <div className="tags_container">
-                  {ad?.tags?.map((tag, i) => (
-                    <div key={i} className="tag">
-                      <span>{tag}</span>
+                {(listing?.config?.current?.extras?.youtube ||
+                  listing?.config?.current?.extras?.website) && (
+                  <div className="tile youtube_website">
+                    <h1>
+                      <LinkIcon /> Links
+                    </h1>
+                    <div>
+                      {listing?.config?.current?.extras?.youtube && (
+                        <p>
+                          <YouTubeIcon />
+                          <a
+                            href={
+                              listing?.config?.current?.extras?.youtube?.url
+                            }
+                            target="_blank"
+                          >
+                            {listing?.config?.current?.extras?.youtube?.url}
+                          </a>{" "}
+                        </p>
+                      )}
+                      {listing?.config?.current?.extras?.website && (
+                        <p>
+                          <LanguageIcon />{" "}
+                          <a
+                            href={
+                              listing?.config?.current?.extras?.website?.url
+                            }
+                            target="_blank"
+                          >
+                            {listing?.config?.current?.extras?.website?.url}
+                          </a>
+                        </p>
+                      )}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
+
+                {preview && (
+                  <div className="tile preview">
+                    <h1>
+                      <CheckIcon />
+                      Lets post it then?
+                    </h1>
+                    <div className="actions">
+                      <button
+                        className="continue_editing btn_blue_m"
+                        onClick={(e) =>
+                          edit ? navigate("/edit/" + id) : navigate("/post-ad")
+                        }
+                      >
+                        <EditOutlined /> Keep Editing
+                      </button>
+                      <button
+                        className="postAd btn_blue_m"
+                        onClick={async (e) => {
+                          if (edit) initEdit();
+                          else {
+                            const [total, _] = getCartAndTotal(
+                              cart,
+                              user,
+                              categories.filter((c) => c.name == ad.category)[0]
+                            );
+                            if (!Number(total)) {
+                              const { token } = (
+                                await axios.post(apis.createPaymentIntent, {
+                                  pricing: cart,
+                                  category: ad.category,
+                                })
+                              ).data;
+                              dispatch(updateCart({}));
+                              setToken(token);
+                            } else setPaymentModal(true);
+                          }
+                        }}
+                      >
+                        <KeyboardDoubleArrowUpOutlined /> Post
+                      </button>
+                    </div>
+                  </div>
+                )}
+                {listing?.location && listing.location?.coordinates && (
+                  <div className="location tile">
+                    <h1>
+                      <PinDropOutlinedIcon />
+                      Location
+                    </h1>
+                    <p className="location_name">
+                      {listing?.location?.name}{" "}
+                      <a
+                        href={
+                          "https://www.google.com/maps?q=" +
+                          (listing?.showPreciseLocation
+                            ? listing?.location?.coordinates.lat +
+                              "," +
+                              listing?.location?.coordinates.long
+                            : listing?.location?.name)
+                        }
+                        target="_blank"
+                      >
+                        {" "}
+                        <LaunchIcon />
+                      </a>
+                    </p>
+                    <div className="map">
+                      <GoogleMap
+                        center={
+                          {
+                            lat: listing?.location?.coordinates.lat,
+                            lng: listing?.location?.coordinates.long,
+                          } || defaultMapProps.center
+                        }
+                        zoom={defaultMapProps.zoom}
+                        mapContainerStyle={mapStyles}
+                        options={{
+                          mapTypeControl: false,
+                          fullscreenControl: false,
+                          streetViewControl: false,
+                          rotateControl: false,
+                          scaleControl: false,
+                        }}
+                      >
+                        {listing?.location && !listing?.showPreciseLocation && (
+                          <Circle
+                            center={{
+                              lat: listing?.location?.coordinates.lat,
+                              lng: listing?.location?.coordinates.long,
+                            }}
+                            radius={2000} // in meters
+                            options={{
+                              fillColor: "#2196f3", // fill color of the circle
+                              fillOpacity: 0.4, // opacity of the fill
+                              strokeColor: "#2196f3", // border color of the circle
+                              strokeOpacity: 0.8, // opacity of the border
+                              strokeWeight: 2, // border thickness
+                            }}
+                            // options={place.circle.options}
+                          />
+                        )}
+                        {listing?.location && listing?.showPreciseLocation && (
+                          <OverlayView
+                            position={{
+                              lat: listing?.location?.coordinates.lat,
+                              lng: listing?.location?.coordinates.long,
+                            }}
+                            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                          >
+                            <div className="map_marker">
+                              <img src={marker} alt="" />
+                            </div>
+                          </OverlayView>
+                        )}
+                      </GoogleMap>
+                    </div>
+                  </div>
+                )}
+                {!preview && (
+                  <div className="seller_info tile">
+                    <h1>
+                      <PersonOutlineOutlinedIcon /> Posted By
+                    </h1>
+                    <div
+                      className="info"
+                      onClick={(e) =>
+                        postedBy?._id == user?._id
+                          ? navigate("/profile")
+                          : navigate("/user/" + postedBy?._id)
+                      }
+                    >
+                      <img
+                        onError={imageFallback}
+                        src={
+                          listing?.meta?.business
+                            ? postedBy?.BusinessInfo?.LOGO
+                            : postedBy?.image
+                        }
+                        alt=""
+                      />
+                      <div>
+                        <p className="name">
+                          {listing?.meta?.business
+                            ? postedBy?.BusinessInfo?.name
+                            : postedBy?.firstName +
+                              " " +
+                              postedBy?.lastName}{" "}
+                          {user?._id == listing?.user && "(You)"}
+                        </p>
+                        <p className="member_since">
+                          Member since{" "}
+                          <span>
+                            {" "}
+                            {
+                              monthNames[
+                                new Date(postedBy?.createdAt).getMonth()
+                              ]
+                            }
+                            , {new Date(postedBy?.createdAt).getYear() + 1900}
+                          </span>
+                        </p>
+                      </div>
+                      <ArrowForward />
+                    </div>
+                    {user && user?._id != listing?.user && (
+                      <div className="send_message">
+                        <input
+                          type="text"
+                          placeholder="Send a Message"
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          onKeyDown={(e) =>
+                            e.key == "Enter" &&
+                            send({ from: user?._id, to: postedBy?._id })
+                          }
+                        />
+                        <button
+                          onClick={(e) =>
+                            send({ from: user?._id, to: postedBy?._id })
+                          }
+                        >
+                          <SendIcon />
+                        </button>
+                      </div>
+                    )}
+                    {!user && (
+                      <div className="no_user_message">
+                        <Link to="/login"> Login</Link> to send a message to{" "}
+                        {postedBy?.nickname || postedBy?.firstName}
+                      </div>
+                    )}
+                    {user?._id == listing?.user && (
+                      <div className="no_user_message">
+                        You cant message yourself.
+                      </div>
+                    )}
+                  </div>
+                )}
+                {listing?.tags?.length ? (
+                  <div className="tags tile">
+                    <h1>
+                      <LabelOutlinedIcon /> Tags
+                    </h1>
+                    <div>
+                      {listing.tags?.map((tag) => (
+                        <div className="tag">{tag}</div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
-              {preview && (
-                <div className="card">
-                  <div className="btns_row">
-                    <Button
-                      onClick={() => {
-                        editId
-                          ? navigate("/edit/" + ad._id)
-                          : navigate("/post-ad");
-                      }}
-                    >
-                      Back
-                    </Button>
-                    <Button
-                      onClick={handleSubmitAd}
-                      disabled={adPostingLoading}
-                    >
-                      {editId ? "Update Ad" : "Post Ad"}
-                    </Button>
+            </div>
+          </div>
+          {share && (
+            <Modal
+              close={(e) => setShare(false)}
+              heading={
+                <span>
+                  <ShareIcon /> Share this Ad
+                </span>
+              }
+            >
+              <Share
+                close={(e) => setShare(false)}
+                url={window.location.href}
+              />
+            </Modal>
+          )}
+          {paymentModal && (
+            <Modal close={(e) => setPaymentModal(false)}>
+              <PaymentElement
+                onPaymentSuccessful={(token) => setToken(token)}
+                onPaymentFailed={onPaymentFailed}
+                close={(e) => setPaymentModal(false)}
+              />
+            </Modal>
+          )}
+          {paymentSuccess && (
+            <Modal close={() => setPaymentSuccess(false)}>
+              <div className="_success">
+                {" "}
+                <IconPlayer icon={success} once={true} />
+                <p>Ad posted successfully</p>
+              </div>
+            </Modal>
+          )}
+          {token && (
+            <Modal close={() => setToken(null)}>
+              <AdPosthandler
+                close={() => setToken(null)}
+                token={token}
+                onSuccess={(e) => setPaymentSuccess(true)}
+              />
+            </Modal>
+          )}
+          {imgView && (
+            <Modal
+              className={"gallery"}
+              close={(e) => setImgView(false)}
+              heading={"Image " + slide + " of " + listing?.images.length}
+            >
+              <div className="_gallery">
+                <div className={"images_container"} tabIndex={0}>
+                  <div className="slides" ref={ind}>
+                    {listing?.images?.length > 1 &&
+                      listing?.images.map((img, i) => (
+                        <div
+                          className={"dot" + (i + 1 == slide ? " active" : "")}
+                        ></div>
+                      ))}
+                  </div>
+
+                  <div
+                    className="images"
+                    onScroll={(e) => e.preventDefault()}
+                    ref={carousel2}
+                  >
+                    {imgs?.map((img, ind) => (
+                      <div
+                        className="img_cont"
+                        style={{
+                          transform: "translateX(" + (ind + 1 - slide) + "00%)",
+                        }}
+                      >
+                        <PinchZoomImage
+                          src={img}
+                          onSwipedLeft={() => handleSwipe("left")}
+                          onSwipedRight={() => handleSwipe("right")}
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
-              )}
-            </div>
-          </>
-        )}
-      </Spinner>
-      {paymentModal && (
-        <Modal close={(e) => setPaymentModal(false)}>
-          <PaymentElementMobile
-            onPaymentSuccessful={onPaymentSuccessful}
-            onPaymentFailed={onPaymentFailed}
-            close={(e) => setPaymentModal(false)}
-          />
-        </Modal>
+              </div>
+            </Modal>
+          )}
+        </>
       )}
-    </div>
+    </>
   );
 }
-
-const getDate = (ad) => {
-  try {
-    let postedDate = `${new Date(ad?.createdAt).getDate()} ${
-      monthNames[new Date(ad?.createdAt).getMonth()]
-    } ${new Date(ad?.createdAt).getYear() + 1900}`;
-
-    if (postedDate.toLowerCase().includes("nan"))
-      throw new Error("Invalid date");
-    return postedDate;
-  } catch (error) {
-    return `${new Date().getDate()} ${monthNames[new Date().getMonth()]} ${
-      new Date().getYear() + 1900
-    }`;
-  }
-};
+export default ViewListing;

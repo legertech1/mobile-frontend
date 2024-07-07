@@ -1,7 +1,7 @@
 .listings {
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)) !important;
+  ate-columns: repeat(auto-fill, minmax(310px, 1fr)) !important;
   justify-content: start;
   width: 100%;
   padding: 10px 0;

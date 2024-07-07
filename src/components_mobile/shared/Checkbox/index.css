@@ -1,11 +1,10 @@
 .mobile_checkbox {
   height: 20px;
   width: 20px;
-  box-shadow: 0px 0px 4px #ccc;
-  border: 1px solid #ccc;
-  border-radius: 2px;
+  box-shadow: 0px 0px 4px #1114;
+  border: 1px solid var(--blue);
+  border-radius: 3px;
   font-size: 1.5rem;
-
 }
 
 .mobile_checkbox .checked {
@@ -21,5 +20,3 @@
 .mobile_checkbox svg {
   font-size: 1.5rem;
 }
-
-

@@ -94,10 +94,13 @@ function Form({
 
   return (
     <>
-      <h1>Payment</h1>
+      <h1>
+        {" "}
+        <CreditCardIcon /> Payment
+      </h1>
       <div className="stripe_payment">
         <h4>
-          <CreditCardIcon /> External Payment{" "}
+          External Payment{" "}
           {!balance && userBalance?.balance >= total && (
             <Checkbox
               checked={!useBalance}
@@ -113,7 +116,6 @@ function Form({
           <span className="or">or</span>
           <div className="pay_with_balance">
             <h4>
-              <AccountBalanceWalletIcon />
               Pay with Borrowbe Balance{" "}
               <Checkbox
                 checked={useBalance}

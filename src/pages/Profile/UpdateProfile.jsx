@@ -207,7 +207,7 @@ function UpdateProfile({ user, close }) {
         <button className="btn_blue_m" onClick={close}>
           <CloseOutlined />
         </button>
-        <button className="btn_blue_m" onClick={submit}>
+        <button className="btn_blue_m" onClick ={e => ripple(e , {dur:2, cb: submit})}>
           <SaveOutlined />
         </button>
       </div>

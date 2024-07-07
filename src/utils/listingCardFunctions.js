@@ -3,13 +3,13 @@ const imagePlaceholder = require("../assets/images/imagePlaceholder.jpg");
 
 module.exports = {
   next: function (listing, slide, setSlide, e) {
-    e.stopPropagation();
+    e?.stopPropagation();
     if (slide >= listing?.thumbnails?.length || !listing?.thumbnails) return;
 
     setSlide(slide + 1);
   },
   prev: function (listing, slide, setSlide, e) {
-    e.stopPropagation();
+    e?.stopPropagation();
     if (!listing?.thumbnails) return;
 
     setSlide(slide - 1);

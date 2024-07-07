@@ -13,7 +13,7 @@ const notificationSlice = createSlice({
           .then()
           .catch((err) => console.error(err));
 
-      return [...state, action.payload];
+      return [...(state || []), action.payload];
     },
     loadNotifications: function (state, action) {
       return [...action.payload];

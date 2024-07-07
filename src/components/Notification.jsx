@@ -5,31 +5,31 @@ import {
   // close icon
   Close,
 } from "@mui/icons-material";
-const Notification = ({ color, message, autoClose = true }) => {
-  const [visible, setVisible] = useState(true);
-
+const Notification = ({
+  color,
+  message,
+  autoClose = true,
+  closeNotification,
+  id,
+}) => {
   useEffect(() => {
     if (autoClose) {
       const timeout = setTimeout(() => {
         closeNotification();
-      }, 10000);
+      }, 5000);
 
       return () => clearTimeout(timeout);
     }
   }, [autoClose]);
 
-  const closeNotification = () => {
-    setVisible(false);
-  };
-
-  return visible ? (
-    <div className={`notification ${color}`}>
+  return (
+    <div className={`notification ${color}`} id={id}>
       <span>{message}</span>
       <span>
         <Close className="close-icon" onClick={closeNotification} />
       </span>
     </div>
-  ) : null;
+  );
 };
 
 export default Notification;

@@ -1,0 +1,904 @@
+._account .initial,
+._account .action {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  transition: all 0.2s var(--bc);
+  will-change: transform;
+  height: 100vh;
+}
+._account .action {
+  transform: translateX(100%);
+  background-color: white;
+  position: relative;
+}
+._account .header {
+  height: 300px;
+  position: relative;
+  /* border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px; */
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 160%;
+  background-image: url(../../assets/images/img.png);
+  padding-top: 0px;
+  padding-bottom: 0px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.2s var(--bc);
+}
+._account ._header {
+  background: transparent;
+  box-shadow: none;
+}
+
+._account .header .mask {
+  background: linear-gradient(1turn, var(--blue-dark), #082d66);
+  height: 100%;
+  left: 0;
+  opacity: 97%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+._account .header > img {
+  z-index: 4;
+  width: 60vw;
+  max-width: 400px;
+  position: relative;
+  top: 20px;
+}
+._account .profile {
+  z-index: 1;
+  display: flex;
+  padding: 0px 0px 20px;
+  width: 100%;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  color: white;
+  filter: drop-shadow(0px 0px 8px #1118);
+  margin: auto;
+  width: 90%;
+  max-width: fit-content;
+}
+._account .profile img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  min-height: 100px;
+  min-width: 100px;
+}
+._account .profile h3.name {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+._account .profile .email {
+  margin: 0;
+  font-size: 16px;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+._account .profile .uid {
+  margin: 0;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+._account .profile .info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: start;
+  flex: 1;
+  overflow: hidden;
+}
+._account .main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  margin: -90px auto 0;
+  z-index: 2;
+  position: relative;
+  max-width: 800px;
+  padding-bottom: 90px;
+}
+._account .main .tile {
+  padding: 15px;
+  box-shadow: 0px 0px 8px #1113;
+  border-radius: 6px;
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+}
+._account .main .tile h2 {
+  display: flex;
+  align-items: center;
+
+  font-weight: 500;
+  font-size: 15px;
+  margin: 0;
+  gap: 2px;
+  position: relative;
+}
+._account .main .tile h2 svg {
+  fill: var(--blue);
+  height: 22px;
+  width: 22px;
+  position: relative;
+  /* top: 1px; */
+  transition: all 0.2s var(--bc);
+}
+
+._account .main .tile h2 span svg {
+  height: 28px;
+  width: 28px;
+  stroke: white;
+  stroke-width: 0.2;
+}
+._account .main .tile h2 span {
+  position: relative;
+  margin: -10px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+._account .logout {
+  padding: 14px 16px !important;
+  font-size: 18px !important;
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--red);
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px #1114;
+  gap: 4px;
+  float: right;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  align-self: flex-end;
+  box-sizing: border-box;
+}
+
+._account .revealed_options {
+  margin: -16px;
+  margin-top: 8px;
+}
+._account .logout svg {
+  height: 28px;
+  width: 28px;
+}
+._account .country {
+  display: flex;
+  align-items: start;
+  gap: 20px;
+  overflow: hidden;
+  justify-content: space-between;
+}
+._account .country_flag {
+  height: 28px;
+  margin: -4px;
+  border-radius: 4px;
+}
+._account .tile .option {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 6px;
+  font-size: 14px;
+  padding: 15px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  font-weight: 500;
+}
+._account .tile .option svg {
+  fill: var(--blue);
+}
+._account .tile.options {
+  padding: 0 !important;
+}
+.select_country {
+  padding: 0px 0 40px;
+}
+.select_country .country {
+  height: 60px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 17px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+.select_country .country img {
+  height: 32px;
+  width: 54px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0px 0px 2px #1114;
+}
+
+@media (max-width: 500px) {
+  ._account .profile {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    width: 100%;
+    padding: 0 24px;
+  }
+}
+
+._account .action .heading {
+  margin: 0;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  gap: 12px;
+}
+._account .action .heading .back {
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  width: 42px;
+  margin: -8px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 100;
+  position: relative;
+}
+
+._user_info {
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+  height: 100%;
+  gap: 12px;
+  justify-content: start;
+  align-items: center;
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}
+._user_info > div,
+._user_info > button {
+  padding: 16px;
+  border-radius: 6px;
+  border: none;
+  box-shadow: 0px 0px 8px #1114;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+}
+._user_info button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background-color: var(--blue);
+  color: white;
+  font-size: 16px;
+  font-family: var(--FONT1);
+  font-weight: 500;
+}
+._user_info .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 32px 16px 16px;
+}
+._user_info .info * {
+  margin: 0;
+}
+._user_info .info h3 {
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+}
+
+._user_info .pf {
+  gap: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+._user_info .info p {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+  font-weight: 500;
+}
+._user_info .pf img {
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 4px #1112;
+  display: flex;
+}
+._user_info hr {
+  width: 75%;
+  border: 1px solid #eee;
+  margin: 4px !important;
+}
+._user_info .info_line {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  gap: 20px;
+  font-size: 14px;
+}
+._user_info .info_line span {
+  display: flex;
+  color: #555;
+  font-weight: 500;
+  align-items: center;
+  gap: 3px;
+}
+._user_info .info_line span svg {
+  fill: var(--blue);
+}
+.update_profile {
+  height: calc(100vh - 80px);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: start;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-width: 600px;
+  margin: auto;
+}
+.update_profile section {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 8px #1113;
+}
+
+.update_profile h1 {
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  margin: 0;
+  border-radius: 6px;
+  gap: 3px;
+}
+.update_profile h1 svg {
+  fill: var(--blue);
+}
+.update_profile .upload_image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+.update_profile .upload_image img {
+  height: 160px;
+  width: 160px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 4px #1112;
+}
+.update_profile .upload_image .buttons {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 16px;
+  justify-content: start;
+  height: 100%;
+}
+.update_profile .upload_image button {
+  width: 140px;
+  display: flex;
+  background: none;
+  height: 48px;
+  align-items: center;
+  justify-content: start;
+  gap: 2px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background: var(--blue);
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font1);
+
+  padding: 16px;
+  box-sizing: 0px 0px 4px #1112;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+.update_profile button.delete {
+  background-color: var(--red) !important;
+}
+.update_profile .inputs {
+  width: 100%;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.update_profile > .buttons {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 12px;
+  height: 48px;
+}
+
+.update_profile > .buttons button {
+  display: flex;
+  background: none;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background: var(--blue);
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font1);
+
+  padding: 16px;
+  box-sizing: 0px 0px 8px #1113;
+  box-sizing: border-box;
+  color: WHITE;
+  flex: 1;
+  max-width: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+._pricing {
+  height: calc(100% - 60px);
+  padding: 0px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px;
+  margin: 0 auto;
+  justify-content: start;
+}
+._pricing::-webkit-scrollbar {
+  display: none;
+}
+._pricing .category {
+  width: 100%;
+  margin: 0 auto;
+  height: 46px;
+  min-height: 46px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 8px;
+  max-width: 600px;
+  position: relative;
+  padding: 12px;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 23px;
+  box-shadow: 0px 0px 8px #1114;
+  border: 1px solid var(--blue);
+  font-size: 15px;
+  font-weight: 500;
+  /* background: #2196f322; */
+}
+._pricing .package_select {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  min-height: 50px;
+  box-sizing: border-box;
+  background: white;
+  border-radius: 25px;
+  box-shadow: 0px 0px 8px #1114;
+  align-items: center;
+  transition: all 0.2s var(--bc);
+}
+
+._pricing .package_select.Premium {
+  background: linear-gradient(90deg, #fec54277, #fec542);
+}
+
+._pricing .package_select.Standard {
+  background: linear-gradient(90deg, #2196f370, var(--blue), #2196f370);
+}
+._pricing .package_select.Basic {
+  background: linear-gradient(90deg, #555, #bbb);
+}
+._pricing .package_select div {
+  height: 100%;
+  width: 36%;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  border-radius: 26px;
+  transition: all 0.2s var(--bc);
+}
+
+._pricing .package_select div.active {
+  box-shadow: 0px 0px 8px #1114;
+}
+._pricing .package_select div.Premium.active {
+  background-color: var(--gold);
+}
+._pricing .package_select div.Basic.active {
+  background-color: #555;
+}
+._pricing .package_select div.Standard.active {
+  background-color: var(--blue);
+}
+._pricing .category img {
+  width: 30px;
+  object-fit: fill;
+  margin-left: 4px;
+}
+._pricing .details_loading {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding-bottom: 60px;
+}
+
+._account .header.no_user {
+  height: 250px;
+  max-height: 30vh;
+}
+
+._account .main.no_user {
+  margin-top: -40px;
+}
+
+._transactions {
+  height: calc(100% - 60px);
+  display: flex;
+  flex-direction: column;
+  /* padding: 0 12px; */
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+._transactions .selector {
+  height: 40px;
+  width: calc(100% - 24px);
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 8px #1114;
+  overflow: hidden;
+  min-height: 40px;
+  margin: 0 auto;
+}
+
+._transactions .selector .tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 500;
+  transform: all 0.2s var(--bc);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+._transactions .selector .tab.active {
+  background-color: var(--blue);
+  color: white;
+}
+
+._transactions .list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  padding: 8px 12px;
+  filter: drop-shadow(0px 0px 4px #1113);
+}
+
+._transactions .transaction {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 12px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: white;
+  position: relative;
+
+  gap: 12px;
+  flex-direction: column;
+}
+
+._transactions .transaction * {
+  margin: 0;
+}
+
+._transactions .transaction p.info {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+._transactions .transaction .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+._transactions .transaction .sec {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+._transactions p.info.amount {
+  width: 50%;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  color: var(--blue);
+  font-family: var(--font1);
+  text-align: right;
+}
+._transactions span {
+  font-size: 12px;
+  color: #555;
+}
+._transactions .loader_cont {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+._details .ad_info {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border-radius: 4px;
+  box-shadow: 1px 1px 8px #1112, -1px -1px 8px #1112;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 8px;
+  gap: 6px;
+  justify-content: center;
+  max-width: 100%;
+  margin-top: 8px;
+}
+
+._details .ad_info > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+  width: fit-content;
+}
+
+._details .ad_info p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+._details .ad_info h4 {
+  font-weight: 600;
+  margin: 0;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+._details .ad_info .location {
+  margin: 0;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+._details .ad_info .location svg {
+  height: 18px;
+  width: 18px;
+  vertical-align: text-bottom;
+  margin-left: -2px;
+}
+
+._details .ad_info img {
+  height: 90px;
+  width: 100px;
+  min-width: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0px 0px 2px #1112;
+}
+
+._details {
+  padding: 0 12px;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+._details .ad_info .price {
+  font-size: 20px;
+  font-family: var(--font1);
+  font-weight: 600;
+}
+._details .saved span {
+  color: #555;
+}
+._details .saved p {
+  font-size: 15px;
+  font-weight: 500;
+}
+@media (min-height: 1000px) {
+  ._pricing {
+    justify-content: center;
+  }
+}
+@media (min-width: 1000px) {
+  .update_profile {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    margin: auto;
+    overflow: hidden;
+    max-width: 800px;
+    box-sizing: border-box;
+    place-items: start;
+    grid-auto-rows: 250px;
+    height: 100%;
+  }
+  .update_profile section {
+    max-height: 250px;
+    align-self: stretch;
+  }
+  ._account .main {
+    gap: 16px;
+  }
+
+  ._account .header.no_user {
+    height: 30vh;
+    max-height: 30vh;
+  }
+  ._user_info {
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding-bottom: 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  ._user_info .info {
+    gap: 20px !important;
+    padding: 40px 20px 20px;
+  }
+  ._user_info .pf {
+    flex-direction: row !important;
+    gap: 16px !important;
+  }
+  ._user_info .pf h3 {
+    font-size: 28px !important;
+    text-align: left !important;
+  }
+  ._user_info .pf p {
+    font-size: 18px !important;
+    text-align: left !important;
+  }
+  ._account .header {
+    height: 400px;
+  }
+  ._account .profile {
+    gap: 16px;
+  }
+  ._account .profile .name {
+    font-size: 32px !important;
+  }
+  ._account .profile .email {
+    font-size: 20px !important;
+  }
+  ._account .logout {
+    max-width: 360px;
+  }
+  ._account .profile img {
+    height: 160px;
+    width: 160px;
+    min-height: 160px;
+    min-width: 160px;
+  }
+  ._account .main .tile {
+    padding: 24px;
+  }
+  ._account .main .tile h2 {
+    font-size: 20px !important;
+  }
+  ._account .main .tile .option {
+    height: 60px;
+    padding: 24px;
+  }
+  .wallet {
+    padding: 24px !important;
+    gap: 40px !important;
+  }
+  .wallet h2 {
+    font-size: 24px !important;
+  }
+  .wallet .wallet_main h1 {
+    font-size: 42px !important;
+  }
+  .wallet .wallet_main .add_money {
+    padding: 16px 32px !important;
+    font-size: 20px !important;
+  }
+}

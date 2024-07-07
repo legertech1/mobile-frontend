@@ -227,7 +227,7 @@ function ViewListing({ preview, edit }) {
               {listing?.meta?.subCategory || listing?.subCategory} <hr />
               {listing?.listingID || "A0000000"}
             </div>
-            <div className="main">
+            <div className="main left right">
               {" "}
               <div className="left" ref={ref}>
                 <div className="left_img_cont">

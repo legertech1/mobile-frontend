@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ConfirmDialog.css";
+import Modal from "../components_mobile/Modal";
 import { ErrorOutlineOutlined } from "@mui/icons-material";
 
 const ConfirmDialog = ({ message, onConfirm, onCancel, onClose }) => {
@@ -27,42 +28,19 @@ const ConfirmDialog = ({ message, onConfirm, onCancel, onClose }) => {
     document.body.classList.remove("no-scroll");
   };
 
-  useEffect(() => {
-    document.body.classList.add("no-scroll");
-
-    return () => {
-      document.body.classList.remove("no-scroll");
-      setVisible(false);
-    };
-  }, []);
-
-  const closeDialog = () => {
-    return;
-    document.body.classList.remove("no-scroll");
-    setVisible(false);
-    if (onClose) {
-      onClose();
-    }
-  };
-
   return visible ? (
-    <div>
-      <div className="confirm-dialog-container" onClick={closeDialog}>
-        <div className="confirm-dialog" onClick={(e) => e.stopPropagation()}>
-          <div className="confirm-message">
-            {/* <ErrorOutlineOutlined /> */}
-            {message}
-          </div>
-          <div className="button-container">
-            <button className="btn_blue_m" onClick={cancel}>
+    <div className="_confirm">
+      <Modal close={cancel} className={confirm} headerHidden={true}>
+        <div className="confirm_dialog">
+          <p className="message">{message}</p>
+          <div className="buttons">
+            <button className="cancel" onClick={cancel}>
               Cancel
             </button>
-            <button className="btn_red_m" onClick={confirm}>
-              Confirm
-            </button>
+            <button onClick={confirm}>Confirm </button>
           </div>
         </div>
-      </div>
+      </Modal>
     </div>
   ) : null;
 };

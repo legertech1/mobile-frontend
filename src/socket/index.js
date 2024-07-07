@@ -23,7 +23,7 @@ import { pushUpdate } from "../store/updateSlice";
 import { getBalance } from "../store/balanceSlice";
 // import Cookies from "js-cookie";
 
-export const socket = io(process.env.REACT_APP_BASE_URL, {
+export const socket = io("http://192.168.1.4:8080/", {
   withCredentials: true,
   transports: ["websocket", "polling"],
 });
@@ -85,7 +85,9 @@ export const init = (socket, dispatch) => {
     if (update.type == "balance-updated") return dispatch(getBalance());
     dispatch(pushUpdate(update));
   });
-  socket.on("send_chats", (chats) => dispatch(setChats(chats)));
+  socket.on("send_chats", (chats) => {
+    dispatch(setChats(chats));
+  });
   socket.on("receive_message", (data) => {
     dispatch(receiveMessage(data));
   });

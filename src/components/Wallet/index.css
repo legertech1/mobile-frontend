@@ -1,101 +1,78 @@
-.wallet {
-  border-radius: 4px;
-  box-shadow: 1px 1px 8px #1112, -1px -1px 8px #1112;
-  background: white;
-  padding: 20px 16px;
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  position: relative;
-}
 .wallet > h2,
 ._wallet_add_money > h2 {
   margin: 0;
   display: flex;
   font-weight: 500;
-  font-size: 26px;
+
   align-items: center;
   gap: 4px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
 }
 .wallet > h2 svg,
 ._wallet_add_money > h2 svg {
   fill: var(--blue);
-  height: 32px;
-  width: 32px;
+  height: 24px;
+  width: 24px;
+}
+.wallet {
+  border-radius: 6px;
+  box-shadow: 0px 0px 8px #1114;
+  background: white;
+  padding: 16px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
 }
 
 .wallet .wallet_main {
   display: flex;
   gap: 8px;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  padding: 0px 0 10px;
 }
 
 .wallet .wallet_main h1 {
   margin: 0;
-  font-size: 40px;
-  color: var(--blue);
   font-weight: 600;
   font-family: var(--font1);
+  font-size: 32px;
+  overflow: hidden;
+  flex: 1;
+  text-overflow: ellipsis;
+  color: var(--blue);
 }
 
 .wallet .wallet_main .add_money {
-  padding: 10px 20px;
-  background: var(--blue);
+  font-size: 15px;
+  padding: 8px 12px;
   display: flex;
-  color: white;
-  font-weight: 500;
   align-items: center;
-  height: 52px;
   justify-content: center;
-  width: 52px;
-  cursor: pointer;
-  border-radius: 34px;
-  box-sizing: border-box;
-  box-shadow: 0px 0px 8px #1116;
-  transition: all 0.3s var(--bc);
-  transform-origin: right;
-  font-size: 17px;
+  background-color: var(--blue);
+  box-shadow: 0px 0px 4px #1114;
+  color: white;
+  border-radius: 6px;
+  font-weight: 500;
+  grid-area: 2px;
 }
 .wallet .wallet_main .add_money svg {
-  height: 30px;
-  width: 30px;
-}
-.wallet .wallet_main .add_money_container {
-  background-color: white;
-  display: block;
-
-  position: absolute;
-  z-index: 1;
-  /* border-radius: 50px; */
-  border: 16px solid white;
-  bottom: 12px;
-  right: 4px;
-  position: absolute;
-}
-.wallet .wallet_main .add_money span {
-  transition: all 0.3s var(--bc);
-  width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.wallet .wallet_main .add_money:hover span {
-  width: 105px;
-}
-.wallet .wallet_main .add_money:hover {
-  width: 165px;
-
-  /* padding: 10px; */
+  height: 22px;
+  width: 22px;
 }
 
 ._wallet_add_money {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  width: 500px;
-  /* padding: 20px; */
+  width: 100%;
+  padding: 20px 16px 60px;
+  box-sizing: border-box;
+  max-width: 540px;
+  margin: auto;
 }
 ._wallet_add_money .suggested_amounts {
   display: flex;
@@ -107,40 +84,41 @@
 }
 ._wallet_add_money .suggested_amounts p {
   margin: 0;
-  padding: 12px 32px;
+  padding: 10px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--blue);
-  border-radius: 26px;
-  background: #eee;
+  border-radius: 4px;
+
   flex: 1;
-  box-shadow: 0px 0px 4px #1111;
+  box-shadow: 1px 1px 1px #1111, -1px -1px 1px #1111;
   cursor: pointer;
-  transform: scale(0.95);
   transition: all 0.2s var(--bc);
+  background-color: #2196f322;
+  /* border: 1px solid var(--blue); */
+  flex: 1;
 }
-._wallet_add_money .suggested_amounts p:hover {
-  transform: scale(1);
-  background-color: var(--blue);
-  color: white;
-}
+
 ._wallet_add_money .add_money_inp {
   height: 60px;
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 42px;
+  gap: 2px;
+  font-size: 32px;
   color: var(--blue);
-  background-color: #1111;
+  background-color: #2196f322;
   font-weight: 600;
   padding: 8px 20px;
+  box-sizing: border-box;
   border-radius: 4px;
+  box-shadow: 1px 1px 1px #1111, -1px -1px 1px #1111;
+  /* border: 1px solid var(--blue); */
 }
 ._wallet_add_money .add_money_inp input {
-  font-size: 36px;
+  font-size: 30px;
   border: none;
   outline: none !important;
   background: transparent;
@@ -151,37 +129,35 @@
 
 ._wallet_add_money .actions {
   display: flex;
-  gap: 30px;
+  gap: 12px;
   align-items: center;
   justify-content: end;
 }
 
 ._wallet_add_money .actions button {
-  height: 60px;
-
+  height: 52px;
   border: none;
   background: var(--blue);
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 4px;
-  margin-top: 10px;
   font-weight: 500;
   font-family: var(--font1);
   color: white;
-  box-shadow: 0px 0px 8px #1116;
+  box-shadow: 0px 0px 4px #1114;
   cursor: pointer;
   transition: all 0.3s var(--bc);
-  padding: 30px;
-  box-sizing: border-box;
+  padding: 12px;
   display: flex;
   align-items: center;
   gap: 0px;
   justify-content: center;
-  flex: 1;
+  flex: 1 1;
+  box-sizing: border-box;
   /* width: fit-content; */
 }
 ._wallet_add_money .actions button svg {
-  height: 32px;
-  width: 32px;
+  height: 24px;
+  width: 24px;
 }
 ._wallet_add_money .actions button.cancel {
   border: 1px solid var(--red);
@@ -199,5 +175,6 @@
 
 .wallet ._info {
   position: relative;
-  top: 2px;
+
+  margin-left: auto;
 }

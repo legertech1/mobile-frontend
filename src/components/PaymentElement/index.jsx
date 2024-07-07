@@ -247,6 +247,7 @@ function PaymentElement({
           </span>
         </div>
       </div>
+
       <div className="right">
         <BillingDetails
           billing={billing}

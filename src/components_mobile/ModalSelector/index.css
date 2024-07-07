@@ -3,7 +3,7 @@
   justify-content: start;
   gap: 8px;
   align-items: center;
-  padding: 0px 20px;
+  padding: 0px 32px;
   font-weight: 500;
   font-size: 16px;
   color: var(--black);
@@ -20,4 +20,13 @@
   width: 40px;
   max-height: 42px;
   object-fit: fill;
+}
+
+._modal-selector .option svg {
+  fill: var(--blue);
+}
+
+._modal-selector {
+  max-height: 75vh;
+  overflow-y: auto;
 }

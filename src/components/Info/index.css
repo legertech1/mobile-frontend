@@ -11,14 +11,16 @@
   transform: scale(0.9);
   will-change: transform;
 
-  height: 20px !important;
-  width: 20px !important;
+  height: 25px !important;
+  width: 25px !important;
   /* padding: 5px; */
   cursor: pointer;
   /* border: 1px solid var(--blue); */
   box-sizing: border-box;
   /* background-color: var(--blue); */
   transition: all 0.3s var(--bc);
+  stroke: white;
+  stroke-width: 0.4;
 }
 ._info > svg:hover,
 ._info > img:hover {
@@ -62,4 +64,7 @@
   border-bottom-left-radius: 4px;
   left: -16px;
   top: 50%;
+}
+._info_info {
+  padding: 0px 20px 80px;
 }

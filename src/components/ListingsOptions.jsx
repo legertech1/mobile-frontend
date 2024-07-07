@@ -276,7 +276,7 @@ function ListingsOptions({ listing, setListings, extraFn, noView }) {
               className="pause"
               onClick={async (e) => {
                 confirm.openDialog(
-                  "Are you sure you wan to pause listing " +
+                  "Are you sure you want to pause listing " +
                     listing.listingID +
                     "?",
                   async () => {

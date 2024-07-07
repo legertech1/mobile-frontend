@@ -477,7 +477,7 @@
 
 
 @media (max-width: 1024px) {
-  .profile_container .profile {
+  .profile_container .efkhjbwe{
     width: 100%;
     min-width: none;
     max-width: none;
@@ -499,17 +499,17 @@
     height: fit-content;
     flex-direction: column;
   }
-  .profile .profile_image {
+  .efkhjbwe.profile_image {
     height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .profile .profile_image_main {
+  .efkhjbwe.profile_image_main {
     height: 150px;
     width: 150px;
   }
-  .profile .info_line {
+  .efkhjbwe.info_line {
     align-items: center;
     box-sizing: border-box;
     display: flex;
@@ -521,35 +521,35 @@
     font-weight: 600;
     color: #444;
   }
-  .profile .hr {
+  .efkhjbwe.hr {
     width: 90%;
     margin: 0;
   }
-  .profile .actions .edit_profile_button{
+  .efkhjbwe.actions .edit_profile_button{
     background-color: var(--blue) ;
     font-weight: bold;
 
 
   }
-  .profile .actions {
+  .efkhjbwe.actions {
     padding: 0px;
   }
 
-  .profile .actions .edit_profile_button :active{
+  .efkhjbwe.actions .edit_profile_button :active{
     cursor: pointer;
     color: #fff;
     background-color: var(--blue-dark);
     transition: all 0.33s var(--bc);
 
   }
-  .profile .actions .edit_business_button {
+  .efkhjbwe.actions .edit_business_button {
     background: #fff;
     border: 1px solid #666;
     color: #666;
     font-weight: bold;
   }
   
-  .profile .name {
+  .efkhjbwe.name {
     font-size: 20px;
     font-weight: 500;
     font-family: var(--font2);

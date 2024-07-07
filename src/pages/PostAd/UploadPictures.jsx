@@ -61,7 +61,7 @@ const UploadPictures = () => {
 
       imgs.push(img);
       thumbnails.push(thumbnail);
-      // console.log("DONE", file.name);
+   
 
       dispatch(
         setFormData({

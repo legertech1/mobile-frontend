@@ -12,30 +12,37 @@
 
 @keyframes notification_slide {
   0% {
-    right: -120%;
+    top: -100%;
   }
   100% {
-    right: 00px;
+    top: 00px;
   }
 }
 
 .notification-container .notification {
-  padding: 16px;
-  border-radius: 4px;
+  padding: 12px;
+  border-radius: 0px;
   box-shadow: 1px 1px 8px #1112, -1px -1px 8px #1112;
-
   cursor: pointer;
-  width: fit-content;
-  max-width: 360px;
-  max-height: 200px;
+  width: -moz-fit-content;
+  /* width: fit-content; */
+  max-width: 100%;
+  max-height: 100px;
+  min-height: 60px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   font-weight: 500;
   justify-content: space-between;
-  position: relative;
+  position: fixed;
   animation: 0.2s notification_slide var(--bc);
-  gap: 20px;
+  transition: all 0.2s ease-in;
+  gap: 8px;
+  font-size: 14px;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
 }
 
 .notification-container .notification.info {
@@ -65,4 +72,8 @@
 .notification-container .notification.hidden {
   transform: translateY(100%);
   opacity: 0;
+}
+.notification.removed {
+  transform: translateX(100%);
+  opacity: 0.6;
 }

@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import Loader from "../components/Loader";
@@ -13,11 +19,14 @@ import parseAdressComponents from "../utils/parseAdressComponents";
 import { setSelectedLocation, setRadius } from "../store/locationSlice";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { Circle, GoogleMap, OverlayView } from "@react-google-maps/api";
+
 import marker from "../assets/images/marker.png";
-import Checkbox from "./Shared/Checkbox";
+import Checkbox from "../components_mobile/shared/Checkbox";
 import { updatePlaces as setProvinces } from "../store/placesSlice";
+import { KeyboardArrowDown } from "@mui/icons-material";
 
 export default function WebLocation({ close }) {
+  const [showRecent, setShowRecent] = useState(false);
   const provinces = useSelector((state) => state.places);
   const [province, setProvince] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,6 +37,14 @@ export default function WebLocation({ close }) {
   const { selectedLocation, currentLocation } = useSelector(
     (state) => state.location
   );
+  const center = useMemo(() => {
+    console.log();
+    return {
+      lat: selectedLocation?.coordinates?.lat,
+      lng: selectedLocation?.coordinates?.long,
+    };
+  }, [selectedLocation, defaultMapProps]);
+
   const [recentLocations, setRecentLocations] = useLocalStorage(
     "recentLocations",
     null
@@ -43,6 +60,23 @@ export default function WebLocation({ close }) {
     }, 100);
     return () => clearTimeout(tm);
   }, [radius]);
+
+  function showMarker(center) {
+    console.log(center);
+    return (
+      <>
+        <OverlayView
+          position={center}
+          mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+        >
+          <div className="map_marker">
+            <img src={marker} id="marker" alt="" />
+            {/* <img src={shadow} alt="" className="shadow" /> */}
+          </div>
+        </OverlayView>
+      </>
+    );
+  }
 
   const getProvinces = async () => {
     try {
@@ -119,6 +153,12 @@ export default function WebLocation({ close }) {
 
   const onLoad = (map) => {
     setMap(map);
+    map.addListener("dragend", () => {
+      setShow(false);
+      setTimeout(() => {
+        setShow(true);
+      }, 20);
+    });
   };
 
   const onUnmount = () => {
@@ -142,15 +182,6 @@ export default function WebLocation({ close }) {
     handleScrollToCoordinates(selectedLocation?.coordinates);
   }, [selectedLocation]);
 
-  // useEffect(() => {
-  //   if (!show) {
-  //     const tm = setTimeout(() => {
-  //       setShow(true);
-  //     }, 100);
-
-  //     return () => clearTimeout(tm);
-  //   }
-  // }, [show]);
   useEffect(() => {
     if (value) {
       let name = value.label;
@@ -187,6 +218,19 @@ export default function WebLocation({ close }) {
     !componentKeys?.includes("locality");
   const isCountry = !componentKeys?.includes("administrative_area_level_1");
 
+  const zoom = useMemo(() => {
+    if (radius) {
+      return Math.round(Math.log2(40075017 / (radius * 2500)) - 1);
+    } else if (isCountry) {
+      return 3;
+    } else if (isProvince) {
+      return 5;
+    } else if (isCity) {
+      return 9;
+    } else {
+      return 9;
+    }
+  }, [radius, isCountry, isProvince, isCity]);
   return (
     <div className="web_location">
       <div className="selections">
@@ -200,9 +244,8 @@ export default function WebLocation({ close }) {
           {" "}
         </MyAutocomplete>
         <div className="current_loc f">
-          <div>
-            <MyLocationIcon className="curr_icon" />
-          </div>
+          <MyLocationIcon className="curr_icon" />
+
           <div
             className="text_box"
             onClick={() => {
@@ -222,103 +265,160 @@ export default function WebLocation({ close }) {
           {/* <h4>Search Radius</h4> <input type="range" name="" id="" />
           <p>100km</p> */}
         </div>
-        <div className="regions">
-          {recentLocations && <h4 className="heading">Recent Locations</h4>}{" "}
-          <div className="regions_container">
-            {" "}
-            <div className="region">
-              {recentLocations &&
-                recentLocations.map((recent) => (
-                  <div
-                    onClick={(e) => {
-                      setShow(false);
-                      dispatch(
-                        setSelectedLocation({ ...recent, radius: radius })
-                      );
-                    }}
-                    key={recent.place_id}
-                    className="recent"
-                  >
-                    <p className="region_text">
-                      {" "}
-                      {recent?.description ||
-                        recent?.name ||
-                        recent?.components?.locality?.long_name}
-                    </p>
-                    <KeyboardArrowRightOutlinedIcon className="arrow_icon" />
-                  </div>
-                ))}
-            </div>
-          </div>
-          {loading ? (
-            <div className="loader_cont">
-              <Loader />
-            </div>
-          ) : (
-            <>
-              {!province && provinces && (
-                <div className="provinces">
-                  <div className="choose_prpvince">
-                    <h4 className="heading">Choose Region</h4>
-                  </div>
-                  <div className="regions_container">
-                    <div className="region">
-                      {provinces?.map((item) => {
-                        return (
-                          <div
-                            onClick={() => {
-                              setProvince(item);
-                            }}
-                          >
-                            <p className="region_text">{item.name}</p>
-                            <KeyboardArrowRightOutlinedIcon className="arrow_icon" />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              )}
-              {province && province.cities && (
-                <div>
-                  <div className="choose_city">
-                    <h4 className="heading">Choose City</h4>
-                    <p
-                      className="change_province"
-                      onClick={() => {
-                        setProvince(null);
-                      }}
-                    >
-                      Change Province/State
-                    </p>
-                  </div>
-                  <div className="regions_container">
-                    <div className="region">
-                      {province?.cities?.map((item) => {
-                        return (
-                          <div
-                            onClick={() => {
-                              setShow(false);
-                              dispatch(
-                                setSelectedLocation({ ...item, radius: radius })
-                              );
-                              setProvince(null);
-                              // close();
-                            }}
-                          >
-                            <p className="region_text">{item.name}</p>
-                            <KeyboardArrowRightOutlinedIcon className="arrow_icon" />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </>
-          )}
+        <div className="map" ref={mapView}>
+          <GoogleMap
+            onLoad={onLoad}
+            onUnmount={onUnmount}
+            center={center}
+            zoom={zoom}
+            mapContainerStyle={{ height: "100%", width: "100%" }}
+            options={{
+              mapTypeControl: false,
+              fullscreenControl: false,
+              streetViewControl: false,
+              rotateControl: false,
+              scaleControl: false,
+            }}
+            onClick={mapClick}
+          >
+            {selectedLocation && (
+              <Circle
+                center={center}
+                radius={show ? radius * 1000 || 0 : 0} // in meters
+                options={{
+                  fillColor: "#2196f3", // fill color of the circle
+                  fillOpacity: 0.3, // opacity of the fill
+                  strokeColor: "#2196f3", // border color of the circle
+                  strokeOpacity: 1, // opacity of the border
+                  strokeWeight: 1,
+                  className: "CIRCLE",
+                  clickable: false,
+                }}
+              />
+            )}
+            {show && selectedLocation && showMarker(center)}
+          </GoogleMap>
+          {/* <div className="search_radius"></div> */}
         </div>
-        <div className="current_loc select_range">
+        <div className="regions">
+          {recentLocations && (
+            <div className="tile">
+              <h4 className={"heading" + (showRecent ? " active" : "")}>
+                Recent Locations{" "}
+                <button onClick={(e) => setShowRecent(!showRecent)}>
+                  <KeyboardArrowDown />
+                </button>
+              </h4>
+              <div
+                className={
+                  "regions_container recents" + (showRecent ? " active" : "")
+                }
+              >
+                {" "}
+                <div className="region">
+                  {recentLocations.map((recent) => (
+                    <div
+                      onClick={(e) => {
+                        setShow(false);
+                        dispatch(
+                          setSelectedLocation({ ...recent, radius: radius })
+                        );
+                      }}
+                      key={recent.place_id}
+                      className="recent"
+                    >
+                      <p className="region_text">
+                        {" "}
+                        {recent?.description ||
+                          recent?.name ||
+                          recent?.components?.locality?.long_name}
+                      </p>
+                      <KeyboardArrowRightOutlinedIcon className="arrow_icon" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="tile prov">
+            {!loading && (
+              <>
+                {" "}
+                {!province && provinces && (
+                  <div className="provinces">
+                    <div className="choose_prpvince">
+                      <h4 className="heading">Choose Region </h4>
+                    </div>
+
+                    <div className="regions_container">
+                      <div className="region">
+                        {provinces?.map((item) => {
+                          return (
+                            <div
+                              onClick={() => {
+                                setProvince(item);
+                              }}
+                            >
+                              <p className="region_text">{item.name}</p>
+                              <KeyboardArrowRightOutlinedIcon className="arrow_icon" />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {province && province.cities && (
+                  <div className="provinces">
+                    <div className="choose_city">
+                      <h4 className="heading">Choose City</h4>
+                      <p
+                        className="change_province"
+                        onClick={() => {
+                          setProvince(null);
+                        }}
+                      >
+                        Change Province/State
+                      </p>
+                    </div>
+                    <div className="regions_container">
+                      <div className="region">
+                        {province?.cities?.map((item) => {
+                          return (
+                            <div
+                              onClick={() => {
+                                setShow(false);
+                                dispatch(
+                                  setSelectedLocation({
+                                    ...item,
+                                    radius: radius,
+                                  })
+                                );
+                                setProvince(null);
+                                // close();
+                              }}
+                            >
+                              <p className="region_text">{item.name}</p>
+                              <KeyboardArrowRightOutlinedIcon className="arrow_icon" />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {loading && (
+              <div className="loader_cont">
+                <Loader />
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="current_loc select_range tile">
           {selectedLocation?.components &&
             componentKeys.includes(
               "country" || "administrative_area_level_1" || "locality"
@@ -342,18 +442,16 @@ export default function WebLocation({ close }) {
                 </p>
               </div>
             )}
-          {componentKeys.includes(
-            "country" || "administrative_area_level_1" || "locality"
-          ) && <div className="or">-or-</div>}
+
           <div>
             {" "}
-            <h4>Search Radius</h4>{" "}
+            <h4>Range</h4>{" "}
             <input
               type="range"
               value={radius || 0}
               onChange={(e) => _setRadius(e.target.value)}
               min={10}
-              max={1000}
+              max={500}
               name=""
               id=""
               disabled={!radius}
@@ -361,73 +459,6 @@ export default function WebLocation({ close }) {
             <p>{radius || "--"} km</p>
           </div>
         </div>
-      </div>
-      <div className="map" ref={mapView}>
-        <GoogleMap
-          onLoad={onLoad}
-          onUnmount={onUnmount}
-          center={
-            {
-              lat: selectedLocation?.coordinates?.lat,
-              lng: selectedLocation?.coordinates?.long,
-            } || defaultMapProps.center
-          }
-          zoom={
-            radius
-              ? Math.round(Math.log2(40075017 / (radius * 1000)) - 1)
-              : isCountry
-              ? 4
-              : isProvince
-              ? 6
-              : isCity
-              ? 10
-              : 10 || 10
-          }
-          mapContainerStyle={{ height: "100%", width: "100%" }}
-          options={{
-            mapTypeControl: false,
-            fullscreenControl: false,
-            streetViewControl: false,
-            rotateControl: false,
-            scaleControl: false,
-          }}
-          onClick={mapClick}
-        >
-          {selectedLocation && (
-            <Circle
-              center={{
-                lat: selectedLocation?.coordinates?.lat,
-                lng: selectedLocation?.coordinates?.long,
-              }}
-              radius={show ? radius * 1000 || 0 : 0} // in meters
-              options={{
-                fillColor: "#2196f3", // fill color of the circle
-                fillOpacity: 0.4, // opacity of the fill
-                strokeColor: "#2196f3", // border color of the circle
-                strokeOpacity: 0.8, // opacity of the border
-                strokeWeight: 2,
-                className: "CIRCLE",
-                clickable: false,
-              }}
-              // options={place.circle.options}
-            />
-          )}
-          {show && selectedLocation && (
-            <OverlayView
-              position={{
-                lat: selectedLocation?.coordinates?.lat,
-                lng: selectedLocation?.coordinates?.long,
-              }}
-              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-            >
-              <div className="map_marker">
-                <img src={marker} alt="" />
-                {/* <img src={shadow} alt="" className="shadow" /> */}
-              </div>
-            </OverlayView>
-          )}
-        </GoogleMap>
-        {/* <div className="search_radius"></div> */}
       </div>
     </div>
   );

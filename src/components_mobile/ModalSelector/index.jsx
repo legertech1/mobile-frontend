@@ -5,16 +5,23 @@ function ModalSelector({ items, state, setState, close }) {
   return (
     <div className="_modal-selector">
       {items?.length
-        ? items.map((i) => (
+        ? items.map((i, ind) => (
             <div
+              key={ind}
               className="option"
               onClick={(e) => {
-                setState(i);
-                ripple(e);
-                setTimeout(close, 300);
+                ripple(e, {
+                  cb: () => {
+                    setState(i);
+                    close();
+                  },
+                  fast: true,
+                  dur: 2,
+                });
               }}
             >
-              {i.icon && <img src={i.icon} />}
+              {i.icon &&
+                (typeof i.icon == "string" ? <img src={i.icon} /> : i.icon)}
               {i.name || i.value || i}
             </div>
           ))

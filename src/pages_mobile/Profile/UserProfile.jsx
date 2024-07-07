@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import ripple from "../../utils/ripple";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../../store/authSlice";
 import Button from "../../components_mobile/shared/Button";
@@ -311,7 +312,7 @@ export default function UserProfile() {
               Discard
             </Button>
 
-            <Button onClick={submit} disabled={loading}>
+            <Button onClick ={e => ripple(e , {dur:2, cb: submit})} disabled={loading}>
               Save
             </Button>
           </div>

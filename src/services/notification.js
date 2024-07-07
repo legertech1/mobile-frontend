@@ -23,8 +23,14 @@ const NotificationService = ({ children }) => {
   };
 
   const removeNotification = (id) => {
-    setNotifications((prevNotifications) =>
-      prevNotifications.filter((n) => n.id !== id)
+    document.querySelector("#notif" + id)?.classList.add("removed");
+    setTimeout(
+      () =>
+        setNotifications((prevNotifications) => {
+          console.log("/////");
+          return prevNotifications.filter((n) => n.id !== id);
+        }),
+      300
     );
   };
 
@@ -58,8 +64,9 @@ const NotificationService = ({ children }) => {
                 key={notification.id}
                 color={notification.color}
                 message={notification.message}
-                autoClose={notification.autoClose}
-                onClose={() => removeNotification(notification.id)}
+                id={"notif" + notification.id}
+                autoClose={true}
+                closeNotification={() => removeNotification(notification.id)}
               />
             ))}
           </div>,

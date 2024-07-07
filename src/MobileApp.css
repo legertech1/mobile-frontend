@@ -22,9 +22,9 @@
   overflow-x: hidden;
   min-height: 100vh;
   position: absolute;
-  background-color: #f0f0f0;
+  background-color: white;
   font-family: var(--font2);
-  padding-bottom: 66px;
+  /* padding-bottom: 66px; */
 }
 body::-webkit-scrollbar {
   display: none;
@@ -35,6 +35,23 @@ body::-webkit-scrollbar {
   color: var(--gray);
 }
 
+span.ripple_fast {
+  position: absolute;
+  border-radius: 50%;
+  /* To make it round */
+  top: 0;
+  left: 0;
+  background-color: #0002;
+
+  width: 30vw;
+  height: 30vw;
+  /* margin-top: -50%;
+  margin-left: -50%; */
+  transform: translate(-50%, -50%);
+
+  opacity: 0;
+  animation: ripple 0.5s linear;
+}
 span.ripple {
   position: absolute;
   border-radius: 50%;
@@ -43,14 +60,14 @@ span.ripple {
   left: 0;
   background-color: #0002;
 
-  width: 100px;
-  height: 100px;
+  width: 20vw;
+  height: 20vw;
   /* margin-top: -50%;
   margin-left: -50%; */
   transform: translate(-50%, -50%);
 
-  animation: ripple 1s;
   opacity: 0;
+  animation: ripple 0.5s linear;
 }
 
 @keyframes ripple {
@@ -61,10 +78,32 @@ span.ripple {
 
   to {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(10);
+    transform: translate(-50%, -50%) scale(12);
   }
 }
 
 .___app svg {
   pointer-events: none;
+}
+
+.btn_classic {
+  padding: 16px;
+  font-size: 17px;
+  font-weight: 500;
+  color: white;
+  background-color: var(--blue);
+  box-shadow: 0px 0px 8px #1118;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font2);
+  border: none;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+svg {
+  height: 24px;
+  width: 24px;
 }

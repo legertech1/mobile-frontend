@@ -5,7 +5,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import AddIcon from "@mui/icons-material/Add";
 import { AddOutlined } from "@mui/icons-material";
 import Info from "../Info";
-import Modal from "../Modal";
+import Modal from "../../components_mobile/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getBalance, updateBalance } from "../../store/balanceSlice";
 import PaymentElement from "../PaymentElement";
@@ -31,6 +31,7 @@ function Wallet() {
         <AccountBalanceWalletIcon />
         Borrowbe Balance
         <Info
+          heading={"Borrowbe Balance"}
           info={
             "Your Borrowbe Balance allows you to seamlessly make payments and use extra features such as Auto-relist."
           }
@@ -41,11 +42,9 @@ function Wallet() {
           ${balance?.balance || 0}
           {!balance?.balance?.toString().includes(".") ? ".00" : ""}
         </h1>
-        <div className="add_money_container">
-          {" "}
-          <div className="add_money" onClick={() => setOpen(true)}>
-            <AddOutlined /> <span>Add Money</span>
-          </div>
+
+        <div className="add_money" onClick={() => setOpen(true)}>
+          <AddOutlined /> <span>Add Money</span>
         </div>
       </div>
       {open && (
@@ -54,12 +53,15 @@ function Wallet() {
             setOpen(false);
             setAmount(0);
           }}
-        >
-          <div className="_wallet_add_money">
-            <h2>
+          heading={
+            <span>
+              {" "}
               <AccountBalanceWalletIcon />
               Add Borrowbe Balance
-            </h2>
+            </span>
+          }
+        >
+          <div className="_wallet_add_money">
             <div className="add_money_inp">
               $
               <input
@@ -78,10 +80,9 @@ function Wallet() {
               />
             </div>
             <div className="suggested_amounts">
-              <p onClick={() => setAmount(amount + 50)}>$50</p>
-              <p onClick={() => setAmount(amount + 100)}>$100</p>
-              <p onClick={() => setAmount(amount + 200)}>$200</p>
-              <p onClick={() => setAmount(amount + 500)}>$500</p>
+              <p onClick={() => setAmount(amount + 50)}>+50</p>
+              <p onClick={() => setAmount(amount + 100)}>+100</p>
+              <p onClick={() => setAmount(amount + 200)}>+200</p>
             </div>
             <div className="actions">
               <button
@@ -115,6 +116,15 @@ function Wallet() {
             setPaymentModal(false);
             setAmount(0);
           }}
+          className={"payment"}
+          heading={
+            <span>
+              {" "}
+              <AccountBalanceWalletIcon />
+              Add Borrowbe Balance
+            </span>
+          }
+          // headerHidden={true}
         >
           <PaymentElement
             balance={amount}
@@ -131,7 +141,7 @@ function Wallet() {
         </Modal>
       )}
       {paymentSuccess && (
-        <Modal close={() => setPaymentSuccess(false)}>
+        <Modal close={() => setPaymentSuccess(false)} className={"cong"}>
           <div className="_success">
             {" "}
             <IconPlayer icon={success} once={true} />

@@ -91,14 +91,14 @@ export default function ContactUsForm() {
         notification.error("Something went wrong please try again later")
 
       })
-      console.log("formData: ", formData);
+ 
     } else {
       nameRef.current &&
         nameRef.current.scrollIntoView({
           behavior: "smooth",
           block: "start",
         });
-      console.log("Form contains errors. Please fix them.");
+
     }
   };
   return (

@@ -8,6 +8,7 @@ import apis from "../../services/api";
 import useNotification from "../../hooks/useNotification";
 import validateEmail from "../../utils/validateEmail";
 import validatePassword from "../../utils/validatePassword";
+import ripple from "../../utils/ripple";
 function CreatePassword({ close }) {
   const [show, setShow] = useState(false);
   const [password, setPassword] = useState("");
@@ -47,7 +48,7 @@ function CreatePassword({ close }) {
       window.location.reload();
       close();
     } catch (err) {
-      notification.error( err?.response?.data || err.message);;
+      notification.error(err?.response?.data || err.message);
     }
   };
   return (
@@ -56,6 +57,7 @@ function CreatePassword({ close }) {
         <AlternateEmailOutlinedIcon /> Change Email
       </h1>
       <div className="section">
+        <p>Get a code on your current email address and enter it below.</p>
         <div className="inp">
           <AlternateEmailOutlinedIcon />
           <input
@@ -78,25 +80,24 @@ function CreatePassword({ close }) {
               notification.success(res.data);
               setCodeSent(true);
             } catch (err) {
-              notification.error( err?.response?.data || err.message);;
+              notification.error(err?.response?.data || err.message);
             }
           }}
         >
           Send Code
         </button>
-      </div>
-      <div className="section">
+
         <div className="inp">
           <h2> Code from current email:</h2>
           <input
             placeholder=""
             type="number"
             style={{
-              fontSize: "28px",
+              fontSize: "24px",
               letterSpacing: "2px",
               fontWeight: "600",
               fontFamily: "var(--font1)",
-              width: "200px",
+              width: "120px",
               color: "var(--blue)",
             }}
             min="0"
@@ -108,6 +109,7 @@ function CreatePassword({ close }) {
         </div>
       </div>
       <div className="section">
+        <p>Get a code on the email you want to switch to and enter it here.</p>
         <div className="inp">
           <AlternateEmailOutlinedIcon />
           <input
@@ -130,26 +132,25 @@ function CreatePassword({ close }) {
               notification.success(res.data);
               setCodeSent2(true);
             } catch (err) {
-              notification.error( err?.response?.data || err.message);;
+              notification.error(err?.response?.data || err.message);
             }
           }}
           disabled={!codeSent}
         >
           Send Code
         </button>
-      </div>
-      <div className="section">
+
         <div className="inp">
           <h2> Code from new email:</h2>
           <input
             placeholder=""
             type="number"
             style={{
-              fontSize: "28px",
+              fontSize: "24px",
               letterSpacing: "2px",
               fontWeight: "600",
               fontFamily: "var(--font1)",
-              width: "200px",
+              width: "120px",
               color: "var(--blue)",
             }}
             min="0"
@@ -161,6 +162,7 @@ function CreatePassword({ close }) {
         </div>
       </div>
       <div className="section">
+        <p>Enter your password and press the button to chnage your email.</p>
         <div className="inp">
           <KeyIcon />
           <input
@@ -178,7 +180,7 @@ function CreatePassword({ close }) {
         <button
           className="btn_blue_m btn_sm"
           //   disabled={!codeSent2}
-          onClick={submit}
+          onClick ={e => ripple(e , {dur:2, cb: submit})}
         >
           Change email
         </button>

@@ -1,172 +1,56 @@
-import React, { useRef, useState } from "react";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import Pass from "@mui/icons-material/Key";
-
-import LOGO from "../../assets/images/MainLogoBlack.svg";
-import "../Register/index.css";
-import validatePassword from "../../utils/validatePassword";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import apis from "../../services/api";
-import FieldError from "../../components/FieldError";
-
-function ResetPassword() {
-  const navigate = useNavigate();
-  const token = new URLSearchParams(window.location.search).get("token");
-
-  const [show, setShow] = useState(false);
-  const [formData, setFormData] = useState({
-    password: "",
-    password2: "",
-  });
-
-  const inputRefs = {
-    password: useRef(),
-    password2: useRef(),
-  };
-
-  const [formErrors, setFormErrors] = useState({
-    password: {
-      visible: false,
-      message: "Please enter a valid password",
-    },
-    password2: {
-      visible: false,
-      message: "Please enter a valid password",
-    },
-  });
-  const handleFormData = (name, value) => {
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const validateForm = () => {
-    let errors = { ...formErrors };
-    let hasError = false;
-    for (let key in formErrors) {
-      if (key === "password") {
-        if (!validatePassword(formData.password)) {
-          errors.password.visible = true;
-          hasError = true;
-        } else {
-          errors.password.visible = false;
-        }
-      } else if (key === "password2") {
-        if (!validatePassword(formData.password2)) {
-          errors.password2.visible = true;
-          hasError = true;
-        } else {
-          errors.password2.visible = false;
-        }
-      }
-    }
-    setFormErrors(errors);
-
-    return hasError;
-  };
-
-  function handleKeyPress(event, field) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-
-      if (field === "password") {
-        inputRefs.password2.current.focus();
-      } else if (field === "password2") {
-        submit();
-      }
-    }
-  }
-
-  const submit = async () => {
-    try {
-      let hasError = validateForm();
-
-      if (hasError) return;
-
-      if (formData.password != formData.password2)
-        return alert("Passwords do not match");
-
-      await axios.post(apis.resetPassword, {
-        token,
-        password: formData.password,
-      });
-      navigate("/reset-password-successful");
-    } catch (err) {
-      alert(err.response.data.error);
-    }
-  };
-
+import React from "react";
+import "../Login/index.css";
+import MobileLogo from "../../assets/images/MainLogo.svg";
+import {
+  AlternateEmailRounded,
+  Facebook,
+  Google,
+  KeyRounded,
+  PersonRounded,
+} from "@mui/icons-material";
+import { Link } from "react-router-dom";
+function Login() {
   return (
-    <div className="mobile_auth">
-      <div className="container">
-        {/* <Link to="/"> */}
-        <img src={LOGO} alt="logo"></img>
-        {/* </Link> */}
-        <h3>Set new Password</h3>
+    <div className="_login">
+      {/* <Header /> */}
 
-        <div className="registration_form">
-          <div
-            className="inp"
-            style={
-              formErrors.password.visible ? { borderColor: "var(--red)" } : {}
-            }
-          >
-            <Pass></Pass>
-            <input
-              type={show ? "text" : "password"}
-              name=""
-              id=""
-              ref={inputRefs.password}
-              placeholder="New Password"
-              onKeyPress={(e) => handleKeyPress(e, "password")}
-              onChange={(e) => handleFormData("password", e.target.value)}
-            />
+      <div className="bg"></div>
 
-            {!show ? (
-              <VisibilityOffIcon onClick={() => setShow(!show)} />
-            ) : (
-              <VisibilityIcon onClick={() => setShow(!show)} />
-            )}
-          </div>
-          <FieldError
-            error={formErrors.password.message}
-            visible={formErrors.password.visible}
-          />
-          <div
-            className="inp"
-            style={
-              formErrors.password2.visible ? { borderColor: "var(--red)" } : {}
-            }
-          >
-            <Pass></Pass>
-            <input
-              type={show ? "text" : "password"}
-              name=""
-              id=""
-              ref={inputRefs.password2}
-              placeholder="Confirm Password"
-              onKeyPress={(e) => handleKeyPress(e, "password2")}
-              onChange={(e) => handleFormData("password2", e.target.value)}
-            />
-
-            {!show ? (
-              <VisibilityOffIcon onClick={() => setShow(!show)} />
-            ) : (
-              <VisibilityIcon onClick={() => setShow(!show)} />
-            )}
-          </div>
-          <FieldError
-            error={formErrors.password2.message}
-            visible={formErrors.password2.visible}
-          />
-          <button className="btn_classic" onClick={submit}>
-            {" "}
-            Proceed
-          </button>
+      <div className="main">
+        <img src={MobileLogo} alt="" className="logo" />
+        <h1>Hello again!</h1>
+        <div className="inp">
+          <AlternateEmailRounded />
+          <input placeholder="Email Address" />
         </div>
+        <div className="inp">
+          <KeyRounded /> <input placeholder="Password" />
+        </div>
+        <button className="sign-in btn_classic">Sign in</button>
+        <p className="alt">
+          <span>
+            <Link to={"/signup"}>Forgot Password?</Link>
+          </span>
+        </p>
+        <div className="alt-methods">
+          <p>
+            <hr /> or sign in with <hr />
+          </p>
+          <div className="buttons">
+            <button>
+              <Google /> Google
+            </button>
+            <button>
+              <Facebook /> Facebook
+            </button>
+          </div>
+        </div>
+        <p className="footer">
+          Don't have an account yet? <Link>Sign Up</Link>
+        </p>
       </div>
     </div>
   );
 }
 
-export default ResetPassword;
+export default Login;

@@ -1,116 +1,61 @@
 import React, { useRef, useState } from "react";
+import "../Login/index.css";
+import MobileLogo from "../../assets/images/MainLogo.svg";
+import ripple from "../../utils/ripple";
+import {
+  AlternateEmailRounded,
+  Facebook,
+  Google,
+  KeyRounded,
+  PersonRounded,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
-import PersonIcon from "@mui/icons-material/Person";
-import Email from "@mui/icons-material/AlternateEmail";
-import Pass from "@mui/icons-material/Key";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import GoogleIcon from "@mui/icons-material/Google";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import LOGO from "../../assets/images/MainLogoBlack.svg";
-import "./index.css";
-import FieldError from "../../components/FieldError";
+import Checkbox from "../../components_mobile/shared/Checkbox";
+import useNotification from "../../hooks/useNotification";
 import validateEmail from "../../utils/validateEmail";
 import validatePassword from "../../utils/validatePassword";
 import axios from "axios";
 import apis from "../../services/api";
-import Checkbox from "../../components/Shared/Checkbox";
-import useNotification from "../../hooks/useNotification";
-
-function Register() {
+function Login() {
   const [show, setShow] = useState(false);
-  const [termsChecked, setTermsChecked] = useState(false);
-
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-  });
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const passRef = useRef();
+  const emailRef = useRef();
+  const nameRef = useRef();
+  const [passwordError, setPasswordError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [nameError, setNameError] = useState(false);
+  const emailInfo = useRef();
+  const passwordInfo = useRef();
+  const nameInfo = useRef();
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
   const inputRefs = {
-    fullName: useRef(),
+    name: useRef(),
     email: useRef(),
     password: useRef(),
   };
-
-  const [formErrors, setFormErrors] = useState({
-    fullName: {
-      visible: false,
-      message: "Please enter your full name",
-    },
-    email: {
-      visible: false,
-      message: "Please enter a valid email",
-    },
-    password: {
-      visible: false,
-      message: "Please enter a valid password",
-    },
-  });
-
-  const navigate = useNavigate();
-
-  const handleFormData = (name, value) => {
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const validateForm = () => {
-    let errors = { ...formErrors };
-    let hasError = false;
-    for (let key in formErrors) {
-      if (key === "email") {
-        if (!validateEmail(formData.email)) {
-          errors.email.visible = true;
-          hasError = true;
-        } else {
-          errors.email.visible = false;
-        }
-      } else if (key === "password") {
-        if (!validatePassword(formData.password)) {
-          errors.password.visible = true;
-          hasError = true;
-        } else {
-          errors.password.visible = false;
-        }
-      } else if (key === "fullName") {
-        if (!formData.fullName) {
-          errors.fullName.visible = true;
-          hasError = true;
-        } else {
-          errors.fullName.visible = false;
-        }
-      }
-    }
-    setFormErrors(errors);
-
-    return hasError;
-  };
-
-  function handleKeyPress(event, field) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-
-      if (field === "fullName") {
-        inputRefs.email.current.focus();
-      }
-      if (field === "email") {
-        inputRefs.password.current.focus();
-      } else if (field === "password") {
-        submit();
-      }
-    }
-  }
+  const [termsChecked, setTermsChecked] = useState(false);
   let notification = useNotification();
 
-  const submit = async () => {
-    let hasError = validateForm();
-
-    if (hasError) return notification.error("Please fill all the fields");
+  async function submit() {
+    console.log("..");
+    if (!name) return notification.error("Please enter full name.");
+    if (!validateEmail(email))
+      return notification.error("Please enter a valid email.");
+    if (!validatePassword(password))
+      return notification.error(
+        "  Password should contain at least one special character, one number and be 8 characters long"
+      );
 
     if (!termsChecked)
       return notification.error("Please accept terms and conditions");
 
-    let names = formData.fullName.trim().split(" ");
+    let names = name.trim().split(" ");
     let firstName = names[0][0].toUpperCase() + names[0].slice(1);
     let lastName = "";
     for (let i = 1; i < names.length; i++) {
@@ -121,144 +66,148 @@ function Register() {
       await axios.post(apis.register, {
         firstName,
         lastName,
-        email: formData.email.toLowerCase(),
-        password: formData.password,
+        email: email.toLowerCase(),
+        password,
       });
-      navigate("/verify");
     } catch (err) {
       notification.error(err.response.data.error);
+      return setError(err.response.data.error);
     }
-  };
+    navigate("/verify");
+  }
 
+  function handleKeyPress(event, field) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+
+      if (field === "name") {
+        if (!name) {
+          setNameError(true);
+          inputRefs.name.current.scrollIntoView({ behavior: "smooth" });
+        } else {
+          inputRefs.email.current.focus();
+        }
+      } else if (field === "email") {
+        if (!validateEmail(email)) {
+          setEmailError(true);
+          inputRefs.email.current.scrollIntoView({ behavior: "smooth" });
+        } else {
+          inputRefs.password.current.focus();
+        }
+      } else if (field === "password") {
+        if (!validatePassword(password)) {
+          setPasswordError(true);
+          inputRefs.password.current.scrollIntoView({ behavior: "smooth" });
+        } else {
+          submit();
+        }
+      }
+    }
+  }
   return (
-    <div className="mobile_auth">
-      <div className="container">
-        <Link to="/">
-          <img src={LOGO} alt="logo"></img>
-        </Link>
-        <div className="registration_form">
-          <div
-            className="inp"
-            style={
-              formErrors.fullName.visible ? { borderColor: "var(--red)" } : {}
-            }
-          >
-            <PersonIcon></PersonIcon>
-            <input
-              type="text"
-              name=""
-              id=""
-              ref={inputRefs.fullName}
-              onKeyPress={(e) => handleKeyPress(e, "fullName")}
-              placeholder="Full Name"
-              onChange={(e) => handleFormData("fullName", e.target.value)}
-            />
-          </div>
-          <FieldError
-            error={formErrors.fullName.message}
-            visible={formErrors.fullName.visible}
+    <div className="_login">
+      {/* <Header /> */}
+
+      <div className="bg"></div>
+
+      <div className="main">
+        <img src={MobileLogo} alt="" className="logo" />
+        <h1 className="sm">Let's get started!</h1>
+
+        <div className="inp" ref={nameRef}>
+          <PersonRounded />
+          <input
+            type="text"
+            name=""
+            id=""
+            placeholder="Full Name"
+            onChange={(e) => {
+              setName(e.target.value);
+              setNameError(false);
+              setError(false);
+            }}
+            onKeyPress={(e) => handleKeyPress(e, "name")}
+            ref={inputRefs.name}
+            value={name}
           />
-          <div
-            className="inp"
-            style={
-              formErrors.email.visible ? { borderColor: "var(--red)" } : {}
-            }
-          >
-            <Email></Email>
-            <input
-              type="email"
-              name=""
-              ref={inputRefs.email}
-              onKeyPress={(e) => handleKeyPress(e, "email")}
-              id=""
-              placeholder="Email"
-              onChange={(e) => handleFormData("email", e.target.value)}
-            />
-          </div>
-          <FieldError
-            error={formErrors.email.message}
-            visible={formErrors.email.visible}
+        </div>
+
+        <div className="inp" ref={emailRef}>
+          <AlternateEmailRounded />
+          <input
+            type="email"
+            name=""
+            id=""
+            placeholder="Email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailError(false);
+              setError(false);
+            }}
+            onKeyPress={(e) => handleKeyPress(e, "email")}
+            ref={inputRefs.email}
+            value={email}
+          />
+        </div>
+
+        <div className="inp" ref={passRef}>
+          <KeyRounded />
+          <input
+            type={show ? "text" : "password"}
+            name=""
+            id=""
+            placeholder="Password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setPasswordError(false);
+              setError(false);
+            }}
+            onKeyPress={(e) => handleKeyPress(e, "password")}
+            ref={inputRefs.password}
+            value={password}
           />
 
-          <div
-            className="inp"
-            style={
-              formErrors.password.visible ? { borderColor: "var(--red)" } : {}
-            }
-          >
-            <Pass></Pass>
-            <input
-              type={show ? "text" : "password"}
-              name=""
-              ref={inputRefs.password}
-              onKeyPress={(e) => handleKeyPress(e, "password")}
-              id=""
-              placeholder="Password"
-              onChange={(e) => handleFormData("password", e.target.value)}
-            />
-
-            {!show ? (
-              <VisibilityOffIcon onClick={() => setShow(!show)} />
-            ) : (
-              <VisibilityIcon onClick={() => setShow(!show)} />
-            )}
-          </div>
-
-          <FieldError
-            error={formErrors.password.message}
-            visible={formErrors.password.visible}
-          />
-          <div className="terms_and_condition_mobile">
-            <Checkbox checked={termsChecked} setChecked={setTermsChecked} />
-            <p>
-              I agree to the{" "}
-              <span>
-                <Link target="_blank" to={`/help-doc/terms-of-use`}>
-                  Terms of Service
-                </Link>
-              </span>{" "}
-              and{" "}
-              <span>
-                <Link target="_blank" to={`/help-doc/privacy-policy`}>
-                  Privacy Policy.
-                </Link>
-              </span>
-            </p>
-          </div>
-
-          <button className="btn_classic" onClick={submit}>
-            Register{" "}
-          </button>
-          <div className="links">
-            <p>
-              Already have an account?{" "}
-              <Link to="/login">
-                <span>Sign In</span>
-              </Link>
-            </p>
-            <span></span>
-          </div>
-          <p className="hr_line">
-            {" "}
-            <hr />
-            or continue with <hr />
+          {!show ? (
+            <span onClick={() => setShow(!show)}>
+              {" "}
+              <VisibilityOff />
+            </span>
+          ) : (
+            <span onClick={() => setShow(!show)}>
+              {" "}
+              <Visibility />
+            </span>
+          )}
+        </div>
+        <button className="sign-in btn_classic" onClick ={e => ripple(e , {dur:2, cb: submit})}>
+          Sign Up
+        </button>
+        <p className="agreement">
+          <Checkbox checked={termsChecked} setChecked={setTermsChecked} />
+          <span>
+            I agree to the <Link>Terms of Service</Link> and{" "}
+            <Link>Privacy Policy</Link>.
+          </span>
+        </p>
+        <div className="alt-methods">
+          <p>
+            <hr /> or sign up with <hr />
           </p>
-          <div className="sign_in_options">
-            <div>
-              <button >
-                <GoogleIcon></GoogleIcon>
-                Google
-              </button>
-              <button>
-                <FacebookIcon></FacebookIcon>
-                Facebook
-              </button>
-            </div>
+          <div className="buttons">
+            <button>
+              <Google /> Google
+            </button>
+            <button>
+              <Facebook /> Facebook
+            </button>
           </div>
         </div>
+        <p className="footer">
+          Already have an account? <Link to={"/login"}>Sign In</Link>
+        </p>
       </div>
     </div>
   );
 }
 
-export default Register;
+export default Login;

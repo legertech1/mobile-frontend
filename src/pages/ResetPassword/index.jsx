@@ -156,7 +156,7 @@ function ResetPassword() {
             )}
           </div>
 
-          <button className="btn_classic" onClick={submit}>
+          <button className="btn_classic" onClick ={e => ripple(e , {dur:2, cb: submit})}>
             {" "}
             Proceed
           </button>

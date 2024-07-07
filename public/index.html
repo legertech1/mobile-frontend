@@ -3,10 +3,13 @@
   <head>
     <meta name="referrer" content="no-referrer" />
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
     <meta name="robots" content="%REACT_APP_ROBOTS%" />
     <link rel="manifest" href="manifest.json" />
-
 
     <title>BorrowBe</title>
     <meta
@@ -23,7 +26,10 @@
   </head>
 
   <body>
-    <div id="portal"></div>
+    <div id="portal">
+      <div id="modals"></div>
+    </div>
     <div id="root"></div>
+    <div id="send_message_cont"></div>
   </body>
 </html>

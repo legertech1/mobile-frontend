@@ -1,92 +1,37 @@
-/* ConfirmDialog.css */
-body.no-scroll {
-  overflow: hidden;
-}
-
-.confirm-dialog-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+.confirm_dialog {
+  padding: 40px 40px 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10000;
-}
-.confirm-dialog {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 4px;
-  box-shadow: 0px 0px 8px #111a;
-  z-index: 10000;
-  width: 400px;
-  transition: opacity 0.2s var(--bc);
-  animation: 0.15s modal_open var(--bc);
+  flex-direction: column;
 }
 
-.confirm-message {
-  margin-bottom: 20px;
-  font-size: 20px;
-  font-weight: 500;
-  font-family: var(--font2);
-  color: #333;
-  display: flex;
-  align-items: start;
-  justify-content: center;
+.confirm_dialog .message {
+  font-size: 17px;
   text-align: center;
-  gap: 4px;
+  margin: 0 0 20px;
+  font-weight: 500;
 }
-.confirm-message svg {
-  height: 24px;
-  width: 24px;
-  fill: var(--blue);
-}
-
-.button-container {
+.confirm_dialog .buttons {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 }
-
-.button-container button {
-  padding: 14px 20px;
-  margin-left: 10px;
-  cursor: pointer;
-  font-size: 20px;
-  flex: 1;
-}
-
-.button-container button:last-child {
-  margin-left: 0;
-}
-
-.confirm-dialog .btn_red_m {
-  border: 1px solid var(--red);
-  background: white;
-  color: var(--red);
-}
-.confirm-dialog .btn_red_m:hover {
-  border: 1px solid var(--red);
+.confirm_dialog button {
+  height: 44px;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  background: var(--blue);
   color: white;
-  background-color: var(--red);
+  font-size: 18px;
+  box-shadow: 0px 0px 4px #1114;
+  /* font-weight: 500; */
 }
-/* confirm-dialog width 80% on mobile */
-
-@media (max-width: 600px) {
-  .confirm-dialog {
-    width: 80%;
-  }
-}
-
-@keyframes modal_open {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+.confirm_dialog .cancel {
+  border: 2px solid var(--red);
+  background-color: white;
+  color: var(--red);
 }

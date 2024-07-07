@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import Arrow from "@mui/icons-material/KeyboardArrowDown";
 import "./index.css";
+import Modal from "../../../components_mobile/Modal";
+import ModalSelector from "../../../components_mobile/ModalSelector";
 
 function Dropdown({
   array,
@@ -10,6 +12,7 @@ function Dropdown({
   icons,
   subtext,
   placeholder = "Select an option",
+  heading = "Select an option",
 }) {
   const options = useRef();
   const dropdownButton = useRef();
@@ -26,11 +29,7 @@ function Dropdown({
 
   useEffect(() => {
     function handleOutsideClick(event) {
-      if (
-        isOpen &&
-        !options.current.contains(event.target) &&
-        !dropdownButton.current.contains(event.target)
-      ) {
+      if (isOpen && !dropdownButton.current.contains(event.target)) {
         closeDropdown();
       }
     }
@@ -90,16 +89,17 @@ function Dropdown({
           <Arrow></Arrow>
         </div>
       </div>
-      <div className={`options ${isOpen ? "active" : ""}`} ref={options}>
-        {array &&
-          array.map((item, index) => (
-            <React.Fragment key={index}>
-              <Option value={item} index={index} />
-              <hr />
-            </React.Fragment>
-          ))}
-        {(!array && error) || ""}
-      </div>
+
+      {isOpen && (
+        <Modal heading={heading} close={() => setIsOpen(false)}>
+          <ModalSelector
+            items={array}
+            state={value}
+            setState={setValue}
+            close={() => setIsOpen(false)}
+          ></ModalSelector>
+        </Modal>
+      )}
     </div>
   );
 }

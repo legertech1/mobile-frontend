@@ -5,9 +5,9 @@
   display: flex;
   flex-direction: column;
   font-size: 20px;
-  height: 30px;
+  height: 18px;
   /* justify-content: center; */
-  padding: 16px;
+  padding: 14px;
   align-items: center;
   filter: drop-shadow(1px 1px 4px #1114);
   z-index: 10;
@@ -45,13 +45,15 @@
   justify-content: space-between;
   cursor: pointer;
   width: 100%;
+  font-size: 15px;
   font-weight: 500;
 }
 ._dropdown .arrow svg {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
+  fill: var(--blue);
 }
 ._dropdown .options {
   background: var(--fg);
@@ -110,7 +112,7 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
-  height: 30px;
+  height: 20px;
 }
 
 ._dropdown .selected > div span {

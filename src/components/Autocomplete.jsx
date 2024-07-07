@@ -87,6 +87,7 @@ const MyAutocomplete = ({
   return (
     <div className="_autocomplete" onClick={(e) => e.stopPropagation()}>
       {children}
+
       <input
         disabled={disabled ? true : false}
         type="text"
@@ -123,7 +124,6 @@ const MyAutocomplete = ({
               }}
               key={prediction.place_id}
             >
-              <LocationOnOutlinedIcon />
               {prediction.description}
             </li>
           ))}

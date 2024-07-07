@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
-import { socket, sendMessage } from "./socket";
 import NotificationService from "./services/notification";
 import ConfirmDialogService from "./services/confirmDialog";
 import { LoadScript } from "@react-google-maps/api";
@@ -18,7 +17,7 @@ function Root() {
   async function init() {
     await axios.get(apis.init);
   }
-  axios.defaults.baseURL = BASE_URL;
+  axios.defaults.baseURL = "http://192.168.1.4:8080/";
   axios.defaults.withCredentials = true;
   axios.interceptors.request.use(
     function (config) {

@@ -3,7 +3,7 @@
 
 :root {
   --fg: #fff;
-  --bg: #f0f0f0;
+  --bg: #f8f8f8;
   --blue: #2196f3;
   /* --red: #f44336; */
   --gray: #adadad;
@@ -12,12 +12,12 @@
   --font2: "Wix Madefor Text", sans-serif;
   --bc: cubic-bezier(0.215, 0.61, 0.355, 1);
   --error: #fec135;
-  --mobile-yellow: #f0d670;
-  --yellow: #fec135;
-  --yellow-light: #fec135bb;
-  --red: indianred;
+
+  --yellow: rgb(253, 217, 14);
+  --gold: #fec542;
+  --red: #df4c4c;
   --red-dark: #aa4d4d;
-  --loader-bg: linear-gradient(135deg, #1111, #1111, #11111120);
+  --loader-bg: linear-gradient(135deg, #1111, #1111, #1112);
   --loader-bg-size: 300%;
 }
 
@@ -57,12 +57,16 @@ a {
   justify-content: center;
   align-items: center;
   background-color: white;
+  padding: 20px;
+  box-sizing: border-box;
 }
 .logo_loader > div {
-  width: 500px !important;
-  height: 500px !important;
+  width: 100vw !important;
+  height: 100vw !important;
   aspect-ratio: 1 / 1;
   filter: drop-shadow(1px 1px 24px #1112);
+  max-width: 500px !important;
+  max-height: 500px !important;
 }
 
 #root {
@@ -112,4 +116,28 @@ body::-webkit-scrollbar {
   top: 0;
   left: 0;
   background-color: var(--bg);
+}
+._success {
+  height: fit-content;
+  box-sizing: border-box;
+  padding: 0 30px 60px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-weight: 500;
+  /* padding-bottom: 60px; */
+}
+._success p {
+  margin: 0;
+}
+
+._success > div {
+  width: 500px !important;
+  height: 500px !important;
+  aspect-ratio: 1 / 1 !important;
+  margin: -200px !important;
+  max-width: 150vw !important;
+  max-height: 150vw !important;
 }

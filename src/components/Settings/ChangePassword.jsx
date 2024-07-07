@@ -9,6 +9,8 @@ import apis from "../../services/api";
 import useNotification from "../../hooks/useNotification";
 import validateEmail from "../../utils/validateEmail";
 import validatePassword from "../../utils/validatePassword";
+import ripple from "../../utils/ripple";
+import "./index.css";
 function CreatePassword({ close }) {
   const [show, setShow] = useState(false);
   const [password, setPassword] = useState("");
@@ -37,7 +39,7 @@ function CreatePassword({ close }) {
       notification.success(res.data);
       close();
     } catch (err) {
-      notification.error( err?.response?.data || err.message);;
+      notification.error(err?.response?.data || err.message);
     }
   };
   return (
@@ -46,6 +48,10 @@ function CreatePassword({ close }) {
         <KeyIcon /> Change Password
       </h1>
       <div className="section">
+        <p>
+          Get a verification code on your registered email address and enter it
+          here.
+        </p>
         <div className="inp">
           <AlternateEmailOutlinedIcon />
           <input
@@ -68,14 +74,12 @@ function CreatePassword({ close }) {
               notification.success(res.data);
               setCodeSent(true);
             } catch (err) {
-              notification.error( err?.response?.data || err.message);;
+              notification.error(err?.response?.data || err.message);
             }
           }}
         >
           Send Code
         </button>
-      </div>
-      <div className="section">
         <div className="inp">
           <h2> Verification Code:</h2>
           <input
@@ -98,6 +102,10 @@ function CreatePassword({ close }) {
         </div>
       </div>
       <div className="section">
+        <p>
+          Enter the new password and confirm, then click the button to change
+          your password.
+        </p>
         <div className="inp">
           <KeyIcon />
           <input
@@ -112,8 +120,7 @@ function CreatePassword({ close }) {
             <VisibilityIcon onClick={() => setShow(!show)} />
           )}
         </div>
-      </div>
-      <div className="section">
+
         <div className="inp">
           <KeyIcon />
           <input
@@ -126,7 +133,7 @@ function CreatePassword({ close }) {
         <button
           className="btn_blue_m btn_sm"
           disabled={!codeSent}
-          onClick={submit}
+          onClick ={e => ripple(e , {dur:2, cb: submit})}
         >
           Change Password
         </button>
