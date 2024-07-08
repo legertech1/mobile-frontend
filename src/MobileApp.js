@@ -11,7 +11,7 @@ import Register from "./pages_mobile/Register";
 import ForgotPassword from "./pages_mobile/ForgotPassword";
 import ResetPassword from "./pages_mobile/ResetPassword";
 import Chat from "./pages_mobile/Chat";
-import PostAd from "./pages_mobile/PostAd/Index";
+import PostAd from "./pages_mobile/PostAd";
 import UserProfile from "./pages_mobile/Profile/UserProfile";
 import InfoComp from "./components/InfoComp";
 
