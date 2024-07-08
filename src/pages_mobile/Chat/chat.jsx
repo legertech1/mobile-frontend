@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
+import PinchZoomImage from "../Ad/PinchToZoom";
 import "./index.css";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -382,9 +382,15 @@ function Chat({ chat, setChat, manageShift, animating }) {
         <Modal
           close={() => setImagePreview(null)}
           onKeyDown={(e) => e.key == "Escape" && setImagePreview(null)}
-          className={"image"}
+          className={"gallery"}
         >
-          <img src={imagePreview} />
+          <div className="_gallery">
+            <div className="images_container">
+              <div className="images">
+                <PinchZoomImage src={imagePreview}> </PinchZoomImage>
+              </div>
+            </div>
+          </div>
         </Modal>
       )}
     </div>

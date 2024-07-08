@@ -25,7 +25,7 @@ const Footer = ({ visible }) => {
     () => [
       {
         name: "Home",
-        icon: <House />,
+        icon: <House className="home"/>,
 
         path: "/",
       },
@@ -47,7 +47,7 @@ const Footer = ({ visible }) => {
       },
       {
         name: "Account",
-        icon: user ? <PersonCircle /> : <MoreCircle />,
+        icon: user ? <PersonCircle className="profile" /> : <MoreCircle className="profile" />,
         path: "/profile",
       },
     ],

@@ -15,11 +15,13 @@
 
   height: calc(100vh - 80px);
   flex-direction: column;
+  overflow-y: auto;
+  padding-bottom: 60px;
 }
 .payment_form *::-webkit-scrollbar,
 .payment_form::-webkit-scrollbar {
   width: 8px;
-  display: block !important;
+  display: none !important;
 }
 
 .payment_form *::-webkit-scrollbar-track,

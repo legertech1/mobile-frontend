@@ -37,8 +37,13 @@
   flex-direction: column;
   /* border-radius: 50%; */
   box-sizing: border-box;
-  min-width: 56px;
-  min-height: 56px;
+
+  max-width: 60px;
+  max-height: 60px;
+  width: 7vh;
+  height: 7vh;
+  min-width: 50px;
+  min-height: 50px;
   font-weight: 500;
   cursor: pointer;
   display: flex;
@@ -49,23 +54,30 @@
 }
 
 .mobile_footer .item_cont svg {
-  height: 32px;
-  width: 32px;
-
+  height: 4vh;
+  width: 4vh;
+  max-height: 36px;
+  max-width: 36px;
   transition: all 0.2s var(--bc);
 }
-.mobile_footer .item_cont:first-child svg {
-  height: 28px;
-  width: 28px;
+.mobile_footer .item_cont .home {
+  height: 3.8vh !important;
+  width: 3.8vh !important;
+  max-height: 33px;
+  max-width: 33px;
 }
-
-.mobile_footer .item_cont:last-child svg {
-  height: 36px;
-  width: 36px;
+.mobile_footer .item_cont .profile {
+  height: 4.2vh !important;
+  width: 4.2vh !important;
+  max-height: 39px;
+  max-width: 39px;
 }
 .mobile_footer svg.mid {
-  height: 48px;
-  width: 48px;
+  height: 6vh;
+
+  width: 6vh;
+  max-height: 50px;
+  max-width: 50px;
 }
 
 .mobile_footer .item_cont.active svg {
@@ -84,11 +96,17 @@
 .mobile_footer .indicator {
   position: absolute;
   background: white;
-  height: 56px;
+
   top: 6px;
   left: 0;
-  width: 56px;
+
   border-radius: 50%;
   transform: translateX(6px);
   transition: all 0.3s var(--bc);
+  max-width: 60px;
+  max-height: 60px;
+  width: 7vh;
+  height: 7vh;
+  min-width: 50px;
+  min-height: 50px;
 }

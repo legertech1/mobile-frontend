@@ -5,6 +5,7 @@
   padding: 4px;
   background: white;
   grid-auto-flow: dense;
+  padding-bottom: 10vh;
   /* grid-auto-rows: 180px; */
 }
 ._listing .empty_img {
