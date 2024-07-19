@@ -5,7 +5,7 @@
   min-height: 200px;
   overflow: hidden;
   max-height: 450px;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 .view_listing ._left,
@@ -674,7 +674,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
 }
 
 .view_listing .preview h1 {
@@ -687,19 +687,36 @@
   color: var(--blue);
   border: 1px solid var(--blue);
   flex: 1;
-  height: 66px;
-  font-size: 22px;
+  height: 50px;
+  font-size: 18px;
   font-weight: 500;
+  border-radius: 6px;
+  gap: 2px;
+  padding: 0 20px;
+  min-width: fit-content;
+}
+
+.view_listing .tile.preview {
+  position: fixed;
+  bottom: 0px;
+  z-index: 100;
+  width: 100%;
+  left: 0;
+  box-shadow: 0px 0px 16px #1114;
 }
 
 .view_listing .actions .postAd {
   flex: 1;
   border: 1px solid var(--blue);
-  height: 66px;
-  font-size: 22px;
+  height: 50px;
+  font-size: 18px;
   background-image: linear-gradient(90deg, var(--blue), var(--blue-dark));
   /* background-size: 200%; */
   background-position: top left;
+  border-radius: 6px;
+  gap: 2px;
+  padding: 0 30px;
+  min-width: fit-content;
   /* animation: 2s ease-out infinite cta_btn; */
   /* font-weight: 500; */
 }
@@ -927,5 +944,10 @@
     width: 36%;
     flex: 1;
     max-width: 440px;
+  }
+  .view_listing .tile.preview {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16px;
   }
 }

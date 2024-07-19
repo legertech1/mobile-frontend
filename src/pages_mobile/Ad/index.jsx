@@ -281,12 +281,21 @@ function ViewListing({ preview, edit, _id }) {
                     <p>
                       <CalendarMonthIcon />
                       Posted on{" "}
-                      <span>
-                        {new Date(listing?.createdAt).getDate()}{" "}
-                        {monthNames[new Date(listing?.createdAt).getMonth()]}
-                        {", "}
-                        {new Date(listing?.createdAt).getFullYear()}
-                      </span>
+                      {preview ? (
+                        <span>
+                          {new Date().getDate()}{" "}
+                          {monthNames[new Date().getMonth()]}
+                          {", "}
+                          {new Date().getFullYear()}
+                        </span>
+                      ) : (
+                        <span>
+                          {new Date(listing?.createdAt).getDate()}{" "}
+                          {monthNames[new Date(listing?.createdAt).getMonth()]}
+                          {", "}
+                          {new Date(listing?.createdAt).getFullYear()}
+                        </span>
+                      )}
                     </p>
                     <div className="actions">
                       {!preview && (
@@ -303,11 +312,13 @@ function ViewListing({ preview, edit, _id }) {
                     </div>
                   </div>
 
-                  <p className="category">
-                    {listing?.meta?.category} <ChevronRight />{" "}
-                    {listing?.meta?.subCategory}
-                    <ChevronRight /> {listing.listingID}
-                  </p>
+                  {!preview && (
+                    <p className="category">
+                      {listing?.meta?.category} <ChevronRight />{" "}
+                      {listing?.meta?.subCategory}
+                      <ChevronRight /> {listing.listingID}
+                    </p>
+                  )}
                   <h2>{listing?.title}</h2>
 
                   <h1 className="price">

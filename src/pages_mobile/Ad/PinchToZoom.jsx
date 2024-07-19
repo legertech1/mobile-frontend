@@ -86,6 +86,7 @@ const PinchZoomImage = ({ src, alt, onSwipedLeft, onSwipedRight }) => {
         alt={alt}
         style={{
           maxWidth: "100%",
+          minWidth: "100%",
           height: "100%",
           cursor: "zoom-in",
           objectFit: "contain",

@@ -535,7 +535,7 @@
   font-weight: 500;
   /* background: #2196f322; */
 }
-._pricing .package_select {
+.package_select {
   display: flex;
   justify-content: space-between;
   height: 50px;
@@ -548,17 +548,17 @@
   transition: all 0.2s var(--bc);
 }
 
-._pricing .package_select.Premium {
+.package_select.Premium {
   background: linear-gradient(90deg, #fec54277, #fec542);
 }
 
-._pricing .package_select.Standard {
+.package_select.Standard {
   background: linear-gradient(90deg, #2196f370, var(--blue), #2196f370);
 }
-._pricing .package_select.Basic {
+.package_select.Basic {
   background: linear-gradient(90deg, #555, #bbb);
 }
-._pricing .package_select div {
+.package_select div {
   height: 100%;
   width: 36%;
   display: flex;
@@ -572,16 +572,16 @@
   transition: all 0.2s var(--bc);
 }
 
-._pricing .package_select div.active {
+.package_select div.active {
   box-shadow: 0px 0px 8px #1114;
 }
-._pricing .package_select div.Premium.active {
+.package_select div.Premium.active {
   background-color: var(--gold);
 }
-._pricing .package_select div.Basic.active {
+.package_select div.Basic.active {
   background-color: #555;
 }
-._pricing .package_select div.Standard.active {
+.package_select div.Standard.active {
   background-color: var(--blue);
 }
 ._pricing .category img {

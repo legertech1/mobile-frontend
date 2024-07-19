@@ -1,59 +1,83 @@
+.__stepp {
+  display: flex;
+  gap: 6px;
+  width: calc(100vw - 24px);
+}
+
 .stepper_container {
-  display: flex;
   align-items: center;
-  min-height: 100px;
-  column-gap: 30px;
+  min-height: 50px;
+  height: 50px;
   justify-content: center;
-}
-
-.stepper_container .stepper {
+  gap: 6px;
+  border-radius: 25px;
+  /* box-shadow: 0px 0px 8px #1116; */
+  /* overflow: hidden; */
   display: flex;
-  align-items: center;
+  flex: 1;
 }
-
-.stepper_container .step_circle {
-  width: 30px;
-  height: 30px;
-  background-color: var(--blue);
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
+.__stepp .step_circle {
   align-items: center;
+  min-height: 50px;
+  height: 50px;
   justify-content: center;
-  font-weight: bold;
-  margin-right: 6px;
-  cursor: pointer;
-}
-
-.stepper_container .step_title {
+  border-radius: 25px;
+  box-shadow: 0px 0px 16px #1114;
+  overflow: hidden;
+  display: flex;
+  min-width: 50px;
+  width: fit-content;
   font-size: 20px;
+  font-family: var(--FONT1);
+  padding: 16px;
+  box-sizing: border-box;
+  gap: 8px;
+  font-weight: 600;
+  /* background-color: #2196f322; */
+  border: 1px solid var(--blue);
+  color: var(--blue);
+  transition: all 0.2s var(--bc);
+}
+
+.step_circle.active {
+  align-items: center;
+  background-color: var(--blue);
+  color: white;
+  flex: 1;
+  font-weight: 600;
+}
+.stepper_container .step_title {
+  font-size: 15px;
   flex-grow: 1;
   font-weight: 500;
   cursor: pointer;
   font-family: var(--FONT1);
   position: relative;
-  bottom: 2px;
-  color: #333;
+  min-width: fit-content;
+  transition: all 0.2s var(--bc);
+  opacity: 0;
+  width: 0;
+  display: none;
 }
-
+.stepper_container .step_title.visible {
+  width: fit-content;
+  opacity: 1;
+  display: inline;
+}
 .stepper_container .step_icon_cont {
   display: flex;
   color: #999;
   margin-left: 50px;
 }
 
-.stepper_container .step_circle.disabled {
-  background-color: #999;
-}
-
-.stepper_container .step_title.disabled {
-  color: #999;
-}
-
-.stepper_container .step_icon_cont.disabled {
-  color: #999;
-}
-
-.stepper_container .step_circle.disabled {
-  background-color: #999;
+@media (min-width: 720px) {
+  .stepper_container .step_title {
+    opacity: 1;
+    display: inline;
+    width: fit-content;
+    flex: 1;
+  }
+  .__stepp .step_circle {
+    flex:  1;
+  }
 }

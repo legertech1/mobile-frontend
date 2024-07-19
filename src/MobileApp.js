@@ -186,13 +186,18 @@ function MobileApp() {
 
         <Route path="/pricing" exact element={<Pricing />} />
         <Route path="/listing/:id" exact element={<Ad />} />
+        <Route path="/preview-ad" exact element={<Ad preview={true} />} />
       </Routes>
       {
         <Footer
           visible={
-            !["/login", "/register", "/messages/open", "/verify"].includes(
-              routeLocation.pathname
-            ) &&
+            ![
+              "/login",
+              "/register",
+              "/messages/open",
+              "/verify",
+              "/post-ad",
+            ].includes(routeLocation.pathname) &&
             !routeLocation.pathname.includes("/profile/") &&
             !routeLocation.pathname.includes("/listing/")
           }
