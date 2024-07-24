@@ -214,7 +214,7 @@ function ListingsOptions({ listing, setListings, extraFn, noView }) {
       ]);
     } catch (err) {
       setPassword("");
-      notification.error( err?.response?.data || err.message);
+      notification.error(err?.response?.data || err.message);
     }
   }
 

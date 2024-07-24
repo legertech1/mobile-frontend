@@ -125,7 +125,6 @@
   overflow-y: scroll; */
 }
 ._home .header .category-n-location p {
-  margin: auto;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -484,4 +483,26 @@ input[type="range"]::-moz-range-thumb {
 ._filters button.reset {
   background-color: white;
   color: var(--blue);
+}
+
+@media (min-width: 720px) {
+  ._home .header > h1 {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 1120px) {
+  ._home .header > h1 {
+    font-size: 48px;
+    margin: 10px;
+  }
+  ._home .header {
+    height: 500px;
+  }
+}
+@media (min-width: 1120px) {
+  ._home .header > h1 {
+    font-size: 56px;
+    margin: 10px;
+  }
 }

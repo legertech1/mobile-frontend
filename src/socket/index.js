@@ -82,6 +82,7 @@ export const messageRead = (socket, chatId, messageId) => {
 };
 export const init = (socket, dispatch) => {
   socket.on("send_update", (update) => {
+    console.log(update)
     if (update.type == "balance-updated") return dispatch(getBalance());
     dispatch(pushUpdate(update));
   });

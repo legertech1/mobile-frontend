@@ -215,65 +215,65 @@ export default function AdForm({ edit }) {
   // }, [value]);
 
   const formNav = (step, url) => {
-    // if (step >= 2) {
-    //   if (formData.title.trim().length < 8)
-    //     return notification.error(
-    //       "Title is required and must be between 8 to 150 characters"
-    //     );
+    if (step >= 2) {
+      if (formData.title.trim().length < 8)
+        return notification.error(
+          "Title is required and must be between 8 to 150 characters"
+        );
 
-    //   if (categoryIndex < 0)
-    //     return notification.error("Selecting category is required");
-    //   if (subCategoryIndex < 0)
-    //     return notification.error("Selecting Sub-category is required");
-    //   if (formData.price.toString().trim().length < 1)
-    //     return notification.error("Price is required");
-    //   if (formData.description.trim().length < 40)
-    //     return notification.error(
-    //       "Description is required and must be between 40 to 4000 characters"
-    //     );
-    // }
-    // if (step >= 3) {
-    //   const fields = [
-    //     ...categories[categoryIndex].fields,
-    //     ...categories[categoryIndex].subCategories[subCategoryIndex].fields,
-    //   ];
+      if (categoryIndex < 0)
+        return notification.error("Selecting category is required");
+      if (subCategoryIndex < 0)
+        return notification.error("Selecting Sub-category is required");
+      if (formData.price.toString().trim().length < 1)
+        return notification.error("Price is required");
+      if (formData.description.trim().length < 40)
+        return notification.error(
+          "Description is required and must be between 40 to 8000 characters"
+        );
+    }
+    if (step >= 3) {
+      const fields = [
+        ...categories[categoryIndex].fields,
+        ...categories[categoryIndex].subCategories[subCategoryIndex].fields,
+      ];
 
-    //   for (let field of fields) {
-    //     if (field.required) {
-    //       if (
-    //         (field.inputType == "text" ||
-    //           field.inputType == "number" ||
-    //           field.inputType == "radio" ||
-    //           field.inputType == "dropdown" ||
-    //           field.inputType == "date") &&
-    //         !formData?.extraFields[field.name]?.trim().length
-    //       )
-    //         return notification.error(field.name + " is required");
-    //       else if (
-    //         field.inputType == "checkbox" &&
-    //         formData?.extraFields[field.name] === undefined
-    //       ) {
-    //         return notification.error(field.name + " is required");
-    //       }
-    //     }
-    //   }
-    // }
-    // if (step >= 4) {
-    //   if (!edit && !cart.package.name)
-    //     return notification.error("Please select a package");
-    //   if (!formData.location)
-    //     return notification.error("Selecting a location is required");
-    //   if (!edit && cart?.extras?.business && !user?.BusinessInfo?.name)
-    //     return notification.error("Please provide business details");
-    //   if (formData.location.components.country.short_name != country)
-    //     return notification.error(
-    //       "Please select an address within your selected Country"
-    //     );
-    // }
+      for (let field of fields) {
+        if (field.required) {
+          if (
+            (field.inputType == "text" ||
+              field.inputType == "number" ||
+              field.inputType == "radio" ||
+              field.inputType == "dropdown" ||
+              field.inputType == "date") &&
+            !formData?.extraFields[field.name]?.trim().length
+          )
+            return notification.error(field.name + " is required");
+          else if (
+            field.inputType == "checkbox" &&
+            formData?.extraFields[field.name] === undefined
+          ) {
+            return notification.error(field.name + " is required");
+          }
+        }
+      }
+    }
+    if (step >= 4) {
+      if (!edit && !cart.package.name)
+        return notification.error("Please select a package");
+      if (!formData.location)
+        return notification.error("Selecting a location is required");
+      if (!edit && cart?.extras?.business && !user?.BusinessInfo?.name)
+        return notification.error("Please provide business details");
+      if (formData.location.components.country.short_name != country)
+        return notification.error(
+          "Please select an address within your selected Country"
+        );
+    }
     if (step == 5) {
-      // if (formData.images.length < 1)
-      //   return notification.error("At least one image is required");
-      return navigate(url || "/preview-ad");
+      if (formData.images.length < 1)
+        return notification.error("At least one image is required");
+      return navigate(url || edit ? "/preview-ad?edit=true" : "/preview-ad");
     }
     setCurrentStep(step);
     window.scrollTo(0, 0);
@@ -324,6 +324,8 @@ export default function AdForm({ edit }) {
       setCurrentStep(4);
     }
   };
+
+  const tagRef = useRef();
 
   const stepData = {
     1: (
@@ -486,64 +488,92 @@ export default function AdForm({ edit }) {
             </p>
           </div>
 
-          <div className="tag_inp">
-            {formData?.tags?.map((tag, index) => (
-              <div className="tag">
-                <pre>{tag} </pre>
-                <CloseOutlinedIcon
-                  onClick={(e) =>
-                    dispatch(
-                      setFormData({
-                        ...formData,
-                        tags: formData.tags.filter((tag, i) => i != index),
-                      })
-                    )
-                  }
-                />
-              </div>
-            ))}
+          <div className="_tags">
             {formData?.tags?.length < 5 && (
-              <input
-                type="text"
-                placeholder={
-                  !formData?.tags?.length && "Enter tags related to your Ad"
-                }
-                onKeyDown={(e) => {
-                  if (e.key == "Tab") e.preventDefault();
-                  if (e.key == "Backspace" && e.target.value == "")
-                    return dispatch(
+              <div className="tag_inp">
+                <input
+                  ref={tagRef}
+                  type="text"
+                  placeholder={"Enter tags related to your Ad"}
+                  onKeyDown={(e) => {
+                    if (e.key == "Tab" || e.key == "Enter") e.preventDefault();
+                    if (e.key == "Backspace" && e.target.value == "")
+                      return dispatch(
+                        dispatch(
+                          setFormData({
+                            ...formData,
+                            tags: formData.tags.slice(
+                              0,
+                              formData.tags.length - 1
+                            ),
+                          })
+                        )
+                      );
+                    if (
+                      (e.key == "Enter" || e.key == "Tab") &&
+                      e.target.value
+                    ) {
+                      const newTag = e.target.value
+                        .toLowerCase()
+                        .trim()
+                        .slice(0, 50);
                       dispatch(
                         setFormData({
                           ...formData,
-                          tags: formData.tags.slice(
-                            0,
-                            formData.tags.length - 1
-                          ),
+                          tags: [...formData.tags, newTag],
                         })
-                      )
-                    );
-                  if ((e.key == "Enter" || e.key == "Tab") && e.target.value) {
-                    const newTag = e.target.value
+                      );
+                      e.target.scrollTo({
+                        top: 0,
+                        left: e.target.innerWidth,
+                        behavior: "smooth",
+                      });
+
+                      e.target.value = "";
+                    }
+                  }}
+                />
+                <button
+                  className="add_tag"
+                  onClick={() => {
+                    const newTag = tagRef.current.value
                       .toLowerCase()
                       .trim()
                       .slice(0, 50);
+                    if (!newTag) return;
                     dispatch(
                       setFormData({
                         ...formData,
                         tags: [...formData.tags, newTag],
                       })
                     );
-                    e.target.scrollTo({
-                      top: 0,
-                      left: e.target.innerWidth,
-                      behavior: "smooth",
-                    });
-
-                    e.target.value = "";
-                  }
-                }}
-              />
+                    tagRef.current.value = "";
+                  }}
+                >
+                  Add
+                </button>
+              </div>
             )}
+            <div className="tags_cont">
+              {formData?.tags?.map((tag, index) => (
+                <div className="tag">
+                  <pre>{tag} </pre>
+                  <span
+                    onClick={(e) =>
+                      dispatch(
+                        setFormData({
+                          ...formData,
+                          tags: formData.tags.filter((tag, i) => i != index),
+                        })
+                      )
+                    }
+                  >
+                    {" "}
+                    <CloseOutlinedIcon />
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className="field_container desc">
@@ -552,7 +582,7 @@ export default function AdForm({ edit }) {
           </h4>
           <TextArea
             onChange={(e) => {
-              handleFormData("description", e.target.value.slice(0, 4000));
+              handleFormData("description", e.target.value.slice(0, 8000));
             }}
             placeholder={
               "Describe your item, include all important details related to the item."
@@ -736,7 +766,7 @@ export default function AdForm({ edit }) {
               {edit && (
                 <button
                   className="btn_blue_m next_btn"
-                  onClick={(e) => formNav(5, "/preview/" + formData._id)}
+                  onClick={(e) => formNav(5, "/preview-ad")}
                 >
                   Save and Preview
                 </button>

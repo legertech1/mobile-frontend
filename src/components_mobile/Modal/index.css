@@ -42,7 +42,9 @@
   width: 100vw;
   max-width: 100vw;
 }
-
+.post_ad_handler {
+  max-width: unset;
+}
 .mobile_modal.ad .header,
 .mobile_modal.gallery .header {
   flex-direction: row-reverse;

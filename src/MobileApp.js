@@ -170,12 +170,11 @@ function MobileApp() {
         <Route path="/messages" exact element={<Chat />} />
         <Route path="/messages/open" exact element={<Chat />} />
         <Route path="/ads" exact element={<Ads />} />
+        <Route path="/ads" element={<Ads />} />
         <Route path="/help" exact element={<HelpDocs />} />
         <Route path="/help-doc/:id" exact element={<HelpDoc />} />
         <Route path="contact-us" exact element={<ContactUs />} />
-        {/* 
-        <Route element={<Ad />} path="/listing/:id" />
-        <Route element={<Ad />} path="/preview-ad" /> */}
+
         <Route exact path="/post-ad" element={<PostAd />} />
         <Route exact path="/profile" element={<Account />} />
         <Route exact path="/profile/*" element={<Account />} />
@@ -197,9 +196,11 @@ function MobileApp() {
               "/messages/open",
               "/verify",
               "/post-ad",
+              "/preview-ad",
             ].includes(routeLocation.pathname) &&
             !routeLocation.pathname.includes("/profile/") &&
-            !routeLocation.pathname.includes("/listing/")
+            !routeLocation.pathname.includes("/listing/") &&       
+            !routeLocation.pathname.includes("/edit/")
           }
         />
       }

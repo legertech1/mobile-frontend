@@ -327,7 +327,7 @@
 
 .payment_form .pay_with_balance h4,
 .payment_form .stripe_payment h4 {
-  font-size: 18px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   margin: 0;
@@ -338,8 +338,8 @@
   fill: var(--blue);
 }
 
-.payment_form .pay_with_balance h4 ._checkbox,
-.payment_form .stripe_payment h4 ._checkbox {
+.payment_form .pay_with_balance h4 .mobile_checkbox,
+.payment_form .stripe_payment h4 .mobile_checkbox {
   margin-left: auto;
 }
 

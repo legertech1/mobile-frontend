@@ -22,31 +22,26 @@ function RelistAd({
   const dispatch = useDispatch();
   return (
     <div className="post_ad relist_ad" onClick={(e) => e.stopPropagation()}>
-      <div className="pricing_section">
-        <h2>Review Ad Info</h2>
+      <div className="ad_info_cont">
         <div className="ad_info">
           <img src={ad.thumbnails[0]} alt="" />
           <div>
-            <div className="ad_info_row">
-              <p>
-                Price:{" "}
-                <span>
-                  <p className="price"> ${ad.price}</p>/{ad.term}
-                </span>
-              </p>
-              <p>
-                Listing ID: <span>{ad.listingID}</span>
-              </p>
-            </div>
+            <p>
+              <span>{ad.listingID}</span>
+            </p>
             <h4 className="line">{ad.title}</h4>
-            <p className="line">{ad.description}</p>
             <p className="line location">
               <PinDropOutlined />
               {ad.location.name}
             </p>
+            <p>
+              {" "}
+              <span className="price">${ad.price}</span> /{ad.term}
+            </p>
           </div>
         </div>
       </div>
+
       <div className="ad_form">
         {" "}
         <AdPricing

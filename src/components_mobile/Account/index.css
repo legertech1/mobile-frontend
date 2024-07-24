@@ -319,7 +319,7 @@
   justify-content: center;
   align-items: center;
   gap: 12px;
-  padding: 32px 16px 16px;
+  padding: 12px;
 }
 ._user_info .info * {
   margin: 0;
@@ -337,11 +337,19 @@
   align-items: center;
   display: flex;
 }
+
+._user_info .b_main {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
 ._user_info .info p {
   width: 100%;
   text-align: center;
-  font-size: 16px;
-  color: #555;
+  font-size: 15px;
+
   font-weight: 500;
 }
 ._user_info .pf img {
@@ -386,6 +394,49 @@
   box-sizing: border-box;
   max-width: 600px;
   margin: auto;
+}
+._user_info .b_main .in {
+  display: flex;
+  gap: 3px;
+  flex-direction: column;
+  width: 20%;
+  flex: 1;
+}
+._user_info .info .b_main p {
+  overflow: hidden;
+  font-size: 14px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+._user_info .info .b_main .name {
+  font-size: 17px;
+}
+._user_info .b_main svg {
+  vertical-align: middle !important;
+  height: 18px !important;
+  width: 18px !important;
+  fill: var(--blue) !important;
+}
+
+._user_info .b_main img {
+  height: 120px;
+  border-radius: 6px;
+  max-width: 30%;
+  object-fit: cover;
+  min-width: 120px;
+}
+._user_info .address {
+  text-align: left !important;
+  font-size: 14px !important;
+}
+
+._user_info .address svg {
+  height: 18px;
+  width: 18px;
+  vertical-align: text-bottom;
+  fill: var(--blue);
 }
 .update_profile section {
   display: flex;

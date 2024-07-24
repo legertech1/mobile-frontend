@@ -83,6 +83,8 @@ function App() {
 
   return (
     <div className="__app">
+
+
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/search" exact element={<Search />} />

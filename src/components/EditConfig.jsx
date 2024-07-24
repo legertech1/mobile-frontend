@@ -1,5 +1,5 @@
 import React from "react";
-import AdPricing from "../pages/PostAd/AdPricing";
+import AdPricing from "../pages_mobile/PostAd/AdPricing";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -24,7 +24,7 @@ function EditConfig({ listing, close, onEdit }) {
       notification.success("Configuration updated successfully");
       close();
     } catch (err) {
-      notification.error( err?.response?.data || err.message);
+      notification.error(err?.response?.data || err.message);
     }
   }
   return (

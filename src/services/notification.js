@@ -27,7 +27,7 @@ const NotificationService = ({ children }) => {
     setTimeout(
       () =>
         setNotifications((prevNotifications) => {
-          console.log("/////");
+          
           return prevNotifications.filter((n) => n.id !== id);
         }),
       300

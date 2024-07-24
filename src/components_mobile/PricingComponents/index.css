@@ -1,17 +1,20 @@
 ._package {
   border-radius: 23px;
-
-  /* filter: drop-shadow(0px 0px 8px #1116); */
+  border-radius: 23px;
   box-shadow: 0px 0px 8px #1114;
   box-sizing: border-box;
-
   cursor: pointer;
   position: relative;
   overflow: hidden;
   transition: all 0.3s var(--bc);
   background-color: white;
   will-change: transform;
+  flex: 1;
   min-height: 580px;
+  max-width: 360px;
+  min-width: 300px;
+  width: 100%;
+  align-self: center;
 }
 ._package.selected {
   box-shadow: 0px 0px 30px #1114;
@@ -43,9 +46,10 @@
 }
 .plans {
   display: flex;
-  justify-content: space-between;
-  gap: 60px;
+  justify-content: space-evenly;
+  gap: 20px;
   flex-direction: row-reverse;
+  padding: 20px 0;
 }
 
 ._package .icon {
@@ -196,7 +200,7 @@ button.select_package.Premium {
 }
 
 ._package.selected {
-  transform: scale(1.08);
+  transform: scale(1.04);
   /* border: 1px solid var(--blue); */
 }
 

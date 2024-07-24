@@ -12,7 +12,7 @@
 
 .post_ad .main {
   width: 100%;
-  padding: 12px;
+  padding: 8px;
   display: flex;
 }
 
@@ -27,6 +27,21 @@
   padding-bottom: 80px;
 }
 
+.post_ad ._tags {
+  min-width: 50%;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.post_ad .tags_cont {
+  display: flex;
+  width: 100%;
+  justify-content: start;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 .post_ad .form_content {
   /*         box-shadow: 0px 0px 8px #1114;
   border-radius: 12px; */
@@ -36,7 +51,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: Calc(100vw - 24px);
+  width: Calc(100vw - 16px);
   /* padding: 12px; */
   box-sizing: border-box;
 }
@@ -314,6 +329,21 @@
   width: 100%;
 }
 
+.post_ad button.add_tag {
+  background: var(--blue);
+  padding: 16px 24px;
+  max-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: navajowhite;
+  color: white;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0px 0px 4px #1114;
+}
+
 .post_ad .tag_inp input {
   min-height: unset;
   font-size: 15px;
@@ -321,7 +351,7 @@
   width: 0;
   border: none !important;
   outline: none !important;
-  min-width: 100%;
+
   filter: none;
 }
 
@@ -490,16 +520,16 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 12px;
+  gap: 8px;
   cursor: pointer;
   margin-top: -8px;
   height: 40px;
 }
 
 .ad_form .current_loc .text_box p {
-  margin: 4px 0px;
+  margin: 0px;
   color: var(--blue);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
 }
 
@@ -507,6 +537,9 @@
   font-size: 12px;
   font-weight: 400;
   color: black;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .ad_form .curr_icon {
@@ -560,11 +593,11 @@
   align-items: center;
   padding: 12px;
   box-sizing: border-box;
-  gap: 12px;
+  gap: 8px;
   min-height: 72px;
   border-radius: 6px;
   flex-wrap: wrap;
-  filter: drop-shadow(1px 1px 4px #1114);
+  filter: drop-shadow(0px 0px 4px #1113);
   justify-content: space-between;
 }
 
@@ -584,15 +617,16 @@
   font-weight: 600;
   color: var(--blue);
   /* margin: 20px; */
-  font-family: var(--font2);
-  width: 120px;
+  font-family: var(--font1);
+  width: 100px;
   text-align: right;
 }
 
 .pricing_section .add_on ._dropdown {
   filter: drop-shadow(0px 0px 4px #ccc);
-  padding: 6px 16px;
-  width: 120px;
+  padding: 6px 12px;
+  padding-right: 0;
+  width: 100px;
 }
 
 .pricing_section .add_on ._dropdown .options {
@@ -622,6 +656,7 @@
   margin-left: auto;
   font-size: 20px;
   color: var(--blue);
+  font-family: var(--font1);
   font-weight: 600;
 }
 
@@ -749,7 +784,7 @@
   min-height: 60px;
 
   border-radius: 6px;
-  filter: drop-shadow(1px 1px 4px #1114);
+  filter: drop-shadow(0px 0px 4px #1113);
 }
 
 .ad_form span.free {
@@ -846,6 +881,9 @@
 .post_ad .pricing_section,
 .post_ad .location_section {
   padding: 14px;
+  width: 100%;
+
+  box-sizing: border-box;
   border-radius: 8px;
   box-shadow: 0px 0px 8px #1114;
   background: white;
@@ -859,6 +897,64 @@
   gap: 8px;
   width: 100%;
   min-width: 100%;
+}
+
+.post_ad ._pr_row {
+  display: flex;
+  min-width: 50%;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.post_ad .tax_op {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.post_ad .tax_op span,
+.post_ad .tax_op p {
+  flex: 1;
+  width: fit-content;
+  min-width: fit-content;
+}
+.post_ad .desc {
+  flex-direction: column !important;
+  align-items: start !important;
+  justify-content: start;
+  gap: 8px !important;
+}
+.post_ad ._ ._dropdown {
+  min-width: 240px;
+}
+
+.relist_ad.post_ad {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: START;
+  justify-content: START;
+  position: static !important;
+  overflow-y: scroll;
+  padding: 12px;
+  box-sizing: border-box;
+  gap: 12px;
+  /* position: absolute; */
+  /* box-sizing: border-box; */
+  /* top: 66px; */
+  /* left: 0; */
+}
+
+.relist_ad .ad_form {
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+}
+.relist_ad.post_ad::-webkit-scrollbar {
+  display: none !important;
+}
+.relist_ad {
+  width: 100%;
+  min-width: 300px !important;
 }
 
 @media (min-width: 820px) {
@@ -927,34 +1023,23 @@
     margin: 0;
     margin-right: auto;
   }
-}
-
-.post_ad ._pr_row {
-  display: flex;
-  min-width: 50%;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-.post_ad .tax_op {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.post_ad .tax_op span,
-.post_ad .tax_op p {
-  flex: 1;
-  width: fit-content;
-  min-width: fit-content;
-}
-.post_ad .desc {
-  flex-direction: column !important;
-  align-items: start !important;
-  justify-content: start;
-  gap: 8px !important;
-}
-.post_ad ._ ._dropdown {
-  min-width: 240px;
+  .post_ad .pricing_section,
+  .post_ad .location_section {
+    padding: 20px;
+  }
+  .pricing_section .extra .form.active {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  .pricing_section .extra .form.active button {
+    max-width: 400px;
+  }
+  .post_ad .form_content {
+    width: calc(100% - 32px);
+    margin: 12px auto 0;
+  }
 }
 @media (min-width: 1000px) {
   .post_ad .field_container {
@@ -997,5 +1082,11 @@
   }
   .post_ad .field_container > .options {
     justify-content: end;
+  }
+
+  .post_ad.relist_ad {
+    padding: 24px;
+    max-width: 1200px;
+    margin: AUTO;
   }
 }

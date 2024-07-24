@@ -27,76 +27,163 @@ function AdPricing({ category, preconfig, ignoreFree }) {
   useEffect(() => {
     if (preconfig) dispatch(updateCart({ ...preconfig, addOns: {} }));
   }, []);
+  useEffect(() => {
+    console.log(cart);
+  }, [cart]);
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+
+    // Add event listener to window resize and orientation change events
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+
+    // Clean up event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
+  }, []);
   return (
     <>
       <div className="pricing_section">
         <h2>Pick a Plan that fits</h2>
-        <div className={"package_select " + cart.package.name}>
-          <div
-            className={
-              "Basic" + (cart.package.name == "Basic" ? " active" : "")
-            }
-            onClick={(free) =>
-              dispatch(
-                updateCart({
-                  ...cart,
-                  package: {
-                    name: "Basic",
-                    item: category?.pricing?.Basic,
-                    free,
-                  },
-                })
-              )
-            }
-          >
-            Basic
+        {width < "1000" && (
+          <div className={"package_select " + cart.package?.name}>
+            <div
+              className={
+                "Basic" + (cart.package?.name == "Basic" ? " active" : "")
+              }
+              onClick={(free) =>
+                dispatch(
+                  updateCart({
+                    ...cart,
+                    package: {
+                      name: "Basic",
+                      item: category?.pricing?.Basic,
+                      free,
+                    },
+                  })
+                )
+              }
+            >
+              Basic
+            </div>
+            <div
+              className={
+                "Standard" + (cart.package?.name == "Standard" ? " active" : "")
+              }
+              onClick={(free) =>
+                dispatch(
+                  updateCart({
+                    ...cart,
+                    package: {
+                      name: "Standard",
+                      item: category?.pricing?.Standard,
+                      free,
+                    },
+                  })
+                )
+              }
+            >
+              Standard
+            </div>
+            <div
+              className={
+                "Premium" + (cart.package?.name == "Premium" ? " active" : "")
+              }
+              onClick={(free) =>
+                dispatch(
+                  updateCart({
+                    ...cart,
+                    package: {
+                      name: "Premium",
+                      item: category?.pricing?.Premium,
+                      free,
+                    },
+                  })
+                )
+              }
+            >
+              Premium
+            </div>
           </div>
-          <div
-            className={
-              "Standard" + (cart.package.name == "Standard" ? " active" : "")
-            }
-            onClick={(free) =>
-              dispatch(
-                updateCart({
-                  ...cart,
-                  package: {
-                    name: "Standard",
-                    item: category?.pricing?.Standard,
-                    free,
-                  },
-                })
-              )
-            }
-          >
-            Standard
+        )}{" "}
+        {width < "1000" && (
+          <Package
+            ignoreFree={ignoreFree}
+            plan={cart.package?.item}
+            name={cart.package?.name}
+            category={category}
+            ads={user?.data?.postedAds}
+          />
+        )}{" "}
+        {width > "1000" && (
+          <div className="plans">
+            <Package
+              ignoreFree={ignoreFree}
+              plan={category?.pricing?.Premium}
+              name="Premium"
+              category={category}
+              selected={cart?.package?.name == "Premium"}
+              onClick={(free) =>
+                dispatch(
+                  updateCart({
+                    ...cart,
+                    package: {
+                      name: "Premium",
+                      item: category?.pricing?.Premium,
+                      free,
+                    },
+                  })
+                )
+              }
+              ads={user?.data?.postedAds}
+            />
+            <Package
+              ignoreFree={ignoreFree}
+              plan={category?.pricing?.Standard}
+              name="Standard"
+              category={category}
+              selected={cart?.package?.name == "Standard"}
+              onClick={(free) =>
+                dispatch(
+                  updateCart({
+                    ...cart,
+                    package: {
+                      name: "Standard",
+                      item: category?.pricing?.Standard,
+                      free,
+                    },
+                  })
+                )
+              }
+              ads={user?.data?.postedAds}
+            />
+            <Package
+              ignoreFree={ignoreFree}
+              plan={category?.pricing?.Basic}
+              name="Basic"
+              category={category}
+              selected={cart?.package?.name == "Basic"}
+              onClick={(free) =>
+                dispatch(
+                  updateCart({
+                    ...cart,
+                    package: {
+                      name: "Basic",
+                      item: category?.pricing?.Basic,
+                      free,
+                    },
+                  })
+                )
+              }
+              ads={user?.data?.postedAds}
+            />
           </div>
-          <div
-            className={
-              "Premium" + (cart.package.name == "Premium" ? " active" : "")
-            }
-            onClick={(free) =>
-              dispatch(
-                updateCart({
-                  ...cart,
-                  package: {
-                    name: "Premium",
-                    item: category?.pricing?.Premium,
-                    free,
-                  },
-                })
-              )
-            }
-          >
-            Premium
-          </div>
-        </div>
-        <Package
-          ignoreFree={ignoreFree}
-          plan={cart.package.item}
-          name={cart.package.name}
-          category={category}
-          ads={user?.data?.postedAds}
-        />
+        )}
       </div>
       <div className="pricing_section">
         <h2>Features to Promote your Ad</h2>
@@ -186,7 +273,8 @@ function AdPricing({ category, preconfig, ignoreFree }) {
             />
             <h3>
               Post as Business Ad{" "}
-              <Info heading={'Business Ad'}
+              <Info
+                heading={"Business Ad"}
                 info={
                   "Business ads include your business details and are great for building your business's reach on the platform."
                 }

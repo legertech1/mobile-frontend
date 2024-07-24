@@ -30,7 +30,7 @@ const appearance = {
       outline: "none",
       border: "1px solid #fff",
       boxShadow: "inset 0px 0px 6px #ccc",
-      fontSize: "17px",
+      fontSize: "15px",
       padding: "15px",
       fontWeight: "500",
 
@@ -44,10 +44,10 @@ const appearance = {
       boxShadow: "inset 0px 0px 6px #ccc",
     },
     ".Label": {
-      color: "#555",
-      fontSize: "16px",
+      color: "#333",
+      fontSize: "13px",
       fontWeight: "500",
-      fontFamily: "Montserrat",
+      fontFamily: "Verdana, Sans-serif",
     },
   },
 };
@@ -95,6 +95,7 @@ function PaymentElement({
           setTotal(res.data.total);
         })
         .catch((err) => {
+          console.log(err);
           onPaymentFailed({ message: "Error creating payment intent." });
         });
     } else {

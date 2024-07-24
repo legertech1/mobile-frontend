@@ -273,7 +273,7 @@ export default function AdForm({ edit }) {
     if (step == 5) {
       if (formData.images.length < 1)
         return notification.error("At least one image is required");
-      return navigate(url || "/preview-ad");
+      return navigate(url || edit ? "preview-ad?type=edit" : "preview-ad");
     }
     setCurrentStep(step);
     window.scrollTo(0, 0);

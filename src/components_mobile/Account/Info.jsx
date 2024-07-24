@@ -40,11 +40,10 @@ function Info() {
             <LocalPhone /> Contact No.
           </span>
           {user?.info?.phone
-            ? user?.info?.phone.slice(0, 3) +
-              " " +
-              user?.info?.phone.slice(3, 6) +
-              " " +
-              user?.info?.phone.slice(6, 10)
+            ? `(${user.info.phone.slice(0, 3)}) ${user.info.phone.slice(
+                3,
+                6
+              )}-${user.info.phone.slice(6)}`
             : "No data"}
         </div>
         <div className="info_line">
@@ -69,11 +68,6 @@ function Info() {
       <button onClick={(e) => setEdit(true)}>
         <EditOutlined />
         Edit Profile Info
-      </button>
-      <div className="info"></div>
-      <button>
-        <EditOutlined />
-        Edit Business Info
       </button>
 
       {edit && (

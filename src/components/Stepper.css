@@ -1,7 +1,8 @@
 .__stepp {
   display: flex;
   gap: 6px;
-  width: calc(100vw - 24px);
+  width: calc(100vw - 16px);
+  /* filter: drop-shadow(0px 0px 12px #1114); */
 }
 
 .stepper_container {
@@ -16,6 +17,7 @@
   display: flex;
   flex: 1;
 }
+
 .__stepp .step_circle {
   align-items: center;
   min-height: 50px;
@@ -27,13 +29,13 @@
   display: flex;
   min-width: 50px;
   width: fit-content;
-  font-size: 20px;
-  font-family: var(--FONT1);
+  font-size: 22px;
+  font-family: var(--font1);
   padding: 16px;
   box-sizing: border-box;
   gap: 8px;
   font-weight: 600;
-  /* background-color: #2196f322; */
+  background-color: white;
   border: 1px solid var(--blue);
   color: var(--blue);
   transition: all 0.2s var(--bc);
@@ -41,7 +43,7 @@
 
 .step_circle.active {
   align-items: center;
-  background-color: var(--blue);
+  background-color: var(--blue) !important;
   color: white;
   flex: 1;
   font-weight: 600;
@@ -49,14 +51,15 @@
 .stepper_container .step_title {
   font-size: 15px;
   flex-grow: 1;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  font-family: var(--FONT1);
+  font-family: var(--font);
   position: relative;
   min-width: fit-content;
   transition: all 0.2s var(--bc);
   opacity: 0;
   width: 0;
+  white-space: nowrap;
   display: none;
 }
 .stepper_container .step_title.visible {
@@ -78,6 +81,14 @@
     flex: 1;
   }
   .__stepp .step_circle {
-    flex:  1;
+    flex: 1;
+    padding: 20px;
+  }
+  .__stepp {
+    display: flex;
+    gap: 8px;
+    width: calc(100vw - 32px);
+    margin: 0 auto;
+    /* filter: drop-shadow(0px 0px 12px #1114); */
   }
 }

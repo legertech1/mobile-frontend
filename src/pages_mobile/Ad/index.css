@@ -4,8 +4,9 @@
   position: relative;
   min-height: 200px;
   overflow: hidden;
-  max-height: 450px;
+  max-height: 600px;
   border-radius: 8px;
+  overflow: hidden;
 }
 
 .view_listing ._left,
@@ -297,7 +298,7 @@
 }
 
 .view_listing .map {
-  height: 20vh;
+  height: 25vh;
   min-height: 200px;
   max-height: 300px;
   width: 100%;
@@ -760,32 +761,39 @@
 }
 
 .view_listing .business_main {
-  padding: 20px;
+  padding: 0;
   display: flex;
-  align-items: center;
-  gap: 20px;
+  align-items: start;
+  gap: 8px;
 }
 
+.view_listing .business a svg {
+  height: 18px;
+  width: 18px;
+}
 .view_listing .business_main img {
-  height: 120px;
+  height: 62px;
   border-radius: 4px;
-  box-shadow: 0px 0px 8px #ccc;
+  box-shadow: 0px 0px 4px #1113;
   object-fit: contain;
-  max-width: 200px;
+  max-width: 100px;
 }
 
 .view_listing .business_main .info {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 2px;
+  max-width: 100%;
+  flex: 1;
+  width: 20%;
 }
 
 .view_listing .business_main .info h3 {
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 600;
-  display: flex;
-  gap: 12px;
-  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* .view_listing .business_main .info h3 a {
@@ -797,23 +805,56 @@
   cursor: pointer;
 } */
 .view_listing .business_main .info p {
+  font-size: 14px;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: #555;
-  font-size: 18px;
 }
 
+.view_listing .business .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 8px;
+  column-gap: 20px;
+}
+
+.view_listing .expand {
+  margin: -4px;
+  transition: all 0.2s var(--bc);
+  margin-left: auto;
+}
+
+.view_listing .extra_fields,
+.view_listing ._desc {
+  max-height: 296px;
+  overflow: hidden;
+  transition: all 0.2s var(--bc);
+}
+.view_listing .expand svg {
+  height: 24px;
+  width: 24px;
+}
+.view_listing .business .row a {
+  gap: 4px;
+}
 .view_listing .business_main .info .row {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.view_listing .business_main .info a {
+.view_listing .business a {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 20px;
+  gap: 2px;
+  font-size: 15px;
   cursor: pointer;
-  font-weight: 400;
+  font-weight: 500;
+  font-family: var(--font1);
 }
 
 .view_listing .youtube_website > div {
@@ -824,17 +865,17 @@
 }
 
 .view_listing .youtube_website > div svg {
-  height: 30px;
-  width: 30px;
+  height: 20px;
+  width: 20px;
   fill: var(--blue);
 }
 
 .view_listing .youtube_website > div p {
   align-items: center;
   display: flex;
-  gap: 8px;
-  font-size: 19px;
-  color: #333;
+  gap: 4px;
+  font-size: 14px;
+
   cursor: pointer;
   transition: all 0.3s var(--bc);
 }
@@ -848,11 +889,12 @@
 }
 ._success {
   overflow: hidden;
+  padding: 40px;
 }
 ._success > div {
-  height: 660px !important;
-  width: 660px !important;
-  margin: -200px -80px;
+  height: 680px !important;
+  width: 680px !important;
+  margin: -180px -80px !important;
   overflow: hidden;
 }
 ._success > p {
@@ -943,11 +985,16 @@
   ._right {
     width: 36%;
     flex: 1;
-    max-width: 440px;
+    max-width: 600px;
   }
   .view_listing .tile.preview {
     flex-direction: row;
     justify-content: space-between;
     padding: 16px;
+  }
+}
+@media (min-width: 1600px) {
+  .view_listing {
+    padding: 0 10% 50px;
   }
 }

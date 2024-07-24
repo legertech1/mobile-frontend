@@ -1,16 +1,20 @@
 // src/components/HorizontalImageContainer.js
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import Modal from "../../components/Modal";
+
 import parseImage from "../../utils/parseImage";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormData } from "../../store/adSlice";
 import ImageCompressor from "image-compressor.js";
 import "./UploadPictures.css";
 import Loader from "../../components/Loader";
+import Modal from "../../components_mobile/Modal";
+import PinchZoomImage from "../Ad/PinchToZoom";
+import { useSwipeable } from "react-swipeable";
+import { next, prev } from "../../utils/listingCardFunctions";
 // import { AD_IMAGES_LIMIT } from "../../utils/constants";
 
 // TODO: improve this component
@@ -18,6 +22,7 @@ import Loader from "../../components/Loader";
 const UploadPictures = () => {
   const [dragging, setDragging] = useState(false);
   const [viewImage, setViewImage] = useState(false);
+  const [imgView, setImgView] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
   const [key, setKey] = useReducer((key) => key + 1, 0); // for resetting file input
   const [changedKey, setChangedKey] = useState(""); // modified or delete
@@ -81,36 +86,6 @@ const UploadPictures = () => {
     setChangedKey("modified");
   };
 
-  const handleDragEnter = (e) => {
-    e.preventDefault();
-    setDragging(true);
-  };
-
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    setDragging(false);
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setDragging(false);
-
-    if (e.dataTransfer.files.length > AD_IMAGES_LIMIT) {
-      alert(`You can only upload ${AD_IMAGES_LIMIT} images`);
-      return;
-    }
-
-    if (images.length + e.dataTransfer.files.length > AD_IMAGES_LIMIT) {
-      alert(`You can only upload ${AD_IMAGES_LIMIT} images`);
-
-      return;
-    }
-
-    const files = [...e.dataTransfer.files];
-
-    handleFiles(files);
-  };
-
   const handleFileInputChange = (e) => {
     const files = [...e.target.files];
 
@@ -143,12 +118,66 @@ const UploadPictures = () => {
       })
     );
   };
+  const [slide, setSlide] = useState(1);
+  const carousel2 = useRef();
+  const ind = useRef();
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleSwipe("left"),
+    onSwipedRight: () => handleSwipe("right"),
+
+    trackMouse: true,
+  });
+
+  const handleSwipe = (direction) => {
+    if (direction === "left") {
+      if (slide + 1 <= images.length)
+        next({ thumbnails: images }, slide, setSlide);
+    } else if (direction === "right") {
+      if (slide - 1 > 0) prev({ thumbnails: images }, slide, setSlide);
+    }
+  };
 
   return (
     <div className="upload">
-      {viewImage && (
-        <Modal close={() => setViewImage(false)} className={"image"}>
-          <img src={images[imageIndex]} alt={`img ${imageIndex + 1}`} />
+      {imgView && (
+        <Modal
+          className={"gallery"}
+          close={(e) => setImgView(false)}
+          heading={"Image " + slide + " of " + images.length}
+        >
+          <div className="_gallery">
+            <div className={"images_container"} tabIndex={0}>
+              <div className="slides" ref={ind}>
+                {images?.length > 1 &&
+                  images.map((img, i) => (
+                    <div
+                      className={"dot" + (i + 1 == slide ? " active" : "")}
+                    ></div>
+                  ))}
+              </div>
+
+              <div
+                className="images"
+                onScroll={(e) => e.preventDefault()}
+                ref={carousel2}
+              >
+                {images?.map((img, ind) => (
+                  <div
+                    className="img_cont"
+                    style={{
+                      transform: "translateX(" + (ind + 1 - slide) + "00%)",
+                    }}
+                  >
+                    <PinchZoomImage
+                      src={img}
+                      onSwipedLeft={() => handleSwipe("left")}
+                      onSwipedRight={() => handleSwipe("right")}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </Modal>
       )}
       <div className="image_gallery">
@@ -159,7 +188,8 @@ const UploadPictures = () => {
                 onClick={() => {
                   if (!images[index]) return openUploadDialog();
                   setImageIndex(index);
-                  setViewImage(true);
+                  setImgView(true);
+                  setSlide(index + 1);
                 }}
                 ref={index === images.length - 1 ? lastImageRef : null}
                 className={"image_item" + (index == 0 ? " cover" : "")}
@@ -180,16 +210,15 @@ const UploadPictures = () => {
                         alt={`img ${index + 1}`}
                       />
                     </div>
-                    <div className="image_options">
-                      <div
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          removeImage(index);
-                        }}
-                        className="carousel_delete_icon"
-                      >
-                        <DeleteOutlineOutlinedIcon />
-                      </div>
+
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeImage(index);
+                      }}
+                      className="carousel_delete_icon"
+                    >
+                      <DeleteOutlineOutlinedIcon />
                     </div>
                   </>
                 )}
