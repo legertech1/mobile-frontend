@@ -3,6 +3,7 @@ export const helpDocs = {
     id: "doc/our-mission",
     label: "Our Mission",
     description: "Our mission and vision",
+    
   },
   aboutUs: {
     id: "doc/about-us",
