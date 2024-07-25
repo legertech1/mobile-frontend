@@ -29,7 +29,7 @@
   display: flex;
   min-width: 50px;
   width: fit-content;
-  font-size: 22px;
+  font-size: 21px;
   font-family: var(--font1);
   padding: 16px;
   box-sizing: border-box;
@@ -71,6 +71,18 @@
   display: flex;
   color: #999;
   margin-left: 50px;
+}
+
+.__stepp .back {
+  background: none;
+  border: navajowhite;
+  height: 42px;
+  width: 42px;
+  color: var(--blue);
+  margin: -4px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 50%;
 }
 
 @media (min-width: 720px) {
