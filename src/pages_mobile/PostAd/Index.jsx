@@ -12,7 +12,6 @@ function PostAd({ edit }) {
 
   return (
     <>
-      <Header white={true} />
       <div className="post_ad_page">
         <AdForm ad={ad} edit={edit} />
       </div>
