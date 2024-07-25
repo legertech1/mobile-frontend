@@ -1,45 +1,47 @@
 .business_info {
-  width: 1200px;
-  height: 750px;
-  padding: 20px;
+  width: 100%;
+  padding: 6px;
+  margin: auto;
+  margin-top: -6px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  height: calc(100vh - 80px);
+
   overflow-y: scroll;
+  gap: 8px;
+  max-width: 600px;
 }
 
 .business_info .field_container {
   display: flex;
-  gap: 40px;
+  gap: 20px;
   justify-content: space-between;
   align-items: start;
-  min-height: 100px;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 12px #1113;
 }
 
 .business_info .field_container .field_info {
-  width: 40%;
+  max-width: 50%;
   box-sizing: border-box;
   padding-left: 0;
-  padding-right: 40px;
-  max-width: 540px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 2px;
 }
 
-.business_info .field_container .input-container,
-.business_info .field_container .dropdowns {
-  width: 50%;
-  min-width: 600px;
-  flex: 1;
-  gap: 20px;
-}
 .business_info input,
 .business_info ._dropdown,
 .business_info .custom_price_input {
   /* border: 1px solid #fff; */
   transition: all 0.3s var(--bc);
+  height: 38px;
+  max-height: 38px;
+  font-size: 14px;
+  padding: 12px;
+  width: 100%;
 }
 
 .business_info .custom_price_input input {
@@ -54,15 +56,15 @@
 
 .business_info h4 span,
 .business_info h2 span {
-  font-size: 18px;
-  color: #aaa;
+  font-size: 12px;
+  color: #777;
   font-weight: 500;
   margin-right: 0;
 }
 
 .business_info h4 {
   margin: 0;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 500;
   font-family: var(--font2);
   color: #333;
@@ -80,93 +82,82 @@
   display: flex;
   align-items: center;
   justify-content: end;
-  gap: 20px;
+  gap: 12px;
 }
 .business_info .actions button {
-  width: unset;
+  width: fit-content;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
 }
 
 .business_info .content {
   flex: 1;
 }
 
-/* Works on Chrome, Edge, and Safari */
-.business_info::-webkit-scrollbar {
-  width: 8px;
-  display: block !important;
-}
-
-.business_info::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-
-.business_info::-webkit-scrollbar-thumb {
-  background-color: var(--blue);
-  border-radius: 10px;
-  /* border: 3px solid var(--blue); */
-}
-
 .business_info .image_input {
-  height: 180px;
-  width: 180px;
-  border-radius: 4px;
-  box-shadow: 0px 0px 8px #1114;
-  margin-bottom: 30px;
-  background: linear-gradient(45deg, #eee, transparent);
+  height: 100px;
+  max-width: 200px;
+  border-radius: 6px;
+
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
   color: #555 !important;
-  border: 1px solid transparent;
+  border: 1px solid var(--blue);
   transform: all 0.3s var(--bc);
   position: relative;
+  background-color: #2196f322;
 }
 .business_info .image_input:hover {
   border: 1px solid var(--blue);
 }
-.business_info .input_container input {
-  height: 54px;
-  font-size: 17px;
+
+.business_info .image_input p {
+  padding: 20px;
+  margin: 0;
+  font-size: 14px;
+  color: black;
 }
 
 .business_info .image_input img {
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .business_info .delete {
   position: absolute;
-  top: 6px;
-  right: 6px;
+  top: 2px;
+  right: 2px;
   background: #444c;
   color: white;
   border: none;
   border-radius: 50%;
-  height: 45px;
-  width: 45px;
+  height: 32px;
+  width: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 0 8px #1118;
-  opacity: 0;
+
   transition: all 0.3s var(--bc);
   cursor: pointer;
 }
 
-.business_info .image_input:hover .delete {
-  display: flex;
-  opacity: 0.9;
-}
-
-.business_info .image_input:hover .delete:hover {
-  background-color: #333;
-  opacity: 1;
-}
-
 .business_info .delete svg {
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
+}
+.business_info .field_container .input_container,
+.business_info .field_container .dropdowns {
+  width: 200px;
+  max-width: 200px;
+  min-width: 200px;
 }

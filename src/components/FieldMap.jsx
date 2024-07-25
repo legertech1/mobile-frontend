@@ -2,6 +2,8 @@ import Checkbox from "./Shared/Checkbox";
 import Dropdown from "./Shared/Dropdown";
 import Input from "./Shared/Input";
 export default function ({ field, state, setState }) {
+  console.log(state);
+  if (!state.extraFields) return <></>;
   return (
     <div className="field_container">
       <div className="field_info">

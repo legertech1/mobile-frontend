@@ -6,6 +6,7 @@ import {
   ArrowBack,
   ArrowLeft,
   Delete,
+  Edit,
   PauseRounded,
   PlayArrowRounded,
 } from "@mui/icons-material";
@@ -20,6 +21,10 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import useConfirmDialog from "../../hooks/useConfirmDialog";
 import useNotification from "../../hooks/useNotification";
+import { Settings } from "styled-icons/material";
+import Modal from "../Modal";
+import Config from "./Config";
+import { useNavigate } from "react-router-dom";
 
 function Listings({ ads, setAds, loading, num, gestures, update, status }) {
   const containerRef = useRef(null);
@@ -29,6 +34,8 @@ function Listings({ ads, setAds, loading, num, gestures, update, status }) {
   const dispatch = useDispatch();
   const confirm = useConfirmDialog();
   const notification = useNotification();
+
+  const navigate = useNavigate();
   const gestureOptions = {
     onTouchStart: (state) => {
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -126,6 +133,7 @@ function Listings({ ads, setAds, loading, num, gestures, update, status }) {
               </button>
               {selected.length} ad{selected.length > 1 ? "s" : ""} selected.
             </h2>
+            {selected.length < 2 && <></>}
             <button
               className="action"
               onClick={(e) =>

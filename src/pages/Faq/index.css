@@ -1,14 +1,12 @@
 .faq_page .accordion h1 {
-  font-size: 1.5em;
+  font-size: 15px;
   text-align: left;
-  /* color: #555; */
   width: 100%;
   margin: 0;
   font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 10px;
 }
 .faq_page h1.main_header {
   font-weight: 600;
@@ -19,15 +17,15 @@
 }
 
 .faq_page .accordion h1 svg {
-  height: 44px;
-  width: 44px;
-  margin-bottom: -12px;
+  height: 24px;
+  width: 24px;
+  fill: var(--blue);
 }
 .faq_page .FAQ h1 span,
 .faq_page .FAQ > div,
 .faq_page .FAQ,
 .faq_page iframe {
-  transition: all 0.3s var(--bc);
+  transition: all 0.2s var(--bc);
 }
 .faq_page .FAQ.active h1 span {
   transform: rotate(180deg);
@@ -47,8 +45,9 @@
   opacity: 0;
 }
 .faq_page .FAQ.active iframe {
-  height: 560px;
+  margin-top: 12px;
   opacity: 1;
+  height: 50vw;
 }
 
 .faq_page .content {
@@ -67,10 +66,9 @@
 }
 .faq_page .FAQ {
   width: 100%;
-  padding: 22px;
-  box-sizing: border-box;
-  border-radius: 4px;
-  box-shadow: 1px 1px 8px #ccc, -1px -1px 8px #ccc;
+  padding: 16px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 12px #1114;
   background: white;
   cursor: pointer;
   box-sizing: border-box;
@@ -80,10 +78,10 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  gap: 30px;
+  gap: 12px;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 40px 80px;
+  padding: 12px;
   box-sizing: border-box;
 }
 
@@ -94,15 +92,6 @@
   align-items: center;
   width: 100%;
   gap: 20px;
-}
-
-@media (max-width: 1600px) {
-  .faq_page .content {
-    margin: 100px 5% 20px;
-  }
-  .faq_page .FAQ.active iframe {
-    height: 460px;
-  }
 }
 
 .vp-center {

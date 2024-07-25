@@ -66,148 +66,133 @@ function BusinessInfo({ close }) {
 
   return (
     <div className="business_info">
-      <h2>Your Business Info</h2>
-      <div className="content">
-        <div className="field_container">
-          <div className="field_info">
-            <h4>
-              Business LOGO:<span>(required)</span>
-            </h4>
-            <p>
-              An image of your Business LOGO. Click on the box to choose image
-            </p>
-          </div>
-
-          <div
-            className="image_input"
-            onClick={(e) => imageInp.current.click()}
-          >
-            {!businessInfo?.LOGO && <p>Click to edit</p>}
-            {businessInfo?.LOGO && (
-              <>
-                {" "}
-                <img src={businessInfo?.LOGO}></img>
-                <button
-                  className="delete"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setBusinessInfo({
-                      ...businessInfo,
-                      LOGO: "",
-                    });
-                  }}
-                >
-                  <DeleteOutline />
-                </button>
-              </>
-            )}
-            <input
-              style={{ display: "none" }}
-              onChange={async (e) => {
-                if (!e?.target?.files[0]) return;
-                const imageCompressor = new ImageCompressor();
-                const _img = await imageCompressor.compress(e.target.files[0], {
-                  quality: 0.4,
-                });
-                const img = await parseImage(_img);
-                setBusinessInfo({
-                  ...businessInfo,
-                  LOGO: img,
-                });
-              }}
-              ref={imageInp}
-              type="file"
-              accept=".jpg, .jpeg"
-            />
-          </div>
-        </div>
-        <div className="field_container">
-          <div className="field_info">
-            <h4>
-              Business Name:<span>(required)</span>
-            </h4>
-            <p>Enter the official name of your Business.</p>
-          </div>
-          <Input
-            maxLength="50"
-            placeholder={"What is the name of your Business?"}
-            value={businessInfo?.name}
-            onChange={(e) =>
-              setBusinessInfo({ ...businessInfo, name: e.target.value })
-            }
-          ></Input>
-        </div>
-        <div className="field_container">
-          <div className="field_info">
-            <h4>
-              Business Address:<span>(required)</span>
-            </h4>
-            <p>Enter the address for your Business</p>
-          </div>
-          <Input
-            maxLength="200"
-            placeholder={"Where is your Business Located?"}
-            value={businessInfo?.address}
-            onChange={(e) =>
-              setBusinessInfo({ ...businessInfo, address: e.target.value })
-            }
-          ></Input>
-        </div>
-        <div className="field_container">
-          <div className="field_info">
-            <h4>Business Phone Number:</h4>
-            <p>Enter a contact number for your Business. </p>
-          </div>
-          <Input
-            maxLength="30"
-            placeholder={"(000)-000-0000"}
-            value={parsePhone(phone || "")}
-            onKeyDown={(e) => handlePhoneChange(e, setPhone)}
-          ></Input>
-        </div>
-        <div className="field_container">
-          <div className="field_info">
-            <h4>Business Email:</h4>
-            <p>Enter an email for people to reach out to your Business</p>
-          </div>
-          <Input
-            maxLength="50"
-            placeholder={"xyz@yourBusiness.com"}
-            value={businessInfo?.email}
-            onChange={(e) =>
-              setBusinessInfo({ ...businessInfo, email: e.target.value })
-            }
-          ></Input>
-        </div>
-        <div className="field_container">
-          <div className="field_info">
-            <h4>Website URL:</h4>
-            <p>Enter the URL for your Business's website.</p>
-          </div>
-          <Input
-            maxLength="30"
-            placeholder={"http://yourBusiness.com"}
-            value={businessInfo?.website}
-            onChange={(e) =>
-              setBusinessInfo({ ...businessInfo, website: e.target.value })
-            }
-          ></Input>
+      <div className="field_container">
+        <div className="field_info">
+          <h4>
+            Business LOGO:<span>(required)</span>
+          </h4>
         </div>
 
-        <div className="field_container">
-          <div className="field_info">
-            <h4>Youtube URL:</h4>
-            <p>A link to a youtube video or channel about your Business.</p>
-          </div>
-          <Input
-            maxLength="30"
-            placeholder={"http://youtube.com/xyz"}
-            value={businessInfo?.youtube}
-            onChange={(e) =>
-              setBusinessInfo({ ...businessInfo, youtube: e.target.value })
-            }
-          ></Input>
+        <div className="image_input" onClick={(e) => imageInp.current.click()}>
+          {!businessInfo?.LOGO && <p>Click to edit</p>}
+          {businessInfo?.LOGO && (
+            <>
+              {" "}
+              <img src={businessInfo?.LOGO}></img>
+              <button
+                className="delete"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setBusinessInfo({
+                    ...businessInfo,
+                    LOGO: "",
+                  });
+                }}
+              >
+                <DeleteOutline />
+              </button>
+            </>
+          )}
+          <input
+            style={{ display: "none" }}
+            onChange={async (e) => {
+              if (!e?.target?.files[0]) return;
+              const imageCompressor = new ImageCompressor();
+              const _img = await imageCompressor.compress(e.target.files[0], {
+                quality: 0.4,
+              });
+              const img = await parseImage(_img);
+              setBusinessInfo({
+                ...businessInfo,
+                LOGO: img,
+              });
+            }}
+            ref={imageInp}
+            type="file"
+            accept=".jpg, .jpeg"
+          />
         </div>
+      </div>
+      <div className="field_container">
+        <div className="field_info">
+          <h4>
+            Business Name:<span>(required)</span>
+          </h4>
+        </div>
+        <Input
+          maxLength="50"
+          placeholder={"What is the name of your Business?"}
+          value={businessInfo?.name}
+          onChange={(e) =>
+            setBusinessInfo({ ...businessInfo, name: e.target.value })
+          }
+        ></Input>
+      </div>
+      <div className="field_container">
+        <div className="field_info">
+          <h4>
+            Business Address:<span>(required)</span>
+          </h4>
+        </div>
+        <Input
+          maxLength="200"
+          placeholder={"Where is your Business Located?"}
+          value={businessInfo?.address}
+          onChange={(e) =>
+            setBusinessInfo({ ...businessInfo, address: e.target.value })
+          }
+        ></Input>
+      </div>
+      <div className="field_container">
+        <div className="field_info">
+          <h4>Business Phone Number:</h4>
+        </div>
+        <Input
+          maxLength="30"
+          placeholder={"(000)-000-0000"}
+          value={parsePhone(phone || "")}
+          onKeyDown={(e) => handlePhoneChange(e, setPhone)}
+        ></Input>
+      </div>
+      <div className="field_container">
+        <div className="field_info">
+          <h4>Business Email:</h4>
+        </div>
+        <Input
+          maxLength="50"
+          placeholder={"xyz@yourBusiness.com"}
+          value={businessInfo?.email}
+          onChange={(e) =>
+            setBusinessInfo({ ...businessInfo, email: e.target.value })
+          }
+        ></Input>
+      </div>
+      <div className="field_container">
+        <div className="field_info">
+          <h4>Website URL:</h4>
+        </div>
+        <Input
+          maxLength="30"
+          placeholder={"http://yourBusiness.com"}
+          value={businessInfo?.website}
+          onChange={(e) =>
+            setBusinessInfo({ ...businessInfo, website: e.target.value })
+          }
+        ></Input>
+      </div>
+
+      <div className="field_container">
+        <div className="field_info">
+          <h4>Youtube URL:</h4>
+        </div>
+        <Input
+          maxLength="30"
+          placeholder={"http://youtube.com/xyz"}
+          value={businessInfo?.youtube}
+          onChange={(e) =>
+            setBusinessInfo({ ...businessInfo, youtube: e.target.value })
+          }
+        ></Input>
       </div>
 
       <div className="actions">

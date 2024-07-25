@@ -56,6 +56,12 @@ import Doc from "./Doc";
 import Info from "./Info";
 import Pricing from "./Pricing";
 import Transactions from "./Transactions";
+import ContactUsForm from "../../pages/ContactUs/ContactUsForm";
+import EmailSettings from "../../components/EmailSettings";
+import NotificationSettings from "../../components/NotificationSettings";
+import BInfo from "./BInfo";
+import Faq from "../../pages/Faq";
+import Help from "../../pages/Help";
 const countries = {
   US: { image: US, name: "USA", currency: "USD" },
   CA: {
@@ -77,7 +83,8 @@ function Account() {
   const confirm = useConfirmDialog();
 
   useEffect(() => {
-    if (tab != "" && location.pathname == "/profile")
+    console.log(tab);
+    if (tab != "" && location.pathname != "/profile/" + tab)
       navigate("/profile/" + tab);
     else if (tab == "" && location.pathname != "/profile") navigate("/profile");
   }, [tab]);
@@ -158,6 +165,26 @@ function Account() {
             >
               <h2>
                 <PersonOutlineRounded /> User Info{" "}
+                <span>
+                  <KeyboardArrowRight />
+                </span>
+              </h2>
+            </div>
+          )}
+
+          {user && (
+            <div
+              className={"tile user_info"}
+              onClick={(e) =>
+                ripple(e, {
+                  dur: 2,
+                  fast: true,
+                  cb: () => setTab("business_info"),
+                })
+              }
+            >
+              <h2>
+                <BusinessOutlined /> Business Info{" "}
                 <span>
                   <KeyboardArrowRight />
                 </span>
@@ -248,7 +275,11 @@ function Account() {
                 <div
                   className="option"
                   onClick={(e) => {
-                    ripple(e, { dur: 2, fast: true });
+                    ripple(e, {
+                      dur: 2,
+                      fast: true,
+                      cb: () => setTab("email-settings"),
+                    });
                   }}
                 >
                   <EmailOutlined /> Email Settings
@@ -256,7 +287,11 @@ function Account() {
                 <div
                   className="option"
                   onClick={(e) => {
-                    ripple(e, { dur: 2, fast: true });
+                    ripple(e, {
+                      dur: 2,
+                      fast: true,
+                      cb: () => setTab("notification-settings"),
+                    });
                   }}
                 >
                   <NotificationsActiveOutlined /> Notification Settings
@@ -507,6 +542,21 @@ function Account() {
             <Info />
           </>
         )}
+        {tab == "business_info" && (
+          <>
+            <h2 className="heading">
+              <div
+                className="back"
+                onClick={(e) => ripple(e, { dur: 1, cb: (e) => setTab("") })}
+              >
+                {" "}
+                <ArrowBack />
+              </div>{" "}
+              Business Info
+            </h2>
+            <BInfo />
+          </>
+        )}
         {tab == "pricing" && (
           <>
             <h2 className="heading">
@@ -535,6 +585,82 @@ function Account() {
               My Payments
             </h2>
             <Transactions />
+          </>
+        )}
+        {tab == "contact-us" && (
+          <>
+            <h2 className="heading">
+              <div
+                className="back"
+                onClick={(e) => ripple(e, { dur: 1, cb: (e) => setTab("") })}
+              >
+                {" "}
+                <ArrowBack />
+              </div>{" "}
+              Contact Us
+            </h2>
+            <ContactUsForm />
+          </>
+        )}
+        {tab == "email-settings" && (
+          <>
+            <h2 className="heading">
+              <div
+                className="back"
+                onClick={(e) => ripple(e, { dur: 1, cb: (e) => setTab("") })}
+              >
+                {" "}
+                <ArrowBack />
+              </div>{" "}
+              Email updates configuration
+            </h2>
+            <EmailSettings />
+          </>
+        )}
+        {tab == "notification-settings" && (
+          <>
+            <h2 className="heading">
+              <div
+                className="back"
+                onClick={(e) => ripple(e, { dur: 1, cb: (e) => setTab("") })}
+              >
+                {" "}
+                <ArrowBack />
+              </div>{" "}
+              Notification updates configuration
+            </h2>
+            <NotificationSettings />
+          </>
+        )}
+        {tab == "faq" && (
+          <>
+            <h2 className="heading">
+              <div
+                className="back"
+                onClick={(e) => ripple(e, { dur: 1, cb: (e) => setTab("") })}
+              >
+                {" "}
+                <ArrowBack />
+              </div>{" "}
+              Frequently Asked Questions
+            </h2>
+            <Faq />
+          </>
+        )}
+
+        {tab == "help" && (
+          <>
+            <h2 className="heading">
+              <div
+                className="back"
+                onClick={(e) => ripple(e, { dur: 1, cb: (e) => setTab("") })}
+              >
+                {" "}
+                <ArrowBack />
+              </div>{" "}
+              Help and Support
+            </h2>
+            <Help setTab={setTab} />{" "}
           </>
         )}
       </div>

@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 
-const PinchZoomImage = ({ src, alt, onSwipedLeft, onSwipedRight }) => {
+const PinchZoomImage = ({
+  src,
+  alt,
+  onSwipedLeft = () => {},
+  onSwipedRight = () => {},
+}) => {
   const imageRef = useRef(null);
   const [initialDistance, setInitialDistance] = useState(0);
   const [currentDistance, setCurrentDistance] = useState(0);
@@ -86,10 +91,11 @@ const PinchZoomImage = ({ src, alt, onSwipedLeft, onSwipedRight }) => {
         alt={alt}
         style={{
           maxWidth: "100%",
+          minWidth: "100%",
           height: "100%",
           cursor: "zoom-in",
           objectFit: "contain",
-          transformOrigin: "left",
+          transformOrigin: "top left",
           transform: `scale(${scale})`,
         }}
       />

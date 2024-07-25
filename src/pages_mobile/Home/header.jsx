@@ -30,6 +30,9 @@ function Header({
   filters,
   setFilters,
 }) {
+  const { selectedLocation, currentLocation } = useSelector(
+    (state) => state.location
+  );
   const [categoryModal, setCategoryModal] = useState(false);
   const [filtersModal, setFiltersModal] = useState(false);
   const [locModal, setLocModal] = useState(false);
@@ -99,7 +102,7 @@ function Header({
             ripple(e, { dur: 1, cb: () => setLocModal(true) });
           }}
         >
-          <PinDrop /> Canada
+          <PinDrop /> <p>{selectedLocation?.name || "Select a location"}</p>
         </div>
       </div>
       <div className="tabs" ref={tabsRef}>

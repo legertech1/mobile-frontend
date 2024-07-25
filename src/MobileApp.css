@@ -26,7 +26,8 @@
   font-family: var(--font2);
   /* padding-bottom: 66px; */
 }
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+* ::-webkit-scrollbar {
   display: none;
 }
 

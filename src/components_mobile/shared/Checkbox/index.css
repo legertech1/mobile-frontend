@@ -16,6 +16,9 @@
   background-color: var(--blue);
   color: #fff;
 }
+.mobile_checkbox .checked svg {
+  fill: white !important;
+}
 
 .mobile_checkbox svg {
   font-size: 1.5rem;

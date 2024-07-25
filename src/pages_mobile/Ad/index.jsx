@@ -66,17 +66,21 @@ import ripple from "../../utils/ripple";
 import { useSwipeable } from "react-swipeable";
 import PinchZoomImage from "./PinchToZoom";
 import { ChevronRight } from "@styled-icons/entypo/ChevronRight";
+import { KeyboardArrowDown } from "styled-icons/material";
 const countries = { US, CA };
-function ViewListing({ preview, edit, _id }) {
+function ViewListing({ preview, _id }) {
   const [listing, setListing] = useState(null);
-
+  const location = useLocation();
+  const [edit, setEdit] = useState(
+    new URLSearchParams(location.search).get("edit") || false
+  );
   const ad = useSelector((state) => state.ad);
   const [postedBy, setPostedBy] = useState(null);
   const [message, setMessage] = useState("");
   const [imgView, setImgView] = useState(false);
   const cart = useSelector((state) => state.cart);
   const params = useParams();
-  const location = useLocation();
+
   const [share, setShare] = useState(false);
   const id = _id || location.pathname.split("/")[2];
   const [paymentModal, setPaymentModal] = useState(false);
@@ -85,6 +89,8 @@ function ViewListing({ preview, edit, _id }) {
   const [country, setCountry] = useLocalStorage("country", null);
   const [token, setToken] = useState(null);
   const categories = useSelector((state) => state.categories);
+  const [detailsExpanded, setDetailsExpanded] = useState(false);
+  const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   async function loadAd() {
     try {
       let data = (await axios.get(apis.ad + id)).data;
@@ -135,7 +141,8 @@ function ViewListing({ preview, edit, _id }) {
   const user = useSelector((state) => state.auth);
   const [wishlisted, setWishlisted] = useState(false);
   const navigate = useNavigate();
-
+  const details = useRef();
+  const desc = useRef();
   useEffect(() => {
     user?.data?.wishlist?.includes(listing?._id)
       ? setWishlisted(true)
@@ -181,7 +188,7 @@ function ViewListing({ preview, edit, _id }) {
   function initEdit(token) {
     dispatch(editAd(ad))
       .unwrap()
-      .then((ad) => navigate("/profile"))
+      .then((ad) => navigate("/ads?tab=ads"))
       .catch((err) => console.log(err));
   }
 
@@ -211,7 +218,10 @@ function ViewListing({ preview, edit, _id }) {
       {listing && (
         <>
           <div className="view_listing">
-            <div className="main left right">
+            <div
+              className="main left right"
+              style={preview ? { paddingBottom: "60px" } : {}}
+            >
               {" "}
               <div className="left_img_cont">
                 <div
@@ -281,12 +291,21 @@ function ViewListing({ preview, edit, _id }) {
                     <p>
                       <CalendarMonthIcon />
                       Posted on{" "}
-                      <span>
-                        {new Date(listing?.createdAt).getDate()}{" "}
-                        {monthNames[new Date(listing?.createdAt).getMonth()]}
-                        {", "}
-                        {new Date(listing?.createdAt).getFullYear()}
-                      </span>
+                      {preview ? (
+                        <span>
+                          {new Date().getDate()}{" "}
+                          {monthNames[new Date().getMonth()]}
+                          {", "}
+                          {new Date().getFullYear()}
+                        </span>
+                      ) : (
+                        <span>
+                          {new Date(listing?.createdAt).getDate()}{" "}
+                          {monthNames[new Date(listing?.createdAt).getMonth()]}
+                          {", "}
+                          {new Date(listing?.createdAt).getFullYear()}
+                        </span>
+                      )}
                     </p>
                     <div className="actions">
                       {!preview && (
@@ -303,11 +322,13 @@ function ViewListing({ preview, edit, _id }) {
                     </div>
                   </div>
 
-                  <p className="category">
-                    {listing?.meta?.category} <ChevronRight />{" "}
-                    {listing?.meta?.subCategory}
-                    <ChevronRight /> {listing.listingID}
-                  </p>
+                  {!preview && (
+                    <p className="category">
+                      {listing?.meta?.category} <ChevronRight />{" "}
+                      {listing?.meta?.subCategory}
+                      <ChevronRight /> {listing.listingID}
+                    </p>
+                  )}
                   <h2>{listing?.title}</h2>
 
                   <h1 className="price">
@@ -323,6 +344,80 @@ function ViewListing({ preview, edit, _id }) {
                     />
                   </h1>
                 </div>
+                {(listing?.meta?.business ||
+                  (preview && cart.extras?.business)) && (
+                  <div className="business tile">
+                    <h1>
+                      <BusinessIcon /> Business Info
+                    </h1>
+                    <div className="business_main">
+                      <img
+                        onError={imageFallback}
+                        src={postedBy?.BusinessInfo?.LOGO}
+                      />
+                      <div className="info">
+                        {postedBy?.BusinessInfo?.email && (
+                          <>
+                            <a href={"mailto:" + postedBy?.BusinessInfo?.email}>
+                              <AlternateEmailIcon />{" "}
+                              {postedBy?.BusinessInfo?.email}
+                            </a>
+                          </>
+                        )}
+                        <h3 className="name">{postedBy?.BusinessInfo?.name}</h3>
+                        <p className="address">
+                          {postedBy?.BusinessInfo?.address}
+                        </p>{" "}
+                      </div>
+                    </div>
+                    <div className="row">
+                      {postedBy?.BusinessInfo?.website && (
+                        <>
+                          {" "}
+                          <a
+                            href={postedBy?.BusinessInfo?.website}
+                            target="_blank"
+                          >
+                            <LanguageIcon />
+                            {postedBy?.BusinessInfo?.website}
+                          </a>
+                        </>
+                      )}
+
+                      {postedBy?.BusinessInfo?.phone && (
+                        <>
+                          {" "}
+                          <a
+                            href={"tel:" + postedBy?.BusinessInfo?.phone}
+                            target="_blank"
+                          >
+                            <Phone />
+                            {postedBy?.BusinessInfo?.phone &&
+                              `(${postedBy.BusinessInfo.phone.slice(
+                                0,
+                                3
+                              )}) ${postedBy.BusinessInfo.phone.slice(
+                                3,
+                                6
+                              )}-${postedBy.BusinessInfo.phone.slice(6)}`}
+                          </a>
+                        </>
+                      )}
+
+                      {postedBy?.BusinessInfo?.youtube && (
+                        <>
+                          <a
+                            href={postedBy?.BusinessInfo?.youtube}
+                            target="_blank"
+                          >
+                            <YouTubeIcon />
+                            {postedBy?.BusinessInfo?.youtube}
+                          </a>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
                 {(Object.keys(listing?.extraFields || {})?.filter(
                   (k) =>
                     listing.extraFields[k] !== undefined &&
@@ -332,10 +427,31 @@ function ViewListing({ preview, edit, _id }) {
                   <div className="details tile">
                     <h1>
                       {" "}
-                      <InfoOutlinedIcon /> Details
+                      <InfoOutlinedIcon /> Details{" "}
+                      {details?.current?.scrollHeight > "296" && (
+                        <span
+                          className="expand"
+                          onClick={(e) => setDetailsExpanded((state) => !state)}
+                          style={
+                            detailsExpanded
+                              ? { transform: "rotate(180deg)" }
+                              : {}
+                          }
+                        >
+                          <KeyboardArrowDown />
+                        </span>
+                      )}
                     </h1>
 
-                    <div className="extra_fields">
+                    <div
+                      className={"extra_fields"}
+                      ref={details}
+                      style={
+                        detailsExpanded
+                          ? { maxHeight: details?.current?.scrollHeight + "px" }
+                          : {}
+                      }
+                    >
                       {Object.keys(listing?.extraFields || {})
                         ?.filter(
                           (k) =>
@@ -358,88 +474,37 @@ function ViewListing({ preview, edit, _id }) {
                 <div className="description tile">
                   <h1>
                     {" "}
-                    <DescriptionOutlinedIcon /> Description
+                    <DescriptionOutlinedIcon /> Description{" "}
+                    {desc?.current?.scrollHeight > "296" && (
+                      <span
+                        className="expand"
+                        onClick={(e) =>
+                          setDescriptionExpanded((state) => !state)
+                        }
+                        style={
+                          descriptionExpanded
+                            ? { transform: "rotate(180deg)" }
+                            : {}
+                        }
+                      >
+                        <KeyboardArrowDown />
+                      </span>
+                    )}
                   </h1>
-                  <p>
+                  <p
+                    className="_desc"
+                    ref={desc}
+                    style={
+                      descriptionExpanded
+                        ? { maxHeight: desc?.current?.scrollHeight + "px" }
+                        : {}
+                    }
+                  >
                     <pre>{listing?.description}</pre>
                   </p>
                 </div>
               </div>
               <div className="_right">
-                {(listing?.meta?.business ||
-                  (preview && cart.extras?.business)) && (
-                  <div className="business tile">
-                    <h1>
-                      <BusinessIcon /> Business Info
-                    </h1>
-                    <div className="business_main">
-                      <img
-                        onError={imageFallback}
-                        src={postedBy?.BusinessInfo?.LOGO}
-                      />
-                      <div className="info">
-                        <h3 className="name">
-                          {postedBy?.BusinessInfo?.name}
-                          {postedBy?.BusinessInfo?.email && (
-                            <>
-                              <hr />
-                              <a
-                                href={"mailto:" + postedBy?.BusinessInfo?.email}
-                              >
-                                <AlternateEmailIcon />{" "}
-                                {postedBy?.BusinessInfo?.email}
-                              </a>
-                            </>
-                          )}
-                        </h3>
-                        <p className="address">
-                          {postedBy?.BusinessInfo?.address}
-                        </p>
-                        <div className="row">
-                          {postedBy?.BusinessInfo?.website && (
-                            <>
-                              {" "}
-                              <a
-                                href={postedBy?.BusinessInfo?.website}
-                                target="_blank"
-                              >
-                                <LanguageIcon />
-                                {postedBy?.BusinessInfo?.website}
-                              </a>
-                            </>
-                          )}
-
-                          {postedBy?.BusinessInfo?.phone && (
-                            <>
-                              {" "}
-                              <hr />
-                              <a
-                                href={"tel:" + postedBy?.BusinessInfo?.phone}
-                                target="_blank"
-                              >
-                                <Phone />
-                                {postedBy?.BusinessInfo?.phone}
-                              </a>
-                            </>
-                          )}
-
-                          {postedBy?.BusinessInfo?.youtube && (
-                            <>
-                              <hr />
-                              <a
-                                href={postedBy?.BusinessInfo?.youtube}
-                                target="_blank"
-                              >
-                                <YouTubeIcon />
-                                {postedBy?.BusinessInfo?.youtube}
-                              </a>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
                 {(listing?.config?.current?.extras?.youtube ||
                   listing?.config?.current?.extras?.website) && (
                   <div className="tile youtube_website">
@@ -708,7 +773,11 @@ function ViewListing({ preview, edit, _id }) {
             </Modal>
           )}
           {paymentModal && (
-            <Modal close={(e) => setPaymentModal(false)}>
+            <Modal
+              heading={"Post Ad"}
+              className="payment"
+              close={(e) => setPaymentModal(false)}
+            >
               <PaymentElement
                 onPaymentSuccessful={(token) => setToken(token)}
                 onPaymentFailed={onPaymentFailed}
@@ -726,7 +795,11 @@ function ViewListing({ preview, edit, _id }) {
             </Modal>
           )}
           {token && (
-            <Modal close={() => setToken(null)}>
+            <Modal
+              close={() => setToken(null)}
+              heading={"Your Ad is Being Posted"}
+              className={"post_ad_handler"}
+            >
               <AdPosthandler
                 close={() => setToken(null)}
                 token={token}

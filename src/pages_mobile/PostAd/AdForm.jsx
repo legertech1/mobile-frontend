@@ -30,7 +30,7 @@ import { Circle, GoogleMap, OverlayView } from "@react-google-maps/api";
 import MyAutocomplete from "../../components/Autocomplete";
 import apis from "../../services/api";
 import axios from "axios";
-import Checkbox from "../../components/Shared/Checkbox";
+import Checkbox from "../../components_mobile/shared/Checkbox";
 import marker from "../../assets/images/marker.png";
 import parseAdressComponents from "../../utils/parseAdressComponents";
 import useConfirmDialog from "../../hooks/useConfirmDialog";
@@ -229,7 +229,7 @@ export default function AdForm({ edit }) {
         return notification.error("Price is required");
       if (formData.description.trim().length < 40)
         return notification.error(
-          "Description is required and must be between 40 to 4000 characters"
+          "Description is required and must be between 40 to 8000 characters"
         );
     }
     if (step >= 3) {
@@ -273,7 +273,7 @@ export default function AdForm({ edit }) {
     if (step == 5) {
       if (formData.images.length < 1)
         return notification.error("At least one image is required");
-      return navigate(url || edit ? "preview-ad?type=edit" : "preview-ad");
+      return navigate(url || edit ? "/preview-ad?edit=true" : "/preview-ad");
     }
     setCurrentStep(step);
     window.scrollTo(0, 0);
@@ -324,6 +324,8 @@ export default function AdForm({ edit }) {
       setCurrentStep(4);
     }
   };
+
+  const tagRef = useRef();
 
   const stepData = {
     1: (
@@ -418,58 +420,63 @@ export default function AdForm({ edit }) {
               duration: Day, Month, or Year.
             </p>
           </div>
-          <PriceInput
-            onChangeTerm={(term) => {
-              handleFormData("term", term);
-            }}
-            price={formData.price}
-            term={formData.term}
-            onChange={(e) => {
-              if (isNaN(e.target.value)) return;
-              if (e.target.value.split(".")[1]?.length > 2) return;
+          <div className="_pr_row">
+            {" "}
+            <PriceInput
+              onChangeTerm={(term) => {
+                handleFormData("term", term);
+              }}
+              price={formData.price}
+              term={formData.term}
+              onChange={(e) => {
+                if (isNaN(e.target.value)) return;
+                if (e.target.value.split(".")[1]?.length > 2) return;
 
-              handleFormData("price", e.target.value.trim().slice(0, 10));
-            }}
-          />
-          <div className="tax">
-            <span className="free">*$0 will be shown as free</span>
-            <span>Tax:</span>
-            <p>
-              <Checkbox
-                checked={formData.tax == "none"}
-                setChecked={(v) =>
-                  v && dispatch(setFormData({ ...formData, tax: "none" }))
-                }
-              />
-              none
-            </p>
-            <p>
-              <Checkbox
-                checked={formData.tax == "HST"}
-                setChecked={(v) =>
-                  v && dispatch(setFormData({ ...formData, tax: "HST" }))
-                }
-              />
-              +HST
-            </p>
-            <p>
-              <Checkbox
-                checked={formData.tax == "GST"}
-                setChecked={(v) =>
-                  v && dispatch(setFormData({ ...formData, tax: "GST" }))
-                }
-              />{" "}
-              +GST
-            </p>
-            <p>
-              <Checkbox
-                checked={formData.tax == "TAX"}
-                setChecked={(v) =>
-                  v && dispatch(setFormData({ ...formData, tax: "TAX" }))
-                }
-              />{" "}
-              +TAX
-            </p>
+                handleFormData("price", e.target.value.trim().slice(0, 10));
+              }}
+            />
+            <div className="tax_op">
+              <span className="free">*$0 will be shown as free</span>
+              <div className="tax">
+                <span>Tax:</span>
+                <p>
+                  <Checkbox
+                    checked={formData.tax == "none"}
+                    setChecked={(v) =>
+                      v && dispatch(setFormData({ ...formData, tax: "none" }))
+                    }
+                  />
+                  none
+                </p>
+                <p>
+                  <Checkbox
+                    checked={formData.tax == "HST"}
+                    setChecked={(v) =>
+                      v && dispatch(setFormData({ ...formData, tax: "HST" }))
+                    }
+                  />
+                  +HST
+                </p>
+                <p>
+                  <Checkbox
+                    checked={formData.tax == "GST"}
+                    setChecked={(v) =>
+                      v && dispatch(setFormData({ ...formData, tax: "GST" }))
+                    }
+                  />{" "}
+                  +GST
+                </p>
+                <p>
+                  <Checkbox
+                    checked={formData.tax == "TAX"}
+                    setChecked={(v) =>
+                      v && dispatch(setFormData({ ...formData, tax: "TAX" }))
+                    }
+                  />{" "}
+                  +TAX
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         <div className="field_container">
@@ -481,73 +488,101 @@ export default function AdForm({ edit }) {
             </p>
           </div>
 
-          <div className="tag_inp">
-            {formData?.tags?.map((tag, index) => (
-              <div className="tag">
-                <pre>{tag} </pre>
-                <CloseOutlinedIcon
-                  onClick={(e) =>
-                    dispatch(
-                      setFormData({
-                        ...formData,
-                        tags: formData.tags.filter((tag, i) => i != index),
-                      })
-                    )
-                  }
-                />
-              </div>
-            ))}
+          <div className="_tags">
             {formData?.tags?.length < 5 && (
-              <input
-                type="text"
-                placeholder={
-                  !formData?.tags?.length && "Enter tags related to your Ad"
-                }
-                onKeyDown={(e) => {
-                  if (e.key == "Tab") e.preventDefault();
-                  if (e.key == "Backspace" && e.target.value == "")
-                    return dispatch(
+              <div className="tag_inp">
+                <input
+                  ref={tagRef}
+                  type="text"
+                  placeholder={"Enter tags related to your Ad"}
+                  onKeyDown={(e) => {
+                    if (e.key == "Tab" || e.key == "Enter") e.preventDefault();
+                    if (e.key == "Backspace" && e.target.value == "")
+                      return dispatch(
+                        dispatch(
+                          setFormData({
+                            ...formData,
+                            tags: formData.tags.slice(
+                              0,
+                              formData.tags.length - 1
+                            ),
+                          })
+                        )
+                      );
+                    if (
+                      (e.key == "Enter" || e.key == "Tab") &&
+                      e.target.value
+                    ) {
+                      const newTag = e.target.value
+                        .toLowerCase()
+                        .trim()
+                        .slice(0, 50);
                       dispatch(
                         setFormData({
                           ...formData,
-                          tags: formData.tags.slice(
-                            0,
-                            formData.tags.length - 1
-                          ),
+                          tags: [...formData.tags, newTag],
                         })
-                      )
-                    );
-                  if ((e.key == "Enter" || e.key == "Tab") && e.target.value) {
-                    const newTag = e.target.value
+                      );
+                      e.target.scrollTo({
+                        top: 0,
+                        left: e.target.innerWidth,
+                        behavior: "smooth",
+                      });
+
+                      e.target.value = "";
+                    }
+                  }}
+                />
+                <button
+                  className="add_tag"
+                  onClick={() => {
+                    const newTag = tagRef.current.value
                       .toLowerCase()
                       .trim()
                       .slice(0, 50);
+                    if (!newTag) return;
                     dispatch(
                       setFormData({
                         ...formData,
                         tags: [...formData.tags, newTag],
                       })
                     );
-                    e.target.scrollTo({
-                      top: 0,
-                      left: e.target.innerWidth,
-                      behavior: "smooth",
-                    });
-
-                    e.target.value = "";
-                  }
-                }}
-              />
+                    tagRef.current.value = "";
+                  }}
+                >
+                  Add
+                </button>
+              </div>
             )}
+            <div className="tags_cont">
+              {formData?.tags?.map((tag, index) => (
+                <div className="tag">
+                  <pre>{tag} </pre>
+                  <span
+                    onClick={(e) =>
+                      dispatch(
+                        setFormData({
+                          ...formData,
+                          tags: formData.tags.filter((tag, i) => i != index),
+                        })
+                      )
+                    }
+                  >
+                    {" "}
+                    <CloseOutlinedIcon />
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="desc_container">
+        <div className="field_container desc">
           <h4>
             Description <span>(required)</span>
           </h4>
           <TextArea
             onChange={(e) => {
-              handleFormData("description", e.target.value.slice(0, 4000));
+              handleFormData("description", e.target.value.slice(0, 8000));
             }}
             placeholder={
               "Describe your item, include all important details related to the item."
@@ -585,7 +620,7 @@ export default function AdForm({ edit }) {
     3: (
       <div className="step3">
         {!edit && <AdPricing category={categories[categoryIndex]} />}
-        <div>
+        <div className="location_section">
           <h2>Choose Location for your Ad</h2>
           <div className="location">
             <div className="selections">
@@ -731,7 +766,7 @@ export default function AdForm({ edit }) {
               {edit && (
                 <button
                   className="btn_blue_m next_btn"
-                  onClick={(e) => formNav(5, "/preview/" + formData._id)}
+                  onClick={(e) => formNav(5, "/preview-ad")}
                 >
                   Save and Preview
                 </button>
