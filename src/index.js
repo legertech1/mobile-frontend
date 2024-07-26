@@ -12,6 +12,11 @@ import apis from "./services/api";
 import IconPlayer from "./components/IconPlayer";
 import blackAnimatedLOGO from "./assets/animatedIcons/animated_black_LOGO.json";
 import MobileApp from "./MobileApp";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(
+  "pk_test_51ONSkVJEhNZ71YtH2dHLbpDW0LECzwD1BRGSKy7zCPUU2iUk7VngCGh1iIKk1ITxaPeWsAIkHlYEa7XrF3JKwgaW00IwewY88r"
+);
 
 function Root() {
   async function init() {
@@ -27,7 +32,7 @@ function Root() {
         country: JSON.parse(localStorage.country || JSON.stringify("")),
       };
       return config;
-    },
+    }
     // function (error) {
     //   // Do something with request error
     //   return Promise.reject(error);
@@ -48,25 +53,27 @@ function Root() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <NotificationService>
-        <ConfirmDialogService>
-          <Provider store={store}>
-            <LoadScript
-              loadingElement={
-                <div className="logo_loader">
-                  <IconPlayer icon={blackAnimatedLOGO} />
-                </div>
-              }
-              googleMapsApiKey={MAP_API_KEY}
-              libraries={mapLibraries}
-            >
-              <MobileApp />
-            </LoadScript>
-          </Provider>
-        </ConfirmDialogService>
-      </NotificationService>
-    </BrowserRouter>
+    <Elements stripe={stripePromise}>
+      <BrowserRouter>
+        <NotificationService>
+          <ConfirmDialogService>
+            <Provider store={store}>
+              <LoadScript
+                loadingElement={
+                  <div className="logo_loader">
+                    <IconPlayer icon={blackAnimatedLOGO} />
+                  </div>
+                }
+                googleMapsApiKey={MAP_API_KEY}
+                libraries={mapLibraries}
+              >
+                <MobileApp />
+              </LoadScript>
+            </Provider>
+          </ConfirmDialogService>
+        </NotificationService>
+      </BrowserRouter>
+    </Elements>
   );
 }
 
