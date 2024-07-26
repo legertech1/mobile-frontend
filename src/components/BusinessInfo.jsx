@@ -78,19 +78,21 @@ function BusinessInfo({ close }) {
           {businessInfo?.LOGO && (
             <>
               {" "}
-              <img src={businessInfo?.LOGO}></img>
-              <button
-                className="delete"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setBusinessInfo({
-                    ...businessInfo,
-                    LOGO: "",
-                  });
-                }}
-              >
-                <DeleteOutline />
-              </button>
+              <img src={businessInfo?.LOGO} onError={imageFallback}></img>
+              {businessInfo?.LOGO && (
+                <button
+                  className="delete"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setBusinessInfo({
+                      ...businessInfo,
+                      LOGO: "",
+                    });
+                  }}
+                >
+                  <DeleteOutline />
+                </button>
+              )}
             </>
           )}
           <input
@@ -150,8 +152,8 @@ function BusinessInfo({ close }) {
         <Input
           maxLength="30"
           placeholder={"(000)-000-0000"}
-          value={parsePhone(phone || "")}
-          onKeyDown={(e) => handlePhoneChange(e, setPhone)}
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
         ></Input>
       </div>
       <div className="field_container">

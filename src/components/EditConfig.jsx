@@ -6,6 +6,7 @@ import axios from "axios";
 import apis from "../services/api";
 import useNotification from "../hooks/useNotification";
 import { updateCart } from "../store/cartSlice";
+import { createPortal } from "react-dom";
 
 function EditConfig({ listing, close, onEdit }) {
   const dispatch = useDispatch();
@@ -40,14 +41,20 @@ function EditConfig({ listing, close, onEdit }) {
           ignoreFree={true}
         />
       </div>
-      <div className="btns_cont">
-        <button className="discard" onClick={close}>
-          Discard
-        </button>
-        <button className="next_btn btn_blue_m" onClick={() => updateConfig()}>
-          Save config
-        </button>
-      </div>
+      {createPortal(
+        <div className="_btns_cont" style={{ zIndex: 99999999 }}>
+          <button className="discard" onClick={close}>
+            Discard
+          </button>
+          <button
+            className="next_btn btn_blue_m"
+            onClick={() => updateConfig()}
+          >
+            Save config
+          </button>
+        </div>,
+        document.querySelector("#portal")
+      )}
     </div>
   );
 }

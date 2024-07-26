@@ -65,6 +65,17 @@ const PinchZoomImage = ({
     trackTouch: true,
   });
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     console.log((imageRef.current.parentNode.clientWidth * scale) / 2);
+  //     imageRef.current.parentNode.scrollTo({
+  //       top: 0,
+  //       left: (imageRef.current.parentNode.clientWidth * (scale - 1)) / 2,
+  //       behavior: "smooth",
+  //     });
+  //   }, 50);
+  // }, [scale]);
+
   return (
     <div
       {...swipeHandlers}
@@ -90,13 +101,9 @@ const PinchZoomImage = ({
         src={src}
         alt={alt}
         style={{
-          maxWidth: "100%",
-          minWidth: "100%",
-          height: "100%",
-          cursor: "zoom-in",
-          objectFit: "contain",
-          transformOrigin: "top left",
-          transform: `scale(${scale})`,
+          // transform: `scale(${scale}) translateY(-50%)`,
+          width: `${scale * 100}%`,
+          top: 0,
         }}
       />
     </div>

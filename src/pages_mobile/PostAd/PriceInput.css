@@ -75,3 +75,7 @@
 
   opacity: 1;
 }
+
+.custom_price_input input {
+  font-family: var(--font1);
+}

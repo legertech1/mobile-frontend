@@ -129,25 +129,33 @@
   flex: 20%;
 }
 
-.post_ad .btns_cont {
+.post_ad .btns_cont,
+._btns_cont {
   min-width: 100%;
   display: flex;
   gap: 12px;
   flex-direction: row;
-
   width: 100%;
-  border-radius: 6px;
-  box-sizing: BORDER-BOX;
   justify-content: END;
   align-items: end;
   margin-top: 12px;
+  position: fixed;
+  background: white;
+  padding: 12px;
+  box-sizing: border-box;
+  /* top: CALC(100% - 52px); */
+  bottom: 0;
+  left: 0;
+  box-shadow: 0px 0px 8px #1114;
+  z-index: 9999;
 }
 
-.post_ad .btns_cont .discard {
+.post_ad .btns_cont .discard,
+._btns_cont .discard {
   font-size: 16px;
   flex: 1;
-  height: 52px;
-  font-weight: 600;
+  height: 48px;
+  font-weight: 500;
   font-family: var(--font2);
   padding: 16px 20px;
   color: var(--red);
@@ -161,21 +169,18 @@
   max-width: 200px;
 }
 
-.post_ad .btns_cont .discard:hover {
-  background-color: var(--red);
-  color: white;
-}
-
-.post_ad .btns_cont .next_btn {
+.post_ad .btns_cont .next_btn,
+._btns_cont .next_btn {
   font-size: 16px;
   width: fit-content;
-  height: 52px;
-  font-weight: 600;
+  height: 48px;
+  font-weight: 500;
   flex: 1;
   font-family: var(--font2);
   padding: 16px 20px;
   border-radius: 8px;
   max-width: 200px;
+  min-width: fit-content;
 }
 
 .post_ad ._dropdown .options {
@@ -268,10 +273,10 @@
 
 .post_ad h2 {
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   margin: 0;
   /* margin-top: 50px; */
-  /* color: #333; */
+  color: #555;
 }
 .post_ad .field_container ._dropdown {
   flex: 1;
@@ -702,7 +707,7 @@
 
 .pricing_section .no_business_info {
   color: var(--red);
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -942,6 +947,7 @@
   /* box-sizing: border-box; */
   /* top: 66px; */
   /* left: 0; */
+  padding-bottom: 120px !important;
 }
 
 .relist_ad .ad_form {
@@ -963,6 +969,9 @@
   }
   .post_ad ._price_inp {
     flex-direction: row;
+  }
+  .post_ad .main {
+    padding: 8px 0;
   }
 
   .post_ad ._price_inp .option_container {

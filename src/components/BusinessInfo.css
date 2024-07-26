@@ -9,7 +9,7 @@
   height: calc(100vh - 80px);
 
   overflow-y: scroll;
-  gap: 8px;
+  gap: 6px;
   max-width: 600px;
 }
 
@@ -18,9 +18,9 @@
   gap: 20px;
   justify-content: space-between;
   align-items: start;
-  padding: 12px;
+  padding: 16px;
   border-radius: 8px;
-  box-shadow: 0px 0px 12px #1113;
+  box-shadow: 0px 0px 8px #1114;
 }
 
 .business_info .field_container .field_info {
@@ -68,6 +68,12 @@
   font-weight: 500;
   font-family: var(--font2);
   color: #333;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.business_info h4 svg {
+  fill: var(--blue);
 }
 
 .business_info h2 {
@@ -83,6 +89,7 @@
   align-items: center;
   justify-content: end;
   gap: 12px;
+  margin-bottom: 60px;
 }
 .business_info .actions button {
   width: fit-content;
@@ -103,6 +110,8 @@
   height: 100px;
   max-width: 200px;
   border-radius: 6px;
+  min-width: 100px;
+  overflow: hidden;
 
   cursor: pointer;
   display: flex;
@@ -155,9 +164,14 @@
   height: 20px;
   width: 20px;
 }
-.business_info .field_container .input_container,
-.business_info .field_container .dropdowns {
-  width: 200px;
-  max-width: 200px;
-  min-width: 200px;
+
+@media (max-width: 380px) {
+  .business_info .field_container {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .business_info .field_container .field_info {
+    width: 100%;
+    max-width: 100%;
+  }
 }

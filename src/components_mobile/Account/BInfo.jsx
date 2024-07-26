@@ -24,36 +24,44 @@ function BInfo() {
   return (
     <div className="_user_info">
       <div className="info">
-        {!user?.BusinessInfo?.LOGO ||
-          (!user?.BusinessInfo?.name && <p>No Business Info</p>)}
         <div className="b_main">
-          <img src={user?.BusinessInfo?.LOGO} alt="" />
+          <img src={user?.BusinessInfo?.LOGO} onError={imageFallback} alt="" />
           <div className="in">
-            <p className="name">{user?.BusinessInfo?.name}</p>
-            <p className="line">
-              <AlternateEmail /> {user?.BusinessInfo?.email}
+            <p className="name">
+              {user?.BusinessInfo?.name || <span>No name provided</span>}
             </p>
             <p className="line">
-              <Language /> {user?.BusinessInfo?.website}
+              <AlternateEmail />{" "}
+              {user?.BusinessInfo?.email || <span>No email provided</span>}
+            </p>
+            <p className="line">
+              <Language />{" "}
+              {user?.BusinessInfo?.website || <span>No website provided</span>}
             </p>
             <p className="line">
               <Phone />{" "}
-              {user?.BusinessInfo?.phone &&
+              {(user?.BusinessInfo?.phone &&
                 `(${user.BusinessInfo.phone.slice(
                   0,
                   3
                 )}) ${user.BusinessInfo.phone.slice(
                   3,
                   6
-                )}-${user.BusinessInfo.phone.slice(6)}`}
+                )}-${user.BusinessInfo.phone.slice(6)}`) || (
+                <span>No phone provided</span>
+              )}
             </p>
             <p className="line">
-              <YouTube /> {user?.BusinessInfo?.youtube}
+              <YouTube />{" "}
+              {user?.BusinessInfo?.youtube || (
+                <span>No Youtube link provided</span>
+              )}
             </p>
           </div>
         </div>
         <p className="address">
-          <PinDropOutlined /> {user?.BusinessInfo?.address}
+          <PinDropOutlined />{" "}
+          {user?.BusinessInfo?.address || <span>No address data provided</span>}
         </p>
       </div>
       <button onClick={(e) => setEdit(true)}>
@@ -66,7 +74,7 @@ function BInfo() {
           className={"payment"}
           heading={
             <span>
-              <EditOutlined /> Edit Profile Info
+              <EditOutlined /> Edit Business Info
             </span>
           }
           close={(e) => setEdit(false)}

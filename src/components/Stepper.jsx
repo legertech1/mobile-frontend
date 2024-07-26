@@ -11,14 +11,14 @@ const Stepper = ({ steps, current, onClick }) => {
     <div className="__stepp">
       <div className="stepper_container">
         <button
-          className="back"
+          className="step_circle back"
           onClick={(e) => ripple(e, { dur: 1, cb: () => navigate("/") })}
         >
           <ArrowBack />
         </button>
         {steps.map((step, index) => (
           <div
-            onClick={() => onClick(index + 1)}
+            onClick={(e) => ripple(e, { dur: 1, cb: () => onClick(index + 1) })}
             className={"step_circle" + (index + 1 == current ? " active" : "")}
           >
             {index + 1}

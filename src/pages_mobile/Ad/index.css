@@ -13,7 +13,7 @@
 ._right {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   min-width: 300px;
 }
 .view_listing ::-webkit-scrollbar {
@@ -163,7 +163,7 @@
   object-fit: contain;
   min-width: 100%;
   pointer-events: none;
-  border-radius: 6px;
+  border-radius: 0px;
   transition: all 0.3s var(--bc);
   max-width: 100%;
   position: absolute;
@@ -175,19 +175,21 @@
   overflow: hidden;
 }
 
-._gallery *::-webkit-scrollbar {
+._gallery *::-webkit-scrollbar,
+._gallery ::-webkit-scrollbar {
   display: none;
 }
 ._gallery .images .img_cont img {
-  height: 100%;
-  width: 100%;
-  min-height: 100%;
+  transform-origin: center;
   position: absolute;
-  top: 0;
-  object-fit: contain;
-  left: 0;
-  min-width: 100%;
+  height: -moz-fit-content;
+  height: 100%;
+  left: 0px;
+  min-height: fit-content;
+  max-width: fit-content;
   transition: all 0.2s var(--bc);
+  width: 100%;
+  object-fit: contain;
 }
 
 .view_listing .tile {
@@ -942,14 +944,14 @@
 }
 ._gallery .images {
   width: 100%;
-  max-height: 80vh;
+  max-height: 90vh;
   display: flex;
   align-items: center;
   overflow: hidden;
   height: fit-content;
   object-fit: contain;
   position: relative;
-  height: 80vh;
+  height: 90vh;
 }
 
 .view_listing p.category {

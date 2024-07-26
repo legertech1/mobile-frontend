@@ -12,10 +12,9 @@ import ForgotPassword from "./pages_mobile/ForgotPassword";
 import ResetPassword from "./pages_mobile/ResetPassword";
 import Chat from "./pages_mobile/Chat";
 import PostAd from "./pages_mobile/PostAd";
-import UserProfile from "./pages_mobile/Profile/UserProfile";
 import InfoComp from "./components/InfoComp";
 
-import SavedSearches from "./pages_mobile/Profile/SavedSearches";
+
 import Ad from "./pages_mobile/Ad";
 import Pricing from "./pages_mobile/Pricing";
 import HelpDocs from "./pages_mobile/Help/HelpDocs";
@@ -33,6 +32,7 @@ import Footer from "./components_mobile/Footer";
 import Ads from "./pages_mobile/Ads";
 import Account from "./components_mobile/Account";
 import Modal from "./components_mobile/Modal";
+import Profile from "./pages_mobile/Profile";
 
 function MobileApp() {
   const dispatch = useDispatch();
@@ -180,8 +180,8 @@ function MobileApp() {
         <Route exact path="/profile/*" element={<Account />} />
         <Route exact path="/edit/:id" element={<PostAd edit={true} />} />
 
-        <Route path="/user_profile" exact element={<UserProfile />} />
-        <Route path="/saved_searches" exact element={<SavedSearches />} />
+        <Route path="/user/:id" exact element={<Profile />} />
+
 
         <Route path="/pricing" exact element={<Pricing />} />
         <Route path="/listing/:id" exact element={<Ad />} />
@@ -197,10 +197,12 @@ function MobileApp() {
               "/verify",
               "/post-ad",
               "/preview-ad",
+
             ].includes(routeLocation.pathname) &&
             !routeLocation.pathname.includes("/profile/") &&
             !routeLocation.pathname.includes("/listing/") &&       
-            !routeLocation.pathname.includes("/edit/")
+            !routeLocation.pathname.includes("/edit/") &&    
+            !routeLocation.pathname.includes("/user/")
           }
         />
       }

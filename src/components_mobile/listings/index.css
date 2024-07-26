@@ -6,6 +6,7 @@
   background: white;
   grid-auto-flow: dense;
   padding-bottom: 10vh;
+  gap: 4px;
   /* grid-auto-rows: 180px; */
 }
 ._listing .empty_img {
@@ -34,7 +35,7 @@
   min-width: 160px;
   position: relative;
   background: white;
-  margin: 0px 3px 6px;
+  margin-bottom: 2px;
   overflow: hidden;
   border-radius: 12px;
   /* overflow: hidden; */
@@ -88,7 +89,7 @@
   border-radius: 50%;
   pointer-events: all !important;
   z-index: 10;
-  /* box-shadow: 0px 0px 2px #1112; */
+  box-shadow: 0px 0px 4px #1114;
 }
 
 ._listing.selected .wishlist {
@@ -285,7 +286,7 @@ span.featured {
 }
 @media (min-width: 1000px) {
   ._listings {
-    gap: 2px;
+    gap: 5px;
   }
   ._listing {
     height: 230px !important;
@@ -295,7 +296,7 @@ span.featured {
 @media (min-width: 1100px) {
   ._listings {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 3px;
+    gap: 6px;
   }
 }
 
@@ -885,8 +886,19 @@ div.options.actions {
   filter: drop-shadow(0px 0px 16px #1116);
   padding: 6px;
   box-sizing: border-box;
+  animation: pop_out 0.1s var(--bc);
+  transition: all 0.1s var(--bc);
+  transform: translateX(0);
 }
 
+@keyframes pop_out {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
 ._listing .options button {
   border: none;
   color: black;
@@ -908,6 +920,13 @@ div.options.actions {
   position: relative;
 }
 
+._listing .wishlist.opt svg {
+  fill: var(--blue) !important;
+  stroke: none;
+  height: 28px;
+  width: 28px;
+  stroke-width: 0;
+}
 ._listing .options svg {
   height: 18px;
   fill: var(--blue);

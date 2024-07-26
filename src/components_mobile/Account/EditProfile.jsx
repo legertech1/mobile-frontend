@@ -135,10 +135,10 @@ function UpdateProfile({ close }) {
           <div className="buttons">
             {" "}
             <button className="edit" onClick={() => ref.current.click()}>
-              <Edit /> Edit
+              <Edit />
             </button>
             <button className="delete" onClick={() => setImage("")}>
-              <CloseOutlined /> Remove
+              <CloseOutlined />
             </button>
           </div>
         </div>
@@ -172,8 +172,9 @@ function UpdateProfile({ close }) {
           <Input
             placeholder="Phone Number"
             type="text"
-            value={parsePhone(phone)}
-            onKeyDown={(e) => handlePhoneChange(e, setPhone)}
+            value={phone}
+            // onKeyDown={(e) => handlePhoneChange(e, setPhone)}
+            onChange={(e) => setPhone(e.target.value)}
           ></Input>
           <Input
             placeholder="Nickname"

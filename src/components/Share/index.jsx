@@ -55,7 +55,7 @@ function Share({ close, url }) {
       <a
         className="cb"
         onClick={(e) => {
-          navigator.clipboard.writeText(url);
+          navigator?.clipboard?.writeText(url);
           notify.info("Copied to clipboard");
         }}
       >

@@ -126,7 +126,9 @@ function Form({
             {!useBalance && userBalance && (
               <div className="bal">
                 <h5>Current balance</h5>
-                <span className="price">${userBalance?.balance}</span>
+                <span className="price">
+                  ${(userBalance?.balance).toFixed(2)}
+                </span>
               </div>
             )}
             {useBalance && (

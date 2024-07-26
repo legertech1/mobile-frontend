@@ -25,7 +25,7 @@ const Footer = ({ visible }) => {
     () => [
       {
         name: "Home",
-        icon: <House className="home"/>,
+        icon: <House className="home" />,
 
         path: "/",
       },
@@ -47,7 +47,11 @@ const Footer = ({ visible }) => {
       },
       {
         name: "Account",
-        icon: user ? <PersonCircle className="profile" /> : <MoreCircle className="profile" />,
+        icon: user ? (
+          <PersonCircle className="profile" />
+        ) : (
+          <MoreCircle className="profile" />
+        ),
         path: "/profile",
       },
     ],
@@ -94,7 +98,11 @@ const Footer = ({ visible }) => {
     <nav className="mobile_footer" ref={ref}>
       <div
         className="indicator"
-        style={{ transform: `translateX(${position}px)` }}
+        style={
+          position > 0
+            ? { transform: `translateX(${position}px)` }
+            : { display: "none" }
+        }
       ></div>
       {routes.map((route) => (
         <li

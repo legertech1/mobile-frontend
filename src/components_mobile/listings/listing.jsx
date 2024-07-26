@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./index.css";
 import ripple from "../../utils/ripple";
 import {
@@ -6,6 +6,7 @@ import {
   Favorite,
   FavoriteBorderRounded,
   FavoriteRounded,
+  MoreHoriz,
   PinDropRounded,
   PlaceOutlined,
   Settings,
@@ -39,7 +40,8 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
   const [relistModal, setRelistModal] = useState(false);
   const [paymentModal, setPaymentModal] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState();
-
+  const [options, setOptions] = useState(false);
+  const optRef = useRef();
   function onPaymentSuccessful(token) {
     setPaymentSuccess(true);
     dispatch(relistAd({ id: ad._id, token }))
@@ -78,6 +80,7 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
             dur: 2,
             fast: true,
             cb: () => {
+              setOptions(false);
               setOpen(true);
             },
           });
@@ -99,15 +102,26 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
         {!empty && (
           <>
             <div
-              className={"wishlist" + (wishlisted ? " active" : "")}
+              className={
+                "wishlist" +
+                (wishlisted ? " active" : "") +
+                (status && !selected ? " opt" : "")
+              }
               onClick={(e) => {
                 ripple(e);
+
                 e.stopPropagation();
                 if (selected) {
-                  console.log("...");
                   return setSelected((state) =>
                     state.filter((i) => i != ad._id)
                   );
+                }
+                if (status) {
+                  if (options) {
+                    optRef.current.style.transform = "translateX(100%)";
+                    return setTimeout(() => setOptions(false), 100);
+                  }
+                  return setOptions(true);
                 }
 
                 wishlisted
@@ -115,7 +129,8 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
                   : add(ad, user, dispatch, navigate);
               }}
             >
-              {!selected ? <Favorite /> : <Checkmark />}
+              {!status && (!selected ? <Favorite /> : <Checkmark />)}
+              {status && (!selected ? <MoreHoriz /> : <Checkmark />)}
             </div>
             <img
               src={ad?.thumbnails[0]}
@@ -153,8 +168,8 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
           )}
         </div>
       </div>
-      {selected && (
-        <div className="options">
+      {status && options && (
+        <div className="options" ref={optRef}>
           <button
             className="action"
             onClick={(e) =>

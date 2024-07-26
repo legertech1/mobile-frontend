@@ -63,7 +63,7 @@ export default function AdForm({ edit }) {
   const handleFormData = (name, value) => {
     dispatch(setFormData({ ...formData, [name]: value }));
   };
-
+  const adForm = useRef();
   function init() {
     if (value) return;
     let loc;
@@ -276,7 +276,7 @@ export default function AdForm({ edit }) {
       return navigate(url || edit ? "preview-ad?type=edit" : "preview-ad");
     }
     setCurrentStep(step);
-    window.scrollTo(0, 0);
+    document.querySelector(".___app").scrollTop = 0;
   };
 
   const findMyLocation = async (coordinates) => {

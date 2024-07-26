@@ -567,15 +567,20 @@ function ViewListing({ preview, _id }) {
                               user,
                               categories.filter((c) => c.name == ad.category)[0]
                             );
+                            console.log(total);
                             if (!Number(total)) {
-                              const { token } = (
-                                await axios.post(apis.createPaymentIntent, {
-                                  pricing: cart,
-                                  category: ad.category,
-                                })
-                              ).data;
-                              dispatch(updateCart({}));
-                              setToken(token);
+                              try {
+                                const { token } = (
+                                  await axios.post(apis.createPaymentIntent, {
+                                    pricing: cart,
+                                    category: ad.category,
+                                  })
+                                ).data;
+                                dispatch(updateCart({}));
+                                setToken(token);
+                              } catch (err) {
+                                console.log(err);
+                              }
                             } else setPaymentModal(true);
                           }
                         }}
@@ -757,6 +762,7 @@ function ViewListing({ preview, _id }) {
               </div>
             </div>
           </div>
+
           {share && (
             <Modal
               close={(e) => setShare(false)}
@@ -768,7 +774,11 @@ function ViewListing({ preview, _id }) {
             >
               <Share
                 close={(e) => setShare(false)}
-                url={window.location.href}
+                url={
+                  process.env.REACT_APP_FRONTEND_URL +
+                  "/listing/" +
+                  listing?._id
+                }
               />
             </Modal>
           )}

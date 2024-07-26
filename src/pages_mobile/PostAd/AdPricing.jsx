@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCart } from "../../store/cartSlice";
 import Play from "../../components/IconPlayer";
 import Checkbox from "../../components_mobile/shared/Checkbox";
-import Modal from "../../components/Modal";
+import Modal from "../../components_mobile/Modal";
 import Input from "../../components/Shared/Input";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import Info from "../../components/Info";
@@ -16,6 +16,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import BusinessInfo from "../../components/BusinessInfo";
 import Dropdown from "../../components/Shared/Dropdown";
 import { setFormData } from "../../store/adSlice";
+import { EditOutlined } from "@mui/icons-material";
 
 function AdPricing({ category, preconfig, ignoreFree }) {
   const formData = useSelector((state) => state.ad);
@@ -310,11 +311,6 @@ function AdPricing({ category, preconfig, ignoreFree }) {
             >
               Edit Business Info
             </button>
-            {showBusinessInfoForm && (
-              <Modal close={(e) => setShowBusinessInfoForm(false)}>
-                <BusinessInfo close={(e) => setShowBusinessInfoForm(false)} />
-              </Modal>
-            )}
           </div>
         </div>
         {!cart?.extras?.business && (
@@ -442,6 +438,19 @@ function AdPricing({ category, preconfig, ignoreFree }) {
           </>
         )}
       </div>
+      {showBusinessInfoForm && (
+        <Modal
+          close={(e) => setShowBusinessInfoForm(false)}
+          className={"payment"}
+          heading={
+            <span>
+              <EditOutlined /> Edit Business Info
+            </span>
+          }
+        >
+          <BusinessInfo close={(e) => setShowBusinessInfoForm(false)} />
+        </Modal>
+      )}
     </>
   );
 }

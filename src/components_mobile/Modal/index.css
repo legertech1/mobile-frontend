@@ -4,6 +4,7 @@
   left: 0;
   position: absolute;
   width: 100%;
+  z-index: 99999;
 }
 
 .mobile_modal {
