@@ -9,10 +9,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-
     <meta name="robots" content="%REACT_APP_ROBOTS%" />
     <link rel="manifest" href="manifest.json" />
-
     <title>BorrowBe</title>
     <meta
       name="description"
@@ -20,11 +18,21 @@
     />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
-
     <script
       src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
       type="module"
     ></script>
+
+    <!-- Content Security Policy -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https://cdn.lordicon.com https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.stripe.com; frame-src https://js.stripe.com;"
+    />
+
+    <!-- Additional Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
   </head>
 
   <body>
