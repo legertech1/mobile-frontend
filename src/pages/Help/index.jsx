@@ -4,18 +4,13 @@ import Footer from "../../components/Footer";
 import HelpCards from "./HelpCards";
 import "./index.css";
 
-function Help() {
+function Help({ setTab }) {
   return (
-    <>
-      <div className="help_container">
-        <Navbar white={"true"}></Navbar>
-        <div className="bg_blob"></div>
-        <div className="content">
-          <HelpCards />
-        </div>
+    <div className="_help help_container">
+      <div className="content help_contant">
+        <HelpCards setTab={setTab} />
       </div>
-      <Footer></Footer>
-    </>
+    </div>
   );
 }
 

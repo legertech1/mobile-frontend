@@ -2,11 +2,12 @@ import Checkbox from "./Shared/Checkbox";
 import Dropdown from "./Shared/Dropdown";
 import Input from "./Shared/Input";
 export default function ({ field, state, setState }) {
+  if (!state.extraFields) return <></>;
   return (
     <div className="field_container">
       <div className="field_info">
         <h4>
-          {field.name}
+          {field?.name}
           <span>{field.required && " (required)"}</span>
         </h4>
         <p>{field.info}</p>
@@ -19,11 +20,11 @@ export default function ({ field, state, setState }) {
               ...state,
               extraFields: {
                 ...state.extraFields,
-                [field.name]: e.target.value,
+                [field?.name]: e.target.value,
               },
             })
           }
-          value={state.extraFields[field.name] || ""}
+          value={state.extraFields[field?.name] || ""}
           type={"text"}
         />
       )}
@@ -35,11 +36,11 @@ export default function ({ field, state, setState }) {
               ...state,
               extraFields: {
                 ...state.extraFields,
-                [field.name]: e.target.value,
+                [field?.name]: e.target.value,
               },
             })
           }
-          value={state.extraFields[field.name] || ""}
+          value={state.extraFields[field?.name] || ""}
           type={"number"}
         />
       )}
@@ -47,22 +48,22 @@ export default function ({ field, state, setState }) {
         <Dropdown
           array={field.options}
           placeholder={field.placeholder || "select a value"}
-          value={state.extraFields[field.name]}
+          value={state.extraFields[field?.name]}
           setValue={(v) =>
             setState({
               ...state,
-              extraFields: { ...state.extraFields, [field.name]: v },
+              extraFields: { ...state.extraFields, [field?.name]: v },
             })
           }
         ></Dropdown>
       )}
       {field.inputType == "checkbox" && (
         <Checkbox
-          checked={state.extraFields[field.name] || false}
+          checked={state.extraFields[field?.name] || false}
           setChecked={(v) =>
             setState({
               ...state,
-              extraFields: { ...state.extraFields, [field.name]: v },
+              extraFields: { ...state.extraFields, [field?.name]: v },
             })
           }
         ></Checkbox>
@@ -75,11 +76,11 @@ export default function ({ field, state, setState }) {
               ...state,
               extraFields: {
                 ...state.extraFields,
-                [field.name]: e.target.value,
+                [field?.name]: e.target.value,
               },
             })
           }
-          value={state.extraFields[field.name] || ""}
+          value={state.extraFields[field?.name] || ""}
           type={"date"}
         />
       )}
@@ -89,20 +90,23 @@ export default function ({ field, state, setState }) {
             <div
               className={
                 "radio_option " +
-                (state.extraFields[field.name] == option ? "active" : "")
+                (state.extraFields[field?.name] == option ? "active" : "")
               }
               onClick={() =>
                 setState(
-                  state.extraFields[field.name] == option
+                  state.extraFields[field?.name] == option
                     ? {
                         ...state,
-                        extraFields: { ...state.extraFields, [field.name]: "" },
+                        extraFields: {
+                          ...state.extraFields,
+                          [field?.name]: "",
+                        },
                       }
                     : {
                         ...state,
                         extraFields: {
                           ...state.extraFields,
-                          [field.name]: option,
+                          [field?.name]: option,
                         },
                       }
                 )

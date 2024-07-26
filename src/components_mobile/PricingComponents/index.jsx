@@ -20,7 +20,7 @@ export function Package({
   ignoreFree,
 }) {
   if (!plan) return <></>;
-  const free = ads ? (ads[category.name]?.free || 0) < plan.freeAds : false;
+  const free = ads ? (ads[category?.name]?.free || 0) < plan.freeAds : false;
 
   return (
     <div

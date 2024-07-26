@@ -30,7 +30,7 @@ const appearance = {
       outline: "none",
       border: "1px solid #fff",
       boxShadow: "inset 0px 0px 6px #ccc",
-      fontSize: "17px",
+      fontSize: "15px",
       padding: "15px",
       fontWeight: "500",
 
@@ -44,10 +44,10 @@ const appearance = {
       boxShadow: "inset 0px 0px 6px #ccc",
     },
     ".Label": {
-      color: "#555",
-      fontSize: "16px",
+      color: "#333",
+      fontSize: "13px",
       fontWeight: "500",
-      fontFamily: "Montserrat",
+      fontFamily: "Verdana, Sans-serif",
     },
   },
 };
@@ -95,6 +95,7 @@ function PaymentElement({
           setTotal(res.data.total);
         })
         .catch((err) => {
+          console.log(err);
           onPaymentFailed({ message: "Error creating payment intent." });
         });
     } else {
@@ -132,7 +133,7 @@ function PaymentElement({
                   <span>
                     {cart.package.free
                       ? "Free"
-                      : "$" + cart?.package.item.price}
+                      : "$" + cart?.package.item.price.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -147,7 +148,7 @@ function PaymentElement({
                         1× Bump Up every {cart.addOns.bumpUp.frequency} days
                       </h4>
                     </div>
-                    <span>${cart.addOns.bumpUp.price}</span>
+                    <span>${cart.addOns.bumpUp.price.toFixed(2)}</span>
                   </div>
                 )}
                 {cart?.addOns?.featured && (
@@ -158,7 +159,7 @@ function PaymentElement({
                         1× Featured Ad for {cart.addOns.featured.days} days
                       </h4>
                     </div>
-                    <span>${cart.addOns.featured.price}</span>
+                    <span>${cart.addOns.featured.price.toFixed(2)}</span>
                   </div>
                 )}
                 {cart?.addOns?.highlighted && (
@@ -172,7 +173,7 @@ function PaymentElement({
                         days
                       </h4>
                     </div>
-                    <span>${cart.addOns.highlighted.price}</span>
+                    <span>${cart.addOns.highlighted.price.toFixed(2)}</span>
                   </div>
                 )}
                 {cart?.addOns?.homepageGallery && (
@@ -184,7 +185,7 @@ function PaymentElement({
                         {cart.addOns.homepageGallery.days} days
                       </h4>
                     </div>
-                    <span>${cart.addOns.homepageGallery.price}</span>
+                    <span>${cart.addOns.homepageGallery.price.toFixed(2)}</span>
                   </div>
                 )}
               </div>
@@ -196,7 +197,7 @@ function PaymentElement({
                     <div>
                       <h4> 1× Business Ad</h4>
                     </div>
-                    <span>${cart.extras.business.price}</span>
+                    <span>${cart.extras.business.price.toFixed(2)}</span>
                   </div>
                 )}
                 {cart?.extras?.website && (
@@ -204,7 +205,7 @@ function PaymentElement({
                     <div>
                       <h4> 1× Add Website</h4>
                     </div>
-                    <span>${cart.extras.website.price}</span>
+                    <span>${cart.extras.website.price.toFixed(2)}</span>
                   </div>
                 )}
                 {cart?.extras?.youtube && (
@@ -212,7 +213,7 @@ function PaymentElement({
                     <div>
                       <h4> 1× Add Youtube Video</h4>
                     </div>
-                    <span>${cart.extras.youtube.price}</span>
+                    <span>${cart.extras.youtube.price.toFixed(2)}</span>
                   </div>
                 )}
               </div>
@@ -225,7 +226,7 @@ function PaymentElement({
             <div className="package_info">
               <h3>Borrowbe Balance</h3>
 
-              <span>${balance}</span>
+              <span>${balance.toFixed(2)}</span>
             </div>
           </div>
         )}
@@ -234,16 +235,19 @@ function PaymentElement({
           Total:{" "}
           <span className="price">
             $
-            {total ||
-              balance ||
-              getCartAndTotal(
-                cart,
-                user,
-                categories.filter(
-                  (c) =>
-                    c.name == ad?.category || c.name == listing?.meta?.category
+            {Number(
+              total ||
+                balance ||
+                getCartAndTotal(
+                  cart,
+                  user,
+                  categories.filter(
+                    (c) =>
+                      c.name == ad?.category ||
+                      c.name == listing?.meta?.category
+                  )[0]
                 )[0]
-              )[0]}
+            ).toFixed(2) || 0}
           </span>
         </div>
       </div>

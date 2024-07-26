@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 
-const PinchZoomImage = ({ src, alt, onSwipedLeft, onSwipedRight }) => {
+const PinchZoomImage = ({
+  src,
+  alt,
+  onSwipedLeft = () => {},
+  onSwipedRight = () => {},
+}) => {
   const imageRef = useRef(null);
   const [initialDistance, setInitialDistance] = useState(0);
   const [currentDistance, setCurrentDistance] = useState(0);
@@ -60,6 +65,17 @@ const PinchZoomImage = ({ src, alt, onSwipedLeft, onSwipedRight }) => {
     trackTouch: true,
   });
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     console.log((imageRef.current.parentNode.clientWidth * scale) / 2);
+  //     imageRef.current.parentNode.scrollTo({
+  //       top: 0,
+  //       left: (imageRef.current.parentNode.clientWidth * (scale - 1)) / 2,
+  //       behavior: "smooth",
+  //     });
+  //   }, 50);
+  // }, [scale]);
+
   return (
     <div
       {...swipeHandlers}
@@ -85,12 +101,9 @@ const PinchZoomImage = ({ src, alt, onSwipedLeft, onSwipedRight }) => {
         src={src}
         alt={alt}
         style={{
-          maxWidth: "100%",
-          height: "100%",
-          cursor: "zoom-in",
-          objectFit: "contain",
-          transformOrigin: "left",
-          transform: `scale(${scale})`,
+          // transform: `scale(${scale}) translateY(-50%)`,
+          width: `${scale * 100}%`,
+          top: 0,
         }}
       />
     </div>

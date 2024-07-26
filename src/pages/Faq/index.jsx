@@ -255,30 +255,24 @@ const Faq = () => {
   const [active, setActive] = useState(-1);
   return (
     <div className="faq_page">
-      <Navbar white={true}></Navbar>
-
-      <div className="content">
-        <h1 className="main_header">Frequently Asked Questions </h1>
-        <div className="accordion">
-          {faqData.map((item, index) => (
-            <div
-              className={"FAQ" + (active == index ? " active" : "")}
-              onClick={(e) =>
-                active == index ? setActive(-1) : setActive(index)
-              }
-            >
-              <h1>
-                {item.title}
-                <span>
-                  <KeyboardArrowDown />
-                </span>
-              </h1>
-              {item.element}
-            </div>
-          ))}
-        </div>
+      <div className="accordion">
+        {faqData.map((item, index) => (
+          <div
+            className={"FAQ" + (active == index ? " active" : "")}
+            onClick={(e) =>
+              active == index ? setActive(-1) : setActive(index)
+            }
+          >
+            <h1>
+              {item.title}
+              <span>
+                <KeyboardArrowDown />
+              </span>
+            </h1>
+            {item.element}
+          </div>
+        ))}
       </div>
-      <Footer />
     </div>
   );
 };

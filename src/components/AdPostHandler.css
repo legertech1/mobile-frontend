@@ -1,19 +1,16 @@
 .ad_post_handler {
-  width: 60vw;
-  min-width: 750px;
-  max-width: 900px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 360px;
-  padding: 0 40px;
+  justify-content: start;
+  padding: 0 40px 60px;
 }
 .ad_post_handler .main {
-  height: 100%;
-  width: 100%;
+  height: fit-content;
+  width: fit-content;
   filter: drop-shadow(0px 0px 2px #1114);
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: space-between;
 }
 .ad_post_handler .main .step {
@@ -31,8 +28,10 @@
   margin: 0;
 }
 .ad_post_handler .main .step p {
-  height: 80px;
-  width: 80px;
+  height: 10vw;
+  width: 10vw;
+  min-height: 80px;
+  min-width: 80px;
   display: flex;
   align-items: center;
   font-size: 32px;
@@ -42,46 +41,51 @@
   margin: 0;
   border-radius: 50%;
   z-index: 2;
-  background: linear-gradient(90deg, var(--blue) 50%, #fff 0%);
-  background-size: 200%;
-  background-position: right;
+  background: linear-gradient(180deg, var(--blue) 50%, #fff 0%);
+  background-size: 200% 200%;
+  background-position: bottom;
   transition: all 0.1s var(--bc);
   cursor: pointer;
   border: 2px solid var(--blue);
 }
 .ad_post_handler .main .step p svg {
-  height: 35px;
-  width: 35px;
+  height: 36%;
+  width: 36%;
 }
 
 .ad_post_handler .main .step h3 {
   font-weight: 500;
   text-transform: capitalize;
   font-size: 18px;
-  position: absolute;
-  bottom: -40%;
+  width: -moz-fit-content;
   width: fit-content;
   margin: 0;
+  min-width: -moz-fit-content;
+  position: absolute;
   min-width: fit-content;
   white-space: nowrap;
   font-family: var(--font2);
-  /* color: #555; */
+  top: 50%;
+  left: calc(100% + 20px);
+  transform: translateY(-50%);
 }
 .ad_post_handler .main .divider {
-  flex: 1 1;
-  height: 30px;
-  transform: scaleX(1.2);
+  transform: scaleY(1.2);
   z-index: 1;
-  background: linear-gradient(90deg, var(--blue) 50%, #eee 0%);
-  background-size: 200%;
-  background-position: right;
+  background: linear-gradient(180deg, var(--blue) 50%, #eee 0%);
+  background-size: 200% 200%;
+  background-position: bottom;
   transition: all 0.3s var(--bc);
   cursor: pointer;
   transition-delay: 0.1s;
+  height: 3vw;
+  width: 3vw;
+  min-height: 20px;
+  min-width: 30px;
 }
 .ad_post_handler .main .step p.done,
 .ad_post_handler .main .divider.done {
-  background-position: left;
+  background-position: top;
   color: white;
 }
 
@@ -96,14 +100,133 @@
 }
 .ad_post_handler .post_error h2 {
   margin: 0;
-  font-size: 28px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
 }
 .ad_post_handler .retry {
-  font-size: 24px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  padding: 20px 40px;
+  padding: 16px 24px;
   font-family: var(--font1);
+  gap: 2px;
+  border-radius: 6px;
+  background-color: var(--blue);
+}
+@media (min-width: 600px) {
+  .ad_post_handler {
+    min-width: 500px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50vh;
+    min-height: 400px;
+    padding: 0 40px;
+    margin: auto;
+    width: fit-content;
+  }
+  .ad_post_handler .main {
+    height: 100%;
+    width: 100%;
+    filter: drop-shadow(0px 0px 2px #1114);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: auto;
+  }
+  .ad_post_handler .main .step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+  }
+  .ad_post_handler h1 {
+    font-size: 28px;
+    font-weight: 500;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+  }
+  .ad_post_handler .main .step p {
+    height: 10vw;
+    width: 10vw;
+    display: flex;
+    align-items: center;
+    font-size: 36px;
+    font-weight: 600;
+    justify-content: center;
+    color: var(--blue);
+    margin: 0;
+    border-radius: 50%;
+    z-index: 2;
+    background: linear-gradient(90deg, var(--blue) 50%, #fff 0%);
+    background-size: 200% 200%;
+    background-position: right;
+    transition: all 0.1s var(--bc);
+    cursor: pointer;
+    border: 2px solid var(--blue);
+  }
+
+  .ad_post_handler .main .step h3 {
+    font-weight: 500;
+    text-transform: capitalize;
+    font-size: 18px;
+    position: absolute;
+    top: unset;
+    bottom: -40% !important;
+    left: unset;
+    width: fit-content;
+    margin: 0;
+    min-width: fit-content;
+    white-space: nowrap;
+    font-family: var(--font2);
+    /* color: #555; */
+  }
+  .ad_post_handler .main .divider {
+    flex: 1 1;
+    height: 3vw;
+    transform: scaleX(1.2);
+    z-index: 1;
+    background: linear-gradient(90deg, var(--blue) 50%, #eee 0%);
+    background-size: 200% 200%;
+    background-position: right;
+    transition: all 0.3s var(--bc);
+    cursor: pointer;
+    transition-delay: 0.1s;
+    width: 6vw;
+  }
+  .ad_post_handler .main .step p.done,
+  .ad_post_handler .main .divider.done {
+    background-position: left;
+    color: white;
+  }
+
+  .ad_post_handler .post_error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 30px;
+    filter: none;
+  }
+  .ad_post_handler .post_error h2 {
+    margin: 0;
+    font-size: 28px;
+  }
+  .ad_post_handler .retry {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    padding: 20px 40px;
+    font-family: var(--font1);
+  }
 }

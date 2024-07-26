@@ -26,6 +26,7 @@ import {
   socket,
   unBlockChat,
 } from "../../socket";
+import Ad from "../../pages_mobile/Ad";
 import { useSelector } from "react-redux";
 import ImageCompressor from "image-compressor.js";
 import parseImage from "../../utils/parseImage";
@@ -103,7 +104,7 @@ function Chat({ chat, setChat, manageShift, animating }) {
       return () => clearTimeout(timeout);
     }
   }, [typing]);
-
+  const [adModal, setAdModal] = useState(false);
   function handleBack(e) {
     e.preventDefault();
     if (imagePreview) return;
@@ -130,7 +131,16 @@ function Chat({ chat, setChat, manageShift, animating }) {
 
   return (
     <div className="_chat">
-      <div className="header" onClick={(e) => ripple(e)}>
+      <div
+        className="header"
+        onClick={(e) =>
+          ripple(e, {
+            fast: true,
+            dur: 2,
+            cb: (e) => navigate("/user/" + chat?.info?._id),
+          })
+        }
+      >
         <button
           className="back"
           onClick={(e) => {
@@ -176,7 +186,7 @@ function Chat({ chat, setChat, manageShift, animating }) {
           className="options back"
           onClick={(e) => {
             e.stopPropagation();
-            ripple(e, { dur: 2 });
+            ripple(e, { dur: 2, cb: () => setAdModal(true) });
           }}
         >
           <ArrowForward />
@@ -378,6 +388,18 @@ function Chat({ chat, setChat, manageShift, animating }) {
           </div>,
           document.querySelector("#send_message_cont")
         )}
+
+      {adModal && (
+        <Modal
+          heading={<span>{chat?.ad?.listingID}</span>}
+          close={(e) => {
+            setAdModal(false);
+          }}
+          className={"ad"}
+        >
+          <Ad _id={chat?.ad?._id} />
+        </Modal>
+      )}
       {imagePreview && (
         <Modal
           close={() => setImagePreview(null)}

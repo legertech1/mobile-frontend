@@ -14,11 +14,15 @@ import Listings from "../../components_mobile/listings/listings";
 import ripple from "../../utils/ripple";
 import throttle from "../../utils/throttle";
 import { GridAlt } from "@styled-icons/boxicons-solid/GridAlt";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Ads() {
   const [text, setText] = useState("");
-  const [tab, setTab] = useState("wishlist");
+  const location = useLocation();
+
+  const [tab, setTab] = useState(
+    new URLSearchParams(location.search).get("tab") || "wishlist"
+  );
   const [listings, setListings] = useState([]);
   const [wishlist, setWishlist] = useState([]);
 
@@ -109,7 +113,7 @@ function Ads() {
   }
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user) navigate("/login");
+    if (user == null) navigate("/login");
     if (tab == "wishlist") {
       wlRef.current.style.transform = "translateX(0)";
       adsRef.current.style.transform = "translateX(100%)";
@@ -120,7 +124,7 @@ function Ads() {
       adsRef.current.style.transform = "translateX(0)";
       barRef.current.style.transform = "translateX(100%)";
     }
-  }, [tab]);
+  }, [tab, user]);
   return (
     <div className="_ads">
       <Header white={true} />

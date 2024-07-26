@@ -6,6 +6,7 @@
   background: white;
   grid-auto-flow: dense;
   padding-bottom: 10vh;
+  gap: 4px;
   /* grid-auto-rows: 180px; */
 }
 ._listing .empty_img {
@@ -34,7 +35,7 @@
   min-width: 160px;
   position: relative;
   background: white;
-  margin: 0px 4px 10px;
+  margin-bottom: 2px;
   overflow: hidden;
   border-radius: 12px;
   /* overflow: hidden; */
@@ -88,7 +89,7 @@
   border-radius: 50%;
   pointer-events: all !important;
   z-index: 10;
-  /* box-shadow: 0px 0px 2px #1112; */
+  box-shadow: 0px 0px 4px #1114;
 }
 
 ._listing.selected .wishlist {
@@ -269,7 +270,7 @@ span.featured {
     height: 200px !important;
   }
 }
-@media (min-width: 800px) {
+@media (min-width: 740px) {
   ._listings {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -285,17 +286,17 @@ span.featured {
 }
 @media (min-width: 1000px) {
   ._listings {
-    gap: 2px;
+    gap: 5px;
   }
   ._listing {
     height: 230px !important;
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1100px) {
   ._listings {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 4px;
+    gap: 6px;
   }
 }
 
@@ -311,7 +312,7 @@ span.featured {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: 6px;
   font-family: var(--font1);
   box-shadow: 0px 0px 4px #1114;
   height: fit-content;
@@ -342,11 +343,11 @@ span.featured {
   width: 100%;
   background: white;
   box-shadow: 0px 0px 16px #1114;
-  gap: 4px;
+
   height: 56px;
   justify-content: center;
   align-items: center;
-  padding: 12px;
+  padding: 12px 8px;
   box-sizing: border-box;
   animation: actions_slide_in 0.2s var(--bc) forwards;
 }
@@ -362,9 +363,75 @@ span.featured {
   font-weight: 500;
 }
 
+.ad_config .ad_info {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border-radius: 6px;
+  box-shadow: 1px 1px 8px #1112, -1px -1px 8px #1112;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 8px;
+  gap: 6px;
+  justify-content: start;
+  max-width: 100%;
+  margin-top: 8px;
+}
+
+.ad_config .ad_info > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.ad_config button {
+  border-radius: 6px !important;
+}
+
+.ad_config .ad_info p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ad_config .ad_info h4 {
+  font-weight: 600;
+  margin: 0;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.ad_config .ad_info .location {
+  margin: 0;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ad_config .ad_info .location svg {
+  height: 18px;
+  width: 18px;
+  vertical-align: text-bottom;
+  margin-left: -2px;
+}
+
+.ad_config .ad_info img {
+  height: 90px;
+  width: 100px;
+  min-width: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0px 0px 2px #1112;
+}
+
 ._ad_actions button {
-  height: 42px;
-  width: 42px;
+  height: 40px;
+  width: 40px;
   background: none;
   border: none;
   border-radius: 50%;
@@ -390,4 +457,478 @@ span.featured {
   100% {
     transform: translateY(0);
   }
+}
+
+div.options.actions {
+  z-index: 10;
+}
+.ad_config {
+  display: block;
+  flex-direction: column;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding: 12px;
+  width: 100vw;
+}
+
+.ad_config .recurring_control {
+  width: 100%;
+}
+.ad_config::-webkit-scrollbar {
+  width: 8px;
+  display: block !important;
+}
+
+.ad_config::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+.ad_config::-webkit-scrollbar-thumb {
+  background-color: var(--blue);
+  border-radius: 10px;
+  /* border: 3px solid var(--blue); */
+}
+
+.ad_config .line.location svg {
+  fill: var(--blue);
+}
+
+.ad_config .btns_cont {
+  padding: 40px 60px 10px;
+}
+
+.ad_config .password {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: center;
+  box-shadow: inset 0px 0px 6px #ccc;
+  border-radius: 6px;
+  padding: 12px;
+  box-sizing: border-box;
+  font-size: 14px;
+
+  height: 42px;
+
+  max-height: 42px;
+  margin-top: 16px;
+  flex: 1;
+  box-sizing: border-box;
+  transform: scaleY(0);
+  transform-origin: top center;
+  opacity: 0;
+  animation: 0.3s open forwards var(--bc);
+}
+.ad_config .password svg {
+  fill: var(--blue);
+}
+
+@keyframes open {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+.ad_config .password input {
+  border: none;
+
+  outline: none !important;
+  font-size: 14px;
+  flex: 1;
+  min-width: unset !important;
+}
+
+.ad_config .password span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  transition: all 0.3s var(--bc);
+  margin-right: -12px !important;
+}
+
+.ad_config .recurring_ad {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.ad_config .status_rr p {
+  margin: 0;
+  font-weight: 500;
+  font-size: 20px;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  font-family: var(--font1);
+  gap: 4px;
+}
+.ad_config .status_rr p.blue {
+  color: var(--blue);
+}
+.ad_config p.red {
+  color: var(--red);
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--font1);
+  margin-left: auto;
+}
+.ad_config h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font1);
+  font-weight: 500;
+  margin: 0;
+  font-size: 16px;
+  gap: 4px;
+  height: 40px;
+}
+
+.ad_config {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  padding: 12px;
+  width: 100vw;
+
+  padding-bottom: 60px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.ad_config .controls {
+  /* box-shadow: 1px 1px 8px #1112, -1px -1px 8px #1112; */
+  border-radius: 6px;
+  /* padding: 20px 40px; */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.ad_config .controls svg {
+  fill: var(--blue);
+}
+
+.ad_config button:disabled {
+  background-color: #777;
+}
+
+.ad_config .change_status {
+  display: flex;
+  gap: 6px;
+  max-width: 100%;
+  overflow: hidden;
+  flex-direction: column;
+}
+.ad_config .change_status button {
+  height: 42px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 16px;
+  width: fit-content;
+  padding: 16px;
+  flex: 1;
+  max-height: 42px;
+  width: 100%;
+  font-family: var(--font1);
+}
+
+.ad_config .configs {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 60px;
+}
+.ad_config .inactive {
+  font-size: 18px;
+  color: var(--red);
+}
+
+.ad_config .conf {
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 4px #1114;
+  margin: 16px 0 8px;
+  flex: 1 1;
+  display: flex;
+  gap: 20px;
+  background: #2196f322;
+}
+.ad_config .conf:first-child {
+  background: #eee;
+}
+
+.ad_config .conf * {
+  margin: 0;
+}
+
+.ad_config h2 p {
+  margin-left: auto;
+}
+.ad_config .conf h5 {
+  font-size: 18px;
+  font-weight: 500;
+  font-family: var(--font1);
+}
+.ad_config .conf .section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 500;
+}
+.ad_config .conf .section li {
+  padding: 6px 10px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-left: 60px;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+.ad_config .conf .section li span {
+  color: var(--blue);
+  font-size: 18px;
+  font-family: var(--font1);
+}
+.ad_config .conf .section ul {
+  width: 100%;
+  padding: 0;
+}
+.ad_config .conf .section.col {
+  flex-direction: column;
+  align-items: start;
+}
+
+.ad_config .Premium {
+  background: var(--yellow);
+  border-radius: 6px;
+  box-shadow: 0px 0px 8px #ccc;
+  padding: 6px 20px;
+  color: white;
+}
+.ad_config .Standard {
+  background: var(--blue);
+  border-radius: 6px;
+  box-shadow: 0px 0px 8px #ccc;
+  padding: 6px 20px;
+  color: white;
+}
+.ad_config .Basic {
+  background: #555;
+  border-radius: 6px;
+  box-shadow: 0px 0px 8px #ccc;
+  padding: 6px 20px;
+  color: white;
+}
+
+.ad_config .edit_config {
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 16px;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-weight: 500;
+  font-size: 15px;
+  margin-left: auto;
+}
+.ad_config .edit_config svg {
+  fill: white;
+}
+
+.ad_config .status_rr {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.ad_config .change_status * {
+  margin: 0 !important;
+}
+
+.ad_config .config {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+}
+
+.ad_config .config > div {
+  flex: 1 1;
+  min-width: 200px;
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 1px 1px 8px #1112, -1px -1px 8px #1112;
+  border: 1px solid var(--blue);
+}
+.ad_config .config .config_header {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+  font-size: 16px;
+}
+.ad_config .config .details p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  height: 28px;
+  margin: 0;
+  font-weight: 500;
+
+  /* border-bottom: 2px solid #eee; */
+}
+.ad_config .config .details p:last-child {
+  border-bottom: none;
+}
+.ad_config .config .details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px;
+}
+.ad_config .num,
+.ad_config .value {
+  font-size: 15px;
+  color: var(--blue);
+}
+
+.ad_config .total {
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin: 0;
+  gap: 8px;
+}
+.ad_config .total .price {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+@media (min-width: 520px) {
+  .ad_config .change_status {
+    flex-direction: row;
+    gap: 10px;
+  }
+  .ad_config .change_status button {
+    flex: 1;
+    max-width: fit-content;
+  }
+}
+
+@media (min-width: 720px) {
+  .ad_config .config {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0;
+    flex-direction: row;
+  }
+  .ad_config .recurring_ad {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: row;
+    gap: 20px;
+  }
+}
+
+.ad_config::-webkit-scrollbar,
+.ad_config * ::-webkit-scrollbar {
+  display: none !important;
+}
+
+@media (min-width: 1600px) {
+  ._listings {
+    padding: 0 10% 100px;
+  }
+}
+
+._listing .options {
+  position: absolute;
+  bottom: 0px;
+  z-index: 99999;
+  display: flex;
+  right: 0px;
+  width: 80%;
+  justify-content: end;
+  align-items: end;
+
+  gap: 4px;
+  flex-wrap: wrap;
+  filter: drop-shadow(0px 0px 16px #1116);
+  padding: 6px;
+  box-sizing: border-box;
+  animation: pop_out 0.1s var(--bc);
+  transition: all 0.1s var(--bc);
+  transform: translateX(0);
+}
+
+@keyframes pop_out {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+._listing .options button {
+  border: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  min-width: fit-content;
+  padding: 0 8px;
+  box-sizing: border-box;
+  justify-content: center;
+  border-radius: 6px;
+
+  background: white;
+  gap: 2px;
+  font-size: 13px;
+  font-family: var(--font1);
+  font-weight: 500;
+  overflow: hidden;
+  position: relative;
+}
+
+._listing .wishlist.opt svg {
+  fill: var(--blue) !important;
+  stroke: none;
+  height: 28px;
+  width: 28px;
+  stroke-width: 0;
+}
+._listing .options svg {
+  height: 18px;
+  fill: var(--blue);
+  width: 18px;
 }

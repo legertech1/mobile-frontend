@@ -4,6 +4,7 @@
   left: 0;
   position: absolute;
   width: 100%;
+  z-index: 99999;
 }
 
 .mobile_modal {
@@ -42,7 +43,9 @@
   width: 100vw;
   max-width: 100vw;
 }
-
+.post_ad_handler {
+  max-width: unset;
+}
 .mobile_modal.ad .header,
 .mobile_modal.gallery .header {
   flex-direction: row-reverse;

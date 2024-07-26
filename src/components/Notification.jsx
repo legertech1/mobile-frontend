@@ -24,7 +24,7 @@ const Notification = ({
 
   return (
     <div className={`notification ${color}`} id={id}>
-      <span>{message}</span>
+      <span>{message.message || message.error || message}</span>
       <span>
         <Close className="close-icon" onClick={closeNotification} />
       </span>

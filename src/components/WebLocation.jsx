@@ -220,7 +220,7 @@ export default function WebLocation({ close }) {
 
   const zoom = useMemo(() => {
     if (radius) {
-      return Math.round(Math.log2(40075017 / (radius * 2500)) - 1);
+      return Math.round(Math.log2(40075017 / (radius * 1800)) - 1);
     } else if (isCountry) {
       return 3;
     } else if (isProvince) {
@@ -451,7 +451,7 @@ export default function WebLocation({ close }) {
               value={radius || 0}
               onChange={(e) => _setRadius(e.target.value)}
               min={10}
-              max={500}
+              max={1000}
               name=""
               id=""
               disabled={!radius}

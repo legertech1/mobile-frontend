@@ -30,7 +30,7 @@ function AdPosthandler({ token, onSuccess, close }) {
     try {
       const res = await axios.post(apis.postAd, { ad, token });
     } catch (err) {
-      notification.error( err?.response?.data || err.message);
+      notification.error(err?.response?.data || err.message);
       setError(err);
     }
   }
@@ -41,7 +41,7 @@ function AdPosthandler({ token, onSuccess, close }) {
         dispatch(updateCart({}));
         dispatch(getBalance());
         dispatch(setFormData(initialAdState));
-        setTimeout(() => navigate("/profile"), 2500);
+        setTimeout(() => navigate("/ads?tab=ads"), 2500);
         onSuccess();
         close();
       }, 1000);
@@ -50,6 +50,7 @@ function AdPosthandler({ token, onSuccess, close }) {
     postAd();
   }, []);
   useEffect(() => {
+    console.log(updates[0]);
     if (updates[0]?.type == "post-ad") setUpdate(updates[0].update);
   }, [updates]);
   useEffect(() => {
@@ -59,7 +60,7 @@ function AdPosthandler({ token, onSuccess, close }) {
       setWait(true);
       setTimeout(() => setWait(false), 400);
     }
-  }, [updates, wait]);
+  }, [update, wait]);
 
   return (
     <div className="ad_post_handler">

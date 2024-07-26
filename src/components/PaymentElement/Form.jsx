@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
-import Checkbox from "../Shared/Checkbox";
+
 import axios from "axios";
 import apis from "../../services/api";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
@@ -10,6 +10,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { getBalance } from "../../store/balanceSlice";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
+import Checkbox from "../../components_mobile/shared/Checkbox";
 function Form({
   close,
   onPaymentSuccessful,
@@ -125,7 +126,9 @@ function Form({
             {!useBalance && userBalance && (
               <div className="bal">
                 <h5>Current balance</h5>
-                <span className="price">${userBalance?.balance}</span>
+                <span className="price">
+                  ${(userBalance?.balance).toFixed(2)}
+                </span>
               </div>
             )}
             {useBalance && (

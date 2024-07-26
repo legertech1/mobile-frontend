@@ -49,7 +49,7 @@ function Header({ white, noUser }) {
             <div className="overlay">
               <div
                 className="user option"
-                onClick={(e) => ripple(e, { dur: 2 })}
+                onClick={(e) => ripple(e, { dur: 2, cb: navigate("/profile") })}
               >
                 <img
                   src={user.image}

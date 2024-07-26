@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./index.css";
 import ripple from "../../utils/ripple";
 import {
+  Edit,
   Favorite,
   FavoriteBorderRounded,
   FavoriteRounded,
+  MoreHoriz,
   PinDropRounded,
   PlaceOutlined,
+  Settings,
+  SettingsBackupRestore,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../../utils/listingCardFunctions";
@@ -14,19 +18,50 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../Modal";
 import { Checkmark } from "@styled-icons/evaicons-solid/Checkmark";
 import Ad from "../../pages_mobile/Ad";
+import Config from "./Config";
+import RelistAd from "../../pages_mobile/PostAd/RelistAd";
+import { updateCart } from "../../store/cartSlice";
+import { getBalance } from "../../store/balanceSlice";
+import { me } from "../../store/authSlice";
+import success from "../../assets/animatedIcons/successful.json";
+import IconPlayer from "../../components/IconPlayer";
+import { relistAd } from "../../store/adSlice";
+import PaymentElement from "../../components/PaymentElement";
+import useNotification from "../../hooks/useNotification";
 
 function Listing({ ad, setAds, empty, selected, setSelected, status }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const notification = useNotification();
   const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.auth);
   const [wishlisted, setWishlisted] = useState(false);
+  const [config, setConfig] = useState(false);
+  const [relistModal, setRelistModal] = useState(false);
+  const [paymentModal, setPaymentModal] = useState(false);
+  const [paymentSuccess, setPaymentSuccess] = useState();
+  const [options, setOptions] = useState(false);
+  const optRef = useRef();
+  function onPaymentSuccessful(token) {
+    setPaymentSuccess(true);
+    dispatch(relistAd({ id: ad._id, token }))
+      .unwrap()
+      .then((ad) => {
+        dispatch(me());
+        dispatch(getBalance());
+        dispatch(updateCart({}));
+      })
+      .catch((err) => {});
+  }
   useEffect(() => {
     user?.data?.wishlist?.includes(ad?._id)
       ? setWishlisted(true)
       : setWishlisted(false);
   }, [user]);
-
+  function onPaymentFailed(error) {
+    setPaymentModal(false);
+    notification.error(error);
+  }
   return (
     <div
       className={
@@ -45,6 +80,7 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
             dur: 2,
             fast: true,
             cb: () => {
+              setOptions(false);
               setOpen(true);
             },
           });
@@ -66,15 +102,26 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
         {!empty && (
           <>
             <div
-              className={"wishlist" + (wishlisted ? " active" : "")}
+              className={
+                "wishlist" +
+                (wishlisted ? " active" : "") +
+                (status && !selected ? " opt" : "")
+              }
               onClick={(e) => {
                 ripple(e);
+
                 e.stopPropagation();
                 if (selected) {
-                  console.log("...");
                   return setSelected((state) =>
                     state.filter((i) => i != ad._id)
                   );
+                }
+                if (status) {
+                  if (options) {
+                    optRef.current.style.transform = "translateX(100%)";
+                    return setTimeout(() => setOptions(false), 100);
+                  }
+                  return setOptions(true);
                 }
 
                 wishlisted
@@ -82,7 +129,8 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
                   : add(ad, user, dispatch, navigate);
               }}
             >
-              {!selected ? <Favorite /> : <Checkmark />}
+              {!status && (!selected ? <Favorite /> : <Checkmark />)}
+              {status && (!selected ? <MoreHoriz /> : <Checkmark />)}
             </div>
             <img
               src={ad?.thumbnails[0]}
@@ -120,6 +168,54 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
           )}
         </div>
       </div>
+      {status && options && (
+        <div className="options" ref={optRef}>
+          <button
+            className="action"
+            onClick={(e) =>
+              ripple(e, {
+                dur: 1,
+                cb: () => {
+                  navigate("/edit/" + ad._id);
+                },
+              })
+            }
+          >
+            <Edit /> Edit
+          </button>
+          {ad?.meta?.status != "expired" && (
+            <button
+              className="action"
+              onClick={(e) =>
+                ripple(e, {
+                  dur: 1,
+                  cb: () => {
+                    setConfig(true);
+                  },
+                })
+              }
+            >
+              <Settings /> Settings
+            </button>
+          )}
+
+          {ad?.meta?.status == "expired" && (
+            <button
+              className="action"
+              onClick={(e) =>
+                ripple(e, {
+                  dur: 1,
+                  cb: () => {
+                    setRelistModal(true);
+                  },
+                })
+              }
+            >
+              <SettingsBackupRestore /> Relist
+            </button>
+          )}
+        </div>
+      )}
       {open && (
         <Modal
           heading={<span>{ad?.listingID}</span>}
@@ -129,6 +225,62 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
           className={"ad"}
         >
           <Ad _id={ad?._id} />
+        </Modal>
+      )}
+      {config && (
+        <Modal
+          className={"ad"}
+          close={() => setConfig(false)}
+          heading={"Ad settings"}
+        >
+          <Config listing={ad} setListings={setAds} />
+        </Modal>
+      )}
+      {relistModal && (
+        <Modal
+          className={"ad"}
+          heading={"Relist Ad"}
+          close={() => {
+            setRelistModal(false);
+            if (!paymentModal) dispatch(updateCart({}));
+          }}
+        >
+          <RelistAd
+            ad={ad}
+            close={() => {
+              setRelistModal(false);
+            }}
+            setPaymentModal={setPaymentModal}
+            onPaymentSuccessful={onPaymentSuccessful}
+          />
+        </Modal>
+      )}
+
+      {paymentModal && (
+        <Modal
+          close={(e) => setPaymentModal(false)}
+          className={"payment"}
+          heading={"Relist Ad"}
+        >
+          <PaymentElement
+            onPaymentSuccessful={onPaymentSuccessful}
+            onPaymentFailed={onPaymentFailed}
+            close={(e) => {
+              setPaymentModal(false);
+              dispatch(updateCart({}));
+            }}
+            listing={ad}
+            category={ad.meta?.category}
+          />
+        </Modal>
+      )}
+      {paymentSuccess && (
+        <Modal close={() => setPaymentSuccess(false)}>
+          <div className="_success">
+            {" "}
+            <IconPlayer icon={success} once={true} />
+            <p>Ad posted successfully</p>
+          </div>
         </Modal>
       )}
     </div>
