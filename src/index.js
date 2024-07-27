@@ -12,7 +12,6 @@ import apis from "./services/api";
 import IconPlayer from "./components/IconPlayer";
 import blackAnimatedLOGO from "./assets/animatedIcons/animated_black_LOGO.json";
 import MobileApp from "./MobileApp";
-
 function Root() {
   async function init() {
     await axios.get(apis.init);
@@ -27,7 +26,7 @@ function Root() {
         country: JSON.parse(localStorage.country || JSON.stringify("")),
       };
       return config;
-    },
+    }
     // function (error) {
     //   // Do something with request error
     //   return Promise.reject(error);
