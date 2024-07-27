@@ -69,7 +69,7 @@ const PinchZoomImage = ({
   //   setTimeout(() => {
   //     console.log((imageRef.current.parentNode.clientWidth * scale) / 2);
   //     imageRef.current.parentNode.scrollTo({
-  //       top: 0,
+  //       top: (imageRef.current.parentNode.clientHeight * (scale - 1)) / 2,
   //       left: (imageRef.current.parentNode.clientWidth * (scale - 1)) / 2,
   //       behavior: "smooth",
   //     });
@@ -94,6 +94,11 @@ const PinchZoomImage = ({
         left: "0",
         pointerEvents: "all",
         overflow: "scroll",
+        display: "flex",
+        justifyContent: "center",
+        width: `${scale * 100}%`,
+        // height: `${scale * 100}%`,
+        top: 0,
       }}
     >
       <img
@@ -101,8 +106,8 @@ const PinchZoomImage = ({
         src={src}
         alt={alt}
         style={{
-          // transform: `scale(${scale}) translateY(-50%)`,
-          width: `${scale * 100}%`,
+          transform: `scale(${scale})`,
+          // width: `${scale * 100}%`,
           top: 0,
         }}
       />

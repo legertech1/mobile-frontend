@@ -180,16 +180,17 @@
   display: none;
 }
 ._gallery .images .img_cont img {
-  transform-origin: center;
-  position: absolute;
+  transform-origin: top left;
+  /* position: absolute; */
   height: -moz-fit-content;
-  height: 100%;
+  height: fit-content;
   left: 0px;
   min-height: fit-content;
   max-width: fit-content;
   transition: all 0.2s var(--bc);
   width: 100%;
   object-fit: contain;
+  align-self: center;
 }
 
 .view_listing .tile {
@@ -951,7 +952,8 @@
   height: fit-content;
   object-fit: contain;
   position: relative;
-  height: 90vh;
+  min-height: 90vh;
+  top: 4vh;
 }
 
 .view_listing p.category {
