@@ -32,7 +32,7 @@ import Footer from "./components_mobile/Footer";
 import Ads from "./pages_mobile/Ads";
 import Account from "./components_mobile/Account";
 import Modal from "./components_mobile/Modal";
-import Profile from "./pages_mobile/Profile";
+import Profile from "./pages_mobile/Profile/Index.jsx";
 
 function MobileApp() {
   const dispatch = useDispatch();

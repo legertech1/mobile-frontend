@@ -81,7 +81,10 @@ function Pricing() {
           close={(e) => setCategoryModal(false)}
         >
           <ModalSelector
-            items={[...categories]}
+            items={[
+              { name: "All Categories", icon: CategoriesIcon },
+              ...categories,
+            ]}
             close={(e) => setCategoryModal(false)}
             state={category}
             setState={(v) => {
