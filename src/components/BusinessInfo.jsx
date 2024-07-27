@@ -72,8 +72,30 @@ function BusinessInfo({ close }) {
             Business LOGO:<span>(required)</span>
           </h4>
         </div>
-
-        <div className="image_input" onClick={(e) => imageInp.current.click()}>
+        <input
+          style={{ display: "none" }}
+          onChange={async (e) => {
+            if (!e?.target?.files[0]) return;
+            const imageCompressor = new ImageCompressor();
+            const _img = await imageCompressor.compress(e.target.files[0], {
+              quality: 0.4,
+            });
+            const img = await parseImage(_img);
+            setBusinessInfo({
+              ...businessInfo,
+              LOGO: img,
+            });
+          }}
+          ref={imageInp}
+          type="file"
+          accept=".jpg, .jpeg"
+        />
+        <div
+          className="image_input"
+          onClick={(e) => {
+            imageInp.current.click();
+          }}
+        >
           {!businessInfo?.LOGO && <p>Click to edit</p>}
           {businessInfo?.LOGO && (
             <>
@@ -95,24 +117,6 @@ function BusinessInfo({ close }) {
               )}
             </>
           )}
-          <input
-            style={{ display: "none" }}
-            onChange={async (e) => {
-              if (!e?.target?.files[0]) return;
-              const imageCompressor = new ImageCompressor();
-              const _img = await imageCompressor.compress(e.target.files[0], {
-                quality: 0.4,
-              });
-              const img = await parseImage(_img);
-              setBusinessInfo({
-                ...businessInfo,
-                LOGO: img,
-              });
-            }}
-            ref={imageInp}
-            type="file"
-            accept=".jpg, .jpeg"
-          />
         </div>
       </div>
       <div className="field_container">

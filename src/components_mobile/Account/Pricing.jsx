@@ -13,7 +13,7 @@ function Pricing() {
   const navigate = useNavigate();
   const categories = useSelector((state) => state.categories);
   const [categoryModal, setCategoryModal] = useState(false);
-  const [pkg, setPkg] = useState("Premium");
+  const [pkg, setPkg] = useState("Basic");
 
   const [category, setCategory] = useState();
   useEffect(() => {

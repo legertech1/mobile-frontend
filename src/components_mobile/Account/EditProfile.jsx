@@ -208,16 +208,16 @@ function UpdateProfile({ close }) {
 
       <div className="buttons">
         <button
-          className="btn_blue_m"
-          onClick={(e) => ripple(e, { dur: 2, cb: submit })}
-        >
-          <SaveOutlined /> Save
-        </button>
-        <button
           className="btn_blue_m delete"
           onClick={(e) => ripple(e, { dur: 2, cb: close })}
         >
           <CloseOutlined /> Discard
+        </button>
+        <button
+          className="btn_blue_m"
+          onClick={(e) => ripple(e, { dur: 2, cb: submit })}
+        >
+          <SaveOutlined /> Save
         </button>
       </div>
     </div>

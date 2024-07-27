@@ -57,14 +57,13 @@ function AdPricing({ category, preconfig, ignoreFree }) {
               className={
                 "Basic" + (cart.package?.name == "Basic" ? " active" : "")
               }
-              onClick={(free) =>
+              onClick={() =>
                 dispatch(
                   updateCart({
                     ...cart,
                     package: {
                       name: "Basic",
                       item: category?.pricing?.Basic,
-                      free,
                     },
                   })
                 )
@@ -76,14 +75,13 @@ function AdPricing({ category, preconfig, ignoreFree }) {
               className={
                 "Standard" + (cart.package?.name == "Standard" ? " active" : "")
               }
-              onClick={(free) =>
+              onClick={() =>
                 dispatch(
                   updateCart({
                     ...cart,
                     package: {
                       name: "Standard",
                       item: category?.pricing?.Standard,
-                      free,
                     },
                   })
                 )
@@ -95,14 +93,13 @@ function AdPricing({ category, preconfig, ignoreFree }) {
               className={
                 "Premium" + (cart.package?.name == "Premium" ? " active" : "")
               }
-              onClick={(free) =>
+              onClick={() =>
                 dispatch(
                   updateCart({
                     ...cart,
                     package: {
                       name: "Premium",
                       item: category?.pricing?.Premium,
-                      free,
                     },
                   })
                 )
@@ -129,14 +126,13 @@ function AdPricing({ category, preconfig, ignoreFree }) {
               name="Premium"
               category={category}
               selected={cart?.package?.name == "Premium"}
-              onClick={(free) =>
+              onClick={() =>
                 dispatch(
                   updateCart({
                     ...cart,
                     package: {
                       name: "Premium",
                       item: category?.pricing?.Premium,
-                      free,
                     },
                   })
                 )
@@ -149,14 +145,13 @@ function AdPricing({ category, preconfig, ignoreFree }) {
               name="Standard"
               category={category}
               selected={cart?.package?.name == "Standard"}
-              onClick={(free) =>
+              onClick={() =>
                 dispatch(
                   updateCart({
                     ...cart,
                     package: {
                       name: "Standard",
                       item: category?.pricing?.Standard,
-                      free,
                     },
                   })
                 )
@@ -169,14 +164,13 @@ function AdPricing({ category, preconfig, ignoreFree }) {
               name="Basic"
               category={category}
               selected={cart?.package?.name == "Basic"}
-              onClick={(free) =>
+              onClick={() =>
                 dispatch(
                   updateCart({
                     ...cart,
                     package: {
                       name: "Basic",
                       item: category?.pricing?.Basic,
-                      free,
                     },
                   })
                 )
