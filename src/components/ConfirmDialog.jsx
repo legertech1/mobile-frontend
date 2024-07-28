@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ConfirmDialog.css";
 import Modal from "../components_mobile/Modal";
 import { ErrorOutlineOutlined } from "@mui/icons-material";
+import ripple from "../utils/ripple";
 
 const ConfirmDialog = ({ message, onConfirm, onCancel, onClose }) => {
   const [visible, setVisible] = useState(true);
@@ -34,10 +35,15 @@ const ConfirmDialog = ({ message, onConfirm, onCancel, onClose }) => {
         <div className="confirm_dialog">
           <p className="message">{message}</p>
           <div className="buttons">
-            <button className="cancel" onClick={cancel}>
+            <button
+              className="cancel"
+              onClick={(e) => ripple(e, { dur: 2, cb: () => cancel() })}
+            >
               Cancel
             </button>
-            <button onClick={confirm}>Confirm </button>
+            <button onClick={(e) => ripple(e, { dur: 2, cb: () => confirm() })}>
+              Confirm{" "}
+            </button>
           </div>
         </div>
       </Modal>

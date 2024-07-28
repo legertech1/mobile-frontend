@@ -1,5 +1,5 @@
 .confirm_dialog {
-  padding: 40px 20px 100px;
+  padding: 40px 20px 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,20 +18,23 @@
   justify-content: center;
   align-items: center;
   gap: 12px;
+  position: relative;
+  overflow: hidden;
 }
 .confirm_dialog button {
-  height: 44px;
+  height: 48px;
   width: 100%;
   border: none;
   border-radius: 6px;
   background: var(--blue);
+  font-family: var(--font1);
   color: white;
-  font-size: 18px;
-  box-shadow: 0px 0px 4px #1114;
-  /* font-weight: 500; */
+  font-size: 16px;
+  box-shadow: 0px 0px 12px #1114;
+  font-weight: 500;
 }
 .confirm_dialog .cancel {
-  border: 2px solid var(--red);
+  border: 2px solid var(--red-dark);
   color: white;
-  background-color: var(--red);
+  background-color: var(--red-dark);
 }

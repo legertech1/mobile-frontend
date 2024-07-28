@@ -16,7 +16,7 @@
   --yellow: rgb(253, 217, 14);
   --gold: #fec542;
   --red: #df4c4c;
-  --red-dark: #aa4d4d;
+  --red-dark: rgb(200, 69, 69);
   --loader-bg: linear-gradient(135deg, #1111, #1111, #1112);
   --loader-bg-size: 300%;
 }
