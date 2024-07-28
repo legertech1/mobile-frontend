@@ -55,10 +55,7 @@ function Header({
     <div className="header">
       <div className="header-mask"></div>
       <_Header />
-      <h1>
-        Own Nothing, <br />
-        Use Everything.
-      </h1>
+      <h1>Turn Your Assets Into Income</h1>
 
       <div className="search">
         <div className="search-container">
