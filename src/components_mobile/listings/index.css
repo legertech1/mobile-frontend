@@ -973,6 +973,6 @@ div.options.actions {
   pointer-events: none;
 }
 
-.del svg {
+._del svg {
   fill: var(--red) !important;
 }

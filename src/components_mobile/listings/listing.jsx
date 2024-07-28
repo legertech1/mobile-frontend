@@ -256,7 +256,7 @@ function Listing({
             <Edit /> Edit
           </button>
           <button
-            className="action del"
+            className="action _del"
             onClick={(e) =>
               ripple(e, {
                 dur: 1,
