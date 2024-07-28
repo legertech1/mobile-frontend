@@ -1,5 +1,5 @@
 .confirm_dialog {
-  padding: 40px 40px 60px;
+  padding: 40px 20px 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7,9 +7,9 @@
 }
 
 .confirm_dialog .message {
-  font-size: 17px;
+  font-size: 18px;
   text-align: center;
-  margin: 0 0 20px;
+  margin: 0 20px 40px;
   font-weight: 500;
 }
 .confirm_dialog .buttons {
@@ -32,6 +32,6 @@
 }
 .confirm_dialog .cancel {
   border: 2px solid var(--red);
-  background-color: white;
-  color: var(--red);
+  color: white;
+  background-color: var(--red);
 }

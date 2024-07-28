@@ -338,18 +338,20 @@ span.featured {
   position: fixed;
   z-index: 20;
   top: 0px;
+  height: calc(4vh + 3vw);
   left: 0px;
   display: flex;
   width: 100%;
   background: white;
-  box-shadow: 0px 0px 16px #1114;
-
-  height: 56px;
+  box-shadow: 0px 0px 16px #1116;
   justify-content: center;
   align-items: center;
   padding: 12px 8px;
   box-sizing: border-box;
   animation: actions_slide_in 0.2s var(--bc) forwards;
+  box-sizing: border-box;
+  max-height: 80px;
+  min-height: 56px;
 }
 ._ad_actions h2 {
   flex: 1;
@@ -438,14 +440,24 @@ span.featured {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--blue);
+
   filter: drop-shadow(0px 0px 8px #1111);
   position: relative;
   overflow: hidden;
+  min-width: fit-content;
 }
-._ad_actions .action svg {
-  height: 26px;
-  width: 26px;
+._ad_actions svg {
+  min-height: 26px;
+  min-width: 26px;
+  height: calc(2vw + 1vh);
+  width: calc(2vw + 1vh);
+  max-height: 32px;
+  max-width: 32px;
+  fill: var(--blue);
+}
+._ad_actions .action span {
+  font-size: 13px;
+  display: none;
 }
 ._listing .info * {
   pointer-events: none;
@@ -843,6 +855,17 @@ div.options.actions {
 }
 
 @media (min-width: 720px) {
+  ._ad_actions .action span {
+    display: inline;
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+  }
+  ._ad_actions .action {
+    border-radius: 0px;
+    padding: 12px;
+    gap: 2px;
+  }
   .ad_config .config {
     display: flex;
     align-items: stretch;
@@ -864,7 +887,12 @@ div.options.actions {
 .ad_config * ::-webkit-scrollbar {
   display: none !important;
 }
-
+@media (min-width: 1000px) {
+  ._ad_actions .action span {
+    display: inline;
+    font-size: 15px;
+  }
+}
 @media (min-width: 1600px) {
   ._listings {
     padding: 0 10% 100px;
@@ -877,26 +905,28 @@ div.options.actions {
   z-index: 99999;
   display: flex;
   right: 0px;
-  width: 80%;
-  justify-content: end;
-  align-items: end;
+  width: 100%;
+  justify-content: start;
+  align-items: start;
 
   gap: 4px;
   flex-wrap: wrap;
-  filter: drop-shadow(0px 0px 16px #1116);
+  filter: drop-shadow(0px 0px 12px #1116);
   padding: 6px;
   box-sizing: border-box;
   animation: pop_out 0.1s var(--bc);
   transition: all 0.1s var(--bc);
   transform: translateX(0);
+  /* flex-direction: column; */
+  /* flex-direction: row-reverse; */
 }
 
 @keyframes pop_out {
   0% {
-    transform: translateX(100%);
+    transform: translateY(100%);
   }
   100% {
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 ._listing .options button {
@@ -904,19 +934,21 @@ div.options.actions {
   color: black;
   display: flex;
   align-items: center;
-  height: 30px;
+  height: 32px;
   min-width: fit-content;
   padding: 0 8px;
+  width: 100%;
   box-sizing: border-box;
-  justify-content: center;
-  border-radius: 6px;
-
+  justify-content: start;
+  border-radius: 4px;
+  width: fit-content;
   background: white;
   gap: 2px;
   font-size: 13px;
   font-family: var(--font1);
   font-weight: 500;
   overflow: hidden;
+  flex: 1;
   position: relative;
 }
 
@@ -931,4 +963,16 @@ div.options.actions {
   height: 18px;
   fill: var(--blue);
   width: 18px;
+}
+._listing .overlay.white {
+  background-color: #1112;
+}
+
+._listing .info,
+._listing .info * {
+  pointer-events: none;
+}
+
+.del svg {
+  fill: var(--red) !important;
 }

@@ -8,6 +8,7 @@ import Modal from "../Modal";
 import CategoriesIcon from "../../assets/images/categoriesIcon.png";
 import ripple from "../../utils/ripple";
 import { Package } from "../PricingComponents";
+import { KeyboardArrowDown } from "@mui/icons-material";
 
 function Pricing() {
   const navigate = useNavigate();
@@ -33,6 +34,14 @@ function Pricing() {
             {" "}
             {category?.icon && <img src={category.icon} />}
             {category?.name}
+            <KeyboardArrowDown
+              style={{
+                marginLeft: "auto",
+                height: "24px",
+                width: "24px",
+                fill: "var(--blue)",
+              }}
+            />
           </div>
           <div className={"package_select " + pkg}>
             <div

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Listing from "./listing";
 import { useGesture } from "@use-gesture/react";
 import "./index.css";
@@ -76,7 +76,34 @@ function Listings({ ads, setAds, loading, num, gestures, update, status }) {
     return arr;
   }
   const bind = useGesture(gestures ? gestureOptions : false);
+  const actions = status
+    ? {
+        pause: (id, listingID) => {
+          if (!id || !listingID) return;
+          confirm.openDialog(
+            "Are you sure you want to Pause listing " + listingID + " ?",
+            () => batchUpdate("pause", [id])
+          );
+        },
+        resume: (id, listingID) => {
+          if (!id || !listingID) return;
+          confirm.openDialog(
+            "Are you sure you want to Resume listing " + listingID + " ?",
+            () => batchUpdate("resume", [id])
+          );
+        },
+        delete: (id, listingID) => {
+          if (!id || !listingID) return;
+          confirm.openDialog(
+            "Are you sure you want to Delete listing " + listingID + " ?",
+            () => batchUpdate("delete", [id])
+          );
+        },
+      }
+    : null;
+
   async function batchUpdate(type, ids) {
+    console.log(ids);
     try {
       const res = await axios.post(apis.batchUpdate, { type, ids });
       setSelected([]);
@@ -107,6 +134,7 @@ function Listings({ ads, setAds, loading, num, gestures, update, status }) {
             selected={selected?.includes(ad._id)}
             setSelected={setSelected}
             status={status}
+            actions={actions}
           ></Listing>
         ))}
       {loading &&
@@ -150,7 +178,7 @@ function Listings({ ads, setAds, loading, num, gestures, update, status }) {
                 })
               }
             >
-              <PlayArrowRounded />
+              <PlayArrowRounded /> <span>Resume </span>
             </button>
             <button
               className="action"
@@ -168,10 +196,10 @@ function Listings({ ads, setAds, loading, num, gestures, update, status }) {
                 })
               }
             >
-              <PauseRounded />
+              <PauseRounded /> <span>Pause</span>
             </button>
             <button
-              className="action"
+              className="action del"
               onClick={(e) =>
                 ripple(e, {
                   dur: 1,
@@ -188,7 +216,7 @@ function Listings({ ads, setAds, loading, num, gestures, update, status }) {
                 })
               }
             >
-              <Delete />
+              <Delete /> <span>Delete</span>
             </button>
           </div>,
           document.querySelector("#portal")

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "./App.css";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,7 +39,8 @@ function MobileApp() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth);
   const routeLocation = useLocation();
-
+  const location = useLocation()
+  const app = useRef()
   const { selectedLocation } = useSelector((state) => state.location);
 
   const [recentLocations, setRecentLocations] = useLocalStorage(
@@ -74,6 +75,13 @@ function MobileApp() {
       }
     }
   };
+  useEffect(() =>{
+app?.current?.scrollTo({
+  top:0,
+  left:0,
+  behaivior:"smooth"
+})
+  }, [location.pathname])
 
   async function getCountry() {
     fetch("https://ipinfo.io/json")
@@ -111,7 +119,7 @@ function MobileApp() {
     return () => window.removeEventListener("popstate", handleBack);
   }, []);
   return (
-    <div className="___app">
+    <div className="___app" ref={app}>
       <Routes>
         <Route path="/register" exact element={<Register />} />
 

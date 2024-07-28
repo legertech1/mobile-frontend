@@ -69,16 +69,16 @@
   flex-direction: column;
   gap: 30px;
   width: 100%;
-  padding: 20px 16px 60px;
+  padding: 20px 20px 100px;
   box-sizing: border-box;
   max-width: 540px;
   margin: auto;
 }
 ._wallet_add_money .suggested_amounts {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   height: 50px;
-  margin-top: -20px;
+  margin-top: -22px;
   align-items: center;
   justify-content: space-between;
 }
@@ -89,15 +89,15 @@
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  font-weight: 600;
-  color: var(--blue);
-  border-radius: 4px;
+  font-weight: 500;
+  color: white;
+  border-radius: 8px;
 
   flex: 1;
-  box-shadow: 1px 1px 1px #1111, -1px -1px 1px #1111;
+  box-shadow: 0px 0px 8px #1112;
   cursor: pointer;
   transition: all 0.2s var(--bc);
-  background-color: #2196f322;
+  background-color: #2196f3;
   /* border: 1px solid var(--blue); */
   flex: 1;
 }
@@ -109,13 +109,12 @@
   gap: 2px;
   font-size: 32px;
   color: var(--blue);
-  background-color: #2196f322;
+  background-color: #2196f320;
   font-weight: 600;
   padding: 8px 20px;
   box-sizing: border-box;
-  border-radius: 4px;
-  box-shadow: 1px 1px 1px #1111, -1px -1px 1px #1111;
-  /* border: 1px solid var(--blue); */
+  border-radius: 8px;
+  box-shadow: inset 0px 0px 4px #1112;
 }
 ._wallet_add_money .add_money_inp input {
   font-size: 30px;
@@ -135,15 +134,15 @@
 }
 
 ._wallet_add_money .actions button {
-  height: 52px;
+  height: 48px;
   border: none;
   background: var(--blue);
-  font-size: 18px;
-  border-radius: 4px;
+  font-size: 16px;
+  border-radius: 6px;
   font-weight: 500;
   font-family: var(--font1);
   color: white;
-  box-shadow: 0px 0px 4px #1114;
+  box-shadow: 0px 0px 8px #1114;
   cursor: pointer;
   transition: all 0.3s var(--bc);
   padding: 12px;
@@ -153,7 +152,6 @@
   justify-content: center;
   flex: 1 1;
   box-sizing: border-box;
-  /* width: fit-content; */
 }
 ._wallet_add_money .actions button svg {
   height: 24px;
@@ -161,8 +159,8 @@
 }
 ._wallet_add_money .actions button.cancel {
   border: 1px solid var(--red);
-  color: var(--red);
-  background-color: white;
+  color: white;
+  background-color: var(--red);
 }
 
 ._wallet_add_money .actions button:hover {

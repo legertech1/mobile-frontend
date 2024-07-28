@@ -2,13 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import "./index.css";
 import ripple from "../../utils/ripple";
 import {
+  DeleteRounded,
   Edit,
   Favorite,
   FavoriteBorderRounded,
   FavoriteRounded,
   MoreHoriz,
+  Pause,
   PinDropRounded,
   PlaceOutlined,
+  PlayArrowRounded,
   Settings,
   SettingsBackupRestore,
 } from "@mui/icons-material";
@@ -29,7 +32,15 @@ import { relistAd } from "../../store/adSlice";
 import PaymentElement from "../../components/PaymentElement";
 import useNotification from "../../hooks/useNotification";
 
-function Listing({ ad, setAds, empty, selected, setSelected, status }) {
+function Listing({
+  ad,
+  setAds,
+  empty,
+  selected,
+  setSelected,
+  status,
+  actions,
+}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const notification = useNotification();
@@ -70,9 +81,10 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
         (empty ? " em" : "") +
         (selected ? " selected" : "")
       }
+      onContextMenu={(e) => e.preventDefault()}
     >
       <div
-        className={"overlay"}
+        className={"overlay" + (options ? " white" : "")}
         id={ad?._id}
         onClick={(e) => {
           e.stopPropagation();
@@ -117,11 +129,10 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
                   );
                 }
                 if (status) {
-                  if (options) {
-                    optRef.current.style.transform = "translateX(100%)";
-                    return setTimeout(() => setOptions(false), 100);
+                  if (!options) {
+                    setTimeout(() => setOptions(false), 5000);
                   }
-                  return setOptions(true);
+                  return setOptions(!options);
                 }
 
                 wishlisted
@@ -170,19 +181,6 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
       </div>
       {status && options && (
         <div className="options" ref={optRef}>
-          <button
-            className="action"
-            onClick={(e) =>
-              ripple(e, {
-                dur: 1,
-                cb: () => {
-                  navigate("/edit/" + ad._id);
-                },
-              })
-            }
-          >
-            <Edit /> Edit
-          </button>
           {ad?.meta?.status != "expired" && (
             <button
               className="action"
@@ -198,7 +196,6 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
               <Settings /> Settings
             </button>
           )}
-
           {ad?.meta?.status == "expired" && (
             <button
               className="action"
@@ -214,6 +211,63 @@ function Listing({ ad, setAds, empty, selected, setSelected, status }) {
               <SettingsBackupRestore /> Relist
             </button>
           )}
+          {ad?.meta?.status == "active" && (
+            <button
+              className="action"
+              onClick={(e) =>
+                ripple(e, {
+                  dur: 1,
+                  cb: () => {
+                    actions?.pause(ad._id, ad.listingID);
+                  },
+                })
+              }
+            >
+              <Pause /> Pause
+            </button>
+          )}
+          {ad?.meta?.status == "paused" && (
+            <button
+              className="action"
+              onClick={(e) =>
+                ripple(e, {
+                  dur: 1,
+                  cb: () => {
+                    actions?.resume(ad._id, ad.listingID);
+                  },
+                })
+              }
+            >
+              <PlayArrowRounded /> Resume
+            </button>
+          )}
+
+          <button
+            className="action"
+            onClick={(e) =>
+              ripple(e, {
+                dur: 1,
+                cb: () => {
+                  navigate("/edit/" + ad._id);
+                },
+              })
+            }
+          >
+            <Edit /> Edit
+          </button>
+          <button
+            className="action del"
+            onClick={(e) =>
+              ripple(e, {
+                dur: 1,
+                cb: () => {
+                  actions?.delete(ad._id, ad.listingID);
+                },
+              })
+            }
+          >
+            <DeleteRounded /> Delete
+          </button>
         </div>
       )}
       {open && (
