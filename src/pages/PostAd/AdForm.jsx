@@ -593,7 +593,7 @@ export default function AdForm({ edit }) {
               <MyAutocomplete
                 setValue={setValue}
                 value={value}
-                excluded={adLocationTypesExcluded}
+                // excluded={adLocationTypesExcluded}
                 country={country.toLowerCase()}
               ></MyAutocomplete>
               <div className="current_loc f">
