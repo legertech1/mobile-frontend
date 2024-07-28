@@ -179,7 +179,7 @@
 ._gallery ::-webkit-scrollbar {
   display: none;
 }
-._gallery .images .img_cont img {
+._gallery .images img {
   transform-origin: top left;
   /* position: absolute; */
   height: -moz-fit-content;

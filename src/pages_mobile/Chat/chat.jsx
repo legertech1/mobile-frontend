@@ -409,7 +409,10 @@ function Chat({ chat, setChat, manageShift, animating }) {
           <div className="_gallery">
             <div className="images_container">
               <div className="images">
-                <PinchZoomImage src={imagePreview}> </PinchZoomImage>
+                <div className="img_cont">
+                  {" "}
+                  <PinchZoomImage src={imagePreview}> </PinchZoomImage>
+                </div>
               </div>
             </div>
           </div>

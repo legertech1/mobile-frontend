@@ -178,6 +178,7 @@
   padding: 16px;
   padding-top: 0px;
   font-family: var(--font1);
+  z-index: 99 !important;
   /* margin-bottom: 10px; */
 }
 @keyframes mobile_modal_open {
