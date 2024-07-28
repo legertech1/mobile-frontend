@@ -32,6 +32,8 @@
   font-size: 16px;
   box-shadow: 0px 0px 12px #1114;
   font-weight: 500;
+  overflow: hidden;
+  position: relative;
 }
 .confirm_dialog .cancel {
   border: 2px solid var(--red-dark);
