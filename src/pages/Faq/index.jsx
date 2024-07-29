@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+
 import "./index.css";
-import AccordionItem from "../../components/Accordion";
-import { ArrowDownward } from "@mui/icons-material";
+
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 const faqData = [
   {

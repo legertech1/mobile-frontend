@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import Input from "../../components/Shared/Input";
 import Dropdown from "../../components/Shared/Dropdown";
-import FieldError from "../../components/FieldError";
 import TextArea from "../../components/Shared/TextArea";
 import PriceInput from "./PriceInput";
 import UploadPictures from "./UploadPictures";
-import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+
 import {
   adLocationTypesExcluded,
   defaultMapProps,
@@ -63,7 +62,10 @@ export default function AdForm({ edit }) {
   const handleFormData = (name, value) => {
     dispatch(setFormData({ ...formData, [name]: value }));
   };
-
+  useEffect(() => {
+    console.log(user);
+    if (user == null) navigate("/login");
+  }, [user]);
   function init() {
     if (value) return;
     let loc;

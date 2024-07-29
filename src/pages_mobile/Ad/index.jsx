@@ -45,9 +45,9 @@ import Modal from "../../components_mobile/Modal";
 import PaymentElement from "../../components/PaymentElement";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import ShareIcon from "@mui/icons-material/Share";
-import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined";
+
 import Share from "../../components/Share";
-import Footer from "../../components/Footer";
+
 import {
   next,
   prev,
