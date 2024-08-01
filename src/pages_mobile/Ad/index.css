@@ -946,15 +946,16 @@
 }
 ._gallery .images {
   width: 100%;
-  max-height: 94vh;
+  max-height: 100vh;
   display: flex;
   align-items: center;
   overflow: hidden;
+  height: -moz-fit-content;
   height: fit-content;
   object-fit: contain;
   position: relative;
-  min-height: 94vh;
-  top: -4vh;
+  min-height: 100vh;
+  top: 0;
 }
 
 .view_listing p.category {
