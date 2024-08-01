@@ -16,7 +16,7 @@ import InfoComp from "./components/InfoComp";
 
 
 import Ad from "./pages_mobile/Ad";
-import Pricing from "./pages_mobile/Pricing";
+
 import HelpDocs from "./pages_mobile/Help/HelpDocs";
 import HelpDoc from "./pages_mobile/Help/HelpDoc";
 import ContactUs from "./pages_mobile/ContactUs";
@@ -31,7 +31,6 @@ import "./MobileApp.css";
 import Footer from "./components_mobile/Footer";
 import Ads from "./pages_mobile/Ads";
 import Account from "./components_mobile/Account";
-import Modal from "./components_mobile/Modal";
 import Profile from "./pages_mobile/Profile/Index.jsx";
 
 function MobileApp() {
@@ -191,7 +190,7 @@ app?.current?.scrollTo({
         <Route path="/user/:id" exact element={<Profile />} />
 
 
-        <Route path="/pricing" exact element={<Pricing />} />
+ 
         <Route path="/listing/:id" exact element={<Ad />} />
         <Route path="/preview-ad" exact element={<Ad preview={true} />} />
       </Routes>

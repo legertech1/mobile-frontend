@@ -180,7 +180,11 @@ function Listing({
         </div>
       </div>
       {status && options && (
-        <div className="options" ref={optRef}>
+        <div
+          className="options"
+          ref={optRef}
+          onClick={(e) => setOptions(false)}
+        >
           {ad?.meta?.status != "expired" && (
             <button
               className="action"
