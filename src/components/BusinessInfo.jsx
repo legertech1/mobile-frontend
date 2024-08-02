@@ -157,7 +157,7 @@ function BusinessInfo({ close }) {
           maxLength="10"
           placeholder={"(000)-000-0000"}
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e) => setPhone(String(e.target.value)?.slice(0, 10))}
           type={"number"}
         ></Input>
       </div>

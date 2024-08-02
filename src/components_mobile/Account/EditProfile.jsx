@@ -174,7 +174,7 @@ function UpdateProfile({ close }) {
             type="number"
             value={phone}
             maxLength={10}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(e) => setPhone(String(e.target.value)?.slice(0, 10))}
           ></Input>
           <Input
             placeholder="Nickname"
