@@ -71,6 +71,9 @@
   display: flex;
   gap: 4px;
   align-items: center;
+  flex: 1;
+  flex-wrap: wrap;
+  width: 100%;
 }
 .business_info h4 svg {
   fill: var(--blue);
