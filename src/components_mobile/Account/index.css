@@ -311,14 +311,15 @@
   padding: 0px;
 }
 ._user_info > .header {
-  display: flex;
   align-items: center;
-  justify-content: start;
-  height: 48px;
-  margin-bottom: -8px;
-  gap: 0px;
+  display: flex;
   font-size: 15px;
   font-weight: 500;
+  gap: 0;
+  height: 48px;
+  min-height: 48px;
+  justify-content: start;
+  margin-bottom: -10px;
 }
 ._user_info > .header button {
   height: 42px;
