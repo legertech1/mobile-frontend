@@ -191,8 +191,8 @@ app?.current?.scrollTo({
 
 
  
-        <Route path="/listing/:id" exact element={<Ad />} />
-        <Route path="/preview-ad" exact element={<Ad preview={true} />} />
+        <Route path="/listing/:id" exact element={<Ad  header={true}/>} />
+        <Route path="/preview-ad" exact element={<Ad  header = {true} preview={true} />} />
       </Routes>
       {
         <Footer

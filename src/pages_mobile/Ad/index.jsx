@@ -29,6 +29,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { defaultMapProps, mapStyles, monthNames } from "../../utils/constants";
 import { sendMessage, socket } from "../../socket";
 import {
+  ArrowBack,
   ArrowForward,
   CloseOutlined,
   EditAttributesOutlined,
@@ -68,7 +69,7 @@ import PinchZoomImage from "./PinchToZoom";
 import { ChevronRight } from "@styled-icons/entypo/ChevronRight";
 import { KeyboardArrowDown } from "styled-icons/material";
 const countries = { US, CA };
-function ViewListing({ preview, _id }) {
+function ViewListing({ preview, _id, header }) {
   const [listing, setListing] = useState(null);
   const location = useLocation();
   const [edit, setEdit] = useState(
@@ -188,7 +189,10 @@ function ViewListing({ preview, _id }) {
   function initEdit(token) {
     dispatch(editAd(ad))
       .unwrap()
-      .then((ad) => navigate("/ads?tab=ads"))
+      .then((ad) => {
+        notification.info("Ad edited successfully");
+        navigate("/listing/" + listing._id);
+      })
       .catch((err) => console.log(err));
   }
 
@@ -218,6 +222,19 @@ function ViewListing({ preview, _id }) {
       {listing && (
         <>
           <div className="view_listing">
+            {header && (
+              <div className="ad_header">
+                <button
+                  className="back"
+                  onClick={(e) =>
+                    ripple(e, { dur: 1, cb: () => navigate("/") })
+                  }
+                >
+                  <ArrowBack />
+                </button>
+                <p>{listing?.listingID}</p>
+              </div>
+            )}
             <div
               className="main left right"
               style={preview ? { paddingBottom: "60px" } : {}}
@@ -546,7 +563,7 @@ function ViewListing({ preview, _id }) {
                   <div className="tile preview">
                     <h1>
                       <CheckIcon />
-                      Lets post it then?
+                      Let's post it then?
                     </h1>
                     <div className="actions">
                       <button

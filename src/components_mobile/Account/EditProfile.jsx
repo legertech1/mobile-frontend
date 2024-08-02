@@ -188,6 +188,11 @@ function UpdateProfile({ close }) {
           <PinDropOutlined /> Location
         </h1>
         <div className="inputs">
+          <Input
+            placeholder="City"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          ></Input>
           <Dropdown
             placeholder="Province/State"
             value={province}
@@ -198,11 +203,6 @@ function UpdateProfile({ close }) {
             }
             setValue={(v) => setProvince(v)}
           />
-          <Input
-            placeholder="City"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          ></Input>
         </div>
       </section>
 

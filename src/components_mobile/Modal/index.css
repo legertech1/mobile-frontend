@@ -22,7 +22,7 @@
   width: 100vw;
   height: fit-content;
   box-sizing: content-box;
-  position: relative;
+  position: fixed;
   margin-bottom: -20px;
   transform: translateY(0%);
   opacity: 1;
@@ -32,6 +32,7 @@
 .mobile_modal.payment {
   max-width: unset;
   border-radius: 0px;
+  /* position: fixed; */
 }
 .mobile_modal.ad,
 .mobile_modal.gallery {

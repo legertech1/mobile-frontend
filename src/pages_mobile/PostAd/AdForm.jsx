@@ -217,61 +217,61 @@ export default function AdForm({ edit }) {
   // }, [value]);
 
   const formNav = (step, url) => {
-    if (step >= 2) {
-      if (formData.title.trim().length < 8)
-        return notification.error(
-          "Title is required and must be between 8 to 150 characters"
-        );
+    // if (step >= 2) {
+    //   if (formData.title.trim().length < 8)
+    //     return notification.error(
+    //       "Title is required and must be between 8 to 150 characters"
+    //     );
 
-      if (categoryIndex < 0)
-        return notification.error("Selecting category is required");
-      if (subCategoryIndex < 0)
-        return notification.error("Selecting Sub-category is required");
-      if (formData.price.toString().trim().length < 1)
-        return notification.error("Price is required");
-      if (formData.description.trim().length < 40)
-        return notification.error(
-          "Description is required and must be between 40 to 8000 characters"
-        );
-    }
-    if (step >= 3) {
-      const fields = [
-        ...categories[categoryIndex].fields,
-        ...categories[categoryIndex].subCategories[subCategoryIndex].fields,
-      ];
+    //   if (categoryIndex < 0)
+    //     return notification.error("Selecting category is required");
+    //   if (subCategoryIndex < 0)
+    //     return notification.error("Selecting Sub-category is required");
+    //   if (formData.price.toString().trim().length < 1)
+    //     return notification.error("Price is required");
+    //   if (formData.description.trim().length < 40)
+    //     return notification.error(
+    //       "Description is required and must be between 40 to 8000 characters"
+    //     );
+    // }
+    // if (step >= 3) {
+    //   const fields = [
+    //     ...categories[categoryIndex].fields,
+    //     ...categories[categoryIndex].subCategories[subCategoryIndex].fields,
+    //   ];
 
-      for (let field of fields) {
-        if (field.required) {
-          if (
-            (field.inputType == "text" ||
-              field.inputType == "number" ||
-              field.inputType == "radio" ||
-              field.inputType == "dropdown" ||
-              field.inputType == "date") &&
-            !formData?.extraFields[field.name]?.trim().length
-          )
-            return notification.error(field.name + " is required");
-          else if (
-            field.inputType == "checkbox" &&
-            formData?.extraFields[field.name] === undefined
-          ) {
-            return notification.error(field.name + " is required");
-          }
-        }
-      }
-    }
-    if (step >= 4) {
-      if (!edit && !cart.package.name)
-        return notification.error("Please select a package");
-      if (!formData.location)
-        return notification.error("Selecting a location is required");
-      if (!edit && cart?.extras?.business && !user?.BusinessInfo?.name)
-        return notification.error("Please provide business details");
-      if (formData.location.components.country.short_name != country)
-        return notification.error(
-          "Please select an address within your selected Country"
-        );
-    }
+    //   for (let field of fields) {
+    //     if (field.required) {
+    //       if (
+    //         (field.inputType == "text" ||
+    //           field.inputType == "number" ||
+    //           field.inputType == "radio" ||
+    //           field.inputType == "dropdown" ||
+    //           field.inputType == "date") &&
+    //         !formData?.extraFields[field.name]?.trim().length
+    //       )
+    //         return notification.error(field.name + " is required");
+    //       else if (
+    //         field.inputType == "checkbox" &&
+    //         formData?.extraFields[field.name] === undefined
+    //       ) {
+    //         return notification.error(field.name + " is required");
+    //       }
+    //     }
+    //   }
+    // }
+    // if (step >= 4) {
+    //   if (!edit && !cart.package.name)
+    //     return notification.error("Please select a package");
+    //   if (!formData.location)
+    //     return notification.error("Selecting a location is required");
+    //   if (!edit && cart?.extras?.business && !user?.BusinessInfo?.name)
+    //     return notification.error("Please provide business details");
+    //   if (formData.location.components.country.short_name != country)
+    //     return notification.error(
+    //       "Please select an address within your selected Country"
+    //     );
+    // }
     if (step == 5) {
       if (formData.images.length < 1)
         return notification.error("At least one image is required");
@@ -630,7 +630,7 @@ export default function AdForm({ edit }) {
               <MyAutocomplete
                 setValue={setValue}
                 value={value}
-                excluded={adLocationTypesExcluded}
+                // excluded={adLocationTypesExcluded}
                 country={country.toLowerCase()}
               ></MyAutocomplete>
               <div className="current_loc f">
