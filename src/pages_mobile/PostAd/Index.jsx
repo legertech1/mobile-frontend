@@ -1,9 +1,9 @@
 import React from "react";
-import Navbar from "../../components/Navbar";
+
 import AdForm from "./AdForm";
 import { useLocation } from "react-router-dom";
 import "./index.css";
-import Footer from "../../components/Footer";
+
 import Header from "../../components_mobile/Header";
 
 function PostAd({ edit }) {
