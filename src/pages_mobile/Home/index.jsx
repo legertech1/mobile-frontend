@@ -70,13 +70,16 @@ export default function Home() {
   };
   const categories = useSelector((state) => state.categories);
   const [homepageGallery, setHomepageGallery] = useState([]);
+  const [recommended, setRecommended] = useState([]);
 
   const [pageHG, setPageHG] = useState(1);
+  const [pageRL, setPageRL] = useState(1);
   const [loadingStates, setLoadingStates] = useState({});
 
   const [countHG, setCountHG] = useState(0);
-
+  const [countRL, setCountRL] = useState(null);
   const [loadingHG, setLoadingHG] = useState(false);
+  const [loadingRL, setLoadingRL] = useState(false);
   const [filters, setFilters] = useState({
     price: {
       $lte: 9999999,
@@ -84,6 +87,7 @@ export default function Home() {
     },
   });
   const [loadingMoreHG, setLoadingMoreHG] = useState(false);
+  const [loadingMoreRL, setLoadingMoreRL] = useState(false);
   const containerRef = useRef();
   useEffect(() => {
     if (tab == "search") {
@@ -163,6 +167,34 @@ export default function Home() {
     setLoadingMoreHG(false);
     setHomepageGallery((arr) => sortFeatured([...arr, ...results]));
   }
+  async function loadMoreRL() {
+    if (loadingMoreRL || recommended.length >= countRL) return;
+
+    setLoadingMoreRL(true);
+
+    const results = (
+      await axios.post(apis.search, {
+        location: selectedLocation,
+        category: searches[current]?.category?.name || "All Categories",
+        additional: { "meta.homepageGallery": false },
+        filters: searchFilters,
+        sort: {
+          "meta.listingRank": -1,
+        },
+        limit: 24,
+        page: pageRL + 1,
+      })
+    ).data.results;
+
+    setPageRL((n) =>
+      Math.ceil(countRL / 24) == n + 1 &&
+      countRL > recommended.length + results.length
+        ? 0
+        : n + 1
+    );
+    setLoadingMoreRL(false);
+    setRecommended((arr) => sortFeatured([...arr, ...results]));
+  }
   async function getHomepageGallery() {
     if (loadingHG) return;
     const { results, total, page } = (
@@ -187,9 +219,41 @@ export default function Home() {
     setLoadingHG(false);
     setPageHG(page);
   }
+  async function getRecommended() {
+    if (loadingRL) return;
+    const { results, total, page } = (
+      await axios.post(apis.search, {
+        location: selectedLocation,
+        category: searches[current]?.category?.name || "All Categories",
+        additional: { "meta.homepageGallery": false },
+        filters: searchFilters,
+        sort: {
+          "meta.listingRank": -1,
+        },
+        limit: 24,
+        page: 1,
+        count: true,
+        impressions: true,
+        random: true,
+      })
+    ).data;
+
+    setRecommended(sortFeatured(results));
+    setCountRL(total);
+    setLoadingRL(false);
+    setPageRL(page);
+  }
   function handleScroll() {
     if (tab == "home") {
-      if (loadingHG || loadingMoreHG || countHG == homepageGallery.length)
+      if (
+        loadingHG ||
+        loadingRL ||
+        loadingMoreHG ||
+        loadingMoreRL ||
+        (countHG == homepageGallery.length &&
+          countRL != null &&
+          countRL == recommended.length)
+      )
         return;
       if (!containerRef.current) return;
 
@@ -199,7 +263,11 @@ export default function Home() {
         container.scrollTop + container.clientHeight >=
         container.scrollHeight - 10
       ) {
-        loadMoreHG();
+        if (countHG > homepageGallery.length) loadMoreHG();
+        else if (countRL === null) {
+          setLoadingRL(true);
+          getRecommended();
+        } else loadMoreRL();
       }
     } else {
       if (
@@ -273,6 +341,12 @@ export default function Home() {
             ads={homepageGallery}
             setAds={setHomepageGallery}
             loading={loadingHG || loadingMoreHG}
+            num={24}
+          />
+          <Listings
+            ads={recommended}
+            setAds={setRecommended}
+            loading={loadingRL || loadingMoreRL}
             num={24}
           />
         </div>

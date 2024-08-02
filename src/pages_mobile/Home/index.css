@@ -184,6 +184,14 @@
   margin-bottom: 10px;
 }
 
+._home ._listings {
+  padding-bottom: 0;
+}
+
+._home .results {
+  padding-bottom: 10vh;
+}
+
 ._home .header .tabs {
   display: flex;
   align-items: center;
