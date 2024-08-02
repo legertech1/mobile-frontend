@@ -154,10 +154,11 @@ function BusinessInfo({ close }) {
           <h4>Business Phone Number:</h4>
         </div>
         <Input
-          maxLength="30"
+          maxLength="10"
           placeholder={"(000)-000-0000"}
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
+          type={"number"}
         ></Input>
       </div>
       <div className="field_container">

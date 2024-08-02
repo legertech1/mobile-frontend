@@ -171,9 +171,9 @@ function UpdateProfile({ close }) {
         <div className="inputs">
           <Input
             placeholder="Phone Number"
-            type="text"
+            type="number"
             value={phone}
-            // onKeyDown={(e) => handlePhoneChange(e, setPhone)}
+            maxLength={10}
             onChange={(e) => setPhone(e.target.value)}
           ></Input>
           <Input
