@@ -215,6 +215,7 @@ export default function Home() {
     ).data;
 
     setHomepageGallery(sortFeatured(results));
+    if (results.length == 0) getRecommended();
     setCountHG(total);
     setLoadingHG(false);
     setPageHG(page);
