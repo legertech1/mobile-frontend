@@ -32,6 +32,7 @@ import Footer from "./components_mobile/Footer";
 import Ads from "./pages_mobile/Ads";
 import Account from "./components_mobile/Account";
 import Profile from "./pages_mobile/Profile";
+import useConfirmDialog from "./hooks/useConfirmDialog";
 
 function MobileApp() {
   const dispatch = useDispatch();
@@ -113,9 +114,17 @@ app?.current?.scrollTo({
     if (!modals.length) return;
     modals[modals.length - 1].click();
   }
+const confirm = useConfirmDialog()
+  function handleRedirect(){
+    console.log("////")
+    if(window.innerWidth >=1600)
+    confirm.openDialog("Do you want to be rediected to the desktop version of Borrowbe?", ()=>{window.location.href="https://borrowbe.com"})
+  }
   useEffect(() => {
+    handleRedirect()
     window.addEventListener("popstate", handleBack);
-    return () => window.removeEventListener("popstate", handleBack);
+    window.addEventListener("resize" , handleRedirect)
+  return () => window.removeEventListener("popstate", handleBack);
   }, []);
   return (
     <div className="___app" ref={app}>
