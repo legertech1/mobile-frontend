@@ -256,6 +256,7 @@ export default function Home() {
           countRL == recommended.length)
       )
         return;
+
       if (!containerRef.current) return;
 
       const container = containerRef.current;
@@ -339,15 +340,9 @@ export default function Home() {
       {tab == "home" && (
         <div className="results">
           <Listings
-            ads={homepageGallery}
+            ads={[...homepageGallery, ...recommended]}
             setAds={setHomepageGallery}
-            loading={loadingHG || loadingMoreHG}
-            num={24}
-          />
-          <Listings
-            ads={recommended}
-            setAds={setRecommended}
-            loading={loadingRL || loadingMoreRL}
+            loading={loadingHG || loadingMoreHG || loadingRL || loadingMoreRL}
             num={24}
           />
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./index.css";
 import ripple from "../../utils/ripple";
 import {
@@ -15,6 +15,7 @@ import {
   Settings,
   SettingsBackupRestore,
 } from "@mui/icons-material";
+import haversine from "../../utils/haversineFormula";
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../../utils/listingCardFunctions";
 import { useNavigate } from "react-router-dom";
@@ -53,6 +54,9 @@ function Listing({
   const [paymentSuccess, setPaymentSuccess] = useState();
   const [options, setOptions] = useState(false);
   const optRef = useRef();
+  const selectedLocation = useSelector(
+    (state) => state.location.selectedLocation
+  );
   function onPaymentSuccessful(token) {
     setPaymentSuccess(true);
     dispatch(relistAd({ id: ad._id, token }))
@@ -73,6 +77,18 @@ function Listing({
     setPaymentModal(false);
     notification.error(error);
   }
+
+  const distance = useMemo(() => {
+    if (ad?.location && selectedLocation)
+      return haversine(
+        ad.location?.coordinates.lat,
+        ad.location?.coordinates.long,
+        selectedLocation.coordinates.lat,
+        selectedLocation.coordinates.long
+      ).toFixed(0);
+    else return -1;
+  }, []);
+
   return (
     <div
       className={
@@ -165,8 +181,10 @@ function Listing({
           {!empty && (
             <>
               {" "}
-              <PlaceOutlined />
-              {ad?.location.name}
+              <span>
+                <PlaceOutlined />
+                {ad?.location.name}
+              </span>
             </>
           )}
         </div>
@@ -174,7 +192,15 @@ function Listing({
           {!empty && (
             <>
               {" "}
-              <span className="price">${ad?.price}</span>/{ad?.term}
+              <span className="price">
+                {" "}
+                {ad?.price ? "$" + ad?.price : "Free"}
+              </span>
+              /{ad?.term}{" "}
+              {ad?.tax != "none" && <span className="tax">+{ad?.tax}</span>}
+              {distance <= 100 && distance > -1 && (
+                <span className="distance">~{distance} Km</span>
+              )}
             </>
           )}
         </div>

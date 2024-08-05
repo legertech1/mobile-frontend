@@ -66,7 +66,7 @@ function BusinessInfo({ close }) {
 
   return (
     <div className="business_info">
-      <div className="field_container">
+      <div className="field_container image">
         <div className="field_info">
           <h4>
             Business LOGO:<span>(required)</span>
@@ -88,7 +88,6 @@ function BusinessInfo({ close }) {
           }}
           ref={imageInp}
           type="file"
-          accept=".jpg, .jpeg"
         />
         <div
           className="image_input"

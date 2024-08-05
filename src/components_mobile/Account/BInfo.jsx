@@ -25,7 +25,14 @@ function BInfo() {
     <div className="_user_info">
       <div className="info">
         <div className="b_main">
-          <img src={user?.BusinessInfo?.LOGO} onError={imageFallback} alt="" />
+          <div className="imgcont">
+            {" "}
+            <img
+              src={user?.BusinessInfo?.LOGO}
+              onError={imageFallback}
+              alt=""
+            />
+          </div>
           <div className="in">
             <p className="name">
               {user?.BusinessInfo?.name || <span>No name provided</span>}
@@ -57,12 +64,14 @@ function BInfo() {
                 <span>No Youtube link provided</span>
               )}
             </p>
+            <p className="address">
+              <PinDropOutlined />{" "}
+              {user?.BusinessInfo?.address || (
+                <span>No address data provided</span>
+              )}
+            </p>
           </div>
         </div>
-        <p className="address">
-          <PinDropOutlined />{" "}
-          {user?.BusinessInfo?.address || <span>No address data provided</span>}
-        </p>
       </div>
       <button onClick={(e) => setEdit(true)}>
         <EditOutlined />

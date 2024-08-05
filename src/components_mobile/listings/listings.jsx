@@ -62,19 +62,7 @@ function Listings({ ads, setAds, loading, num, gestures, update, status }) {
       timerRef.current = null;
     },
   };
-  function rearrange(arr) {
-    if (arr[arr.length - 1]?.meta?.highlighted) {
-      for (let i = arr.length - 1; i >= 0; i--) {
-        if (arr[i].meta.highlighted) continue;
-        else {
-          const temp = arr[i];
-          arr[i] = arr[arr.length - 1];
-          arr[arr.length - 1] = temp;
-        }
-      }
-    }
-    return arr;
-  }
+
   const bind = useGesture(gestures ? gestureOptions : false);
   const actions = status
     ? {
@@ -126,7 +114,7 @@ function Listings({ ads, setAds, loading, num, gestures, update, status }) {
       ref={containerRef}
     >
       {Boolean(ads?.length) &&
-        rearrange([...ads])?.map((ad) => (
+        ads?.map((ad) => (
           <Listing
             ad={ad}
             key={ad._id}

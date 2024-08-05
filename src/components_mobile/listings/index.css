@@ -40,7 +40,7 @@
   border-radius: 12px;
   /* overflow: hidden; */
   box-shadow: 0px 0px 12px #1114;
-  height: 180px;
+  height: 186px;
   position: relative;
 }
 ._listings ._listing.highlighted {
@@ -104,6 +104,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+._listing .info,
+._listing .info * {
+  pointer-events: none;
+}
+
+._del svg {
+  fill: var(--red) !important;
+}
+
+._listing .tax {
+  font-size: 12px;
+  font-family: var(--font1);
+  font-weight: 500;
+}
+
+._listing .distance {
+  position: absolute;
+  background: var(--blue);
+  padding: 2px 4px;
+  font-size: 11px;
+  bottom: calc(100% + 3px);
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  font-family: var(--font1);
+  right: 3px;
 }
 
 ._listing.selected .wishlist svg {
@@ -198,6 +226,17 @@ span.featured {
   vertical-align: middle;
   font-size: 13px;
 }
+
+._listing .price_row {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
 .highlighted .badges {
   top: 6px;
   width: fit-content;
@@ -264,10 +303,31 @@ span.featured {
 ._listing.em .info {
   gap: 3px;
 }
-
+._listing.highlighted .distance {
+  background: var(--blue);
+  padding: 2px 4px;
+  font-size: 11px;
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  font-family: var(--font1);
+  margin-left: auto;
+  position: static;
+}
 @media (min-width: 600px) {
   ._listing {
     height: 200px !important;
+  }
+  ._listing .distance {
+    background: var(--blue);
+    padding: 2px 4px;
+    font-size: 12px;
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+    font-family: var(--font1);
+    margin-left: auto;
+    position: static;
   }
 }
 @media (min-width: 740px) {
@@ -966,13 +1026,4 @@ div.options.actions {
 }
 ._listing .overlay.white {
   background-color: #1112;
-}
-
-._listing .info,
-._listing .info * {
-  pointer-events: none;
-}
-
-._del svg {
-  fill: var(--red) !important;
 }
