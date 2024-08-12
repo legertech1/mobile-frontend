@@ -265,7 +265,7 @@
 
 .view_listing .field {
   display: flex;
-  width: 48100%;
+  width: 100%;
   gap: 20px;
   font-size: 14px;
   height: 30px;
@@ -282,14 +282,15 @@
 
 .view_listing .extra_fields p.key {
   color: #777;
-  /* width: 50%; */
-  font-family: var(--font2);
+  font-weight: 500;
+  font-family: var(--font1);
+  font-size: 15px;
 }
 
 .view_listing .extra_fields p.val {
   font-weight: 500;
   /* width: 50%; */
-  color: #333;
+  color: black;
   text-align: right;
   /* font-family: var(--font2); */
 }
@@ -301,6 +302,11 @@
   color: black;
 }
 
+.view_listing .price_hidden {
+  font-size: large;
+  font-weight: 600;
+  color: var(--blue);
+}
 .view_listing .map {
   height: 25vh;
   min-height: 200px;

@@ -116,7 +116,7 @@ app?.current?.scrollTo({
   }
 const confirm = useConfirmDialog()
   function handleRedirect(){
-    console.log("////")
+
     if(window.innerWidth >=1600)
     confirm.openDialog("Do you want to be rediected to the desktop version of Borrowbe?", ()=>{window.location.href="https://borrowbe.com"})
   }

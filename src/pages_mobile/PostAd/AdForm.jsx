@@ -217,61 +217,61 @@ export default function AdForm({ edit }) {
   // }, [value]);
 
   const formNav = (step, url) => {
-    // if (step >= 2) {
-    //   if (formData.title.trim().length < 8)
-    //     return notification.error(
-    //       "Title is required and must be between 8 to 150 characters"
-    //     );
+    if (step >= 2) {
+      if (formData.title.trim().length < 8)
+        return notification.error(
+          "Title is required and must be between 8 to 150 characters"
+        );
 
-    //   if (categoryIndex < 0)
-    //     return notification.error("Selecting category is required");
-    //   if (subCategoryIndex < 0)
-    //     return notification.error("Selecting Sub-category is required");
-    //   if (formData.price.toString().trim().length < 1)
-    //     return notification.error("Price is required");
-    //   if (formData.description.trim().length < 40)
-    //     return notification.error(
-    //       "Description is required and must be between 40 to 8000 characters"
-    //     );
-    // }
-    // if (step >= 3) {
-    //   const fields = [
-    //     ...categories[categoryIndex].fields,
-    //     ...categories[categoryIndex].subCategories[subCategoryIndex].fields,
-    //   ];
+      if (categoryIndex < 0)
+        return notification.error("Selecting category is required");
+      if (subCategoryIndex < 0)
+        return notification.error("Selecting Sub-category is required");
+      if (!formData.priceHidden && formData.price.toString().trim().length < 1)
+        return notification.error("Price is required");
+      if (formData.description.trim().length < 40)
+        return notification.error(
+          "Description is required and must be between 40 to 8000 characters"
+        );
+    }
+    if (step >= 3) {
+      const fields = [
+        ...categories[categoryIndex].fields,
+        ...categories[categoryIndex].subCategories[subCategoryIndex].fields,
+      ];
 
-    //   for (let field of fields) {
-    //     if (field.required) {
-    //       if (
-    //         (field.inputType == "text" ||
-    //           field.inputType == "number" ||
-    //           field.inputType == "radio" ||
-    //           field.inputType == "dropdown" ||
-    //           field.inputType == "date") &&
-    //         !formData?.extraFields[field.name]?.trim().length
-    //       )
-    //         return notification.error(field.name + " is required");
-    //       else if (
-    //         field.inputType == "checkbox" &&
-    //         formData?.extraFields[field.name] === undefined
-    //       ) {
-    //         return notification.error(field.name + " is required");
-    //       }
-    //     }
-    //   }
-    // }
-    // if (step >= 4) {
-    //   if (!edit && !cart.package.name)
-    //     return notification.error("Please select a package");
-    //   if (!formData.location)
-    //     return notification.error("Selecting a location is required");
-    //   if (!edit && cart?.extras?.business && !user?.BusinessInfo?.name)
-    //     return notification.error("Please provide business details");
-    //   if (formData.location.components.country.short_name != country)
-    //     return notification.error(
-    //       "Please select an address within your selected Country"
-    //     );
-    // }
+      for (let field of fields) {
+        if (field.required) {
+          if (
+            (field.inputType == "text" ||
+              field.inputType == "number" ||
+              field.inputType == "radio" ||
+              field.inputType == "dropdown" ||
+              field.inputType == "date") &&
+            !formData?.extraFields[field.name]?.trim().length
+          )
+            return notification.error(field.name + " is required");
+          else if (
+            field.inputType == "checkbox" &&
+            formData?.extraFields[field.name] === undefined
+          ) {
+            return notification.error(field.name + " is required");
+          }
+        }
+      }
+    }
+    if (step >= 4) {
+      if (!edit && !cart.package.name)
+        return notification.error("Please select a package");
+      if (!formData.location)
+        return notification.error("Selecting a location is required");
+      if (!edit && cart?.extras?.business && !user?.BusinessInfo?.name)
+        return notification.error("Please provide business details");
+      if (formData.location.components.country.short_name != country)
+        return notification.error(
+          "Please select an address within your selected Country"
+        );
+    }
     if (step == 5) {
       if (formData.images.length < 1)
         return notification.error("At least one image is required");
@@ -412,7 +412,7 @@ export default function AdForm({ edit }) {
             </div>
           </div>
         )}
-        <div className="field_container">
+        <div className="field_container" style={{ alignItems: "start" }}>
           <div className="field_info">
             <h4>
               Amount and Term <span>(required)</span>
@@ -422,9 +422,33 @@ export default function AdForm({ edit }) {
               duration: Day, Month, or Year.
             </p>
           </div>
-          <div className="_pr_row">
-            {" "}
+          <div
+            className="_pr_row"
+            style={
+              formData.priceHidden
+                ? { marginBottom: "-160px", transition: "all 0.1s var(--bc)" }
+                : { marginBottom: "0px", transition: "all 0.1s var(--bc)" }
+            }
+          >
+            <div className="price_hidden">
+              <Checkbox
+                checked={formData.priceHidden}
+                setChecked={(v) =>
+                  dispatch(setFormData({ ...formData, priceHidden: v }))
+                }
+              />{" "}
+              Do not disclose prices.
+              <span>(Contact us for prices)</span>
+            </div>{" "}
             <PriceInput
+              style={
+                formData.priceHidden
+                  ? {
+                      transform: "scaleY(0)",
+                      opacity: "0",
+                    }
+                  : { transform: "scaleY(1)", opacity: "1" }
+              }
               onChangeTerm={(term) => {
                 handleFormData("term", term);
               }}
@@ -437,7 +461,17 @@ export default function AdForm({ edit }) {
                 handleFormData("price", e.target.value.trim().slice(0, 10));
               }}
             />
-            <div className="tax_op">
+            <div
+              className="tax_op"
+              style={
+                formData.priceHidden
+                  ? {
+                      transform: "scaleY(0)",
+                      opacity: "0",
+                    }
+                  : { transform: "scaleY(1)", opacity: "1" }
+              }
+            >
               <span className="free">*$0 will be shown as free</span>
               <div className="tax">
                 <span>Tax:</span>

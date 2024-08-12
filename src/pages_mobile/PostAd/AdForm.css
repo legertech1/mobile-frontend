@@ -1049,6 +1049,10 @@
     width: calc(100% - 32px);
     margin: 12px auto 0;
   }
+  .ad_form .price_hidden,
+  .ad_form .price_hidden span {
+    font-size: 16px !important;
+  }
 }
 @media (min-width: 1000px) {
   .post_ad .field_container {
@@ -1098,4 +1102,21 @@
     max-width: 1200px;
     margin: AUTO;
   }
+}
+.ad_form .price_hidden {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.ad_form .price_hidden span {
+  font-size: 13px;
+  color: #555;
+}
+.ad_form ._price_inp,
+.ad_form .tax_op {
+  transform-origin: top;
+  transition: all 0.1s var(--bc);
 }

@@ -3,10 +3,16 @@ import "./PriceInput.css";
 import { PriceOptions } from "../../utils/constants";
 import { useLocalStorage } from "@uidotdev/usehooks";
 
-export default function PriceInput({ onChange, price, onChangeTerm, term }) {
+export default function PriceInput({
+  onChange,
+  price,
+  onChangeTerm,
+  term,
+  style,
+}) {
   const [country, setCountry] = useLocalStorage("country", null);
   return (
-    <div className="_price_inp">
+    <div className="_price_inp" style={style}>
       <div className="custom_price_input">
         <div style={{ padding: "10px" }} aria-label="menu" className="symbol">
           {country}$

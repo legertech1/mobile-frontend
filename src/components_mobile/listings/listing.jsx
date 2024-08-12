@@ -189,20 +189,28 @@ function Listing({
           )}
         </div>
         <div className={"price_row" + (empty ? " empty" : "")}>
-          {!empty && (
-            <>
-              {" "}
-              <span className="price">
+          {!empty &&
+            (ad?.priceHidden ? (
+              <p
+                className="contact_for_price"
+                style={{ fontWeight: "600", color: "var(--blue)", margin: "0" }}
+              >
+                Contact us for Prices
+              </p>
+            ) : (
+              <>
                 {" "}
-                {ad?.price ? "$" + ad?.price : "Free"}
-              </span>
-              /{ad?.term}{" "}
-              {ad?.tax != "none" && <span className="tax">+{ad?.tax}</span>}
-              {distance <= 100 && distance > -1 && (
-                <span className="distance">~{distance} Km</span>
-              )}
-            </>
-          )}
+                <span className="price">
+                  {" "}
+                  {ad?.price ? "$" + ad?.price : "Free"}
+                </span>
+                /{ad?.term}{" "}
+                {ad?.tax != "none" && <span className="tax">+{ad?.tax}</span>}
+                {distance <= 100 && distance > -1 && (
+                  <span className="distance">~{distance} Km</span>
+                )}
+              </>
+            ))}
         </div>
       </div>
       {status && options && (
