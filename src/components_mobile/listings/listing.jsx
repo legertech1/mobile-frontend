@@ -195,7 +195,7 @@ function Listing({
                 className="contact_for_price"
                 style={{ fontWeight: "600", color: "var(--blue)", margin: "0" }}
               >
-                Contact us for Prices
+                Contact me for Prices
               </p>
             ) : (
               <>

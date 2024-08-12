@@ -358,7 +358,7 @@ function ViewListing({ preview, _id, header }) {
                         )}{" "}
                       </>
                     ) : (
-                      <p className="price_hidden">Contact us for Prices</p>
+                      <p className="price_hidden">Contact me for Prices</p>
                     )}
                     <img
                       className="country_img_global"
