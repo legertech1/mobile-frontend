@@ -422,14 +422,7 @@ export default function AdForm({ edit }) {
               duration: Day, Month, or Year.
             </p>
           </div>
-          <div
-            className="_pr_row"
-            style={
-              formData.priceHidden
-                ? { marginBottom: "-160px", transition: "all 0.1s var(--bc)" }
-                : { marginBottom: "0px", transition: "all 0.1s var(--bc)" }
-            }
-          >
+          <div className="_pr_row">
             <div className="price_hidden">
               <Checkbox
                 checked={formData.priceHidden}
@@ -437,17 +430,13 @@ export default function AdForm({ edit }) {
                   dispatch(setFormData({ ...formData, priceHidden: v }))
                 }
               />{" "}
-              Do not disclose prices.
-              <span>(Contact us for prices)</span>
+              Show 'Please Contact' instead of the price.
             </div>{" "}
             <PriceInput
               style={
                 formData.priceHidden
-                  ? {
-                      transform: "scaleY(0)",
-                      opacity: "0",
-                    }
-                  : { transform: "scaleY(1)", opacity: "1" }
+                  ? { filter: "grayscale(1)", pointerEvents: "none" }
+                  : { filter: "unset" }
               }
               onChangeTerm={(term) => {
                 handleFormData("term", term);
@@ -465,11 +454,8 @@ export default function AdForm({ edit }) {
               className="tax_op"
               style={
                 formData.priceHidden
-                  ? {
-                      transform: "scaleY(0)",
-                      opacity: "0",
-                    }
-                  : { transform: "scaleY(1)", opacity: "1" }
+                  ? { filter: "grayscale(1)", pointerEvents: "none" }
+                  : { filter: "unset" }
               }
             >
               <span className="free">*$0 will be shown as free</span>

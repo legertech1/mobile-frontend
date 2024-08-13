@@ -192,10 +192,15 @@ function Listing({
           {!empty &&
             (ad?.priceHidden ? (
               <p
-                className="contact_for_price"
-                style={{ fontWeight: "600", color: "var(--blue)", margin: "0" }}
+                className="price_hidden"
+                style={{
+                  fontSize: "larger",
+                  fontWeight: "600",
+                  color: "var(--blue)",
+                  margin: "0",
+                }}
               >
-                Contact me for Prices
+                Please Contact
               </p>
             ) : (
               <>
