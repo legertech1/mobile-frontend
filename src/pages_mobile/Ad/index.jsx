@@ -351,7 +351,9 @@ function ViewListing({ preview, _id, header }) {
                   <h1 className="price">
                     {!listing?.priceHidden ? (
                       <>
-                        <span>${listing?.price || "Free"}</span>
+                        <span>
+                          ${Boolean(listing?.price) ? listing?.price : "Free"}
+                        </span>
                         <p>/{listing?.term}</p>{" "}
                         {listing?.tax != "none" && (
                           <p className="tax">+{listing?.tax}</p>
