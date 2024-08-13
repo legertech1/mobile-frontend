@@ -192,7 +192,7 @@ function Ads() {
             status={true}
             update={(changes) => {
               const map = {};
-              console.log(changes);
+
               for (let c of changes) {
                 map[c._id] = c;
               }

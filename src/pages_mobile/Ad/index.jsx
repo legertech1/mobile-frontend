@@ -191,7 +191,7 @@ function ViewListing({ preview, _id, header }) {
       .unwrap()
       .then((ad) => {
         notification.info("Ad edited successfully");
-        navigate("/listing/" + listing._id);
+        navigate("/ads?tab=ads");
       })
       .catch((err) => console.log(err));
   }
