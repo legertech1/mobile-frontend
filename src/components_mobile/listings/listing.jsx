@@ -194,8 +194,8 @@ function Listing({
               <p
                 className="price_hidden"
                 style={{
-                  fontSize: "larger",
-                  fontWeight: "600",
+                  fontSize: "large",
+                  fontWeight: "500",
                   color: "var(--blue)",
                   margin: "0",
                 }}
