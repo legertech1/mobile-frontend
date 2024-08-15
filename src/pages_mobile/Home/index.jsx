@@ -6,6 +6,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import CategoriesIcon from "../../assets/images/categoriesIcon.png";
 import Listings from "../../components_mobile/listings/listings";
+import NotFoundAnimation from "../../components/Shared/NotFoundAnimation";
 import {
   emptyResults,
   loadResults,
@@ -338,14 +339,22 @@ export default function Home() {
         </div>
       )}
       {tab == "home" && (
-        <div className="results">
-          <Listings
-            ads={[...homepageGallery, ...recommended]}
-            setAds={setHomepageGallery}
-            loading={loadingHG || loadingMoreHG || loadingRL || loadingMoreRL}
-            num={24}
-          />
-        </div>
+        <>
+          <div className="results">
+            <Listings
+              ads={[...homepageGallery, ...recommended]}
+              setAds={setHomepageGallery}
+              loading={loadingHG || loadingMoreHG || loadingRL || loadingMoreRL}
+              num={24}
+            />
+          </div>
+          {!homepageGallery.length && !recommended.length && (
+            <>
+              <NotFoundAnimation />
+              <h3 className="_not_found">Whoops! No results found.</h3>
+            </>
+          )}
+        </>
       )}
     </div>
   );

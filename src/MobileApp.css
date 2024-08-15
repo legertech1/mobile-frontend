@@ -108,3 +108,25 @@ svg {
   height: 24px;
   width: 24px;
 }
+.not_found_animation {
+  width: 100%;
+
+  outline: none;
+  margin-top: -100px;
+  border: none;
+  background: white;
+  z-index: 1000;
+  height: 40vh;
+  position: relative;
+}
+._not_found {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+  font-size: 17px;
+  font-family: var(--font1);
+  margin-top: -40px;
+  z-index: 1000;
+  position: relative;
+}

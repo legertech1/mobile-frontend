@@ -437,7 +437,8 @@ export default function AdForm({ edit }) {
                   dispatch(setFormData({ ...formData, priceHidden: v }))
                 }
               />{" "}
-              Show 'Please Contact' instead of price.
+              Do not disclose pricing details. Show "Please Contact" instead of
+              price.
             </div>{" "}
             <PriceInput
               style={

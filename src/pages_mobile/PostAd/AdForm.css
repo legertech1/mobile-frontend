@@ -1106,9 +1106,9 @@
 .ad_form .price_hidden {
   display: flex;
   flex-direction: row;
-  gap: 4px;
+  gap: 5px;
   font-size: 14px;
-  align-items: center;
+  align-items: start;
 }
 
 .ad_form .price_hidden span {

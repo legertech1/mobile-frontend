@@ -87,7 +87,7 @@ function Listing({
         selectedLocation.coordinates.long
       ).toFixed(0);
     else return -1;
-  }, []);
+  }, [selectedLocation]);
 
   return (
     <div
