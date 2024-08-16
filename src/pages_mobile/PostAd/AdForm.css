@@ -266,9 +266,10 @@
 
 .post_ad h4 span,
 .post_ad h2 span {
+  color: var(--blue);
   font-size: 13px;
-  color: #777;
   font-weight: 500;
+  vertical-align: baseline;
 }
 
 .post_ad h2 {

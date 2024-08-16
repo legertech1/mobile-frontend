@@ -40,8 +40,8 @@ function CreatePassword({ close }) {
         code1: code,
         password,
         code2,
-        email1: email,
-        email2: newEmail,
+        email1: email.trim().toLowerCase(),
+        email2: newEmail.trim().toLowerCase(),
       });
 
       notification.success(res.data);
@@ -180,7 +180,7 @@ function CreatePassword({ close }) {
         <button
           className="btn_blue_m btn_sm"
           //   disabled={!codeSent2}
-          onClick ={e => ripple(e , {dur:2, cb: submit})}
+          onClick={(e) => ripple(e, { dur: 2, cb: submit })}
         >
           Change email
         </button>
