@@ -75,7 +75,7 @@ function CreatePassword({ close }) {
             try {
               const res = await axios.post(apis.createVerificationCode, {
                 subject: "to delete your account",
-                email,
+                email: email.trim().toLowerCase(),
               });
               notification.success(res.data);
               setCodeSent(true);

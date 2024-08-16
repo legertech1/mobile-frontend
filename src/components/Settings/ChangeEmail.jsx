@@ -75,7 +75,7 @@ function CreatePassword({ close }) {
             try {
               const res = await axios.post(apis.createVerificationCode, {
                 subject: "to change your email",
-                email,
+                email: email.trim().toLowerCase(),
               });
               notification.success(res.data);
               setCodeSent(true);
@@ -127,7 +127,7 @@ function CreatePassword({ close }) {
             try {
               const res = await axios.post(apis.createVerificationCode, {
                 subject: "to verify your new email",
-                email: newEmail,
+                email: newEmail.trim().toLowerCase(),
               });
               notification.success(res.data);
               setCodeSent2(true);

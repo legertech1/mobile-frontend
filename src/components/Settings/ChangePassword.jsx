@@ -69,7 +69,7 @@ function CreatePassword({ close }) {
             try {
               const res = await axios.post(apis.createVerificationCode, {
                 subject: "to change your password",
-                email,
+                email: email.trim().toLowerCase(),
               });
               notification.success(res.data);
               setCodeSent(true);
