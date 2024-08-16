@@ -68,9 +68,7 @@ function BusinessInfo({ close }) {
     <div className="business_info">
       <div className="field_container image">
         <div className="field_info">
-          <h4>
-            Business LOGO:<span>(required)</span>
-          </h4>
+          <h4>Business LOGO:</h4>
         </div>
         <input
           style={{ display: "none" }}
