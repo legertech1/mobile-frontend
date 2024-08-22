@@ -56,6 +56,10 @@ function Header({
       <div className="header-mask"></div>
       <_Header />
       <h1>Turn Your Assets Into Income</h1>
+      <p className="desc">
+        BorrowBe is a unique marketplace connecting owners who want to rent,
+        lease, or finance their items with interested people.
+      </p>
 
       <div className="search">
         <div className="search-container">
