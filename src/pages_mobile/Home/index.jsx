@@ -326,17 +326,26 @@ export default function Home() {
       />
 
       {tab == "search" && (
-        <div className="results">
-          <Listings
-            ads={searches[current]?.results}
-            loading={loadingStates[current]}
-            num={
-              searches[current].total - searches[current]?.results?.length > 24
-                ? 24
-                : searches[current].total - searches[current]?.results?.length
-            }
-          />
-        </div>
+        <>
+          <div className="results">
+            <Listings
+              ads={searches[current]?.results}
+              loading={loadingStates[current]}
+              num={
+                searches[current].total - searches[current]?.results?.length >
+                24
+                  ? 24
+                  : searches[current].total - searches[current]?.results?.length
+              }
+            />
+          </div>
+          {searches[current]?.results?.length && (
+            <>
+              <NotFoundAnimation />
+              <h3 className="_not_found">Whoops! No results found.</h3>
+            </>
+          )}
+        </>
       )}
       {tab == "home" && (
         <>
