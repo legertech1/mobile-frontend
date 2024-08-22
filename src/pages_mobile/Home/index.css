@@ -173,7 +173,7 @@
 }
 
 ._home .header > h1 {
-  margin: 20px 30px 20px;
+  margin: 20px 16px 20px;
   font-size: 22px;
   font-weight: 900;
   z-index: 2;
@@ -196,8 +196,8 @@
   color: white;
   z-index: 100;
   text-align: center;
-  font-size: 13px;
-  margin: -16px 20px 8px;
+  font-size: 14px;
+  margin: -16px 16px 8px;
 }
 ._home .header .tabs {
   display: flex;
