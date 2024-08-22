@@ -203,7 +203,7 @@
   display: flex;
   align-items: center;
   justify-content: start;
-  gap: 6px;
+  gap: 5px;
   box-sizing: border-box;
   overflow-x: scroll;
   transition: all 0.2s var(--bc);
@@ -216,24 +216,23 @@
 }
 
 ._home .header .search_tab {
-  min-height: 36px;
-  height: 36px;
-  background: white;
-  z-index: 2;
-  border-radius: 26px;
-  padding: 12px;
-  box-sizing: border-box;
-  display: flex;
-  transition: all 0.2s var(--bc);
   align-items: center;
-  justify-content: center;
-  color: var(--blue);
-  border: 1px solid var(--blue);
-  font-weight: 500;
-  font-size: 14px;
-  box-shadow: 0px 0px 8px #1116;
   animation: 0.2s tab var(--bc) forwards;
+  background: #fff;
+  border: 2px solid var(--blue);
+  border-radius: 26px;
+  box-shadow: 0 0 8px #1116;
+  box-sizing: border-box;
+  color: black;
+  display: flex;
+  font-size: 14px;
+  height: 36px;
+  justify-content: center;
+  min-height: 36px;
   min-width: fit-content;
+  padding: 12px;
+  transition: all 0.2s var(--bc);
+  z-index: 2;
 }
 
 ._home .header .search_tab p {
@@ -246,6 +245,7 @@
 ._home .header .search_tab.active {
   background: var(--blue);
   color: white;
+  font-weight: 500;
 }
 ._home .header .search_tab.add_tab {
   font-size: 36px;
