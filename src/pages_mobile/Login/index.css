@@ -64,6 +64,8 @@
   bottom: calc(72vh + 50px);
   left: 50%;
   transform: translateX(-50%);
+  height: 8vh;
+  max-height: 100px;
 }
 ._login .inp {
   width: 100%;

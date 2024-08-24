@@ -339,12 +339,13 @@ export default function Home() {
               }
             />
           </div>
-          {searches[current]?.results?.length && (
-            <>
-              <NotFoundAnimation />
-              <h3 className="_not_found">Whoops! No results found.</h3>
-            </>
-          )}
+          {!Boolean(searches[current]?.results?.length) &&
+            !loadingStates[current] && (
+              <>
+                <NotFoundAnimation />
+                <h3 className="_not_found">Whoops! No results found.</h3>
+              </>
+            )}
         </>
       )}
       {tab == "home" && (
@@ -357,12 +358,17 @@ export default function Home() {
               num={24}
             />
           </div>
-          {!homepageGallery.length && !recommended.length && (
-            <>
-              <NotFoundAnimation />
-              <h3 className="_not_found">Whoops! No results found.</h3>
-            </>
-          )}
+          {!homepageGallery.length &&
+            !recommended.length &&
+            !loadingMoreHG &&
+            !loadingHG &&
+            !loadingMoreRL &&
+            !loadingRL && (
+              <>
+                <NotFoundAnimation />
+                <h3 className="_not_found">Whoops! No results found.</h3>
+              </>
+            )}
         </>
       )}
     </div>
