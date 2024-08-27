@@ -5,14 +5,21 @@ import { ArrowBack } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import ripple from "../utils/ripple";
 
-const Stepper = ({ steps, current, onClick }) => {
+const Stepper = ({ steps, current, onClick, onExit }) => {
   const navigate = useNavigate();
   return (
     <div className="__stepp">
       <div className="stepper_container">
         <button
           className="step_circle back"
-          onClick={(e) => ripple(e, { dur: 1, cb: () => navigate("/") })}
+          onClick={(e) =>
+            ripple(e, {
+              dur: 1,
+              cb: () => {
+                onExit(() => navigate("/"));
+              },
+            })
+          }
         >
           <ArrowBack />
         </button>

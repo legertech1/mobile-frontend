@@ -760,6 +760,7 @@ export default function AdForm({ edit }) {
           <div className="step_cont">
             <Stepper
               current={currentStep}
+              onExit={discard}
               steps={
                 edit
                   ? [

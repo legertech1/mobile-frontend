@@ -12,11 +12,11 @@
   display: flex;
   justify-content: start;
   align-items: start;
-
   height: calc(100vh - 80px);
+  min-height: calc(100vh - 80px);
   flex-direction: column;
-  overflow-y: auto;
-  padding-bottom: 60px;
+  overflow-y: scroll;
+  padding-bottom: 100px;
 }
 .payment_form *::-webkit-scrollbar,
 .payment_form::-webkit-scrollbar {
