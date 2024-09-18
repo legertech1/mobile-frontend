@@ -14,7 +14,6 @@ import Chat from "./pages_mobile/Chat";
 import PostAd from "./pages_mobile/PostAd";
 import InfoComp from "./components/InfoComp";
 
-
 import Ad from "./pages_mobile/Ad";
 
 import HelpDocs from "./pages_mobile/Help/HelpDocs";
@@ -39,8 +38,8 @@ function MobileApp() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth);
   const routeLocation = useLocation();
-  const location = useLocation()
-  const app = useRef()
+  const location = useLocation();
+  const app = useRef();
   const { selectedLocation } = useSelector((state) => state.location);
 
   const [recentLocations, setRecentLocations] = useLocalStorage(
@@ -75,13 +74,13 @@ function MobileApp() {
       }
     }
   };
-  useEffect(() =>{
-app?.current?.scrollTo({
-  top:0,
-  left:0,
-  behaivior:"smooth"
-})
-  }, [location.pathname])
+  useEffect(() => {
+    app?.current?.scrollTo({
+      top: 0,
+      left: 0,
+      behaivior: "smooth",
+    });
+  }, [location.pathname]);
 
   async function getCountry() {
     fetch("https://ipinfo.io/json")
@@ -114,17 +113,21 @@ app?.current?.scrollTo({
     if (!modals.length) return;
     modals[modals.length - 1].click();
   }
-const confirm = useConfirmDialog()
-  function handleRedirect(){
-
-    if(window.innerWidth >=1600)
-    confirm.openDialog("Do you want to be rediected to the desktop version of Borrowbe?", ()=>{window.location.href="https://borrowbe.com"})
+  const confirm = useConfirmDialog();
+  function handleRedirect() {
+    if (window.innerWidth >= 1600)
+      confirm.openDialog(
+        "Do you want to be rediected to the desktop version of Borrowbe?",
+        () => {
+          window.location.href = "https://borrowbe.com";
+        }
+      );
   }
   useEffect(() => {
-    handleRedirect()
+    handleRedirect();
     window.addEventListener("popstate", handleBack);
-    window.addEventListener("resize" , handleRedirect)
-  return () => window.removeEventListener("popstate", handleBack);
+    window.addEventListener("resize", handleRedirect);
+    return () => window.removeEventListener("popstate", handleBack);
   }, []);
   return (
     <div className="___app" ref={app}>
@@ -144,6 +147,10 @@ const confirm = useConfirmDialog()
                 Please verify your account with the link sent to your email
                 address.
               </h1>
+              <h3 style={{ marginTop: 0, color: "red" }}>
+                If you don’t see the email in your Inbox, please check your spam
+                or junk folder.
+              </h3>
             </InfoComp>
           }
         />
@@ -164,6 +171,10 @@ const confirm = useConfirmDialog()
               <h1>
                 Please use the link sent to your email to reset your password
               </h1>
+              <h3 style={{ marginTop: 0, color: "red" }}>
+                If you don’t see the email in your Inbox, please check your spam
+                or junk folder.
+              </h3>
             </InfoComp>
           }
         />
@@ -198,10 +209,12 @@ const confirm = useConfirmDialog()
 
         <Route path="/user/:id" exact element={<Profile />} />
 
-
- 
-        <Route path="/listing/:id" exact element={<Ad  header={true}/>} />
-        <Route path="/preview-ad" exact element={<Ad  header = {true} preview={true} />} />
+        <Route path="/listing/:id" exact element={<Ad header={true} />} />
+        <Route
+          path="/preview-ad"
+          exact
+          element={<Ad header={true} preview={true} />}
+        />
       </Routes>
       {
         <Footer
@@ -213,11 +226,10 @@ const confirm = useConfirmDialog()
               "/verify",
               "/post-ad",
               "/preview-ad",
-
             ].includes(routeLocation.pathname) &&
             !routeLocation.pathname.includes("/profile/") &&
-            !routeLocation.pathname.includes("/listing/") &&       
-            !routeLocation.pathname.includes("/edit/") &&    
+            !routeLocation.pathname.includes("/listing/") &&
+            !routeLocation.pathname.includes("/edit/") &&
             !routeLocation.pathname.includes("/user/")
           }
         />
