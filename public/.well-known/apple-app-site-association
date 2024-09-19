@@ -3,9 +3,10 @@
     "apps": [],
     "details": [
       {
-        "appID": "5B5B3XDTUQ.com.borrowbeapp",
+        "appID": "5B5B3XDTUQ.com.borrowbe.borrowbe",
         "paths": [
-          "/listing/*"
+          "/listing/*",
+          "/ad/*"
         ]
       }
     ]
