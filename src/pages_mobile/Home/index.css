@@ -4,7 +4,7 @@
 }
 
 ._home .header {
-  height: 440px;
+  height: 450px;
   position: relative;
   /* border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px; */
@@ -20,7 +20,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   transition: all 0.2s var(--bc);
 }
 ._home ._header {
@@ -173,8 +173,8 @@
 }
 
 ._home .header > h1 {
-  margin: 10px 30px 20px;
-  font-size: 32px;
+  margin: 20px 16px 20px;
+  font-size: calc(2vw + 2vh);
   font-weight: 900;
   z-index: 2;
   text-align: center;
@@ -192,11 +192,19 @@
   padding-bottom: 10vh;
 }
 
+._home .header .desc {
+  color: white;
+  z-index: 100;
+  text-align: center;
+  font-size: 15px;
+  margin: -16px 16px 8px;
+  max-width: 600px;
+}
 ._home .header .tabs {
   display: flex;
   align-items: center;
   justify-content: start;
-  gap: 6px;
+  gap: 5px;
   box-sizing: border-box;
   overflow-x: scroll;
   transition: all 0.2s var(--bc);
@@ -209,24 +217,23 @@
 }
 
 ._home .header .search_tab {
-  min-height: 38px;
-  height: 38px;
-  background: white;
-  z-index: 2;
-  border-radius: 26px;
-  padding: 12px;
-  box-sizing: border-box;
-  display: flex;
-  transition: all 0.2s var(--bc);
   align-items: center;
-  justify-content: center;
-  color: var(--blue);
-  border: 1px solid var(--blue);
-  font-weight: 500;
-  font-size: 14px;
-  box-shadow: 0px 0px 8px #1116;
   animation: 0.2s tab var(--bc) forwards;
+  background: #fff;
+  border: 2px solid var(--blue);
+  border-radius: 26px;
+  box-shadow: 0 0 8px #1116;
+  box-sizing: border-box;
+  color: black;
+  display: flex;
+  font-size: 14px;
+  height: 36px;
+  justify-content: center;
+  min-height: 36px;
   min-width: fit-content;
+  padding: 12px;
+  transition: all 0.2s var(--bc);
+  z-index: 2;
 }
 
 ._home .header .search_tab p {
@@ -239,16 +246,21 @@
 ._home .header .search_tab.active {
   background: var(--blue);
   color: white;
+  font-weight: 500;
 }
 ._home .header .search_tab.add_tab {
   font-size: 36px;
   font-weight: 500;
-  max-width: 38px;
-  min-width: 38px;
+  max-width: 36px;
+  min-width: 36px;
 }
-._home .header .search_tab.add_tab svg {
-  height: 24px !important;
-  width: 24px !important;
+._home .header .search_tab svg {
+  height: 22px !important;
+  width: 22px !important;
+  max-height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  max-width: 22px !important;
 }
 ._home .header .search_tab button {
   border: none;

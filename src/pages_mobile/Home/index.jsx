@@ -326,17 +326,27 @@ export default function Home() {
       />
 
       {tab == "search" && (
-        <div className="results">
-          <Listings
-            ads={searches[current]?.results}
-            loading={loadingStates[current]}
-            num={
-              searches[current].total - searches[current]?.results?.length > 24
-                ? 24
-                : searches[current].total - searches[current]?.results?.length
-            }
-          />
-        </div>
+        <>
+          <div className="results">
+            <Listings
+              ads={searches[current]?.results}
+              loading={loadingStates[current]}
+              num={
+                searches[current].total - searches[current]?.results?.length >
+                24
+                  ? 24
+                  : searches[current].total - searches[current]?.results?.length
+              }
+            />
+          </div>
+          {!Boolean(searches[current]?.results?.length) &&
+            !loadingStates[current] && (
+              <>
+                <NotFoundAnimation />
+                <h3 className="_not_found">Whoops! No results found.</h3>
+              </>
+            )}
+        </>
       )}
       {tab == "home" && (
         <>
@@ -348,12 +358,17 @@ export default function Home() {
               num={24}
             />
           </div>
-          {!homepageGallery.length && !recommended.length && (
-            <>
-              <NotFoundAnimation />
-              <h3 className="_not_found">Whoops! No results found.</h3>
-            </>
-          )}
+          {!homepageGallery.length &&
+            !recommended.length &&
+            !loadingMoreHG &&
+            !loadingHG &&
+            !loadingMoreRL &&
+            !loadingRL && (
+              <>
+                <NotFoundAnimation />
+                <h3 className="_not_found">Whoops! No results found.</h3>
+              </>
+            )}
         </>
       )}
     </div>

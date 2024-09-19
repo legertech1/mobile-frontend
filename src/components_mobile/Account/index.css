@@ -365,7 +365,7 @@
 }
 
 ._user_info .pf {
-  gap: 8px;
+  gap: 12px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -436,14 +436,14 @@
 }
 ._user_info .b_main .in {
   display: flex;
-  gap: 4px;
+  gap: 8px;
   flex-direction: column;
   width: 100%;
   flex: 1 1;
 }
 ._user_info .info .b_main p {
   overflow: hidden;
-  font-size: 15px;
+  font-size: 16px;
   text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -455,12 +455,13 @@
   white-space: unset !important;
 }
 ._user_info .info .b_main .name {
-  font-size: 18px;
+  font-size: 20px;
+  color: black !important;
 }
 ._user_info .b_main svg {
   vertical-align: middle !important;
-  height: 18px !important;
-  width: 18px !important;
+  height: 20px !important;
+  width: 20px !important;
   fill: var(--blue) !important;
 }
 

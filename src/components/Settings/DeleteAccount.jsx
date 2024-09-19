@@ -37,7 +37,7 @@ function CreatePassword({ close }) {
           const res = await axios.post(apis.deleteAccount, {
             code,
             password,
-            email,
+            email: email.trim().toLowerCase(),
           });
 
           notification.success(res.data);
@@ -75,7 +75,7 @@ function CreatePassword({ close }) {
             try {
               const res = await axios.post(apis.createVerificationCode, {
                 subject: "to delete your account",
-                email,
+                email: email.trim().toLowerCase(),
               });
               notification.success(res.data);
               setCodeSent(true);
@@ -130,7 +130,7 @@ function CreatePassword({ close }) {
         <button
           className="btn_blue_m btn_sm delete"
           disabled={!codeSent}
-          onClick ={e => ripple(e , {dur:2, cb: submit})}
+          onClick={(e) => ripple(e, { dur: 2, cb: submit })}
         >
           <PersonOffOutlinedIcon /> Delete Account
         </button>
