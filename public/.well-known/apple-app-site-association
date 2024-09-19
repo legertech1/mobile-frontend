@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "5B5B3XDTUQ.com.borrowbe.borrowbe",
+        "paths": [
+          "/listing/*",
+          "/ad/*"
+        ]
+      }
+    ]
+  }
+}
