@@ -3,10 +3,9 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.borrowbeapp", 
-      "sha256_cert_fingerprints": [
-        "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C"
-      ]
+      "package_name": "com.borrowbeapp",
+      "sha256_cert_fingerprints":
+        ["E3:6E:24:84:73:A4:53:88:FC:84:7B:88:52:24:53:33:3C:46:3A:E4:77:D6:59:7A:97:11:3C:51:04:30:2B:8B"]
     }
   }
 ]
