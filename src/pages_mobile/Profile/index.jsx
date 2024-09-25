@@ -143,7 +143,7 @@ function Profile() {
               </div>
             </div>
           </div>
-          <div className="ads user_ads" style={{ background: "transparent" }}>
+          <div className="ads user_ads">
             <h2>
               <GridViewOutlined /> {user?.firstName}'s Ads
             </h2>
