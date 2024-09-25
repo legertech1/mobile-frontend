@@ -30,7 +30,7 @@ import "./MobileApp.css";
 import Footer from "./components_mobile/Footer";
 import Ads from "./pages_mobile/Ads";
 import Account from "./components_mobile/Account";
-import Profile from "./pages_mobile/Profile";
+import Profile from "./pages_mobile/Profile/Index";
 import useConfirmDialog from "./hooks/useConfirmDialog";
 import throttle from "./utils/throttle";
 
