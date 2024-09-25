@@ -7,6 +7,7 @@ const ConfirmDialogServiceContext = React.createContext();
 
 const ConfirmDialogService = ({ children }) => {
   const [dialog, setDialog] = useState([]);
+
   const dialogRef = useRef();
 
   const openDialog = (message, onConfirm, onCancel) => {
@@ -32,6 +33,7 @@ const ConfirmDialogService = ({ children }) => {
       />
     );
 
+    if (dialog.length > 1) return setDialog((prev) => prev);
     setDialog((prevDialogs) => [...prevDialogs, dialogComponent]);
   };
 

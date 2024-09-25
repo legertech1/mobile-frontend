@@ -72,11 +72,11 @@ function BInfo() {
             </p>
           </div>
         </div>
+        <button onClick={(e) => setEdit(true)}>
+          <EditOutlined />
+          Edit Business Info
+        </button>
       </div>
-      <button onClick={(e) => setEdit(true)}>
-        <EditOutlined />
-        Edit Business Info
-      </button>
 
       {edit && (
         <Modal

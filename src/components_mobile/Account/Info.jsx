@@ -64,11 +64,11 @@ function Info() {
           </span>
           {user?.data?.postedAds?.total || 0}
         </div>
+        <button onClick={(e) => setEdit(true)}>
+          <EditOutlined />
+          Edit Profile Info
+        </button>
       </div>
-      <button onClick={(e) => setEdit(true)}>
-        <EditOutlined />
-        Edit Profile Info
-      </button>
 
       {edit && (
         <Modal

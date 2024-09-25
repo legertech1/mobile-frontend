@@ -34,6 +34,43 @@
   border-radius: 0px;
   /* position: fixed; */
 }
+.mobile_modal.payment .content {
+  flex: 1 1;
+  max-height: 100vh;
+  height: 100vh;
+  min-height: 100vh;
+}
+
+.mobile_modal.payment .payment_form {
+  width: 100%;
+  padding: 60px 16px 0px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  height: 100vh;
+  flex-direction: column;
+  overflow-y: scroll;
+  position: absolute;
+  box-sizing: border-box;
+  width: 100vw;
+}
+
+.mobile_modal.payment .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px;
+  padding-top: 0px;
+  font-family: var(--font1);
+  z-index: 99 !important;
+  position: absolute;
+  top: 42px;
+  width: 100%;
+  box-sizing: border-box;
+}
 .mobile_modal.ad,
 .mobile_modal.gallery {
   border-radius: 0;

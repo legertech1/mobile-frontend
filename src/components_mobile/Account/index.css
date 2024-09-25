@@ -266,6 +266,8 @@
   align-items: start;
   justify-content: start;
   gap: 12px;
+  position: relative;
+  z-index: 10;
 }
 ._account .action .heading .back {
   color: var(--blue);
@@ -284,16 +286,23 @@
 ._user_info {
   display: flex;
   flex-direction: column;
-  padding: 0 12px;
+  padding: 0 16px;
   height: 100%;
   gap: 12px;
   justify-content: start;
   align-items: center;
   padding-bottom: 120px;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
+  background: linear-gradient(30deg, var(--blue) 50%, #fff 50.1%);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
 }
 ._user_info > .info,
-._user_info > button {
+._user_info > .info button {
   padding: 20px;
   border-radius: 6px;
   border: none;
@@ -306,6 +315,7 @@
 
 ._user_info > div {
   width: 100%;
+  background-color: white;
 }
 ._user_info .user_ads ._listings {
   padding: 0px;
@@ -514,12 +524,13 @@
   align-items: center;
   position: relative;
   width: 100%;
-  max-height: 44px;
+  max-height: 48px;
   border: 1px solid var(--blue);
-  border-radius: 6px;
+  /* border: none; */
+  border-radius: 4px;
   height: 44px;
   min-height: 44px;
-  box-shadow: 0px 0px 4px #1113;
+  box-shadow: 0px 0px 4px #1114;
   overflow: hidden;
 }
 

@@ -14,7 +14,6 @@ import Chat from "./pages_mobile/Chat";
 import PostAd from "./pages_mobile/PostAd";
 import InfoComp from "./components/InfoComp";
 
-
 import Ad from "./pages_mobile/Ad";
 
 import HelpDocs from "./pages_mobile/Help/HelpDocs";
@@ -33,14 +32,15 @@ import Ads from "./pages_mobile/Ads";
 import Account from "./components_mobile/Account";
 import Profile from "./pages_mobile/Profile";
 import useConfirmDialog from "./hooks/useConfirmDialog";
+import throttle from "./utils/throttle";
 
 function MobileApp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth);
   const routeLocation = useLocation();
-  const location = useLocation()
-  const app = useRef()
+  const location = useLocation();
+  const app = useRef();
   const { selectedLocation } = useSelector((state) => state.location);
 
   const [recentLocations, setRecentLocations] = useLocalStorage(
@@ -68,20 +68,13 @@ function MobileApp() {
       dispatch(setSelectedLocation(recentLocations[0]));
   }, []);
 
-  const handleOrientationChange = () => {
-    if (window.orientation !== 0) {
-      if (window.screen.orientation) {
-        window.screen.orientation.lock("portrait").catch((error) => {});
-      }
-    }
-  };
-  useEffect(() =>{
-app?.current?.scrollTo({
-  top:0,
-  left:0,
-  behaivior:"smooth"
-})
-  }, [location.pathname])
+  useEffect(() => {
+    app?.current?.scrollTo({
+      top: 0,
+      left: 0,
+      behaivior: "smooth",
+    });
+  }, [location.pathname]);
 
   async function getCountry() {
     fetch("https://ipinfo.io/json")
@@ -91,17 +84,7 @@ app?.current?.scrollTo({
         else setCountry("CA");
       });
   }
-  useEffect(() => {
-    window.addEventListener("orientationchange", handleOrientationChange);
 
-    try {
-      handleOrientationChange();
-    } catch (error) {}
-
-    return () => {
-      window.removeEventListener("orientationchange", handleOrientationChange);
-    };
-  }, []);
   const [country, setCountry] = useLocalStorage("country", null);
 
   function handleBack() {
@@ -114,17 +97,22 @@ app?.current?.scrollTo({
     if (!modals.length) return;
     modals[modals.length - 1].click();
   }
-const confirm = useConfirmDialog()
-  function handleRedirect(){
+  const confirm = useConfirmDialog();
 
-    if(window.innerWidth >=1600)
-    confirm.openDialog("Do you want to be rediected to the desktop version of Borrowbe?", ()=>{window.location.href="https://borrowbe.com"})
+  function handleRedirect() {
+    if (window.innerWidth >= 1600)
+      confirm.openDialog(
+        "Do you want to be rediected to the desktop version of Borrowbe?",
+        () => {
+          window.location.href = "https://borrowbe.com";
+        }
+      );
   }
   useEffect(() => {
-    handleRedirect()
+    handleRedirect();
     window.addEventListener("popstate", handleBack);
-    window.addEventListener("resize" , handleRedirect)
-  return () => window.removeEventListener("popstate", handleBack);
+    window.addEventListener("resize", throttle(handleRedirect, 5000));
+    return () => window.removeEventListener("popstate", handleBack);
   }, []);
   return (
     <div className="___app" ref={app}>
@@ -198,10 +186,12 @@ const confirm = useConfirmDialog()
 
         <Route path="/user/:id" exact element={<Profile />} />
 
-
- 
-        <Route path="/listing/:id" exact element={<Ad  header={true}/>} />
-        <Route path="/preview-ad" exact element={<Ad  header = {true} preview={true} />} />
+        <Route path="/listing/:id" exact element={<Ad header={true} />} />
+        <Route
+          path="/preview-ad"
+          exact
+          element={<Ad header={true} preview={true} />}
+        />
       </Routes>
       {
         <Footer
@@ -213,11 +203,10 @@ const confirm = useConfirmDialog()
               "/verify",
               "/post-ad",
               "/preview-ad",
-
             ].includes(routeLocation.pathname) &&
             !routeLocation.pathname.includes("/profile/") &&
-            !routeLocation.pathname.includes("/listing/") &&       
-            !routeLocation.pathname.includes("/edit/") &&    
+            !routeLocation.pathname.includes("/listing/") &&
+            !routeLocation.pathname.includes("/edit/") &&
             !routeLocation.pathname.includes("/user/")
           }
         />
