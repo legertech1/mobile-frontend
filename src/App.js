@@ -41,8 +41,6 @@ function App() {
     (state) => state.location
   );
 
-
-
   const [country, setCountry] = useLocalStorage("country", null);
 
   const [recentLocations, setRecentLocations] = useLocalStorage(
@@ -78,13 +76,10 @@ function App() {
   useEffect(() => {
     user && loadChats(socket);
     user && getNotifications(socket);
-   
   }, [user]);
 
   return (
     <div className="__app">
-
-
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/search" exact element={<Search />} />
@@ -221,6 +216,10 @@ function App() {
                 Please verify your account with the link sent to your email
                 address.
               </h1>
+              <h3 style={{ marginTop: 0, color: "red" }}>
+                If you don’t see the email in your Inbox, please check your spam
+                or junk folder.
+              </h3>
             </InfoComp>
           }
         />
@@ -241,6 +240,10 @@ function App() {
               <h1>
                 Please use the link sent to your email to reset your password
               </h1>
+              <h3 style={{ marginTop: 0, color: "red" }}>
+                If you don’t see the email in your Inbox, please check your spam
+                or junk folder.
+              </h3>
             </InfoComp>
           }
         />

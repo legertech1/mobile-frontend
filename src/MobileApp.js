@@ -110,6 +110,7 @@ function MobileApp() {
   }
   useEffect(() => {
     handleRedirect();
+    handleRedirect();
     window.addEventListener("popstate", handleBack);
     window.addEventListener("resize", throttle(handleRedirect, 5000));
     return () => window.removeEventListener("popstate", handleBack);
@@ -132,6 +133,10 @@ function MobileApp() {
                 Please verify your account with the link sent to your email
                 address.
               </h1>
+              <h3 style={{ marginTop: 0, color: "red" }}>
+                If you don’t see the email in your Inbox, please check your spam
+                or junk folder.
+              </h3>
             </InfoComp>
           }
         />
@@ -152,6 +157,10 @@ function MobileApp() {
               <h1>
                 Please use the link sent to your email to reset your password
               </h1>
+              <h3 style={{ marginTop: 0, color: "red" }}>
+                If you don’t see the email in your Inbox, please check your spam
+                or junk folder.
+              </h3>
             </InfoComp>
           }
         />
