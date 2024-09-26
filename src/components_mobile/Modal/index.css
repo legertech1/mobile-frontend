@@ -31,14 +31,19 @@
 }
 .mobile_modal.payment {
   max-width: unset;
+  height: 100vh;
   border-radius: 0px;
-  /* position: fixed; */
+  top: 0;
+  padding: 0;
 }
 .mobile_modal.payment .content {
   flex: 1 1;
-  max-height: 100vh;
-  height: 100vh;
-  min-height: 100vh;
+  max-height: calc(100vh - 80px);
+  height: calc(100vh - 80px);
+  min-height: calc(100vh - 80px);
+  top: 80px;
+  position: absolute;
+  width: 100vw;
 }
 
 .mobile_modal.payment .payment_form {
@@ -67,8 +72,11 @@
   font-family: var(--font1);
   z-index: 99 !important;
   position: absolute;
-  top: 42px;
   width: 100%;
+  box-sizing: border-box;
+  top: 0;
+  height: 80px;
+  width: 100vw;
   box-sizing: border-box;
 }
 .mobile_modal.ad,
