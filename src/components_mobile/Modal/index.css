@@ -48,7 +48,7 @@
 
 .mobile_modal.payment .payment_form {
   width: 100%;
-  padding: 60px 16px 0px;
+  padding: 0px 16px 0px;
   box-sizing: border-box;
   display: flex;
   justify-content: start;

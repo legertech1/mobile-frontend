@@ -110,9 +110,8 @@ function MobileApp() {
   }
   useEffect(() => {
     handleRedirect();
-    handleRedirect();
     window.addEventListener("popstate", handleBack);
-    window.addEventListener("resize", throttle(handleRedirect, 5000));
+    window.addEventListener("resize", throttle(handleRedirect, 10000));
     return () => window.removeEventListener("popstate", handleBack);
   }, []);
   return (
