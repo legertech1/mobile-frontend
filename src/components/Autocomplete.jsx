@@ -6,6 +6,7 @@ import { setSelectedLocation } from "../store/locationSlice";
 import { useDispatch } from "react-redux";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import { Close } from "@mui/icons-material";
 
 const MyAutocomplete = ({
   value,
@@ -106,15 +107,24 @@ const MyAutocomplete = ({
         }}
         // onBlur={(e) => setFocus(false)}
         onKeyDown={(e) => {
-          if (e.key == "Backspace" && (value || loc == inputValue)) {
-            setValue(null);
-            setInputValue("");
-          } else if (e.key == "Enter" && !value && inputValue) {
+          if (e.key == "Enter" && !value && inputValue) {
             setValue(predictions[0]);
             setInputValue(predictions[0]?.description);
           }
         }}
       />
+      {(inputValue || value) && (
+        <button
+          className="clear"
+          onClick={() => {
+            setValue(null);
+            setInputValue("");
+            setPredictions([]);
+          }}
+        >
+          <Close />
+        </button>
+      )}
       {focus && (
         <ul onClick={(e) => setFocus(false)}>
           {predictions.map((prediction) => (

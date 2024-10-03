@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   padding: 0;
-  height: calc(100% - 40px);
+  height: calc(100vh - 50px);
   box-sizing: border-box;
 }
 .web_location {
@@ -13,14 +13,16 @@
 .web_location h4 {
   font-size: 16px;
   font-weight: 500;
-  padding: 0 6px;
+  /* padding: 0 6px; */
 }
 .web_location .current_loc p {
   color: #333;
   font-weight: 500;
   /* min-width: fit-content; */
 }
-
+.web_location .rec {
+  padding: 8px;
+}
 .web_location .recents {
   height: 0;
   max-height: 0;
@@ -57,31 +59,31 @@
   justify-content: start;
   gap: 8px;
   cursor: pointer;
-  height: 50px;
+  height: 42px;
   padding: 0 12px;
 }
 
 .web_location .current_loc .text_box p {
   margin: 0px;
   color: var(--blue);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
 }
 
 .web_location .current_loc .text_box .curr_loc_text {
-  font-size: 13px;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 500;
   color: black;
   margin: 0;
-  max-width: calc(100% - 10px);
+  max-width: calc(100vw - 60px);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .web_location .curr_icon {
-  height: 30px;
-  width: 30px;
+  height: 24px;
+  width: 24px;
   fill: var(--blue);
 }
 
@@ -128,7 +130,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 4px 6px;
+  padding: 4px 10px;
+  padding-right: 2px;
   cursor: pointer;
   transition: all 0.3s var(--bc);
   color: #333;
@@ -136,12 +139,12 @@
   display: flex;
   align-items: center;
   /* margin-right: 2px; */
-  height: 36px;
+  height: 40px;
   box-sizing: border-box;
+  overflow: hidden !important;
+  position: relative;
 }
-.web_location .regions .regions_container .region div:hover {
-  background-color: #1111;
-}
+
 .web_location .regions .regions_container .region div p {
   font-size: 14px;
   font-weight: 500;
@@ -200,7 +203,7 @@
 
 .web_location .choose_city,
 .web_location .choose_province {
-  padding-right: 10px;
+  padding: 8px;
 }
 
 .web_location .change_province {
@@ -274,7 +277,7 @@
 .selections .tile {
   border-radius: 6px;
   box-shadow: 0px 0px 8px #1113;
-  padding: 6px;
+
   min-width: 320px;
 
   transition: all 0.2s var(--bc);
@@ -450,7 +453,7 @@ input[type="range"] {
 }
 
 .web_location .current_loc.f {
-  padding-bottom: 12px;
+  padding-bottom: 6px;
 }
 .web_location .map button,
 .gm-bundled-control {

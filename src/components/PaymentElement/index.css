@@ -443,7 +443,8 @@
 }
 @media (min-width: 800px) {
   .payment_form {
-    flex-direction: row;
+    flex-direction: row !important;
+    padding: 24px !important;
     gap: 16px;
   }
 }

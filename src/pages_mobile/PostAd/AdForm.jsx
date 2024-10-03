@@ -51,7 +51,10 @@ export default function AdForm({ edit }) {
   const dispatch = useDispatch();
   const [value, setValue] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
-
+  const [lastLocation, setLastLocation] = useLocalStorage(
+    "last_location",
+    null
+  );
   const [locationError, setLocationError] = useState(null);
   const user = useSelector((state) => state.auth);
   const [categoryIndex, setCategoryIndex] = useState(-1);
@@ -63,7 +66,6 @@ export default function AdForm({ edit }) {
     dispatch(setFormData({ ...formData, [name]: value }));
   };
   useEffect(() => {
-    console.log(user);
     if (user == null) navigate("/login");
   }, [user]);
   function init() {
@@ -212,9 +214,17 @@ export default function AdForm({ edit }) {
     getLocationData(value);
   }, [value]);
 
-  // useEffect(() => {
-  //   getLocationData(value);
-  // }, [value]);
+  useEffect(() => {
+    if (value?.description) {
+      setLastLocation(value);
+    }
+  }, [value]);
+
+  useEffect(() => {
+    if (!value && lastLocation?.description) {
+      setValue(lastLocation);
+    }
+  }, []);
 
   const formNav = (step, url) => {
     if (step >= 2) {

@@ -24,6 +24,7 @@ import marker from "../assets/images/marker.png";
 import Checkbox from "../components_mobile/shared/Checkbox";
 import { updatePlaces as setProvinces } from "../store/placesSlice";
 import { KeyboardArrowDown } from "@mui/icons-material";
+import ripple from "../utils/ripple";
 
 export default function WebLocation({ close }) {
   const [showRecent, setShowRecent] = useState(false);
@@ -303,7 +304,7 @@ export default function WebLocation({ close }) {
         <div className="regions">
           {recentLocations && (
             <div className="tile">
-              <h4 className={"heading" + (showRecent ? " active" : "")}>
+              <h4 className={"heading rec " + (showRecent ? " active" : "")}>
                 Recent Locations{" "}
                 <button onClick={(e) => setShowRecent(!showRecent)}>
                   <KeyboardArrowDown />
@@ -348,7 +349,7 @@ export default function WebLocation({ close }) {
                 {!province && provinces && (
                   <div className="provinces">
                     <div className="choose_prpvince">
-                      <h4 className="heading">Choose Region </h4>
+                      <h4 className="heading rec">Choose Region </h4>
                     </div>
 
                     <div className="regions_container">
@@ -356,8 +357,13 @@ export default function WebLocation({ close }) {
                         {provinces?.map((item) => {
                           return (
                             <div
-                              onClick={() => {
-                                setProvince(item);
+                              onClick={(e) => {
+                                ripple(e, {
+                                  dur: 2,
+                                  cb: () => {
+                                    setProvince(item);
+                                  },
+                                });
                               }}
                             >
                               <p className="region_text">{item.name}</p>
@@ -387,16 +393,20 @@ export default function WebLocation({ close }) {
                         {province?.cities?.map((item) => {
                           return (
                             <div
-                              onClick={() => {
-                                setShow(false);
-                                dispatch(
-                                  setSelectedLocation({
-                                    ...item,
-                                    radius: radius,
-                                  })
-                                );
-                                setProvince(null);
-                                // close();
+                              onClick={(e) => {
+                                ripple(e, {
+                                  dur: 2,
+                                  cb: () => {
+                                    setShow(false);
+                                    dispatch(
+                                      setSelectedLocation({
+                                        ...item,
+                                        radius: radius,
+                                      })
+                                    );
+                                    setProvince(null);
+                                  },
+                                });
                               }}
                             >
                               <p className="region_text">{item.name}</p>

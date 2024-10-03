@@ -167,6 +167,9 @@
   cursor: pointer;
   border-radius: 8px;
   max-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .post_ad .btns_cont .next_btn,
@@ -181,8 +184,14 @@
   border-radius: 8px;
   max-width: 200px;
   min-width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
+.post_ad ._autocomplete {
+  width: calc(100% + 24px);
+  margin: 0 -12px;
+}
 .post_ad ._dropdown .options {
   min-height: auto;
   overflow: visible;
@@ -599,7 +608,7 @@
   align-items: center;
   padding: 12px;
   box-sizing: border-box;
-  gap: 8px;
+  gap: 10px;
   min-height: 72px;
   border-radius: 6px;
   flex-wrap: wrap;
@@ -610,7 +619,9 @@
 .pricing_section .add_on h3 {
   font-weight: 500;
   font-size: 16px;
+  flex-grow: 1;
   margin: 0;
+  min-width: 50%;
   /* margin-right: auto; */
 }
 
@@ -894,9 +905,7 @@
   box-shadow: 0px 0px 8px #1114;
   background: white;
 }
-.pricing_section .add_on ._dropdown {
-  min-height: 24px;
-}
+
 .post_ad ._price_inp {
   display: flex;
   flex-direction: column;
