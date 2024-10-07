@@ -11,7 +11,6 @@ export const initialAdState = {
   description: "",
   stock: 1,
   price: "",
-  term: PriceOptions[0],
   tags: [],
   extraFields: {},
   tax: "none",
@@ -49,7 +48,6 @@ const adSlice = createSlice({
       return initialAdState;
     });
     builder.addCase(relistAd.fulfilled, (state, action) => {
-
       return initialAdState;
     });
   },

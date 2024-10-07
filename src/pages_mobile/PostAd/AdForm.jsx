@@ -188,20 +188,21 @@ export default function AdForm({ edit }) {
               },
               components: address_components,
             });
+          } else {
+            dispatch(
+              updateLocation({
+                formatted_address: results[0].formatted_address,
+                types: results[0].types,
+                name: value.description || value.name,
+                place_id: value.place_id,
+                coordinates: {
+                  lat: lat,
+                  long: lng,
+                },
+                components: address_components,
+              })
+            );
           }
-          dispatch(
-            updateLocation({
-              formatted_address: results[0].formatted_address,
-              types: results[0].types,
-              name: value.description || value.name,
-              place_id: value.place_id,
-              coordinates: {
-                lat: lat,
-                long: lng,
-              },
-              components: address_components,
-            })
-          );
         }
       );
     } else {
@@ -243,6 +244,8 @@ export default function AdForm({ edit }) {
         return notification.error(
           "Description is required and must be between 40 to 8000 characters"
         );
+      if (!formData.term && !formData.priceHidden)
+        return notification.error("Duration term is required");
     }
     if (step >= 3) {
       const fields = [
