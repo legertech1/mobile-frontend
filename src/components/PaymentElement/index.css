@@ -427,8 +427,8 @@
 }
 
 .payment_form .details_loading {
-  height: 100% !important;
-  position: absolute;
+  height: 100vh !important;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

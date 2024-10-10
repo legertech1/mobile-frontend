@@ -37,7 +37,7 @@ export default function PriceInput({
             onClick={() => onChangeTerm(option)}
             className={`price_option ${option === term && "option_selected"}`}
           >
-            Per {option}
+            {option == "Day" ? "Daily" : option + "ly"}
           </div>
         ))}
       </div>

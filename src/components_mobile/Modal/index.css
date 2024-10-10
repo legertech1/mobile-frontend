@@ -44,6 +44,7 @@
   top: 60px;
   position: absolute;
   width: 100vw;
+  overflow-y: scroll;
 }
 
 .mobile_modal.payment .payment_form {
@@ -59,6 +60,7 @@
   position: absolute;
   box-sizing: border-box;
   width: 100vw;
+  padding-bottom: 60px;
 }
 
 .mobile_modal.payment .header {
@@ -290,4 +292,7 @@
   .mobile_modal.payment {
     padding: 40px 6% 20px;
   }
+}
+.mobile_modal.payment .content::-webkit-scrollbar {
+  display: none !important;
 }

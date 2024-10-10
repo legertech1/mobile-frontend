@@ -717,19 +717,62 @@
 }
 
 .view_listing .actions .postAd {
-  flex: 1;
-  border: 1px solid var(--blue);
+  flex: 1 1;
   height: 50px;
-  font-size: 18px;
-  background-image: linear-gradient(90deg, var(--blue), var(--blue-dark));
-  /* background-size: 200%; */
-  background-position: top left;
-  border-radius: 6px;
-  gap: 2px;
-  padding: 0 30px;
-  min-width: fit-content;
-  /* animation: 2s ease-out infinite cta_btn; */
-  /* font-weight: 500; */
+  font-size: 20px;
+  font-family: var(--font1);
+  background: linear-gradient(
+    90deg,
+    var(--blue),
+    var(--blue),
+    var(--blue-dark)
+  );
+  position: relative;
+  overflow: visible;
+  /* background-color: var(--blue-dark); */
+}
+.view_listing .actions .postAd:before,
+.view_listing .actions .postAd:after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  background: linear-gradient(
+    45deg,
+    #fb0094,
+    var(--blue),
+    #00ff00,
+    var(--yellow),
+    #d400ff,
+    var(--blue),
+    #fb0094,
+    var(--blue),
+    #00ff00,
+    var(--yellow),
+    #d400ff
+  );
+  border-radius: 5px;
+  background-size: 500%;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  z-index: -1;
+  animation: steam 30s linear infinite;
+}
+
+@keyframes steam {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 500% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.view_listing .actions .postAd:after {
+  filter: blur(12px);
 }
 
 .view_listing .actions .continue_editing:hover {
