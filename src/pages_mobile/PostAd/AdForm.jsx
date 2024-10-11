@@ -168,7 +168,7 @@ export default function AdForm({ edit }) {
 
   function getLocationData(value, curr) {
     if (value) {
-      if (value.coordinates && curr) dispatch(updateLocation(currentLocation));
+      // if (value.coordinates && curr) dispatch(updateLocation(currentLocation));
       let name = value.label;
       geocodeByAddress(value.description || value.name).then(
         async (results) => {
