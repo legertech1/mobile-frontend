@@ -735,8 +735,8 @@
 .view_listing .actions .postAd:after {
   content: "";
   position: absolute;
-  left: -2px;
-  top: -2px;
+  left: -1px;
+  top: -1px;
   background: linear-gradient(
     45deg,
     #fb0094,
@@ -753,8 +753,8 @@
   );
   border-radius: 5px;
   background-size: 500%;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
   z-index: -1;
   animation: steam 30s linear infinite;
 }
