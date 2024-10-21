@@ -132,22 +132,18 @@ export default function AdForm({ edit }) {
   }
 
   const confirm = useConfirmDialog();
-
+  let onConfirm = () => {
+    dispatch(setFormData(initialAdState));
+    dispatch(updateCart({}));
+    navigate("/");
+  };
   const discard = () => {
+    console.log("discard");
     // dispatch(setFormData(initialAdState));
     //               setValue(null);
     //               navigate("/");
 
-    let onConfirm = () => {
-      dispatch(setFormData(initialAdState));
-      dispatch(updateCart({}));
-      navigate("/");
-    };
-    confirm.openDialog(
-      "Are you sure you want to discard this ad?",
-      onConfirm,
-      () => {}
-    );
+    confirm.openDialog("Are you sure you want to discard this ad?", onConfirm);
   };
   useEffect(() => {
     if (!edit) {

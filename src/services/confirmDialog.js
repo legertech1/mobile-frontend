@@ -1,4 +1,3 @@
-// ConfirmDialogService.js
 import React, { useState, useRef } from "react";
 import ConfirmDialog from "../components/ConfirmDialog";
 import { createPortal } from "react-dom";
@@ -33,13 +32,12 @@ const ConfirmDialogService = ({ children }) => {
       />
     );
 
-    if (dialog.length > 1) return setDialog((prev) => prev);
+    // Remove the check that prevents adding dialogs if length > 1
     setDialog((prevDialogs) => [...prevDialogs, dialogComponent]);
   };
 
   return (
     <>
-      {" "}
       <ConfirmDialogServiceContext.Provider value={{ openDialog }}>
         {children}
         {createPortal(

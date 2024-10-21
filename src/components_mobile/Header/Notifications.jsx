@@ -11,18 +11,19 @@ function Notif({ n }) {
   const navigate = useNavigate();
   const nRef = useRef();
   const handleSwipe = (direction) => {
-    console.log(direction, nRef);
+    let item = document.querySelector("#notif_" + n._id);
+    if (!item) return;
     if (direction === "left") {
-      document.querySelector("#notif_" + n._id).classList.add("left");
+      item.classList.add("left");
       setTimeout(() => {
         deleteNotification(socket, n);
-        document.querySelector("#notif_" + n._id).style.display = "none";
+        item.style.display = "none";
       }, 300);
     } else if (direction === "right") {
-      document.querySelector("#notif_" + n._id).classList.add("right");
+      item.classList.add("right");
       setTimeout(() => {
         deleteNotification(socket, n);
-        document.querySelector("#notif_" + n._id).style.display = "none";
+        item.style.display = "none";
       }, 300);
     }
   };

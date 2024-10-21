@@ -9,7 +9,7 @@
 
 .mobile_modal {
   padding: 20px 0px 40px;
-  border-radius: 0px;
+  border-radius: 8px;
   background: white;
   box-shadow: 0px 0px 24px #1116;
   min-width: 200px;
@@ -127,6 +127,8 @@
   color: var(--blue) !important;
   background-color: transparent;
   color: var(--blue);
+  top: unset;
+  right: unset;
   box-shadow: unset;
 }
 
@@ -175,13 +177,12 @@
 } */
 
 .mobile_modal .close {
-  margin: 0 -8px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   overflow: hidden;
-  position: relative;
+  position: absolute;
   z-index: 5;
   display: flex;
   align-items: center;
@@ -189,16 +190,17 @@
   height: 26px;
   width: 26px;
   font-size: 14px;
-  border-radius: 50%;
+  border-radius: 6px;
   border: none;
-  box-shadow: 0px 0px 8px #1114;
   background: var(--blue);
+  top: 16px;
+  right: 14px;
 }
 
 .mobile_modal .close svg {
   color: white;
-  height: 22px;
-  width: 22px;
+  height: 24px;
+  width: 24px;
 }
 .mobile_modal.image {
   padding: 60px 0px 80px;

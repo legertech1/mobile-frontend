@@ -188,6 +188,7 @@ function MobileApp() {
         <Route path="contact-us" exact element={<ContactUs />} />
 
         <Route exact path="/post-ad" element={<PostAd />} />
+        <Route exact path="/post-ad/*" element={<PostAd />} />
         <Route exact path="/profile" element={<Account />} />
         <Route exact path="/profile/*" element={<Account />} />
         <Route exact path="/edit/:id" element={<PostAd edit={true} />} />
@@ -200,6 +201,7 @@ function MobileApp() {
           exact
           element={<Ad header={true} preview={true} />}
         />
+        <Route path="*" element={<></>} />
       </Routes>
       {
         <Footer
