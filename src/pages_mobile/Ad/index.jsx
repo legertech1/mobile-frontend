@@ -354,7 +354,19 @@ function ViewListing({ preview, _id, header }) {
                         <span>
                           ${Boolean(listing?.price) ? listing?.price : "Free"}
                         </span>
-                        <p>/{listing?.term}</p>{" "}
+                        {listing.term ? <p>/{listing?.term}</p> : <p>Total</p>}
+                        {listing?.term && listing.installments && (
+                          <p
+                            className="tax"
+                            style={{
+                              fontSize: "x-large !important",
+                              fontWeight: "600",
+                              color: "var(--blue)",
+                            }}
+                          >
+                            x{listing?.installments}
+                          </p>
+                        )}
                         {listing?.tax != "none" && (
                           <p className="tax">+{listing?.tax}</p>
                         )}{" "}

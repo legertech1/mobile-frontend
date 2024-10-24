@@ -226,8 +226,9 @@
   font-weight: 500;
   color: #333;
   display: flex;
-  align-items: center;
-  height: 30px;
+  align-items: baseline;
+  height: 36px;
+  box-sizing: border-box;
 }
 .view_listing h1.price p {
   position: relative;
@@ -238,6 +239,10 @@
   color: var(--blue);
   font-weight: 600;
   font-size: 28px;
+  font-family: var(--font1);
+  position: relative;
+  margin: 0;
+  top: 5px;
 }
 
 .view_listing h1.price img {
@@ -996,8 +1001,8 @@
   padding-left: 4px;
   /* font-weight: 500;
   color: var(--blue) !important; */
-  /* font-family: var(--font1); */
-  font-size: 13px !important;
+  font-family: var(--font1);
+  font-size: 13px;
 }
 
 .view_listing .country_img_global {
