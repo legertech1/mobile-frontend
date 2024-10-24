@@ -65,6 +65,7 @@ export default function AdForm({ edit }) {
   const handleFormData = (name, value) => {
     dispatch(setFormData({ ...formData, [name]: value }));
   };
+  const [state, setState] = useState("Indefinite payments");
   useEffect(() => {
     if (user == null) navigate("/login");
   }, [user]);
@@ -205,7 +206,6 @@ export default function AdForm({ edit }) {
       dispatch(updateLocation(null));
     }
   }
-
   useEffect(() => {
     if (!value) return;
     getLocationData(value);
@@ -222,6 +222,23 @@ export default function AdForm({ edit }) {
       setValue(lastLocation);
     }
   }, []);
+  const useWindowWidth = () => {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
+
+    return windowWidth;
+  };
+  const windowWidth = useWindowWidth();
 
   const formNav = (step, url) => {
     if (step >= 2) {
@@ -240,8 +257,11 @@ export default function AdForm({ edit }) {
         return notification.error(
           "Description is required and must be between 40 to 8000 characters"
         );
-      if (!formData.term && !formData.priceHidden)
+      if (!formData.term && !formData.priceHidden && state != "Total amount")
         return notification.error("Duration term is required");
+      if (state == "Definite installments" && !formData.installments) {
+        return notification.error("No. of installments is required");
+      }
     }
     if (step >= 3) {
       const fields = [
@@ -284,9 +304,10 @@ export default function AdForm({ edit }) {
     if (step == 5) {
       if (formData.images.length < 1)
         return notification.error("At least one image is required");
-      return navigate(url || edit ? "/preview-ad?edit=true" : "/preview-ad");
+      return navigate(url || "/preview-ad");
     }
     setCurrentStep(step);
+
     document.querySelector(".___app").scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -424,12 +445,17 @@ export default function AdForm({ edit }) {
         <div className="field_container" style={{ alignItems: "start" }}>
           <div className="field_info">
             <h4>
-              Amount and Term <span>(required)</span>
+              Price <span>(required)</span>
             </h4>
-            <p>
-              Enter the amount for your ad along with the corresponding
-              duration: Day, Month, or Year.
-            </p>
+            {windowWidth > 1000 && (
+              <p>
+                Choose the most suitable category and subcategory for your Ad.
+                Selecting the right values will help buyers get to your ad
+                easily by searching in the Category and Sub-category for your
+                Ad. Note that the category of an ad cannot be changed after it
+                is posted.
+              </p>
+            )}
           </div>
           <div
             className="_pr_row"
@@ -442,32 +468,54 @@ export default function AdForm({ edit }) {
             <div className="price_hidden">
               <Checkbox
                 checked={formData.priceHidden}
-                setChecked={(v) =>
-                  dispatch(setFormData({ ...formData, priceHidden: v }))
-                }
+                setChecked={(v) => {
+                  setState("Indefinite payments");
+                  dispatch(setFormData({ ...formData, priceHidden: v }));
+                }}
               />{" "}
               Do not disclose pricing details. Show "Please Contact" instead of
               price.
             </div>{" "}
             <PriceInput
+              state={state}
+              setState={setState}
               style={
                 formData.priceHidden
-                  ? {
-                      transform: "scaleY(0)",
-                      opacity: "0",
-                    }
+                  ? { transform: "scaleY(0)", opacity: "0" }
                   : { transform: "scaleY(1)", opacity: "1" }
               }
-              onChangeTerm={(term) => {
+              setTerm={(term) => {
                 handleFormData("term", term);
               }}
-              price={formData.price}
               term={formData.term}
-              onChange={(e) => {
+              price={formData.price}
+              setPrice={(e) => {
                 if (isNaN(e.target.value)) return;
                 if (e.target.value.split(".")[1]?.length > 2) return;
 
                 handleFormData("price", e.target.value.trim().slice(0, 10));
+              }}
+              installments={formData.installments}
+              setInstallments={(e) => {
+                if (isNaN(e.target.value)) return;
+                if (e.target.value.split(".")[1]?.length > 2) return;
+
+                handleFormData(
+                  "installments",
+                  e.target.value.trim().slice(0, 3)
+                );
+              }}
+              tax={formData.tax}
+              setTax={(v) => dispatch(setFormData({ ...formData, tax: v }))}
+              reset={() => {
+                dispatch(
+                  setFormData({
+                    ...formData,
+                    term: "",
+                    price: "",
+                    installments: "",
+                  })
+                );
               }}
             />
             <div
@@ -482,45 +530,6 @@ export default function AdForm({ edit }) {
               }
             >
               <span className="free">*$0 will be shown as free</span>
-              <div className="tax">
-                <span>Tax:</span>
-                <p>
-                  <Checkbox
-                    checked={formData.tax == "none"}
-                    setChecked={(v) =>
-                      v && dispatch(setFormData({ ...formData, tax: "none" }))
-                    }
-                  />
-                  none
-                </p>
-                <p>
-                  <Checkbox
-                    checked={formData.tax == "HST"}
-                    setChecked={(v) =>
-                      v && dispatch(setFormData({ ...formData, tax: "HST" }))
-                    }
-                  />
-                  +HST
-                </p>
-                <p>
-                  <Checkbox
-                    checked={formData.tax == "GST"}
-                    setChecked={(v) =>
-                      v && dispatch(setFormData({ ...formData, tax: "GST" }))
-                    }
-                  />{" "}
-                  +GST
-                </p>
-                <p>
-                  <Checkbox
-                    checked={formData.tax == "TAX"}
-                    setChecked={(v) =>
-                      v && dispatch(setFormData({ ...formData, tax: "TAX" }))
-                    }
-                  />{" "}
-                  +TAX
-                </p>
-              </div>
             </div>
           </div>
         </div>

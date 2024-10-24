@@ -79,3 +79,21 @@
 .custom_price_input input {
   font-family: var(--font1);
 }
+.price_dropdowns ._dropdown:last-child {
+  max-width: 100px;
+}
+.price_dropdowns ._dropdown .selected > div {
+  position: relative;
+  font-size: 14px;
+  top: 5px;
+}
+.price_dropdowns ._dropdown .selected > div span {
+  top: -12px !important;
+  color: var(--blue) !important;
+  font-size: 12px;
+}
+.price_dropdowns .arrow svg {
+  margin: -12px;
+  position: relative;
+  top: -5px;
+}
