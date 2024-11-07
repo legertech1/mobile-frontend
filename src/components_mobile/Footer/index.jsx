@@ -8,19 +8,13 @@ import { MoreCircle } from "@styled-icons/fluentui-system-filled/MoreCircle";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import ripple from "../../utils/ripple";
-import {
-  AddCircleOutlineRounded,
-  AddCircleRounded,
-  Person,
-  PersonRounded,
-} from "@mui/icons-material";
 import { createPortal } from "react-dom";
 
 const Footer = ({ visible }) => {
   const user = useSelector((state) => state.auth);
+  const [scrollDirection, setScrollDirection] = useState("up");
   const routes = useMemo(
     () => [
       {
@@ -66,12 +60,14 @@ const Footer = ({ visible }) => {
 
   const handleItemClick = (route) => {
     navigate(route.path);
+    setScrollDirection("up");
   };
 
   useEffect(() => {
-    if (visible) ref.current.classList.add("visible");
+    if (visible && scrollDirection == "up")
+      ref.current.classList.add("visible");
     else ref.current.classList.remove("visible");
-  }, [visible]);
+  }, [visible, scrollDirection]);
 
   function handleIndicator() {
     if (!visible) return;
@@ -93,6 +89,50 @@ const Footer = ({ visible }) => {
   useEffect(() => {
     window.addEventListener("resize", handleIndicator);
     return () => window.removeEventListener("resize", handleIndicator);
+  }, []);
+
+  useEffect(() => {
+    let touchStartY = 0;
+
+    // Desktop scroll handler
+    const handleScroll = () => {
+      const direction = window.scrollY > touchStartY ? "down" : "up";
+      setScrollDirection(direction);
+      touchStartY = window.scrollY;
+    };
+
+    // Mobile touch start handler
+    const handleTouchStart = (event) => {
+      touchStartY = event.touches[0].clientY;
+    };
+
+    // Mobile touch move handler
+    const handleTouchMove = (event) => {
+      const touchEndY = event.touches[0].clientY;
+      const direction = touchEndY < touchStartY ? "down" : "up";
+      setScrollDirection(direction);
+      touchStartY = touchEndY;
+    };
+    const handleWheel = (event) => {
+      if (event.deltaY > 0) {
+        setScrollDirection("down");
+      } else if (event.deltaY < 0) {
+        setScrollDirection("up");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("wheel", handleWheel); // for wheel events on desktop
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchmove", handleTouchMove);
+
+    // Cleanup event listeners on unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
   }, []);
   return createPortal(
     <nav className="mobile_footer" ref={ref}>

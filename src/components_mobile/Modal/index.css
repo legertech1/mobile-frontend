@@ -187,14 +187,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 26px;
-  width: 26px;
+  height: 24px;
+  width: 24px;
   font-size: 14px;
-  border-radius: 6px;
+  border-radius: 5px;
   border: none;
   background: var(--blue);
-  top: 16px;
-  right: 14px;
+  top: 9px;
+  right: 8px;
 }
 
 .mobile_modal .close svg {

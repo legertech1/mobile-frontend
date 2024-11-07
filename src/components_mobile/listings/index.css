@@ -212,8 +212,8 @@ span.featured {
 ._listing .info h3.title {
   margin: 0;
   font-size: 14px;
-  font-weight: 500;
-  font-family: var(--font2);
+  font-weight: 600;
+  font-family: var(--font1);
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -238,8 +238,11 @@ span.featured {
   align-items: center;
   justify-content: start;
 }
+.highlighted .info .price_row .price {
+  font-size: 21px !important;
+}
 .highlighted .badges {
-  top: 6px;
+  top: 7px;
   width: fit-content;
   left: 50%;
   padding: 0 4px;
@@ -249,7 +252,7 @@ span.featured {
   border-radius: 8px !important;
 }
 ._listings ._listing.highlighted .info {
-  padding: 22px 0 0 !important;
+  padding: 24px 0 0 !important;
   gap: 4px;
   position: static;
   background: transparent;
@@ -282,6 +285,7 @@ span.featured {
   font-size: 13px;
   display: flex;
   align-items: baseline;
+  text-align: left;
 }
 ._listing .info .row.empty {
   height: 14px;
@@ -352,6 +356,12 @@ span.featured {
     position: static !important;
     transform: none !important;
   }
+  ._listing.highlighted .info h3.title {
+    font-size: 20px !important;
+  }
+  .highlighted .info .price_row .price {
+    font-size: 22px !important;
+  }
 }
 @media (min-width: 1000px) {
   ._listings {
@@ -394,6 +404,9 @@ span.featured {
   bottom: 10px;
   top: unset;
   left: 10px;
+}
+._listing.highlighted .info h3.title {
+  font-size: 1em;
 }
 ._listing .status.active {
   background-color: var(--blue);
@@ -1036,6 +1049,12 @@ div.options.actions {
     bottom: 12px;
     top: unset;
     left: 12px;
+  }
+  ._listing.highlighted .info h3.title {
+    font-size: 22px;
+  }
+  .highlighted .info .price_row .price {
+    font-size: 24px !important;
   }
 }
 @media (min-width: 1100px) {

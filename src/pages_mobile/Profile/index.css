@@ -4,6 +4,9 @@
   gap: 12px;
   width: 100%;
 }
+/* ._user_info .info h3 {
+  color: var(--blue);
+} */
 ._user_info .r-- {
   flex-direction: column;
   max-width: unset;
@@ -19,6 +22,7 @@
   overflow-y: scroll;
   justify-content: start;
   background: white;
+  /* background: linear-gradient(30deg, var(--blue) 50%, #fff 50.1%); */
 }
 ._user_info h2 {
   font-size: 18px;
@@ -40,26 +44,28 @@
   justify-content: center;
 }
 
-@media (min-width: 800px) {
-  ._user_info .r-- {
+@media (min-width: 840px) {
+  ._user_info.PF {
     flex-direction: row;
-    max-width: unset;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    box-shadow: unset;
-    padding: 0;
-    margin-bottom: 40px;
+    align-items: start;
+    /* padding: 0 40px; */
   }
 
-  ._user_info .r-- > div {
-    flex: 1 1;
-    min-width: 300px;
-    box-shadow: 0px 0px 8px #1114;
-    height: 100%;
-    padding: 20px;
-    border-radius: 8px;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
+  ._user_info.PF .header {
+    position: absolute;
+    top: 0;
+  }
+  ._user_info .r-- {
+    max-width: 360px;
+    align-self: start;
+    margin-top: 60px;
+    position: sticky;
+    top: 60px;
+    flex: 1;
+  }
+  ._user_info .user_ads {
+    background: transparent;
+    margin-top: 10px;
+    z-index: 10;
   }
 }
