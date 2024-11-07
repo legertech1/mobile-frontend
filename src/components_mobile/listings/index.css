@@ -7,8 +7,8 @@
   grid-auto-flow: dense;
   padding-bottom: 10vh;
   gap: 4px;
-
-  filter: drop-shadow(2px 2px 8px #1114);
+  background-color: transparent !important;
+  filter: drop-shadow(0px 0px 8px #1114);
 }
 ._listing .empty_img {
   height: 100%;
@@ -305,7 +305,7 @@ span.featured {
 
 ._listing.em {
   pointer-events: none;
-  box-shadow: 0px 0px 2px #1113 !important;
+  box-shadow: none !important;
 }
 ._listing.em .info {
   gap: 3px;
