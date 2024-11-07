@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: start;
-  padding: 20px 40px 60px;
+  padding: 0 40px 60px;
 }
 .ad_post_handler .main {
   height: fit-content;

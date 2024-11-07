@@ -772,7 +772,7 @@
 }
 
 .view_listing .actions .postAd:after {
-  filter: blur(10px);
+  filter: blur(12px);
 }
 
 .view_listing .actions .continue_editing:hover {

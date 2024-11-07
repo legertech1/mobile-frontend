@@ -208,17 +208,10 @@ function Listing({
                   {" "}
                   {ad?.price ? "$" + ad?.price : "Free"}
                 </span>
-                {ad?.term ? (
-                  <>/{ad.term}</>
-                ) : (
-                  <span className="tax">Total</span>
-                )}
-                {ad?.installments && (
-                  <p className="installments">x{ad.installments}</p>
-                )}
+                /{ad?.term}{" "}
                 {ad?.tax != "none" && <span className="tax">+{ad?.tax}</span>}
-                {distance <= 100 && distance > -1 && !status && (
-                  <span className="distance">~{distance} Km away</span>
+                {distance <= 100 && distance > -1 && (
+                  <span className="distance">~{distance} Km</span>
                 )}
               </>
             ))}
