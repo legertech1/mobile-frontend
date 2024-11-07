@@ -7,7 +7,8 @@
   grid-auto-flow: dense;
   padding-bottom: 10vh;
   gap: 4px;
-  /* grid-auto-rows: 180px; */
+
+  filter: drop-shadow(2px 2px 8px #1114);
 }
 ._listing .empty_img {
   height: 100%;
@@ -39,7 +40,7 @@
   overflow: hidden;
   border-radius: 12px;
   /* overflow: hidden; */
-  box-shadow: 0px 0px 12px #1114;
+  /* box-shadow: 0px 0px 12px #1114; */
   height: 186px;
   position: relative;
 }
