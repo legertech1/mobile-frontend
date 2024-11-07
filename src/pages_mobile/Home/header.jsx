@@ -267,7 +267,20 @@ function Header({
                   }
                   className={"term" + (filters?.term == "Day" ? " active" : "")}
                 >
-                  Per Day
+                  Daily
+                </div>
+                <div
+                  onClick={(e) =>
+                    setFilters({
+                      ...filters,
+                      term: filters.term == "Week" ? null : "Week",
+                    })
+                  }
+                  className={
+                    "term" + (filters?.term == "Week" ? " active" : "")
+                  }
+                >
+                  Weekly
                 </div>
                 <div
                   onClick={(e) =>
@@ -280,7 +293,7 @@ function Header({
                     "term" + (filters?.term == "Month" ? " active" : "")
                   }
                 >
-                  Per Month
+                  Monthly
                 </div>
                 <div
                   onClick={(e) =>
@@ -293,7 +306,7 @@ function Header({
                     "term" + (filters?.term == "Year" ? " active" : "")
                   }
                 >
-                  Per Year
+                  Yearly
                 </div>
               </div>
             </div>

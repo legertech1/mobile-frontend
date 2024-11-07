@@ -1,9 +1,6 @@
 # *
 User-agent: *
-Allow: /
+Disallow: /
 
 # Host
-Host: https://borrowbe.com
-
-# Sitemaps
-Sitemap: https://borrowbe.com/sitemap.xml
+Host: https://m.borrowbe.com
