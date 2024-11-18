@@ -321,8 +321,7 @@ export default function Home() {
         createNewSearch={createNewSearch}
         setLoadingStates={setLoadingStates}
         setSearchFilters={setSearchFilters}
-        filters={filters}
-        setFilters={setFilters}
+        searchFilters={searchFilters}
       />
 
       {tab == "search" && (

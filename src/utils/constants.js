@@ -46,7 +46,8 @@ export const BASE_URL = process.env.REACT_APP_BASE_URL;
 export const NODE_ENV = process.env.NODE_ENV;
 export const ADS_LIMIT = 5;
 
-export const PriceOptions = ["Day", "Week", "Month", "Year"];
+export const PriceOptions = ["Hour", "Day", "Week", "Month", "Year"];
+export const AdTypes = ["Rent", "Lease", "Finance", "Service"];
 export const CANADA_PROVINCES = [
   { value: "AB", label: "Alberta" },
   { value: "BC", label: "British Columbia" },

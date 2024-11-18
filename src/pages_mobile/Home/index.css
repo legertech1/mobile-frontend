@@ -118,11 +118,7 @@
   background-color: transparent;
   animation: fade_in 0.2s var(--bc);
   will-change: transform;
-  /*   
-  position: sticky;
-  height: 100vh;
-  top: 100px;
-  overflow-y: scroll; */
+  background-color: var(--bg);
 }
 ._home .header .category-n-location p {
   overflow: hidden;
@@ -289,7 +285,7 @@
   /* gap: 6px; */
 }
 ._filters .filter {
-  padding: 12px 24px;
+  padding: 12px 30px;
 }
 ._filters .field {
   display: flex;
@@ -402,23 +398,6 @@ input[type="range"]::-moz-range-thumb {
   border: 1px solid #fff;
 }
 
-._filters .term {
-  padding: 6px;
-  background: #fff;
-  border: 1px solid var(--blue);
-  border-radius: 4px;
-  box-sizing: border-box;
-  text-align: center;
-  flex: 1 1;
-  transition: all 0.2s var(--bc);
-  cursor: pointer;
-  color: var(--blue);
-  box-shadow: 0px 0px 8px #ccc;
-  font-size: 15px;
-  font-weight: 500;
-  font-family: var(--font1);
-}
-
 ._filters .selected {
   display: flex;
   align-items: center;
@@ -435,12 +414,6 @@ input[type="range"]::-moz-range-thumb {
 ._filters .term.active {
   background-color: var(--blue);
   color: #fff;
-}
-
-._filters .terms {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
 }
 
 ._filters:-webkit-scrollbar {
@@ -505,6 +478,43 @@ input[type="range"]::-moz-range-thumb {
   color: var(--blue);
 }
 
+._filters .terms {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  flex-wrap: wrap;
+
+  padding-right: 10px;
+  filter: drop-shadow(0px 0px 4px #1114);
+}
+
+._filters .term {
+  padding: 10px 20px;
+  background: #fff;
+  border: 1px solid var(--blue);
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-align: center;
+  flex: 1 1;
+  transition: all 0.2s var(--bc);
+  cursor: pointer;
+  font-family: var(--font1);
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s var(--bc);
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.mobile_modal.filters .content {
+  flex: 1 1;
+  max-height: 80vh;
+  overflow-y: scroll;
+}
+.mobile_modal.filters .content::-webkit-scrollbar {
+  display: none;
+}
 @media (min-width: 720px) {
   ._home .header > h1 {
     font-size: 40px;
