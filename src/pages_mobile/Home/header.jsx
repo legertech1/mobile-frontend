@@ -17,6 +17,8 @@ import ripple from "../../utils/ripple";
 import _Header from "../../components_mobile/Header";
 import { changeSearch, removeSearch } from "../../store/searchSlice";
 import WebLocation from "../../components/WebLocation";
+import { AdTypes, PriceOptions } from "../../utils/constants";
+import Input from "../../components/Shared/Input";
 
 function Header({
   category,
@@ -27,8 +29,9 @@ function Header({
   createNewSearch,
   setLoadingStates,
   setSearchFilters,
-  filters,
-  setFilters,
+  searchFilters,
+  sort,
+  setSort,
 }) {
   const { selectedLocation, currentLocation } = useSelector(
     (state) => state.location
@@ -40,10 +43,7 @@ function Header({
   const [subCategoryModal, setSubCategoryModal] = useState(false);
   const tabsRef = useRef();
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (filters.term == null) delete filters.term;
-    setSearchFilters(filters);
-  }, [filtersModal]);
+  useEffect(() => {}, [filtersModal]);
   useEffect(() => {
     if (!tabsRef.current.childNodes[current]) return;
     tabsRef.current.scrollTo({
@@ -51,6 +51,13 @@ function Header({
       behavior: "smooth",
     });
   }, [searches[current]]);
+  const sortOptions = [
+    { text: "Most relevent", value: { "meta.listingRank": -1 } },
+    { text: "Newest first", value: { createdAt: -1 } },
+    { text: "Oldest first", value: { createdAt: 1 } },
+    { text: "Highest price", value: { price: -1 } },
+    { text: "Lowest price", value: { price: 1 } },
+  ];
   return (
     <div className="header">
       <div className="header-mask"></div>
@@ -167,6 +174,7 @@ function Header({
 
       {filtersModal && (
         <Modal
+          className={"filters"}
           heading={
             <span>
               {" "}
@@ -179,18 +187,26 @@ function Header({
           }}
         >
           <div className="_filters">
+            {/* <Dropdown
+              subtext={"Sort By"}
+              array={sortOptions}
+              value={sort}
+              setValue={(v) => setSort(v)}
+            /> */}
+
             <div className="filter">
               <div className="field">
-                <h2>Min. price:</h2>
-                <input
+                <h2>Min. Price</h2>
+                <Input
+                  pretext="$"
                   type="number"
-                  value={filters?.price?.$gte}
+                  value={searchFilters?.price?.$gte}
                   min={0}
                   onChange={(e) =>
-                    setFilters({
-                      ...filters,
+                    setSearchFilters({
+                      ...searchFilters,
                       price: {
-                        ...filters.price,
+                        ...searchFilters.price,
                         $gte: Number(e.target.value),
                       },
                     })
@@ -202,48 +218,48 @@ function Header({
                   type="range"
                   min="0"
                   max="1000"
-                  value={filters?.price?.$gte}
+                  value={searchFilters?.price?.$gte}
                   onChange={(e) =>
-                    setFilters({
-                      ...filters,
+                    setSearchFilters({
+                      ...searchFilters,
                       price: {
-                        ...filters.price,
+                        ...searchFilters.price,
                         $gte: Number(e.target.value),
                       },
                     })
                   }
                 />
               </div>
-            </div>
-            <hr />
-            <div className="filter">
+              <br />
               <div className="field">
-                <h2>Max. price:</h2>
-                <input
+                <h2>Max. Price</h2>
+
+                <Input
+                  pretext="$"
                   type="number"
-                  value={filters?.price?.$lte}
+                  value={searchFilters?.price?.$lte}
                   onChange={(e) =>
-                    setFilters({
-                      ...filters,
+                    setSearchFilters({
+                      ...searchFilters,
                       price: {
-                        ...filters.price,
+                        ...searchFilters.price,
                         $lte: Number(e.target.value),
                       },
                     })
                   }
-                />
+                ></Input>
               </div>
               <div className="slider">
                 <input
                   type="range"
                   min="0"
                   max="99999"
-                  value={filters?.price?.$lte}
+                  value={searchFilters?.price?.$lte}
                   onChange={(e) =>
-                    setFilters({
-                      ...filters,
+                    setSearchFilters({
+                      ...searchFilters,
                       price: {
-                        ...filters.price,
+                        ...searchFilters.price,
                         $lte: Number(e.target.value),
                       },
                     })
@@ -251,68 +267,132 @@ function Header({
                 />
               </div>
             </div>
-            <hr />
-            <div className="filter">
+
+            <div className="filter t">
               <div className="field">
-                <h2>Rent Term:</h2>
+                <h2>Listing Type</h2>
                 <p></p>
               </div>
               <div className="terms">
-                <div
-                  onClick={(e) =>
-                    setFilters({
-                      ...filters,
-                      term: filters.term == "Day" ? null : "Day",
-                    })
-                  }
-                  className={"term" + (filters?.term == "Day" ? " active" : "")}
-                >
-                  Daily
-                </div>
-                <div
-                  onClick={(e) =>
-                    setFilters({
-                      ...filters,
-                      term: filters.term == "Week" ? null : "Week",
-                    })
-                  }
-                  className={
-                    "term" + (filters?.term == "Week" ? " active" : "")
-                  }
-                >
-                  Weekly
-                </div>
-                <div
-                  onClick={(e) =>
-                    setFilters({
-                      ...filters,
-                      term: filters.term == "Month" ? null : "Month",
-                    })
-                  }
-                  className={
-                    "term" + (filters?.term == "Month" ? " active" : "")
-                  }
-                >
-                  Monthly
-                </div>
-                <div
-                  onClick={(e) =>
-                    setFilters({
-                      ...filters,
-                      term: filters.term == "Year" ? null : "Year",
-                    })
-                  }
-                  className={
-                    "term" + (filters?.term == "Year" ? " active" : "")
-                  }
-                >
-                  Yearly
-                </div>
+                {AdTypes.map((option) => (
+                  <div
+                    className={
+                      "term" +
+                      (searchFilters?.type &&
+                      searchFilters?.type?.$in?.includes(option)
+                        ? " active"
+                        : "")
+                    }
+                    onClick={async (e) =>
+                      setSearchFilters((f) => {
+                        let type = f?.type?.$in?.includes(option)
+                          ? {
+                              $in: [...f.type?.$in?.filter((o) => o != option)],
+                            }
+                          : { $in: [...(f?.type?.$in || []), option] };
+                        if (type.$in.length === 0) {
+                          delete f.type;
+                          console.log(f);
+                          return { ...f };
+                        } else return { ...f, type };
+                      })
+                    }
+                  >
+                    &nbsp; {option} &nbsp;
+                  </div>
+                ))}
               </div>
             </div>
+            <div className="filter t">
+              <div className="field">
+                <h2>Payment Interval</h2>
+                <p></p>
+              </div>
+
+              <div className="terms">
+                {PriceOptions.map((option) => (
+                  <div
+                    className={
+                      "term" +
+                      (searchFilters?.term &&
+                      searchFilters?.term?.$in?.includes(option)
+                        ? " active"
+                        : "")
+                    }
+                    onClick={async (e) =>
+                      setSearchFilters((f) => {
+                        let term = f?.term?.$in?.includes(option)
+                          ? {
+                              $in: [...f.term?.$in?.filter((o) => o != option)],
+                            }
+                          : { $in: [...(f?.term?.$in || []), option] };
+                        if (term.$in.length === 0) {
+                          delete f.term;
+                          console.log(f);
+                          return { ...f };
+                        } else return { ...f, term };
+                      })
+                    }
+                  >
+                    {option == "Day" ? "Daily" : option + "ly"}
+                  </div>
+                ))}
+              </div>
+            </div>
+            {category.name && category.name != "All Categories" && (
+              <div className="filter t">
+                <div className="field">
+                  <h2>Sub Category</h2>
+                  <p></p>
+                </div>
+                <div className="terms">
+                  {category?.subCategories.map((sc) => (
+                    <div
+                      className={
+                        "term" +
+                        (searchFilters["meta.subCategory"]?.$in?.includes(
+                          sc.name
+                        )
+                          ? " active"
+                          : "")
+                      }
+                      onClick={async (e) =>
+                        setSearchFilters((f) => {
+                          let subCategory = f[
+                            "meta.subCategory"
+                          ]?.$in?.includes(sc.name)
+                            ? {
+                                $in: [
+                                  ...f["meta.subCategory"]?.$in?.filter(
+                                    (o) => o != sc.name
+                                  ),
+                                ],
+                              }
+                            : {
+                                $in: [
+                                  ...(f["meta.subCategory"]?.$in || []),
+                                  sc.name,
+                                ],
+                              };
+                          if (subCategory.$in.length === 0) {
+                            delete f["meta.subCategory"];
+
+                            return { ...f };
+                          } else
+                            return { ...f, "meta.subCategory": subCategory };
+                        })
+                      }
+                    >
+                      {sc.name}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </Modal>
       )}
+
       {locModal && (
         <Modal
           className={"location"}
