@@ -61,7 +61,7 @@
   width: 100%;
   overflow: hidden;
   order: 1;
-  margin-top: 0px;
+  margin-top: 3px;
 }
 
 ._listing h3.price {
@@ -90,7 +90,7 @@
   justify-content: space-between;
   order: 1;
   width: 100%;
-  gap: 4px;
+  gap: 6px;
 }
 ._listing .info p.location {
   font-size: 13px;
@@ -98,6 +98,7 @@
   text-overflow: ellipsis;
   white-space: NOWRAP;
   overflow: hidden;
+  font-weight: 500;
 }
 ._listing .info p.location svg {
   fill: var(--blue);
@@ -120,8 +121,8 @@
 }
 
 ._listing h4.title {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
   font-family: var(--font1);
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -132,7 +133,7 @@
 
 ._listing.highlighted .pricing {
   order: 0;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 ._listing.highlighted .badges {
   right: unset;

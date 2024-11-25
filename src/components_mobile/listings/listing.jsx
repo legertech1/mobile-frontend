@@ -174,13 +174,7 @@ function Listing({
         <h4 className={"title" + (empty ? " empty" : "")}>{ad?.title}</h4>
         <div className="secondary">
           <p className={"location" + (empty ? " empty" : "")}>
-            {ad && (
-              <>
-                {" "}
-                <LocationOn />
-                {ad?.location?.name}
-              </>
-            )}
+            {ad && <> {ad?.location?.name}</>}
           </p>
 
           {ad && <p className="type">{ad?.type}</p>}
