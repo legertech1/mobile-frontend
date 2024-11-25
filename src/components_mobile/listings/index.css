@@ -28,7 +28,8 @@
   bottom: 0px;
   width: 100%;
   padding: 4px 8px 8px;
-  background: linear-gradient(180deg, #fff8, #fffa, #fffc, #fff, #fff);
+  padding-right: 4px;
+  background: linear-gradient(180deg, #fff9, #fffb, #fffd, #fff, #fff);
   display: FLEX;
   flex-direction: COLUMN;
   gap: 4px;
