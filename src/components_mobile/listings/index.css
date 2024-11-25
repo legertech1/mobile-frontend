@@ -71,13 +71,13 @@
   font-size: 20px;
   font-family: var(--font1);
   color: var(--blue);
-  font-weight: 600;
+  font-weight: 700;
 }
 ._listing h4.price_hidden {
   font-size: 16px;
-  font-family: var(--font1);
+  font-family: var(--font2);
   color: var(--blue);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 ._listing h3.price span,
