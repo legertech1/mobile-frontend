@@ -62,6 +62,8 @@
   width: 100%;
   overflow: hidden;
   order: 1;
+  font-family: var(--font1);
+  font-weight: 500;
   margin-top: 3px;
 }
 
@@ -81,7 +83,7 @@
 ._listing h3.price span,
 ._listing .info .tax {
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 500;
   font-family: var(--font2);
   color: black;
 }
