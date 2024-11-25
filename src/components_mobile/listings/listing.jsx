@@ -7,6 +7,7 @@ import {
   Favorite,
   FavoriteBorderRounded,
   FavoriteRounded,
+  LocationOn,
   MoreHoriz,
   Pause,
   PinDropRounded,
@@ -98,6 +99,7 @@ function Listing({
         (selected ? " selected" : "")
       }
       onContextMenu={(e) => e.preventDefault()}
+      // style={{ backgroundImage: `url(${ad?.thumbnails[0]})` }}
     >
       <div
         className={"overlay" + (options ? " white" : "")}
@@ -126,6 +128,7 @@ function Listing({
 
       <div className={"image" + (empty ? " empty" : "")}>
         {empty && <div className="empty empty_img"></div>}
+        <img src={ad?.thumbnails[0]} alt="" />
 
         {!empty && (
           <>
@@ -159,11 +162,6 @@ function Listing({
               {!status && (!selected ? <Favorite /> : <Checkmark />)}
               {status && (!selected ? <MoreHoriz /> : <Checkmark />)}
             </div>
-            <img
-              src={ad?.thumbnails[0]}
-              alt=""
-              style={{ pointerEvents: "none" }}
-            />
           </>
         )}
       </div>
@@ -172,50 +170,44 @@ function Listing({
           <div className={`status ${ad?.meta?.status}`}>
             {ad?.meta?.status}{" "}
           </div>
-        )}
-        <h3 className={"title" + (empty ? " empty" : "")}>{ad?.title}</h3>
-        {ad?.meta.highlighted && (
-          <p className="description">{ad.description}</p>
-        )}
-        <div className={"row" + (empty ? " empty" : "")}>
-          {!empty && (
-            <>
-              {" "}
-              <span>
-                <PlaceOutlined />
-                {ad?.location.name}
-              </span>
-            </>
-          )}
-        </div>
-        <div className={"price_row" + (empty ? " empty" : "")}>
-          {!empty &&
-            (ad?.priceHidden ? (
-              <p
-                className="price_hidden"
-                style={{
-                  fontWeight: "500",
-                  color: "var(--blue)",
-                  margin: "0",
-                }}
-              >
-                Please Contact
-              </p>
-            ) : (
+        )}{" "}
+        <h4 className={"title" + (empty ? " empty" : "")}>{ad?.title}</h4>
+        <div className="secondary">
+          <p className={"location" + (empty ? " empty" : "")}>
+            {ad && (
               <>
                 {" "}
-                <span className="price">
-                  {" "}
-                  {ad?.price ? "$" + ad?.price : "Free"}
-                </span>
-                /{ad?.term}{" "}
-                {ad?.tax != "none" && <span className="tax">+{ad?.tax}</span>}
-                {distance <= 100 && distance > -1 && (
-                  <span className="distance">~{distance} Km</span>
-                )}
+                <LocationOn />
+                {ad?.location?.name}
               </>
-            ))}
+            )}
+          </p>
+
+          {ad && <p className="type">{ad?.type}</p>}
         </div>
+        <div className="pricing">
+          {empty && <h2 className="empty"></h2>}
+          {ad && (ad?.priceHidden || ad?.price === 0) && (
+            <h4 className="price_hidden">
+              {ad?.priceHidden ? "Please Contact" : "Free"}
+            </h4>
+          )}{" "}
+          {ad && ad.price != 0 && !ad.priceHidden && (
+            <h3 className="price">
+              ${ad?.price}
+              {ad?.term ? <span>/{ad?.term}</span> : <span>&nbsp; Total</span>}
+            </h3>
+          )}
+          {ad?.installments && (
+            <p className="installments">×{ad?.installments}</p>
+          )}
+          {ad && ad?.tax !== "none" && <p className="tax">+{ad?.tax}</p>}
+        </div>
+        {ad?.meta?.highlighted && (
+          <p style={{ order: 1, paddingTop: "8px" }} className="description">
+            {ad?.description}
+          </p>
+        )}
       </div>
       {status && options && (
         <div
@@ -223,21 +215,6 @@ function Listing({
           ref={optRef}
           onClick={(e) => setOptions(false)}
         >
-          {ad?.meta?.status != "expired" && (
-            <button
-              className="action"
-              onClick={(e) =>
-                ripple(e, {
-                  dur: 1,
-                  cb: () => {
-                    setConfig(true);
-                  },
-                })
-              }
-            >
-              <Settings /> Settings
-            </button>
-          )}
           {ad?.meta?.status == "expired" && (
             <button
               className="action"
@@ -297,6 +274,21 @@ function Listing({
           >
             <Edit /> Edit
           </button>
+          {ad?.meta?.status != "expired" && (
+            <button
+              className="action"
+              onClick={(e) =>
+                ripple(e, {
+                  dur: 1,
+                  cb: () => {
+                    setConfig(true);
+                  },
+                })
+              }
+            >
+              <Settings /> Settings
+            </button>
+          )}
           <button
             className="action _del"
             onClick={(e) =>

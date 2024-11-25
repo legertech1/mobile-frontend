@@ -11,11 +11,13 @@ export default function Input({
   onChange,
   value,
   onKeyDown,
+  pretext,
   maxLength,
 }) {
   const [show, setShow] = React.useState(false);
   return (
     <div className="input_container">
+      <span>{pretext}</span>
       <input
         placeholder={placeholder || ""}
         className="html-input"

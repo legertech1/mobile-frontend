@@ -7,6 +7,7 @@ import UploadPictures from "./UploadPictures";
 
 import {
   adLocationTypesExcluded,
+  AdTypes,
   defaultMapProps,
   mapStyles,
 } from "../../utils/constants";
@@ -39,6 +40,12 @@ import useNotification from "../../hooks/useNotification";
 
 import AdPricing from "./AdPricing";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import Info from "../../components/Info";
+import {
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  PinDropOutlined,
+} from "@mui/icons-material";
 export default function AdForm({ edit }) {
   const formData = useSelector((state) => state.ad);
 
@@ -60,7 +67,7 @@ export default function AdForm({ edit }) {
   const [categoryIndex, setCategoryIndex] = useState(-1);
   const [subCategoryIndex, setSubCategoryIndex] = useState(-1);
   const params = useParams();
-
+  const [state, setState] = useState("indefinite");
   const [showBusinessInfoForm, setShowBusinessInfoForm] = useState(false);
   const handleFormData = (name, value) => {
     dispatch(setFormData({ ...formData, [name]: value }));
@@ -240,8 +247,11 @@ export default function AdForm({ edit }) {
         return notification.error(
           "Description is required and must be between 40 to 8000 characters"
         );
-      if (!formData.term && !formData.priceHidden)
+      if (!formData.term && !formData.priceHidden && state != "total")
         return notification.error("Duration term is required");
+      if (state == "definite" && !formData.installments) {
+        return notification.error("No. of installments is required");
+      }
     }
     if (step >= 3) {
       const fields = [
@@ -269,11 +279,18 @@ export default function AdForm({ edit }) {
         }
       }
     }
+    if (edit && step == 4) {
+      if (formData.images.length < 1)
+        return notification.error("At least one image is required");
+
+      if (!formData.location)
+        return notification.error("Selecting a location is required");
+      return navigate("/preview-ad?edit=true");
+    }
     if (step >= 4) {
       if (!edit && !cart.package.name)
         return notification.error("Please select a package");
-      if (!formData.location)
-        return notification.error("Selecting a location is required");
+
       if (!edit && cart?.extras?.business && !user?.BusinessInfo?.name)
         return notification.error("Please provide business details");
       if (formData.location.components.country.short_name != country)
@@ -284,7 +301,10 @@ export default function AdForm({ edit }) {
     if (step == 5) {
       if (formData.images.length < 1)
         return notification.error("At least one image is required");
-      return navigate(url || edit ? "/preview-ad?edit=true" : "/preview-ad");
+
+      if (!formData.location)
+        return notification.error("Selecting a location is required");
+      return navigate("/preview-ad");
     }
     setCurrentStep(step);
     document.querySelector(".___app").scrollTo({ top: 0, behavior: "smooth" });
@@ -344,7 +364,7 @@ export default function AdForm({ edit }) {
         <div className="field_container">
           <div className="field_info">
             <h4>
-              Ad Title <span>(required)</span>
+              Ad Title <span>required</span>
             </h4>
             <p>
               Your Ad's title is the most important place to include keywords
@@ -365,7 +385,7 @@ export default function AdForm({ edit }) {
           <div className="field_container">
             <div className="field_info">
               <h4>
-                Select Category and Sub-category <span>(required)</span>
+                Category and Sub-category <span>required</span>
               </h4>
               <p>
                 Choose the most suitable category and subcategory for your Ad.
@@ -421,105 +441,221 @@ export default function AdForm({ edit }) {
             </div>
           </div>
         )}
-        <div className="field_container" style={{ alignItems: "start" }}>
+
+        <div className="field_container">
           <div className="field_info">
             <h4>
-              Amount and Term <span>(required)</span>
+              Ad Type <span>required</span>
             </h4>
             <p>
-              Enter the amount for your ad along with the corresponding
-              duration: Day, Month, or Year.
+              Select the option that best describes your offering type—whether
+              it’s a service, rental, lease, or financing deal—to clearly
+              communicate what users can expect.
             </p>
           </div>
-          <div
-            className="_pr_row"
-            style={
-              formData.priceHidden
-                ? { marginBottom: "-160px", transition: "all 0.1s var(--bc)" }
-                : { marginBottom: "0px", transition: "all 0.1s var(--bc)" }
-            }
-          >
+          <div className="ad_type_container mw">
+            {AdTypes.map((t) => (
+              <div
+                className={"ad_type" + (formData.type == t ? " active" : "")}
+                onClick={() => {
+                  dispatch(setFormData({ ...formData, type: t, term: "" }));
+                  // handleFormData("term", "");
+                }}
+              >
+                {t}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div
+          className="field_container price_cont"
+          style={{ alignItems: "start" }}
+        >
+          <div className="field_info">
+            <h4>
+              Pricing Information <span>required</span>
+            </h4>
             <div className="price_hidden">
+              <article>
+                Do not disclose pricing details. Show{" "}
+                <span
+                  style={{
+                    color: "var(--blue)",
+                    fontWeight: "500",
+                  }}
+                >
+                  {" "}
+                  Please Contact{" "}
+                </span>
+                instead.
+              </article>
               <Checkbox
                 checked={formData.priceHidden}
                 setChecked={(v) =>
-                  dispatch(setFormData({ ...formData, priceHidden: v }))
+                  dispatch(
+                    setFormData({
+                      ...formData,
+                      priceHidden: v,
+                      term: "",
+                      price: "",
+                      installments: "",
+                    })
+                  )
                 }
               />{" "}
-              Do not disclose pricing details. Show "Please Contact" instead of
-              price.
-            </div>{" "}
-            <PriceInput
-              style={
-                formData.priceHidden
-                  ? {
-                      transform: "scaleY(0)",
-                      opacity: "0",
-                    }
-                  : { transform: "scaleY(1)", opacity: "1" }
-              }
-              onChangeTerm={(term) => {
-                handleFormData("term", term);
-              }}
-              price={formData.price}
-              term={formData.term}
-              onChange={(e) => {
-                if (isNaN(e.target.value)) return;
-                if (e.target.value.split(".")[1]?.length > 2) return;
+            </div>
+          </div>
 
-                handleFormData("price", e.target.value.trim().slice(0, 10));
-              }}
-            />
-            <div
-              className="tax_op"
-              style={
-                formData.priceHidden
-                  ? {
-                      transform: "scaleY(0)",
-                      opacity: "0",
-                    }
-                  : { transform: "scaleY(1)", opacity: "1" }
-              }
-            >
-              <span className="free">*$0 will be shown as free</span>
-              <div className="tax">
-                <span>Tax:</span>
-                <p>
-                  <Checkbox
-                    checked={formData.tax == "none"}
-                    setChecked={(v) =>
-                      v && dispatch(setFormData({ ...formData, tax: "none" }))
-                    }
-                  />
-                  none
-                </p>
-                <p>
-                  <Checkbox
-                    checked={formData.tax == "HST"}
-                    setChecked={(v) =>
-                      v && dispatch(setFormData({ ...formData, tax: "HST" }))
-                    }
-                  />
-                  +HST
-                </p>
-                <p>
-                  <Checkbox
-                    checked={formData.tax == "GST"}
-                    setChecked={(v) =>
-                      v && dispatch(setFormData({ ...formData, tax: "GST" }))
-                    }
-                  />{" "}
-                  +GST
-                </p>
-                <p>
-                  <Checkbox
-                    checked={formData.tax == "TAX"}
-                    setChecked={(v) =>
-                      v && dispatch(setFormData({ ...formData, tax: "TAX" }))
-                    }
-                  />{" "}
-                  +TAX
-                </p>
+          <div className={"pricing" + (formData.priceHidden ? " hidden" : "")}>
+            <div className="p_field">
+              <p className="pricing_text">
+                How do you want to display the price?{" "}
+                <Info
+                  heading={"Display Pricing"}
+                  info={
+                    <span>
+                      {" "}
+                      <b>Recurring Payments:</b> Set a regular payment amount
+                      that continues indefinitely. Great for ongoing services or
+                      rentals without a predetermined end date.
+                      <br />
+                      <br />
+                      <b>Installments:</b> Break down the total price into equal
+                      payments over a set period. Ideal for financing or
+                      leasing, allowing customers to pay over time.
+                      <br />
+                      <br />
+                      <b>Total Amount:</b> Display the full price upfront. You
+                      can discuss and arrange the payment schedule with your
+                      customer, offering flexibility.
+                    </span>
+                  }
+                />
+              </p>
+
+              <div className="pricing_type">
+                <div
+                  className={"type" + (state == "indefinite" ? " active" : "")}
+                  onClick={() => {
+                    setState("indefinite");
+                    dispatch(
+                      setFormData({
+                        ...formData,
+                        term: "",
+                        price: "",
+                        installments: "",
+                      })
+                    );
+                  }}
+                >
+                  Recurring Payments
+                </div>
+                <div
+                  className={"type" + (state == "definite" ? " active" : "")}
+                  onClick={() => {
+                    setState("definite");
+                    dispatch(
+                      setFormData({
+                        ...formData,
+                        term: "",
+                        price: "",
+                        installments: "",
+                      })
+                    );
+                  }}
+                >
+                  Installments
+                </div>
+                <div
+                  className={"type" + (state == "total" ? " active" : "")}
+                  onClick={() => {
+                    setState("total");
+                    dispatch(
+                      setFormData({
+                        ...formData,
+                        term: "",
+                        price: "",
+                        installments: "",
+                      })
+                    );
+                  }}
+                >
+                  Total Amount
+                </div>
+              </div>
+            </div>
+            <div className="p_field">
+              <p className="pricing_text">
+                {" "}
+                {state == "indefinite"
+                  ? "Amount and Term"
+                  : state == "definite"
+                  ? "Amount, Term and no. of Installments"
+                  : "Amount"}
+              </p>
+              <PriceInput
+                type={formData.type}
+                installments={formData.installments}
+                setInstallments={(e) => {
+                  if (isNaN(e.target.value)) return;
+                  if (e.target.value.split(".")[1]?.length > 2) return;
+
+                  handleFormData(
+                    "installments",
+                    e.target.value.trim().slice(0, 3)
+                  );
+                }}
+                reset={() => {
+                  dispatch(
+                    setFormData({
+                      ...formData,
+                      term: "",
+                      price: "",
+                      installments: "",
+                    })
+                  );
+                }}
+                state={state}
+                term={formData.term}
+                price={formData.price}
+                setPrice={(e) => {
+                  if (isNaN(e.target.value)) return;
+                  if (e.target.value.split(".")[1]?.length > 2) return;
+
+                  handleFormData("price", e.target.value.trim().slice(0, 10));
+                }}
+                onChangeTerm={(t) => {
+                  handleFormData("term", t);
+                }}
+              />
+            </div>
+            <div className="p_field">
+              <p className="pricing_text">Additional Tax</p>
+              <div className="tax_cont">
+                <div
+                  className={"tax" + (formData.tax == "none" ? " active" : "")}
+                  onClick={() => handleFormData("tax", "none")}
+                >
+                  None
+                </div>
+                <div
+                  className={"tax" + (formData.tax == "TAX" ? " active" : "")}
+                  onClick={() => handleFormData("tax", "TAX")}
+                >
+                  TAX
+                </div>
+                <div
+                  className={"tax" + (formData.tax == "HST" ? " active" : "")}
+                  onClick={() => handleFormData("tax", "HST")}
+                >
+                  HST
+                </div>
+                <div
+                  className={"tax" + (formData.tax == "GST" ? " active" : "")}
+                  onClick={() => handleFormData("tax", "GST")}
+                >
+                  GST
+                </div>
               </div>
             </div>
           </div>
@@ -595,7 +731,7 @@ export default function AdForm({ edit }) {
                     tagRef.current.value = "";
                   }}
                 >
-                  Add
+                  <KeyboardArrowRight />
                 </button>
               </div>
             )}
@@ -623,7 +759,7 @@ export default function AdForm({ edit }) {
         </div>
         <div className="field_container desc">
           <h4>
-            Description <span>(required)</span>
+            Description <span>required</span>
           </h4>
           <TextArea
             onChange={(e) => {
@@ -657,16 +793,20 @@ export default function AdForm({ edit }) {
         ))}
       </>
     ),
-    4: (
-      <>
-        <UploadPictures />
-      </>
-    ),
     3: (
       <div className="step3">
         {!edit && <AdPricing category={categories[categoryIndex]} />}
+      </div>
+    ),
+    [edit ? 3 : 4]: (
+      <>
+        <UploadPictures />
         <div className="location_section">
-          <h2>Choose Location for your Ad</h2>
+          <h2>
+            {" "}
+            <PinDropOutlined />
+            Select Ad Location
+          </h2>
           <div className="location">
             <div className="selections">
               {" "}
@@ -758,7 +898,7 @@ export default function AdForm({ edit }) {
             </div>
           </div>
         </div>
-      </div>
+      </>
     ),
   };
 
@@ -769,20 +909,14 @@ export default function AdForm({ edit }) {
           <div className="step_cont">
             <Stepper
               current={currentStep}
-              onExit={discard}
               steps={
                 edit
-                  ? [
-                      { step: "Basic Info" },
-                      { step: "Specific Details" },
-                      { step: "Location" },
-                      { step: "Upload Images" },
-                    ]
+                  ? ["Basic Info", "Specific Details", "Images"]
                   : [
-                      { step: "Basic Info" },
-                      { step: "Specific Details" },
-                      { step: "Plan & Location" },
-                      { step: "Upload Images" },
+                      "Basic Info",
+                      "Specific Details",
+                      "Package and Add-ons",
+                      "Images and Location",
                     ]
               }
               onClick={formNav}
@@ -801,22 +935,12 @@ export default function AdForm({ edit }) {
                 Discard
               </button>
 
-              {!edit && (
-                <Button
-                  className="btn_blue_m next_btn"
-                  onClick={() => formNav(currentStep + 1)}
-                >
-                  {currentStep == 4 ? "Proceed to Preview" : "Save & Continue"}
-                </Button>
-              )}
-              {edit && (
-                <button
-                  className="btn_blue_m next_btn"
-                  onClick={(e) => formNav(5, "/preview-ad")}
-                >
-                  Save and Preview
-                </button>
-              )}
+              <Button
+                className="btn_blue_m next_btn"
+                onClick={() => formNav(currentStep + 1)}
+              >
+                {currentStep == 4 ? "Proceed to Preview" : "Save & Continue"}
+              </Button>
             </div>
           </div>
         </div>

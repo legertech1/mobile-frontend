@@ -117,7 +117,7 @@ function Listings({ ads, setAds, loading, num, gestures, update, status }) {
         ads?.map((ad) => (
           <Listing
             ad={ad}
-            key={ad._id}
+            key={ad?._id}
             setAds={setAds}
             selected={selected?.includes(ad._id)}
             setSelected={setSelected}

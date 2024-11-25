@@ -19,6 +19,7 @@ import { changeSearch, removeSearch } from "../../store/searchSlice";
 import WebLocation from "../../components/WebLocation";
 import { AdTypes, PriceOptions } from "../../utils/constants";
 import Input from "../../components/Shared/Input";
+import { Sprout } from "styled-icons/fa-solid";
 
 function Header({
   category,
@@ -32,6 +33,7 @@ function Header({
   searchFilters,
   sort,
   setSort,
+  sortOptions,
 }) {
   const { selectedLocation, currentLocation } = useSelector(
     (state) => state.location
@@ -41,6 +43,7 @@ function Header({
   const [locModal, setLocModal] = useState(false);
   const { current, searches } = useSelector((state) => state.search);
   const [subCategoryModal, setSubCategoryModal] = useState(false);
+  const [sortModal, setSortModal] = useState(false);
   const tabsRef = useRef();
   const dispatch = useDispatch();
   useEffect(() => {}, [filtersModal]);
@@ -51,13 +54,7 @@ function Header({
       behavior: "smooth",
     });
   }, [searches[current]]);
-  const sortOptions = [
-    { text: "Most relevent", value: { "meta.listingRank": -1 } },
-    { text: "Newest first", value: { createdAt: -1 } },
-    { text: "Oldest first", value: { createdAt: 1 } },
-    { text: "Highest price", value: { price: -1 } },
-    { text: "Lowest price", value: { price: 1 } },
-  ];
+
   return (
     <div className="header">
       <div className="header-mask"></div>
@@ -193,6 +190,14 @@ function Header({
               value={sort}
               setValue={(v) => setSort(v)}
             /> */}
+
+            <div className="filter">
+              {" "}
+              <div className="sort" onClick={() => setSortModal(true)}>
+                <h4>Sort By:</h4> <p>{sort?.text}</p>
+                <KeyboardArrowDown />
+              </div>
+            </div>
 
             <div className="filter">
               <div className="field">
@@ -343,6 +348,7 @@ function Header({
               <div className="filter t">
                 <div className="field">
                   <h2>Sub Category</h2>
+
                   <p></p>
                 </div>
                 <div className="terms">
@@ -400,6 +406,21 @@ function Header({
           close={() => setLocModal(false)}
         >
           <WebLocation />
+        </Modal>
+      )}
+      {sortModal && (
+        <Modal
+          heading={"Select sorting order"}
+          close={(e) => setSortModal(false)}
+        >
+          <ModalSelector
+            items={sortOptions}
+            close={(e) => setSortModal(false)}
+            state={sort}
+            setState={(v) => {
+              setSort(v);
+            }}
+          />
         </Modal>
       )}
     </div>

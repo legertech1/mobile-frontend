@@ -232,7 +232,7 @@ function ViewListing({ preview, _id, header }) {
                 >
                   <ArrowBack />
                 </button>
-                <p>{listing?.listingID}</p>
+                <p>{listing?.listingID || "A0000001"}</p>
               </div>
             )}
             <div

@@ -4,7 +4,7 @@
   position: relative;
   min-height: 200px;
   overflow: hidden;
-  max-height: 600px;
+  max-height: 460px;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -13,7 +13,7 @@
 ._right {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
   min-width: 300px;
 }
 .view_listing ::-webkit-scrollbar {
@@ -21,7 +21,7 @@
 }
 .view_listing {
   width: 100%;
-  padding: 12px;
+  padding: 8px;
   box-sizing: border-box;
   padding-bottom: 10vh;
 }
@@ -107,11 +107,11 @@
 }
 
 .view_listing .wishlist {
-  height: 32px;
-  width: 32px;
+  height: 36px;
+  width: 36px;
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 6px;
+  right: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,13 +120,13 @@
   border: none;
   z-index: 4;
   border-radius: 50%;
-  box-shadow: 0px 0px 2px #1112;
+  filter: drop-shadow(2px 2px 8px #1115);
 }
 .view_listing .wishlist svg {
   fill: transparent;
   stroke: var(--red);
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
   display: flex;
   align-items: center;
   stroke-width: 2;
@@ -195,11 +195,11 @@
 }
 
 .view_listing .tile {
-  padding: 12px;
+  padding: 16px;
   box-sizing: border-box;
   background: white;
   border-radius: 6px;
-  box-shadow: 0px 0px 8px #1113;
+  filter: drop-shadow(0px 0px 4px #1115);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -248,21 +248,21 @@
 .view_listing h1.price img {
   height: 28px;
   border-radius: 4px;
-  align-self: baseline;
+  align-self: flex-end;
 }
 
 .view_listing h1 {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   font-family: var(--font2);
 }
 
 .view_listing h1 svg {
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
   fill: var(--blue);
   stroke: white;
   stroke-width: 0.2;
@@ -327,7 +327,7 @@
   display: flex;
   width: 100%;
   margin: auto;
-  gap: 8px;
+  gap: 12px;
   flex-direction: column;
 }
 
@@ -460,8 +460,8 @@
   border-radius: 6px;
   /* margin: -4px; */
   box-shadow: 0px 0px 8px #1113;
-  top: 8px;
-  right: 8px;
+  top: 10px;
+  right: 10px;
 }
 
 .view_listing .posted_on .actions button svg {
@@ -497,8 +497,9 @@
 
 .view_listing .tags > div {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   flex-wrap: wrap;
+  filter: drop-shadow(0px 0px 4px #1114);
 }
 .view_listing .price .country {
   margin-left: auto;
@@ -508,13 +509,14 @@
 
 .view_listing .tag {
   border-radius: 4px;
-  padding: 6px 12px;
-  background: #eee;
+  padding: 8px 16px;
+  background-color: var(--blue);
   font-weight: 500;
   font-size: 14px;
   display: flex;
   align-items: center;
   gap: 4px;
+  color: white;
   box-sizing: border-box;
   min-width: -moz-fit-content;
   min-width: fit-content;
@@ -822,7 +824,7 @@
   padding: 0;
   display: flex;
   align-items: start;
-  gap: 8px;
+  gap: 12px;
 }
 
 .view_listing .business a svg {
@@ -854,14 +856,6 @@
   text-overflow: ellipsis;
 }
 
-/* .view_listing .business_main .info h3 a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 400;
-  font-size: 20px;
-  cursor: pointer;
-} */
 .view_listing .business_main .info p {
   font-size: 14px;
   font-weight: 600;
@@ -876,7 +870,7 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  row-gap: 8px;
+  row-gap: 12px;
   column-gap: 20px;
 }
 
@@ -1062,19 +1056,26 @@
   top: -1px;
 }
 @media (min-width: 820px) {
+  .view_listing {
+    padding: 12px 24px;
+  }
   .view_listing .main {
     flex-direction: row;
     flex-wrap: wrap;
+
+    gap: 16px !important;
   }
   ._left {
     width: 60%;
     flex: 1;
     min-width: 55% !important;
+    gap: 16px !important;
   }
   ._right {
     width: 36%;
     flex: 1;
     max-width: 600px;
+    gap: 16px !important;
   }
   .view_listing .tile.preview {
     flex-direction: row;
