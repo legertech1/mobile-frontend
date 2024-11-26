@@ -184,9 +184,6 @@ const UploadPictures = () => {
       )}
       <div className="image_gallery">
         {" "}
-        <h2 style={{ marginTop: "4px", marginBottom: "8px" }}>
-          <CollectionsOutlined /> Upload Images
-        </h2>
         <div className="image_scroll">
           {[...Array(AD_IMAGES_LIMIT)].map((image, index) => (
             <>

@@ -57,7 +57,7 @@ function AdPricing({ category, preconfig, ignoreFree }) {
       <div className="pricing_section">
         <h2 style={{ marginTop: "4px" }}>
           {" "}
-          <PackageIcon className="package_icon" /> Pick a Package that fits
+          <PackageIcon className="package_icon" /> Pick a Package
         </h2>
         {width < "1000" && (
           <div className={"package_select " + cart.package?.name}>
@@ -262,7 +262,7 @@ function AdPricing({ category, preconfig, ignoreFree }) {
       </div>
       <div className="pricing_section">
         <h2>
-          <AutoAwesomeOutlined /> Extras to enhance your Ad
+          <AutoAwesomeOutlined /> Extras for your Ad
         </h2>
         <div className="extra">
           <div className="info">
@@ -280,7 +280,7 @@ function AdPricing({ category, preconfig, ignoreFree }) {
               }
             />
             <h3>
-              Post as Business Ad{" "}
+              Business Ad{" "}
               <Info
                 heading={"Business Ad"}
                 info={
@@ -339,7 +339,7 @@ function AdPricing({ category, preconfig, ignoreFree }) {
                   }
                 />
                 <h3>
-                  Add your Website{" "}
+                  Add Website URL{" "}
                   <Info
                     heading={"Adding a Website"}
                     info={
@@ -393,7 +393,7 @@ function AdPricing({ category, preconfig, ignoreFree }) {
                   }
                 />
                 <h3>
-                  Add a Youtube Video{" "}
+                  Add Youtube Video{" "}
                   <Info
                     heading={"Adding a Youtube video"}
                     info={
@@ -484,10 +484,10 @@ function AddOn({ addOn, setSelected, name, selected, type }) {
           return (
             <div
               onClick={() => {
-                if (selected && current == index) setSelected(false);
+                if (selected && current == index) setSelected(null);
                 if ((selected && current != index) || !selected) {
                   setCurrent(index);
-                  setSelected(true);
+                  setSelected(item);
                 }
               }}
               className={current == index && selected ? "selected" : ""}

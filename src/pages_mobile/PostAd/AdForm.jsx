@@ -248,7 +248,7 @@ export default function AdForm({ edit }) {
           "Description is required and must be between 40 to 8000 characters"
         );
       if (!formData.term && !formData.priceHidden && state != "total")
-        return notification.error("Duration term is required");
+        return notification.error("Payment term is required");
       if (state == "definite" && !formData.installments) {
         return notification.error("No. of installments is required");
       }
@@ -364,13 +364,8 @@ export default function AdForm({ edit }) {
         <div className="field_container">
           <div className="field_info">
             <h4>
-              Ad Title <span>required</span>
+              Ad Title <span>(required)</span>
             </h4>
-            <p>
-              Your Ad's title is the most important place to include keywords
-              that buyers will use to search for your Ad. Include key
-              information about what you're renting (brand, age, condition, etc)
-            </p>
           </div>
           <Input
             placeholder={"Write a concise informative title for your Ad"}
@@ -385,15 +380,8 @@ export default function AdForm({ edit }) {
           <div className="field_container">
             <div className="field_info">
               <h4>
-                Category and Sub-category <span>required</span>
+                Category and Sub-category <span>(required)</span>
               </h4>
-              <p>
-                Choose the most suitable category and subcategory for your Ad.
-                Selecting the right values will help buyers get to your ad
-                easily by searching in the Category and Sub-category for your
-                Ad. Note that the category of an ad cannot be changed after it
-                is posted.
-              </p>
             </div>
             <div className="dropdowns">
               <Dropdown
@@ -445,13 +433,8 @@ export default function AdForm({ edit }) {
         <div className="field_container">
           <div className="field_info">
             <h4>
-              Ad Type <span>required</span>
+              Ad Type <span>(required)</span>
             </h4>
-            <p>
-              Select the option that best describes your offering type—whether
-              it’s a service, rental, lease, or financing deal—to clearly
-              communicate what users can expect.
-            </p>
           </div>
           <div className="ad_type_container mw">
             {AdTypes.map((t) => (
@@ -473,7 +456,7 @@ export default function AdForm({ edit }) {
         >
           <div className="field_info">
             <h4>
-              Pricing Information <span>required</span>
+              Pricing Information <span>(required)</span>
             </h4>
             <div className="price_hidden">
               <article>
@@ -585,14 +568,6 @@ export default function AdForm({ edit }) {
               </div>
             </div>
             <div className="p_field">
-              <p className="pricing_text">
-                {" "}
-                {state == "indefinite"
-                  ? "Amount and Term"
-                  : state == "definite"
-                  ? "Amount, Term and no. of Installments"
-                  : "Amount"}
-              </p>
               <PriceInput
                 type={formData.type}
                 installments={formData.installments}
@@ -663,10 +638,6 @@ export default function AdForm({ edit }) {
         <div className="field_container">
           <div className="field_info">
             <h4>Search Tags </h4>
-            <p>
-              Use relevant buzzwords to tag your ad with what you're offering.
-              You can include up to 5 tags.
-            </p>
           </div>
 
           <div className="_tags">
@@ -759,7 +730,7 @@ export default function AdForm({ edit }) {
         </div>
         <div className="field_container desc">
           <h4>
-            Description <span>required</span>
+            Description <span>(required)</span>
           </h4>
           <TextArea
             onChange={(e) => {
@@ -915,8 +886,8 @@ export default function AdForm({ edit }) {
                   : [
                       "Basic Info",
                       "Specific Details",
-                      "Package and Add-ons",
-                      "Images and Location",
+                      "Package",
+                      "Images & Location",
                     ]
               }
               onClick={formNav}

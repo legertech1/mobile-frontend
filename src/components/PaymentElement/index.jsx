@@ -133,7 +133,7 @@ function PaymentElement({
                   <span>
                     {cart.package.free
                       ? "Free"
-                      : "$" + cart?.package.item.price.toFixed(2)}
+                      : "$" + cart?.package.item.price?.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -148,7 +148,7 @@ function PaymentElement({
                         1× Bump Up every {cart.addOns.bumpUp.frequency} days
                       </h4>
                     </div>
-                    <span>${cart.addOns.bumpUp.price.toFixed(2)}</span>
+                    <span>${cart.addOns.bumpUp.price?.toFixed(2)}</span>
                   </div>
                 )}
                 {cart?.addOns?.featured && (
@@ -159,7 +159,7 @@ function PaymentElement({
                         1× Featured Ad for {cart.addOns.featured.days} days
                       </h4>
                     </div>
-                    <span>${cart.addOns.featured.price.toFixed(2)}</span>
+                    <span>${cart.addOns.featured.price?.toFixed(2)}</span>
                   </div>
                 )}
                 {cart?.addOns?.highlighted && (
@@ -173,7 +173,7 @@ function PaymentElement({
                         days
                       </h4>
                     </div>
-                    <span>${cart.addOns.highlighted.price.toFixed(2)}</span>
+                    <span>${cart.addOns.highlighted.price?.toFixed(2)}</span>
                   </div>
                 )}
                 {cart?.addOns?.homepageGallery && (
@@ -185,7 +185,9 @@ function PaymentElement({
                         {cart.addOns.homepageGallery.days} days
                       </h4>
                     </div>
-                    <span>${cart.addOns.homepageGallery.price.toFixed(2)}</span>
+                    <span>
+                      ${cart.addOns.homepageGallery.price?.toFixed(2)}
+                    </span>
                   </div>
                 )}
               </div>
@@ -197,7 +199,7 @@ function PaymentElement({
                     <div>
                       <h4> 1× Business Ad</h4>
                     </div>
-                    <span>${cart.extras.business.price.toFixed(2)}</span>
+                    <span>${cart.extras.business.price?.toFixed(2)}</span>
                   </div>
                 )}
                 {cart?.extras?.website && (
@@ -205,7 +207,7 @@ function PaymentElement({
                     <div>
                       <h4> 1× Add Website</h4>
                     </div>
-                    <span>${cart.extras.website.price.toFixed(2)}</span>
+                    <span>${cart.extras.website.price?.toFixed(2)}</span>
                   </div>
                 )}
                 {cart?.extras?.youtube && (
@@ -213,7 +215,7 @@ function PaymentElement({
                     <div>
                       <h4> 1× Add Youtube Video</h4>
                     </div>
-                    <span>${cart.extras.youtube.price.toFixed(2)}</span>
+                    <span>${cart.extras.youtube.price?.toFixed(2)}</span>
                   </div>
                 )}
               </div>
@@ -226,7 +228,7 @@ function PaymentElement({
             <div className="package_info">
               <h3>Borrowbe Balance</h3>
 
-              <span>${balance.toFixed(2)}</span>
+              <span>${balance?.toFixed(2)}</span>
             </div>
           </div>
         )}
@@ -247,7 +249,7 @@ function PaymentElement({
                       c.name == listing?.meta?.category
                   )[0]
                 )[0]
-            ).toFixed(2) || 0}
+            )?.toFixed(2) || 0}
           </span>
         </div>
       </div>

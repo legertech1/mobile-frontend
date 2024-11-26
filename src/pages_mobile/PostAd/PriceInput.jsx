@@ -28,6 +28,7 @@ export default function PriceInput({
   const [country, setCountry] = useLocalStorage("country", null);
   return (
     <div className="_price_inp" style={style}>
+      <p>Amount</p>
       <div className="custom_price_input">
         <div aria-label="menu" className="symbol">
           {country}$
@@ -70,16 +71,21 @@ export default function PriceInput({
         )}
       </div>
       {state !== "total" && (
-        <div className="option_container">
-          {options.map((option) => (
-            <div
-              onClick={() => onChangeTerm(option)}
-              className={`price_option ${option === term && "option_selected"}`}
-            >
-              {option == "Day" ? "Daily" : option + "ly"}
-            </div>
-          ))}
-        </div>
+        <>
+          <p style={{ marginTop: "20px" }}>Payment term </p>
+          <div className="option_container">
+            {options.map((option) => (
+              <div
+                onClick={() => onChangeTerm(option)}
+                className={`price_option ${
+                  option === term && "option_selected"
+                }`}
+              >
+                {option == "Day" ? "Daily" : option + "ly"}
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
