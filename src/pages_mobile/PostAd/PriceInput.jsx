@@ -19,11 +19,9 @@ export default function PriceInput({
   const options = useMemo(() => {
     if (type == "Service") {
       return PriceOptions.filter((o) => o != "Year");
-    } else if (type == "Rent") {
-      return PriceOptions.filter((o) => o != "Hour");
     } else if (type == "Lease" || type == "Finance")
       return PriceOptions.filter((o) => o != "Hour" && o != "Day");
-    return PriceOptions;
+    return PriceOptions.filter((o) => o != "Hour");
   }, [type]);
   const [country, setCountry] = useLocalStorage("country", null);
   return (

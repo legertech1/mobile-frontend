@@ -5,7 +5,7 @@
   background: white;
   grid-auto-flow: dense;
   padding-bottom: 10vh;
-  gap: calc(0.5vh + 0.5vw) !important;
+  gap: calc(0.6vh + 0.6vw) !important;
   background-color: transparent !important;
 }
 ._listing .empty_img {
