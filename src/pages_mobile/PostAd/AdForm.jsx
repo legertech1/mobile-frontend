@@ -76,10 +76,9 @@ export default function AdForm({ edit }) {
     if (user == null) navigate("/login");
   }, [user]);
   function init() {
-    if (value) return;
     let loc;
     if (formData?.location) loc = formData?.location;
-    else getCurrentLocation();
+    getCurrentLocation();
 
     loc &&
       setValue({
