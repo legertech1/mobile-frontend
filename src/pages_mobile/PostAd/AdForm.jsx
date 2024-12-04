@@ -41,6 +41,7 @@ import useNotification from "../../hooks/useNotification";
 import AdPricing from "./AdPricing";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import Info from "../../components/Info";
+import Editor from "../../components/Editor/EditorWrapper";
 import {
   KeyboardArrowLeft,
   KeyboardArrowRight,
@@ -733,14 +734,10 @@ export default function AdForm({ edit }) {
           <h4>
             Description <span>(required)</span>
           </h4>
-          <TextArea
-            onChange={(e) => {
-              handleFormData("description", e.target.value.slice(0, 8000));
-            }}
+          <Editor
             placeholder={
-              "Describe your item, include all important details related to the item."
+              "Describe your offering, include all important details related to the item/service/asset"
             }
-            value={formData.description}
           />
         </div>
       </>

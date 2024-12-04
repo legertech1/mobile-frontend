@@ -528,7 +528,7 @@ function ViewListing({ preview, _id, header }) {
                       </span>
                     )}
                   </h1>
-                  <p
+                  <div
                     className="_desc"
                     ref={desc}
                     style={
@@ -536,9 +536,8 @@ function ViewListing({ preview, _id, header }) {
                         ? { maxHeight: desc?.current?.scrollHeight + "px" }
                         : {}
                     }
-                  >
-                    <pre>{listing?.description}</pre>
-                  </p>
+                    dangerouslySetInnerHTML={{ __html: listing.description }}
+                  ></div>
                 </div>
               </div>
               <div className="_right">

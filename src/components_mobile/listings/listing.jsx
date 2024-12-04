@@ -42,6 +42,7 @@ function Listing({
   setSelected,
   status,
   actions,
+  parser = new DOMParser(),
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -199,7 +200,9 @@ function Listing({
         </div>
         {ad?.meta?.highlighted && (
           <p style={{ order: 1, paddingTop: "8px" }} className="description">
-            {ad?.description}
+            {parser
+              .parseFromString(ad?.description, "text/html")
+              .body.textContent.trim()}
           </p>
         )}
       </div>

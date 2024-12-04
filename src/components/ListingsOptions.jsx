@@ -35,7 +35,13 @@ import PaymentElement from "./PaymentElement";
 import { relistAd } from "../store/adSlice";
 import { getBalance } from "../store/balanceSlice";
 import getCartAndTotal from "../utils/getCartAndTotal";
-function ListingsOptions({ listing, setListings, extraFn, noView }) {
+function ListingsOptions({
+  listing,
+  setListings,
+  extraFn,
+  noView,
+  parser = new DOMParser(),
+}) {
   const navigate = useNavigate();
   const options = useRef();
   const del = useRef();
@@ -385,7 +391,11 @@ function ListingsOptions({ listing, setListings, extraFn, noView }) {
                     </p>
                   </div>
                   <h4 className="line">{listing.title}</h4>
-                  <p className="line">{listing.description}</p>
+                  <p className="line">
+                    {parser
+                      .parseFromString(ad?.description, "text/html")
+                      .body.textContent.trim()}
+                  </p>
                   <p className="line location">
                     <PinDropOutlined />
                     {listing.location.name}
