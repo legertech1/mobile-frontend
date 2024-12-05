@@ -26,6 +26,8 @@ import Modal from "../Modal";
 import Config from "./Config";
 import { useNavigate } from "react-router-dom";
 
+const parser = new DOMParser();
+
 function Listings({ ads, setAds, loading, num, gestures, update, status }) {
   const containerRef = useRef(null);
   const timerRef = useRef(null);
@@ -123,6 +125,7 @@ function Listings({ ads, setAds, loading, num, gestures, update, status }) {
             setSelected={setSelected}
             status={status}
             actions={actions}
+            parser={parser}
           ></Listing>
         ))}
       {loading &&

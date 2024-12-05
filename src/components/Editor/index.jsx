@@ -14,23 +14,20 @@ import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { $createParagraphNode, $getRoot, $isElementNode } from "lexical";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
-
-const InsertHTMLPlugin = ({
-  htmlContent,
-  hasInitialized,
-  setHasInitialized,
-}) => {
+const parser = new DOMParser();
+const InsertHTMLPlugin = ({ htmlContent }) => {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
-    if (htmlContent && !hasInitialized) {
+    console.log(htmlContent);
+    if (htmlContent) {
       editor.update(() => {
         const parser = new DOMParser();
         const dom = parser.parseFromString(htmlContent, "text/html");
         const nodes = $generateNodesFromDOM(editor, dom);
 
         const root = $getRoot();
-        console.log(root);
+
         root.clear();
 
         nodes.forEach((node) => {
@@ -44,26 +41,27 @@ const InsertHTMLPlugin = ({
           }
         });
       });
-
-      // Mark the content as initialized
-      setHasInitialized(true);
     }
-  }, [editor, htmlContent, hasInitialized]);
+    // Mark the content as initialized
+  }, [editor, htmlContent]);
 
   return null;
 };
 
-export default function Editor({ placeholder, onChange }) {
-  const [hasInitialized, setHasInitialized] = useState(false);
+export default function Editor({ placeholder, initialState }) {
   const formData = useSelector((state) => state.ad);
   const dispatch = useDispatch();
 
   const handleChange = (editorState, editor) => {
-    if (!hasInitialized) return;
     editor.update(() => {
       // Generate HTML from the editor state
       const htmlString = $generateHtmlFromNodes(editor, null);
-      dispatch(setFormData({ ...formData, description: htmlString }));
+      if (
+        parser
+          .parseFromString(htmlString || "", "text/html")
+          .body.textContent.trim()
+      )
+        dispatch(setFormData({ ...formData, description: htmlString }));
     });
   };
 
@@ -71,11 +69,7 @@ export default function Editor({ placeholder, onChange }) {
     <div className="editor-container">
       <ToolbarPlugin />
       <div className="editor-inner">
-        <InsertHTMLPlugin
-          htmlContent={formData.description}
-          hasInitialized={hasInitialized}
-          setHasInitialized={setHasInitialized}
-        />
+        <InsertHTMLPlugin htmlContent={initialState} />
         <RichTextPlugin
           contentEditable={
             <ContentEditable

@@ -324,6 +324,7 @@ pre::-webkit-scrollbar-thumb {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   vertical-align: middle;
+  overflow-x: scroll;
 }
 
 .toolbar button.toolbar-item {
@@ -338,8 +339,8 @@ pre::-webkit-scrollbar-thumb {
 
 .toolbar button.toolbar-item svg,
 .toolbar button.toolbar-item img {
-  height: 16px !important;
-  width: 16px !important;
+  height: 20px !important;
+  width: 20px !important;
 }
 
 .toolbar button.toolbar-item:disabled {

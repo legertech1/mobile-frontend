@@ -105,10 +105,10 @@ const editorConfig = {
   },
   theme: ExampleTheme,
 };
-const EditorWrapper = ({ placeholder, onChange }) => {
+const EditorWrapper = ({ placeholder, initialState }) => {
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <Editor placeholder={placeholder} onChange={onChange} />
+      <Editor placeholder={placeholder} initialState={initialState} />
     </LexicalComposer>
   );
 };
