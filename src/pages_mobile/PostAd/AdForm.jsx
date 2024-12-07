@@ -239,6 +239,7 @@ export default function AdForm({ edit }) {
 
   const formNav = useCallback(
     (step, url) => {
+      if (step == 1) setInitialState(formData.description);
       if (step >= 2) {
         if (formData.title.trim().length < 8)
           return notification.error(
@@ -310,10 +311,6 @@ export default function AdForm({ edit }) {
 
         if (!edit && cart?.extras?.business && !user?.BusinessInfo?.name)
           return notification.error("Please provide business details");
-        if (formData.location?.components?.country.short_name != country)
-          return notification.error(
-            "Please select an address within your selected Country"
-          );
       }
       if (step == 5) {
         if (formData.images.length < 1)
@@ -321,6 +318,10 @@ export default function AdForm({ edit }) {
 
         if (!formData.location)
           return notification.error("Selecting a location is required");
+        if (formData.location?.components?.country.short_name != country)
+          return notification.error(
+            "Please select an address within your selected Country"
+          );
         return navigate("/preview-ad");
       }
       setCurrentStep(step);
