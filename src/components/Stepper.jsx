@@ -5,7 +5,7 @@ import { ArrowBack } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import ripple from "../utils/ripple";
 
-const Stepper = ({ steps, current, onClick, onExit }) => {
+const Stepper = ({ steps, current, onClick, onExit = (f) => f() }) => {
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {

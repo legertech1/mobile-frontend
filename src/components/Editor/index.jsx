@@ -19,7 +19,6 @@ const InsertHTMLPlugin = ({ htmlContent }) => {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
-    console.log(htmlContent);
     if (htmlContent) {
       editor.update(() => {
         const parser = new DOMParser();
@@ -55,7 +54,7 @@ export default function Editor({ placeholder, initialState }) {
   const handleChange = (editorState, editor) => {
     editor.update(() => {
       // Generate HTML from the editor state
-      const htmlString = $generateHtmlFromNodes(editor, null);
+      const htmlString = document.querySelector(".editor-input").innerHTML;
       if (
         parser
           .parseFromString(htmlString || "", "text/html")

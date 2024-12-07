@@ -70,14 +70,19 @@ export default function AdForm({ edit }) {
   const [categoryIndex, setCategoryIndex] = useState(-1);
   const [subCategoryIndex, setSubCategoryIndex] = useState(-1);
   const params = useParams();
-  const [state, setState] = useState("indefinite");
+
   const [initialState, setInitialState] = useState(null);
   const handleFormData = (name, value) => {
     dispatch(setFormData({ ...formData, [name]: value }));
   };
 
   useEffect(() => {
-    if (!initialState && formData.description)
+    if (
+      !initialState &&
+      parser
+        .parseFromString(formData.description || "", "text/html")
+        .body.textContent.trim().length > 20
+    )
       setInitialState(formData.description);
   }, [formData.description]);
   useEffect(() => {
@@ -133,6 +138,9 @@ export default function AdForm({ edit }) {
           ...ad,
         })
       );
+      if (!ad.term && !ad.installments) handleFormData("state", "definite");
+      else if (ad.installments) handleFormData("state", "definite");
+      else handleFormData("state", "indefinite");
     } else ad = formData;
     categories.forEach((c, i) => {
       if (c.name == ad.meta.category) {
@@ -265,9 +273,13 @@ export default function AdForm({ edit }) {
           return notification.error(
             "Description is required and must be between 40 to 8000 characters"
           );
-        if (!formData.term && !formData.priceHidden && state != "total")
+        if (
+          !formData.term &&
+          !formData.priceHidden &&
+          formData.state != "total"
+        )
           return notification.error("Duration term is required");
-        if (state == "definite" && !formData.installments) {
+        if (formData.state == "definite" && !formData.installments) {
           return notification.error("No. of installments is required");
         }
       }
@@ -540,15 +552,17 @@ export default function AdForm({ edit }) {
 
               <div className="pricing_type">
                 <div
-                  className={"type" + (state == "indefinite" ? " active" : "")}
+                  className={
+                    "type" + (formData.state == "indefinite" ? " active" : "")
+                  }
                   onClick={() => {
-                    setState("indefinite");
                     dispatch(
                       setFormData({
                         ...formData,
                         term: "",
                         price: "",
                         installments: "",
+                        state: "indefinite",
                       })
                     );
                   }}
@@ -556,15 +570,17 @@ export default function AdForm({ edit }) {
                   Recurring Payments
                 </div>
                 <div
-                  className={"type" + (state == "definite" ? " active" : "")}
+                  className={
+                    "type" + (formData.state == "definite" ? " active" : "")
+                  }
                   onClick={() => {
-                    setState("definite");
                     dispatch(
                       setFormData({
                         ...formData,
                         term: "",
                         price: "",
                         installments: "",
+                        state: "definite",
                       })
                     );
                   }}
@@ -572,15 +588,17 @@ export default function AdForm({ edit }) {
                   Installments
                 </div>
                 <div
-                  className={"type" + (state == "total" ? " active" : "")}
+                  className={
+                    "type" + (formData.state == "total" ? " active" : "")
+                  }
                   onClick={() => {
-                    setState("total");
                     dispatch(
                       setFormData({
                         ...formData,
                         term: "",
                         price: "",
                         installments: "",
+                        state: "total",
                       })
                     );
                   }}
@@ -612,7 +630,7 @@ export default function AdForm({ edit }) {
                     })
                   );
                 }}
-                state={state}
+                state={formData.state}
                 term={formData.term}
                 price={formData.price}
                 setPrice={(e) => {
