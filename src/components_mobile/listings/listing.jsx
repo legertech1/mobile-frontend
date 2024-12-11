@@ -56,6 +56,7 @@ function Listing({
   const [paymentSuccess, setPaymentSuccess] = useState();
   const [options, setOptions] = useState(false);
   const optRef = useRef();
+
   const selectedLocation = useSelector(
     (state) => state.location.selectedLocation
   );
@@ -79,7 +80,6 @@ function Listing({
     setPaymentModal(false);
     notification.error(error);
   }
-
   const distance = useMemo(() => {
     if (ad?.location && selectedLocation)
       return haversine(
@@ -167,6 +167,9 @@ function Listing({
         )}
       </div>
       <div className="info">
+        {distance <= 100 && distance > -1 && (
+          <div className="distance">~{distance} Km Away</div>
+        )}
         {status && (
           <div className={`status ${ad?.meta?.status}`}>
             {ad?.meta?.status}{" "}

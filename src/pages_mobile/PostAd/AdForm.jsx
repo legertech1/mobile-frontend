@@ -132,15 +132,16 @@ export default function AdForm({ edit }) {
     if (!formData._id) {
       const id = params.id;
       ad = (await axios.get(apis.ad + id)).data;
+      let pricingType = "indefinite";
+      if (!ad.term && !ad.installments) pricingType = "total";
+      else if (ad.installments) pricingType = "definite";
 
       dispatch(
         setFormData({
           ...ad,
+          state: pricingType,
         })
       );
-      if (!ad.term && !ad.installments) handleFormData("state", "definite");
-      else if (ad.installments) handleFormData("state", "definite");
-      else handleFormData("state", "indefinite");
     } else ad = formData;
     categories.forEach((c, i) => {
       if (c.name == ad.meta.category) {
