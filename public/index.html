@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <link rel="canonical" href="https://borrowbe.com" />
+    <link rel="canonical" href="https://m.borrowbe.com" />
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -14,11 +14,6 @@
 
     <meta name="robots" content="nofollow, noindex" />
 
-    <title>BorrowBe</title>
-    <meta
-      name="description"
-      content="Your One-Stop Marketplace for Rentals, Leases, Financing, and Services"
-    />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
 
@@ -27,23 +22,136 @@
       type="module"
     ></script>
     <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '2055795954862833');
-      fbq('track', 'PageView');
-      </script>
-      <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=2055795954862833&ev=PageView&noscript=1"
-      /></noscript>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      fbq("init", "2055795954862833");
+      fbq("track", "PageView");
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=2055795954862833&ev=PageView&noscript=1"
+    /></noscript>
+
+    <title>BorrowBe | Turn Your Assets Into Income</title>
+    <meta
+      name="description"
+      content="BorrowBe is a unique marketplace connecting owners who want to rent, lease, or finance their items with interested people. Whether you’re an owner, service provider, or a potential customer, the opportunities are endless. "
+    />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="BorrowBe" />
+    <meta
+      property="og:description"
+      content="BorrowBe is a unique marketplace connecting owners who want to rent, lease, or finance their items with interested people. Whether you’re an owner, service provider, or a potential customer, the opportunities are endless. "
+    />
+    <meta property="og:image" content="https://m.borrowbe.com/logo.png" />
+    <meta property="og:url" content="https://m.borrowbe.com" />
+
+    <meta property="og:type" content="website" />
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:site" content="@borrowbe" />
+    <meta name="twitter:title" content="BorrowBe" />
+    <meta http-equiv="content-style-type" content="text/css" />
+    <meta
+      name="twitter:description"
+      content="BorrowBe is a unique marketplace connecting owners who want to rent, lease, or finance their items with interested people. Whether you’re an owner, service provider, or a potential customer, the opportunities are endless. "
+    />
+    <meta name="twitter:image" content="https://m.borrowbe.com/logo.png" />
+
+    <meta name="apple-itunes-app" content="app-id=6479541765" />
+    <meta name="google-play-app" content="app-id=com.borrowbeapp" />
+
+    <meta name="twitter:app:id:iphone" content="6479541765" />
+    <meta name="twitter:app:name:ipad" content="BorrowBe" />
+    <meta name="twitter:app:id:ipad" content="6479541765" />
+    <meta name="twitter:app:name:googleplay" content="BorrowBe" />
+    <meta name="twitter:app:id:googleplay" content="com.borrowbeapp" />
+    <meta property="al:ios:app_store_id" content="6479541765" />
+    <meta property="al:ios:app_name" content="BorrowBe" />
+    <meta property="al:android:app_name" content="BorrowBe" />
+    <meta property="al:android:package" content="com.borrowbeapp" />
+
+    <script src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GOOGLE_ANYLATIC%"></script>
+    <script id="google-analytics">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "%REACT_APP_GOOGLE_ANYLATIC%");
+    </script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GOOGLE_TAG%"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "%REACT_APP_GOOGLE_TAG%");
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(
+        window,
+        document,
+        "script",
+        "dataLayer",
+        "%REACT_APP_GOOGLE_TAG_MANAGER%"
+      );
+    </script>
   </head>
 
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=%REACT_APP_GOOGLE_TAG_MANAGER%"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div id="portal">
       <div id="modals"></div>
     </div>
