@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   padding: 0;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 48px);
   box-sizing: border-box;
+  padding-top: 10px;
 }
 .web_location {
   width: 100%;
@@ -21,7 +22,7 @@
   /* min-width: fit-content; */
 }
 .web_location .rec {
-  padding: 8px;
+  padding: 12px;
 }
 .web_location .recents {
   height: 0;
@@ -57,10 +58,11 @@
   display: flex;
   align-items: center;
   justify-content: start;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
-  height: 42px;
-  padding: 0 12px;
+  height: 38px;
+  padding: 0 20px;
+  padding-top: 4px;
 }
 
 .web_location .current_loc .text_box p {
@@ -71,7 +73,7 @@
 }
 
 .web_location .current_loc .text_box .curr_loc_text {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   color: black;
   margin: 0;
@@ -92,7 +94,7 @@
   padding: 0;
   gap: 8px;
   display: flex;
-  padding: 8px 12px;
+  padding: 8px;
   flex-direction: column;
   overflow-y: hidden;
 }
@@ -184,14 +186,20 @@
   padding: 0 12px;
 }
 
+.web_location .map,
+.web_location .tile {
+  filter: drop-shadow(0px 0px 4px #1114);
+  background-color: white;
+}
+
 .web_location .map {
   height: 30%;
   min-height: 30%;
   /* width: 100%; */
   border-radius: 6px;
-  margin: 0 12px;
+  margin: 0 8px;
   overflow: HIDDEN;
-  box-shadow: 0px 0px 8px #1116;
+
   box-sizing: border-box;
 }
 
@@ -203,7 +211,7 @@
 
 .web_location .choose_city,
 .web_location .choose_province {
-  padding: 8px;
+  padding: 12px;
 }
 
 .web_location .change_province {
@@ -276,7 +284,6 @@
 }
 .selections .tile {
   border-radius: 6px;
-  box-shadow: 0px 0px 8px #1113;
 
   min-width: 320px;
 
@@ -312,73 +319,6 @@
   /* transition: none !important; */
 }
 
-/* .map_marker img::shadow {
-  height: 30px;
-  width: 30px;
-  color: #111;
-} */
-
-/* .map_marker .shadow {
-  z-index: 1;
-  height: 80px;
-  transform: translate(-50%, -50%);
-  width: 80px;
-  opacity: 1;
-  top: 0;
-  left: 0;
-} */
-
-input[type="range"] {
-  /* removing default appearance */
-  -webkit-appearance: none;
-  appearance: none;
-  /* creating a custom design */
-  width: 100%;
-  cursor: pointer;
-  outline: none;
-  /*  slider progress trick  */
-  overflow: hidden;
-  border-radius: 16px;
-}
-
-/* Track: webkit browsers */
-.web_location [type="range"]::-webkit-slider-runnable-track {
-  height: 12px;
-  background: var(--bg) !important;
-  border-radius: 16px;
-}
-
-/* Track: Mozilla Firefox */
-.web_location input[type="range"]::-moz-range-track {
-  height: 12px;
-  background: #ccc;
-  border-radius: 16px;
-}
-
-/* Thumb: webkit */
-.web_location input[type="range"]::-webkit-slider-thumb {
-  /* removing default appearance */
-  -webkit-appearance: none;
-  appearance: none;
-  /* creating a custom design */
-  height: 12px;
-  width: 12px;
-  background-color: #fff;
-  border-radius: 50%;
-  border: 2px solid var(--blue);
-  /*  slider progress trick  */
-  box-shadow: -507px 0 0 500px var(--blue);
-}
-
-/* Thumb: Firefox */
-.web_location input[type="range"]::-moz-range-thumb {
-  height: 8px;
-  width: 8px;
-  background-color: #fff;
-  border-radius: 50%;
-  border: 1px solid var(--blue);
-  /*  slider progress trick  */
-}
 @keyframes drop {
   0% {
     opacity: 0;
@@ -401,9 +341,9 @@ input[type="range"] {
 }
 .web_location .select_range {
   flex: unset;
-  margin: 0 12px 16px;
+  margin: 0 8px 8px;
   display: flex;
-  padding: 8px !important;
+  padding: 12px !important;
   flex-direction: column-reverse;
   justify-content: center;
   gap: 0;
@@ -434,9 +374,6 @@ input[type="range"] {
   margin: 0;
   padding: 0;
 }
-.web_location input[type="range"]:disabled {
-  filter: grayscale(1);
-}
 
 .web_location .current_loc h4 {
   min-width: fit-content;
@@ -460,9 +397,10 @@ input[type="range"] {
   display: none !important;
 }
 .current_loc.select_range.tile {
-  min-height: 62px;
-  max-height: 80px;
+  min-height: fit-content;
   box-sizing: border-box;
+  gap: 4px;
+  max-height: 80px;
 }
 @media (min-width: 800px) {
   .web_location .selections {
@@ -471,7 +409,7 @@ input[type="range"] {
     padding: 0;
     height: calc(100% - 40px);
     box-sizing: border-box;
-    padding: 0 8px 8px;
+    padding: 16px;
   }
   .web_location .map {
     height: 40%;
@@ -483,7 +421,7 @@ input[type="range"] {
   }
   .selections .tile {
     border-radius: 6px;
-    box-shadow: 0px 0px 8px #1113;
+
     padding: 12px !important;
     min-width: 320px;
     min-height: -moz-fit-content;

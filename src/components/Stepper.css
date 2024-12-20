@@ -1,8 +1,11 @@
 .__stepp {
   display: flex;
   gap: 6px;
-  width: calc(100vw - 16px);
-  /* filter: drop-shadow(0px 0px 12px #1114); */
+  width: calc(100vw - 24px);
+  position: relative;
+  filter: drop-shadow(0px 0px 4px #1115);
+  top: 2px;
+  left: 4px;
 }
 
 .stepper_container {
@@ -10,33 +13,32 @@
   min-height: 50px;
   height: 50px;
   justify-content: center;
-  gap: 4px;
-  border-radius: 25px;
-  /* box-shadow: 0px 0px 8px #1116; */
-  /* overflow: hidden; */
+  gap: 8px;
+
   display: flex;
-  flex: 1;
+  flex: 1 1;
+  max-width: 100%;
   max-width: 100%;
 }
 
 .__stepp .step_circle {
   align-items: center;
-  min-height: 46px;
-  height: 46px;
+  min-height: 50px;
+  height: 50px;
   justify-content: center;
-  border-radius: 25px;
-  box-shadow: 0px 0px 12px #1114;
+  border-radius: 8px;
+  /* box-shadow: 0px 0px 12px #1114; */
   overflow: hidden;
   display: flex;
-  min-width: 46px;
+  min-width: 50px;
   width: fit-content;
-  font-size: 20px;
+  font-size: 22px;
   font-family: var(--font1);
-  padding: 12px;
+  padding: 16px;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
-  gap: 4px;
+  gap: 6px;
   font-weight: 600;
   background-color: white;
   border: 1px solid var(--blue);
@@ -64,11 +66,13 @@
   width: 0;
   white-space: nowrap;
   display: none;
+  color: black;
 }
 .stepper_container .step_title.visible {
   width: fit-content;
   opacity: 1;
   display: inline;
+  color: white;
 }
 .stepper_container .step_icon_cont {
   display: flex;
@@ -92,26 +96,29 @@
   }
 
   .stepper_container {
-    height: 52px;
-    min-height: 52px;
+    height: 56px;
+    min-height: 56px;
+    gap: 12px;
   }
   .__stepp .step_circle {
     flex: 1;
     padding: 20px;
-    height: 52px;
-    width: 52px;
-    min-width: 52px;
-    border-radius: 28px;
+    height: 56px;
+    width: 56px;
+    min-width: 56px;
     margin-top: 4px;
-    font-size: 23px;
-    gap: 5px;
+    font-size: 28px;
+    gap: 8px;
+  }
+  .step_title {
+    font-size: 16px;
   }
 
   .__stepp {
     display: flex;
     gap: 8px;
     width: calc(100vw - 32px);
-    margin: 0 auto;
+    margin: 0 auto 16px;
     /* filter: drop-shadow(0px 0px 12px #1114); */
   }
 }

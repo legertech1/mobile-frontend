@@ -19,7 +19,7 @@
 .post_ad .main .ad_form {
   background-color: WHITE;
   width: 100%;
-  border-radius: 6px;
+  border-radius: 5px;
   padding: 0;
   position: relative;
   min-height: 90vh;
@@ -41,18 +41,16 @@
   justify-content: start;
   gap: 8px;
   flex-wrap: wrap;
+  filter: drop-shadow(0px 0px 4px #1114);
 }
 .post_ad .form_content {
-  /*         box-shadow: 0px 0px 8px #1114;
-  border-radius: 12px; */
   flex-wrap: wrap;
-
   margin-top: 8px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: Calc(100vw - 16px);
-  /* padding: 12px; */
+  width: Calc(100vw - 24px);
+  margin: 12px auto 0;
   box-sizing: border-box;
 }
 
@@ -89,11 +87,19 @@
   flex: 1;
 }
 
-.post_ad h4 {
+.post_ad h4,
+.price_cont h4 {
   margin: 0;
-  font-size: 16px;
-  font-weight: 500;
-  font-family: var(--font2);
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+.price_cont {
+  flex-direction: column !important;
 }
 
 .post_ad .required {
@@ -141,7 +147,7 @@
   margin-top: 12px;
   position: fixed;
   background: white;
-  padding: 12px;
+  padding: 16px 16px 12px;
   box-sizing: border-box;
   /* top: CALC(100% - 52px); */
   bottom: 0;
@@ -160,7 +166,7 @@
   padding: 16px 20px;
   color: var(--red);
   border: 1px solid var(--red);
-  border-radius: 6px;
+  border-radius: 5px;
   background-color: transparent;
   transition: all 0.33s var(--bc);
   box-shadow: 0px 0px 8px #1114;
@@ -181,7 +187,7 @@
   flex: 1;
   font-family: var(--font2);
   padding: 16px 20px;
-  border-radius: 8px;
+  border-radius: 5px;
   max-width: 200px;
   min-width: fit-content;
   display: flex;
@@ -195,6 +201,10 @@
 .post_ad ._dropdown .options {
   min-height: auto;
   overflow: visible;
+}
+
+.post_ad ._ .field_info {
+  gap: 8px;
 }
 
 .post_ad ._ ._dropdown .options {
@@ -219,26 +229,107 @@
 
 .post_ad .field_container {
   display: flex;
-  box-shadow: 0px 0px 8px #1114;
-  border-radius: 12px;
-  gap: 8px;
+  background-color: white;
+  filter: drop-shadow(0px 0px 4px #1115);
+  border-radius: 8px;
+  gap: 20px;
   justify-content: space-between;
   align-items: start;
   width: 100%;
   position: relative;
-  padding: 14px;
+  padding: 16px;
   flex-direction: column;
   box-sizing: border-box;
 }
 
+.post_ad .pricing {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  transition: all 0.3s var(--bc);
+  max-height: 600px;
+  overflow: hidden;
+}
+.post_ad .pricing.hidden {
+  max-height: 0;
+}
+
+.post_ad .pricing_type,
+.post_ad .tax_cont,
+.post_ad .ad_type_container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  filter: drop-shadow(0px 0px 4px #1114);
+  flex: 1;
+  min-width: max(50%, 300px);
+  max-width: 100%;
+}
+.post_ad .ad_type_container {
+  margin-top: 8px;
+  min-width: max(50%, 300px);
+  flex: 1;
+  width: 100%;
+}
+.post_ad .pricing_type .type,
+.post_ad .tax_cont .tax,
+.post_ad .ad_type_container .ad_type {
+  flex: 1;
+  padding: 8px 16px;
+  border: 1px solid var(--blue);
+  border-radius: 5px;
+  background: white;
+  color: black;
+  font-size: 14px;
+  font-family: var(--font1);
+  font-weight: 500;
+  transition: all 0.2s var(--bc);
+  text-align: center;
+}
+.post_ad .pricing_type .type,
+.post_ad .ad_type_container .ad_type {
+  padding: 10px;
+  font-size: 15px;
+}
+.post_ad .pricing_type .type {
+  flex: 1 1;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+.post_ad .pricing_type .type.active,
+.post_ad .tax_cont .tax.active,
+.post_ad .ad_type_container .ad_type.active {
+  background-color: var(--blue);
+  color: white;
+}
+.post_ad .p_field {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.post_ad .pricing p.pricing_text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  color: #555 !important;
+  font-size: 16px;
+  font-weight: 500;
+  min-width: fit-content;
+}
 .post_ad .field_container .field_info {
   width: 100%;
   box-sizing: border-box;
   padding-left: 0;
-
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .post_ad .form .field_info {
@@ -259,7 +350,9 @@
 .post_ad .custom_price_input {
   /* border: 1px solid #fff; */
   transition: all 0.3s var(--bc);
-  filter: drop-shadow(1px 1px 4px #1113);
+  filter: drop-shadow(0px 0px 4px #1114);
+  background-color: white;
+  height: 50px;
 }
 
 .post_ad .custom_price_input input {
@@ -267,8 +360,8 @@
 }
 
 .post_ad .field_container p {
-  color: #777 !important;
-  font-weight: 500;
+  color: #555 !important;
+  font-weight: 400;
   margin: 0;
   font-size: 13px;
 }
@@ -276,26 +369,74 @@
 .post_ad h4 span,
 .post_ad h2 span {
   color: var(--blue);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   vertical-align: baseline;
 }
 
 .post_ad h2 {
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 600;
   margin: 0;
-  /* margin-top: 50px; */
-  color: #555;
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  gap: 6px;
+  font-family: var(--font2);
+  align-items: center;
+  justify-content: center;
+}
+.post_ad h2 svg {
+  fill: var(--blue);
+  height: 26px;
+  width: 26px;
+}
+.package_icon {
+  fill: transparent !important;
+  stroke: var(--blue) !important;
+  stroke-width: 2;
 }
 .post_ad .field_container ._dropdown {
   flex: 1;
+  max-height: 28px;
+}
+.pricing_section .add_on .addon_select {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: start;
+  align-items: center;
+  filter: drop-shadow(0px 0px 4px #1115);
+
+  min-width: 100%;
+}
+.pricing_section .addon_select div {
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: 1px solid var(--blue);
+  background: white;
+  font-size: 15px;
+  font-family: var(--font1);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s var(--bc);
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+.pricing_section .addon_select div span {
+  font-weight: 600;
+  color: var(--blue);
+  font-size: 18px;
 }
 
 .post_ad .step3 {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   max-width: 100%;
 }
 
@@ -326,16 +467,19 @@
 }
 
 .post_ad .tag_inp {
-  height: 44px;
-  min-height: 44px;
+  height: 56px;
+  min-height: 56px;
+  max-height: 56px;
   flex: 1 1;
+  overflow: hidden;
   filter: drop-shadow(1px 1px 4px #1113);
   background: white;
-  border-radius: 6px;
+  border-radius: 5px;
   gap: 6px;
   border: 1px solid var(--blue);
   transition: all 0.3s var(--bc);
-  padding: 6px;
+  padding: 6px 8px;
+
   box-sizing: border-box;
   display: flex;
   justify-content: start;
@@ -346,17 +490,17 @@
 
 .post_ad button.add_tag {
   background: var(--blue);
-  padding: 16px 24px;
+  padding: 12px;
   max-height: 40px;
+  max-width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: navajowhite;
   color: white;
-  border-radius: 6px;
+  border-radius: 5px;
   font-size: 16px;
   font-weight: 500;
-  box-shadow: 0px 0px 4px #1114;
 }
 
 .post_ad .tag_inp input {
@@ -371,10 +515,11 @@
 }
 
 .post_ad .tag {
-  border-radius: 6px;
-  padding: 3px 8px;
+  border-radius: 5px;
+  padding: 4px 8px;
+  padding-left: 16px;
   background: #2196f3;
-  font-weight: 400;
+  font-weight: 500;
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -383,13 +528,15 @@
   cursor: pointer;
   color: white;
   border: 1px solid var(--blue);
-  box-sizing: 0px 0px 4px #1114;
 }
 .post_ad .tag svg {
   height: 20px;
   width: 20px;
   border-radius: 50%;
   padding: 1px;
+}
+.post_ad ._autocomplete inpu {
+  height: 42px !important;
 }
 
 .desc_container {
@@ -405,14 +552,16 @@
   flex-wrap: wrap;
   gap: 12px;
   justify-content: start;
+  filter: drop-shadow(0px 0px 4px #1114);
 }
 .post_ad .field_container .radio_option {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #777;
-  color: #777;
-  box-shadow: 0px 0px 4px #ccc;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: 1px solid var(--blue);
+  color: black;
+  font-size: 15px;
   cursor: pointer;
+  background-color: white;
 }
 
 .post_ad .field_container .radio_option.active {
@@ -435,7 +584,7 @@
 .post_ad .location {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 20px;
   flex-direction: column;
 }
 
@@ -444,16 +593,16 @@
   flex-direction: column;
   flex: 1 1;
   gap: 12px;
-  padding-top: 12px;
+  padding-top: 8px;
 }
 
 .post_ad .map {
   height: 25vh;
   min-height: 200px;
   display: flex;
-  border-radius: 6px;
-  box-shadow: 0px 0px 4px #1112;
-  border-radius: 6px;
+  border-radius: 5px;
+  filter: drop-shadow(0px 0px 4px #1115);
+  border-radius: 5px;
   overflow: hidden;
   /* flex: 1; */
 }
@@ -597,8 +746,8 @@
   display: flex;
   flex-direction: column-reverse;
 
-  border-radius: 6px;
-  gap: 8px;
+  border-radius: 5px;
+  gap: 16px;
 }
 .pricing_section .add_on {
   display: flex;
@@ -606,22 +755,30 @@
   height: fit-content;
   background: white;
   align-items: center;
-  padding: 12px;
+  padding: 20px;
   box-sizing: border-box;
-  gap: 10px;
+  gap: 16px;
   min-height: 72px;
-  border-radius: 6px;
+  border-radius: 5px;
   flex-wrap: wrap;
-  filter: drop-shadow(0px 0px 4px #1113);
+  filter: drop-shadow(0px 0px 4px #1115);
   justify-content: space-between;
 }
-
+.pricing_section .add_on .addon_select div.selected {
+  background-color: var(--blue);
+  color: white !important;
+}
+.pricing_section .addon_select div.selected span {
+  color: white;
+}
 .pricing_section .add_on h3 {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
   flex-grow: 1;
   margin: 0;
   min-width: 50%;
+  font-family: var(--font1);
+
   /* margin-right: auto; */
 }
 
@@ -658,20 +815,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  border-radius: 6px;
+  gap: 12px;
+  border-radius: 5px;
   box-sizing: border-box;
-  height: 42px;
 }
 
 .pricing_section .extra .info h3 {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font1);
+  margin: 0;
 }
 
 .pricing_section .extra .info .price {
+  margin: 0;
   margin-left: auto;
-  font-size: 20px;
+  font-size: 22px;
   color: var(--blue);
   font-family: var(--font1);
   font-weight: 600;
@@ -688,12 +847,12 @@
   transform-origin: top center;
   height: 0;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 .pricing_section .extra .form.active {
   opacity: 1;
   transform: scaleY(1);
-  padding: 12px 0;
+  padding: 20px 0 0px;
   height: fit-content;
 }
 
@@ -738,7 +897,7 @@
   width: auto;
   max-width: 100px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 5px;
   box-shadow: 0px 0px 8px #ccc;
 }
 
@@ -777,11 +936,15 @@
   color: #333;
 }
 
-.pricing_section {
+.pricing_section,
+.location_section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   margin: 0px 0;
+  background: white;
+  filter: drop-shadow(0px 0px 4px #1115);
+  padding: 20px;
 }
 
 .extra .field_container {
@@ -791,7 +954,7 @@
 
 .pricing_section .extra {
   display: flex;
-  padding: 12px;
+  padding: 20px 16px;
   flex-direction: column;
   justify-content: center;
   height: -moz-fit-content;
@@ -800,10 +963,13 @@
   background: white;
   min-height: 60px;
 
-  border-radius: 6px;
-  filter: drop-shadow(0px 0px 4px #1113);
+  border-radius: 5px;
+  filter: drop-shadow(0px 0px 4px #1115);
 }
 
+.pricing_section .input_container input {
+  filter: none;
+}
 .ad_form span.free {
   font-weight: 500;
   font-size: 13px;
@@ -811,12 +977,6 @@
   display: BLOCK;
 }
 
-.ad_form .tax {
-  display: flex;
-  gap: 6px;
-  justify-content: space-between;
-  width: 100%;
-}
 .ad_form .tax p {
   margin: 0;
   display: flex;
@@ -847,18 +1007,17 @@
 }
 
 .post_ad ._ {
-  margin-top: 8px;
   display: flex;
   flex-direction: row;
 
   flex-wrap: wrap;
-  gap: 8px;
+
   justify-content: space-between;
 }
 
 .post_ad ._ .field_container {
   display: flex;
-  gap: 6px;
+
   justify-content: space-between;
   align-items: start;
   position: relative;
@@ -875,7 +1034,7 @@
   width: 100%;
   max-height: 44px;
   border: 1px solid var(--blue);
-  border-radius: 6px;
+  border-radius: 5px;
   height: 44px;
   min-height: 44px;
 }
@@ -897,23 +1056,28 @@
 }
 .post_ad .pricing_section,
 .post_ad .location_section {
-  padding: 14px;
   width: 100%;
-
   box-sizing: border-box;
   border-radius: 8px;
-  box-shadow: 0px 0px 8px #1114;
   background: white;
 }
 
 .post_ad ._price_inp {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 8px;
-  width: 100%;
-  min-width: 100%;
+  flex: 1;
+  flex-wrap: wrap;
+  min-width: max(50%, 300px);
+  justify-content: space-between;
 }
 
+.post_ad .price_hidden {
+  display: flex;
+  gap: 16px;
+  align-items: start;
+  font-size: 15px;
+}
 .post_ad ._pr_row {
   display: flex;
   min-width: 50%;
@@ -936,7 +1100,7 @@
   flex-direction: column !important;
   align-items: start !important;
   justify-content: start;
-  gap: 8px !important;
+  gap: 16px !important;
 }
 .post_ad ._ ._dropdown {
   min-width: 240px;
@@ -974,6 +1138,9 @@
 }
 
 @media (min-width: 820px) {
+  .post_ad .pricing_type .type {
+    font-size: 15px;
+  }
   .post_ad .field_container .dropdowns {
     flex-direction: row;
   }
@@ -988,15 +1155,16 @@
     flex-grow: 1;
     width: unset;
   }
-  .post_ad ._price_inp .price_option {
-    height: 46px;
-    box-sizing: border-box;
-  }
+
   .post_ad ._price_inp .custom_price_input {
-    flex-grow: 3;
+    font-size: 26px;
+  }
+  .post_ad ._price_inp .symbol {
+    font-size: 18px;
+    padding: 8px;
   }
   .post_ad .field_container {
-    padding: 20px;
+    padding: 24px;
   }
   .post_ad ._ {
     flex-wrap: wrap;
@@ -1004,33 +1172,33 @@
 
   .post_ad ._ .field_container {
     flex: 1;
-    width: 46%;
-    min-width: 46%;
-    max-width: 50%;
   }
 
   .pricing_section .add_on {
-    padding: 16px;
+    padding: 24px;
   }
   .pricing_section .extra {
-    padding: 16px;
+    padding: 24px;
   }
-  /* .post_ad ._ .field_container input {
-    height: 44px;
-    width: 100%;
-    min-width: 300px;
+  .post_ad .custom_price_input,
+  .post_ad .option_container {
+    max-width: 50%;
+    min-width: 50%;
   }
-  .post_ad ._ .field_container .input_container{
-    flex: 1;
-    width: 50%;
-    min-width: 50%; 
-}*/
   .post_ad .location {
     flex-direction: row;
     margin-bottom: -20px;
+    margin-top: 20px;
+    gap: 40px;
+    padding: 24px;
+  }
+  .post_ad h2 {
+    font-size: 24px;
   }
   .post_ad .location .selections {
     width: 60%;
+    top: -20px;
+    position: relative;
   }
   .post_ad .location .map {
     min-width: 400px;
@@ -1055,21 +1223,54 @@
   .pricing_section .extra .form.active button {
     max-width: 400px;
   }
-  .post_ad .form_content {
-    width: calc(100% - 32px);
-    margin: 12px auto 0;
+  .post_ad ._ {
+    width: calc(100% - 36px);
+    margin: 20px auto 0;
+    gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   }
-  .ad_form .price_hidden,
-  .ad_form .price_hidden span {
-    font-size: 16px !important;
+  .post_ad .form_content {
+    margin: 20px auto 0;
+    gap: 16px;
+  }
+  .post_ad h4,
+  .price_cont h4 {
+    height: fit-content;
   }
 }
 @media (min-width: 1000px) {
+  .post_ad h4,
+  .price_cont h4 {
+    width: fit-content;
+  }
+  .post_ad .price_hidden {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-size: 15px;
+    width: 50%;
+  }
   .post_ad .field_container {
     flex-direction: row;
     align-items: center;
-    gap: 20px;
+    gap: 40px;
     min-width: 50%;
+  }
+  .__stepp {
+    display: flex;
+    gap: 6px;
+    width: calc(100vw - 36px);
+    position: relative;
+    filter: drop-shadow(0px 0px 4px #1115);
+    top: 2px;
+    left: 0px;
+  }
+  .post_ad ._ .field_container {
+    flex-direction: column;
+  }
+  .post_ad .p_field {
+    gap: 40px;
   }
   .post_ad .tag_inp {
     min-width: 50%;
@@ -1102,9 +1303,11 @@
   .post_ad .field_info {
     height: 100%;
     align-self: stretch;
+    justify-content: space-between;
+    align-self: center;
   }
   .post_ad .field_container > .options {
-    justify-content: end;
+    justify-content: start;
   }
 
   .post_ad.relist_ad {
@@ -1113,18 +1316,7 @@
     margin: AUTO;
   }
 }
-.ad_form .price_hidden {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  font-size: 14px;
-  align-items: start;
-}
 
-.ad_form .price_hidden span {
-  font-size: 13px;
-  color: #555;
-}
 .ad_form ._price_inp,
 .ad_form .tax_op {
   transform-origin: top;

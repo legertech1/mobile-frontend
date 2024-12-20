@@ -9,7 +9,7 @@
 
 .mobile_modal {
   padding: 20px 0px 40px;
-  border-radius: 8px;
+  border-radius: 24px;
   background: white;
   box-shadow: 0px 0px 24px #1116;
   min-width: 200px;
@@ -151,7 +151,8 @@
   top: 0;
 }
 .mobile_modal.location .header {
-  padding-bottom: 12px;
+  padding-bottom: 8px;
+  padding-top: 4px;
 }
 
 .modal_overlay {
@@ -187,20 +188,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 24px;
-  width: 24px;
+
   font-size: 14px;
-  border-radius: 5px;
+  border-radius: 50%;
   border: none;
-  background: var(--blue);
-  top: 9px;
-  right: 8px;
+
+  top: 12px;
+  right: 12px;
 }
 
 .mobile_modal .close svg {
-  color: white;
-  height: 24px;
-  width: 24px;
+  height: 25px;
+  width: 25px;
 }
 .mobile_modal.image {
   padding: 60px 0px 80px;

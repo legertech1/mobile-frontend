@@ -257,7 +257,6 @@ export default function WebLocation({ close }) {
               );
             }}
           >
-            <p>My Current Location</p>
             <p className="curr_loc_text">
               {currentLocation?.name ||
                 "Please allow location access to use current location"}
@@ -453,21 +452,22 @@ export default function WebLocation({ close }) {
               </div>
             )}
 
-          <div>
-            {" "}
-            <h4>Range</h4>{" "}
-            <input
-              type="range"
-              value={radius || 0}
-              onChange={(e) => _setRadius(e.target.value)}
-              min={10}
-              max={1000}
-              name=""
-              id=""
-              disabled={!radius}
-            />
-            <p>{radius || "--"} km</p>
-          </div>
+          {radius && (
+            <div>
+              {" "}
+              <input
+                type="range"
+                value={radius || 0}
+                onChange={(e) => _setRadius(e.target.value)}
+                min={10}
+                max={1000}
+                name=""
+                id=""
+                disabled={!radius}
+              />
+              <p>{radius || "--"} km</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

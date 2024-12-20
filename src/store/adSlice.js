@@ -14,6 +14,7 @@ export const initialAdState = {
   tags: [],
   extraFields: {},
   tax: "none",
+  state: "indefinite",
 };
 // export const postAd = createAsyncThunk("post ad", async (payload) => {
 //   const ad = (

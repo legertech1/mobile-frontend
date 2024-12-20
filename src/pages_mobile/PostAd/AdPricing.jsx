@@ -16,7 +16,12 @@ import CheckIcon from "@mui/icons-material/Check";
 import BusinessInfo from "../../components/BusinessInfo";
 import Dropdown from "../../components/Shared/Dropdown";
 import { setFormData } from "../../store/adSlice";
-import { EditOutlined } from "@mui/icons-material";
+import {
+  AddCircleOutline,
+  AutoAwesomeOutlined,
+  EditOutlined,
+} from "@mui/icons-material";
+import { PackageIcon } from "styled-icons/feather";
 
 function AdPricing({ category, preconfig, ignoreFree }) {
   const formData = useSelector((state) => state.ad);
@@ -50,7 +55,10 @@ function AdPricing({ category, preconfig, ignoreFree }) {
   return (
     <>
       <div className="pricing_section">
-        <h2>Pick a Plan that fits</h2>
+        <h2 style={{ marginTop: "4px" }}>
+          {" "}
+          <PackageIcon className="package_icon" /> Pick a Package
+        </h2>
         {width < "1000" && (
           <div className={"package_select " + cart.package?.name}>
             <div
@@ -181,7 +189,10 @@ function AdPricing({ category, preconfig, ignoreFree }) {
         )}
       </div>
       <div className="pricing_section">
-        <h2>Features to Promote your Ad</h2>
+        <h2>
+          {" "}
+          <AddCircleOutline /> Add-Ons for your Ad
+        </h2>
         <div className="add_ons">
           {category?.pricing?.AddOns?.homepageGallery && (
             <AddOn
@@ -250,7 +261,9 @@ function AdPricing({ category, preconfig, ignoreFree }) {
         </div>
       </div>
       <div className="pricing_section">
-        <h2>Some extras to enhance your Ad</h2>
+        <h2>
+          <AutoAwesomeOutlined /> Extras for your Ad
+        </h2>
         <div className="extra">
           <div className="info">
             <Checkbox
@@ -267,7 +280,7 @@ function AdPricing({ category, preconfig, ignoreFree }) {
               }
             />
             <h3>
-              Post as Business Ad{" "}
+              Business Ad{" "}
               <Info
                 heading={"Business Ad"}
                 info={
@@ -326,7 +339,7 @@ function AdPricing({ category, preconfig, ignoreFree }) {
                   }
                 />
                 <h3>
-                  Add your Website{" "}
+                  Add Website URL{" "}
                   <Info
                     heading={"Adding a Website"}
                     info={
@@ -342,15 +355,9 @@ function AdPricing({ category, preconfig, ignoreFree }) {
                 className={"form" + (cart?.extras?.website ? " active" : "")}
               >
                 <div className="field_container">
-                  <div className="field_info">
-                    <h4>Website URL: </h4>
-                    <p>
-                      Add a link to your website for people to be able to visit
-                      through your Ad.
-                    </p>
-                  </div>
                   <Input
                     value={cart?.extras?.website?.url || ""}
+                    placeholder={"Website URL"}
                     onChange={(e) =>
                       dispatch(
                         updateCart({
@@ -386,7 +393,7 @@ function AdPricing({ category, preconfig, ignoreFree }) {
                   }
                 />
                 <h3>
-                  Add a Youtube Video{" "}
+                  Add Youtube Video{" "}
                   <Info
                     heading={"Adding a Youtube video"}
                     info={
@@ -402,15 +409,9 @@ function AdPricing({ category, preconfig, ignoreFree }) {
                 className={"form" + (cart?.extras?.youtube ? " active" : "")}
               >
                 <div className="field_container">
-                  <div className="field_info">
-                    <h4>Youtube video URL: </h4>
-                    <p>
-                      Add a link to a Youtube Video about your product for
-                      people to be able to visit through the Ad.
-                    </p>
-                  </div>
                   <Input
                     value={cart?.extras?.youtube?.url || ""}
+                    placeholder={"Youtube video URL"}
                     onChange={(e) =>
                       dispatch(
                         updateCart({
@@ -448,113 +449,6 @@ function AdPricing({ category, preconfig, ignoreFree }) {
     </>
   );
 }
-// export function Package({
-//   plan,
-//   name,
-//   category,
-//   selected,
-//   onClick = () => {},
-//   ads,
-//   ignoreFree,
-// }) {
-//   if (!plan) return <></>;
-//   const free = ads ? (ads[category.name]?.free || 0) < plan.freeAds : false;
-
-//   return (
-//     <div
-//       className={"package" + (selected ? " selected" : "") + " " + name}
-//       onClick={() => onClick(free)}
-//     >
-//       <div className={"coloured " + name}>
-//         <div className="icon">
-//           <Play
-//             icon={(() => {
-//               if (name == "Basic") return Balloon;
-//               else if (name == "Standard") return AirplaneIcon;
-//               else if (name == "Premium") return Rocket;
-//             })()}
-//           />
-//         </div>
-//         <h1 className={name}>
-//           {name} <span></span>
-//         </h1>
-//       </div>
-//       <div className="lower">
-//         <div className="details">
-//           <div>
-//             {" "}
-//             <span className={plan.images ? "blue" : "red"}>
-//               {plan.images ? <CheckIcon /> : <CloseOutlinedIcon />}
-//             </span>
-//             Post upto {plan.images} images
-//           </div>
-
-//           <div>
-//             <span>
-//               <span className={plan.featured ? "blue" : "red"}>
-//                 {plan.featured ? <CheckIcon /> : <CloseOutlinedIcon />}
-//               </span>
-//             </span>{" "}
-//             Featured Ad for {plan.featured || 0} days{" "}
-//             <Info
-//               info={
-//                 "Featured ads will be placed above other ads and are a great way to grab the buyer's attention first."
-//               }
-//             />
-//           </div>
-
-//           <div>
-//             <span>
-//               <span className={plan.highlighted ? "blue" : "red"}>
-//                 {plan.highlighted ? <CheckIcon /> : <CloseOutlinedIcon />}
-//               </span>
-//             </span>{" "}
-//             Highlighted Ad for {plan.highlighted || 0} days{" "}
-//             <Info info="Highlighted ads have special styles applied to stand out from other ads and grab the buyers attenton over others." />
-//           </div>
-
-//           <div>
-//             <span>
-//               <span className={plan.homepageGallery ? "blue" : "red"}>
-//                 {plan.homepageGallery ? <CheckIcon /> : <CloseOutlinedIcon />}
-//               </span>
-//             </span>{" "}
-//             Listed on Homepage for {plan.homepageGallery || 0} days{" "}
-//             <Info
-//               info={
-//                 "Listing your ad on the Homepage gallery is great for collecting a lot of impressions and interaction. It's the best place for your Ad to show up on."
-//               }
-//             />
-//           </div>
-//           <div>
-//             <span>
-//               <CheckIcon />
-//             </span>{" "}
-//             Expires in {category?.rules?.adDuration || 0} days
-//           </div>
-//         </div>
-//         {free && !ignoreFree ? (
-//           <button className={"select_package " + name}>
-//             <span className="fr">Free </span>
-//             <p className="free_text">
-//               {" "}
-//               ($
-//               {String(plan.price).includes(".")
-//                 ? plan.price
-//                 : plan.price + ".00"}{" "}
-//               after {plan.freeAds} listings)
-//             </p>
-//           </button>
-//         ) : (
-//           <button className={"select_package " + name}>
-//             $
-//             {String(plan.price).includes(".") ? plan.price : plan.price + ".00"}
-//           </button>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
 function AddOn({ addOn, setSelected, name, selected, type }) {
   const [current, setCurrent] = useState(0);
   useEffect(() => {
@@ -564,54 +458,50 @@ function AddOn({ addOn, setSelected, name, selected, type }) {
   }, [current]);
   return (
     <div className="add_on">
-      <Checkbox
-        checked={selected}
-        setChecked={(e) =>
-          !selected ? setSelected(addOn[current]) : setSelected(null)
-        }
-      />{" "}
       <h3>{name} </h3>{" "}
       {type == "bumpUp" && (
-        <Info
-          heading={"Bump Up"}
-          info="After the ad is posted it gradually loses rankings as new ads get posted. A bump up makes your ad go to the top rankings again and is great to keep your ad fresh and in front of the buyers."
-        ></Info>
+        <Info info="After the ad is posted it gradually loses rankings as new ads get posted. A bump up makes your ad go to the top rankings again and is great to keep your ad fresh and in front of the buyers."></Info>
       )}
       {type == "featured" && (
         <Info
-          heading={"Featured Ad"}
           info={
             "Featured ads will be placed above other ads and are a great way to grab the buyer's attention first."
           }
         />
       )}
       {type == "highlighted" && (
-        <Info
-          heading={"Highlighted Ad"}
-          info="Highlighted ads have special styles applied to stand out from other ads and grab the buyers attenton over others."
-        />
+        <Info info="Highlighted ads have special styles applied to stand out from other ads and grab the buyers attenton over others." />
       )}
       {type == "homepage" && (
         <Info
-          heading={"Homepage Gallery"}
           info={
             "Listing your ad on the Homepage gallery is great for collecting a lot of impressions and interaction. It's the best place for your Ad to show up on."
           }
         />
       )}
-      <Dropdown
-        value={(addOn[current]?.days || addOn[current]?.frequency) + " days"}
-        array={addOn.map((item, index) => {
-          return {
-            text: (item.days || item.frequency) + " days",
-            index: index,
-          };
+      <div className="addon_select">
+        {addOn.map((item, index) => {
+          return (
+            <div
+              onClick={() => {
+                if (selected && current == index) setSelected(null);
+                if ((selected && current != index) || !selected) {
+                  setCurrent(index);
+                  setSelected(item);
+                }
+              }}
+              className={current == index && selected ? "selected" : ""}
+            >
+              {item.frequency
+                ? "every " + item.frequency + " days"
+                : "+" + item.days + " days"}{" "}
+              for
+              <span>${item.price}</span>
+            </div>
+          );
         })}
-        setValue={(v) => setCurrent(v.index)}
-      />{" "}
-      <span className="price">${addOn[current]?.price}</span>
+      </div>
     </div>
   );
 }
-
 export default AdPricing;

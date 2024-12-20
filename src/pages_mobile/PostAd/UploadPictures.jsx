@@ -15,6 +15,7 @@ import Modal from "../../components_mobile/Modal";
 import PinchZoomImage from "../Ad/PinchToZoom";
 import { useSwipeable } from "react-swipeable";
 import { next, prev } from "../../utils/listingCardFunctions";
+import { CollectionsOutlined } from "@mui/icons-material";
 // import { AD_IMAGES_LIMIT } from "../../utils/constants";
 
 // TODO: improve this component
@@ -145,6 +146,7 @@ const UploadPictures = () => {
           close={(e) => setImgView(false)}
           heading={"Image " + slide + " of " + images.length}
         >
+          {" "}
           <div className="_gallery">
             <div className={"images_container"} tabIndex={0}>
               <div className="slides" ref={ind}>
@@ -181,6 +183,7 @@ const UploadPictures = () => {
         </Modal>
       )}
       <div className="image_gallery">
+        {" "}
         <div className="image_scroll">
           {[...Array(AD_IMAGES_LIMIT)].map((image, index) => (
             <>

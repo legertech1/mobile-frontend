@@ -18,6 +18,13 @@ import debounce from "../../utils/debounce";
 import throttle from "../../utils/throttle";
 import Modal from "../../components_mobile/Modal";
 import sortFeatured from "../../utils/sortFeatured";
+const sortOptions = [
+  { text: "Most relevent", value: { "meta.listingRank": -1 } },
+  { text: "Newest first", value: { createdAt: -1 } },
+  { text: "Oldest first", value: { createdAt: 1 } },
+  { text: "Highest price", value: { price: -1 } },
+  { text: "Lowest price", value: { price: 1 } },
+];
 export default function Home() {
   const [tab, setTab] = useState("home");
 
@@ -27,24 +34,23 @@ export default function Home() {
     (state) => state.location.selectedLocation
   );
   const { current, searches } = useSelector((state) => state.search);
-  const [sort, setSort] = useState({
-    text: "Most relevent",
-    value: { "meta.listingRank": -1 },
-  });
-  const sortOptions = [
-    { text: "Most relevent", value: { "meta.listingRank": -1 } },
-    { text: "Newest first", value: { createdAt: -1 } },
-    { text: "Oldest first", value: { createdAt: 1 } },
-    { text: "Highest price", value: { price: -1 } },
-    { text: "Lowest price", value: { price: 1 } },
-  ];
+  const [sort, setSort] = useState(sortOptions[0]);
 
-  const [searchFilters, setSearchFilters] = useState({});
+  const [searchFilters, setSearchFilters] = useState({
+    price: {
+      $lte: 99999999,
+      $gte: 0,
+    },
+  });
   const [showLocationModal, setShowLocationModal] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(emptyResults());
-  }, [selectedLocation, sort, searchFilters]);
+    if (tab == "home") {
+      setHomepageGallery([]);
+      getHomepageGallery();
+      setLoadingHG(true);
+    } else dispatch(emptyResults());
+  }, [sort, selectedLocation, searches[current].category, tab, searchFilters]);
   async function createNewSearch() {
     inpRef.current.value = "";
     dispatch(newSearch({ query: "" }));
@@ -81,12 +87,7 @@ export default function Home() {
   const [countRL, setCountRL] = useState(null);
   const [loadingHG, setLoadingHG] = useState(false);
   const [loadingRL, setLoadingRL] = useState(false);
-  const [filters, setFilters] = useState({
-    price: {
-      $lte: 9999999,
-      $gte: 0,
-    },
-  });
+
   const [loadingMoreHG, setLoadingMoreHG] = useState(false);
   const [loadingMoreRL, setLoadingMoreRL] = useState(false);
   const containerRef = useRef();
@@ -117,7 +118,7 @@ export default function Home() {
           search: searches[current],
           current: current,
           location: selectedLocation,
-          sort: sort.value,
+          sort: { "meta.featured": -1, ...sort.value },
           filters: searchFilters,
           merge: true,
         })
@@ -151,9 +152,7 @@ export default function Home() {
         category: searches[current]?.category?.name || "All Categories",
         additional: { "meta.homepageGallery": true },
         filters: searchFilters,
-        sort: {
-          "meta.listingRank": -1,
-        },
+        sort: { "meta.featured": -1, ...sort.value },
         limit: 24,
         page: pageHG + 1,
       })
@@ -179,9 +178,7 @@ export default function Home() {
         category: searches[current]?.category?.name || "All Categories",
         additional: { "meta.homepageGallery": false },
         filters: searchFilters,
-        sort: {
-          "meta.listingRank": -1,
-        },
+        sort: { "meta.featured": -1, ...sort.value },
         limit: 24,
         page: pageRL + 1,
       })
@@ -204,9 +201,7 @@ export default function Home() {
         category: searches[current]?.category?.name || "All Categories",
         additional: { "meta.homepageGallery": true },
         filters: searchFilters,
-        sort: {
-          "meta.listingRank": -1,
-        },
+        sort: { "meta.featured": -1, ...sort.value },
         limit: 24,
         page: 1,
         count: true,
@@ -229,9 +224,7 @@ export default function Home() {
         category: searches[current]?.category?.name || "All Categories",
         additional: { "meta.homepageGallery": false },
         filters: searchFilters,
-        sort: {
-          "meta.listingRank": -1,
-        },
+        sort: { "meta.featured": -1, ...sort.value },
         limit: 24,
         page: 1,
         count: true,
@@ -297,13 +290,6 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    if (selectedLocation && tab == "home") {
-      setHomepageGallery([]);
-      getHomepageGallery();
-      setLoadingHG(true);
-    }
-  }, [selectedLocation, searches[current].category, tab, searchFilters]);
   return (
     <div
       className="_home"
@@ -322,6 +308,9 @@ export default function Home() {
         setLoadingStates={setLoadingStates}
         setSearchFilters={setSearchFilters}
         searchFilters={searchFilters}
+        sort={sort}
+        setSort={setSort}
+        sortOptions={sortOptions}
       />
 
       {tab == "search" && (

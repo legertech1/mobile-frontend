@@ -23,7 +23,7 @@ function ModalSelector({ items, state, setState, close }) {
             >
               {i.icon &&
                 (typeof i.icon == "string" ? <img src={i.icon} /> : i.icon)}
-              {i.name || i.value || i.text || i}
+              {i.name || i.text || i.value || i}
             </div>
           ))
         : "No data"}

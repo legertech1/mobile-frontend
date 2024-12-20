@@ -232,7 +232,7 @@ function ViewListing({ preview, _id, header }) {
                 >
                   <ArrowBack />
                 </button>
-                <p>{listing?.listingID}</p>
+                <p>{listing?.listingID || "A0000001"}</p>
               </div>
             )}
             <div
@@ -354,7 +354,19 @@ function ViewListing({ preview, _id, header }) {
                         <span>
                           ${Boolean(listing?.price) ? listing?.price : "Free"}
                         </span>
-                        <p>/{listing?.term}</p>{" "}
+                        {listing.term ? <p>/{listing?.term}</p> : <p>Total</p>}
+                        {listing?.term && listing.installments && (
+                          <p
+                            className="tax"
+                            style={{
+                              fontSize: "x-large !important",
+                              fontWeight: "600",
+                              color: "var(--blue)",
+                            }}
+                          >
+                            x{listing?.installments}
+                          </p>
+                        )}
                         {listing?.tax != "none" && (
                           <p className="tax">+{listing?.tax}</p>
                         )}{" "}
@@ -516,7 +528,7 @@ function ViewListing({ preview, _id, header }) {
                       </span>
                     )}
                   </h1>
-                  <p
+                  <div
                     className="_desc"
                     ref={desc}
                     style={
@@ -524,9 +536,8 @@ function ViewListing({ preview, _id, header }) {
                         ? { maxHeight: desc?.current?.scrollHeight + "px" }
                         : {}
                     }
-                  >
-                    <pre>{listing?.description}</pre>
-                  </p>
+                    dangerouslySetInnerHTML={{ __html: listing.description }}
+                  ></div>
                 </div>
               </div>
               <div className="_right">

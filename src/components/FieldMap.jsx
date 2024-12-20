@@ -10,7 +10,7 @@ export default function ({ field, state, setState }) {
           {field?.name}
           <span>{field.required && " (required)"}</span>
         </h4>
-        <p>{field.info}</p>
+        {field.info && <p>{field.info}</p>}
       </div>
       {field.inputType == "text" && (
         <Input

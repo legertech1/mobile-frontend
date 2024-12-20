@@ -101,7 +101,7 @@ body::-webkit-scrollbar {
   background: var(--loader-bg);
   background-size: var(--loader-bg-size);
   background-position: top left;
-  border-radius: 4px;
+  border-radius: 5px;
 
   animation: skeleton 1.8s var(--bc) forwards infinite;
   pointer-events: none;

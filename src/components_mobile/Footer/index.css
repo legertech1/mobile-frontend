@@ -59,6 +59,8 @@
   max-height: 36px;
   max-width: 36px;
   transition: all 0.2s var(--bc);
+  min-width: 30px;
+  min-height: 30px;
 }
 .mobile_footer .item_cont .home {
   height: 3.8vh !important;

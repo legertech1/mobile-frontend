@@ -78,8 +78,8 @@
   transition: all 0.3s var(--bc);
   cursor: pointer;
   transition-delay: 0.1s;
-  height: 3vw;
-  width: 3vw;
+  height: 30px;
+  width: 15px;
   min-height: 20px;
   min-width: 30px;
 }
